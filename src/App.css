@@ -1,0 +1,23 @@
+@import '~antd/dist/antd.css';
+
+.body{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.selector{
+  min-height: 50px;
+  padding: 1em;
+}
+.protocolSelector{
+  min-width: 200px;
+}
+
+.player{
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
