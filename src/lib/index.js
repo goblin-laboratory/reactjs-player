@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Slider, Icon } from 'antd';
 import ReactSWF from 'react-swf';
 import detect from './utils/detect';
-import { ReactComponent as MutedSvg } from './muted.svg';
-import { ReactComponent as UnmutedSvg } from './unmuted.svg';
-import swf from './GrindPlayer.swf';
+import { ReactComponent as MutedSvg } from './svgs/muted.svg';
+import { ReactComponent as UnmutedSvg } from './svgs/unmuted.svg';
+import swf from './swf/GrindPlayer.swf';
 
 import styles from './index.module.less';
 
@@ -36,7 +36,7 @@ export default class ReactPlayer extends React.PureComponent {
       src: '',
       isLive: true,
       loading: false,
-      durtion: 0,
+      duration: 0,
       currentTime: 0,
       seeking: false,
       buffered: [],
@@ -63,6 +63,61 @@ export default class ReactPlayer extends React.PureComponent {
     this.unmounted = true;
     this.destory();
   }
+
+  onDurationChange = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ duration: e.target.duration });
+  };
+
+  onCanPlay = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted) {
+      return;
+    }
+    this.setState({ loading: false });
+  };
+
+  onTimeUpdate = e => {
+    // console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ currentTime: e.target.currentTime });
+  };
+
+  onPause = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ paused: true });
+  };
+
+  onPlay = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ paused: false, ended: false });
+  };
+
+  onEnded = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ ended: true });
+  };
+
+  onAbort = e => {
+    if (this.unmounted) {
+      return;
+    }
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+  };
 
   async onLoad() {
     this.supported = await detect({
@@ -107,6 +162,15 @@ export default class ReactPlayer extends React.PureComponent {
     this.setState({ paused: false });
   };
 
+  restart = () => {
+    if (!this.videoRef || !this.videoRef.current) {
+      return;
+    }
+    this.seek(0);
+    this.setState({ ended: false });
+    this.play();
+  };
+
   pause = () => {
     if (this.hls) {
       if (this.videoRef && this.videoRef.current) {
@@ -118,7 +182,15 @@ export default class ReactPlayer extends React.PureComponent {
     this.setState({ paused: true });
   };
 
-  chnageVolume = volume => {
+  seek = currentTime => {
+    if (!this.videoRef || !this.videoRef.current) {
+      return;
+    }
+    this.videoRef.current.currentTime = currentTime;
+    this.setState({ currentTime });
+  };
+
+  changeVolume = volume => {
     if (!this.videoRef || !this.videoRef.current) {
       return;
     }
@@ -139,7 +211,7 @@ export default class ReactPlayer extends React.PureComponent {
       return;
     }
     if (0 === this.state.volume) {
-      this.chnageVolume(100);
+      this.changeVolume(100);
     }
     this.videoRef.current.muted = false;
     this.setState({ muted: false });
@@ -164,11 +236,7 @@ export default class ReactPlayer extends React.PureComponent {
       this.hls.attachMedia(this.videoRef.current);
       this.hls.on(global.Hls.Events.MANIFEST_PARSED, () => {
         this.play();
-        this.setState({ protocol, src, isLive, loading: false });
-      });
-      this.hls.on(global.Hls.Events.MANIFEST_PARSED, () => {
-        this.play();
-        this.setState({ protocol, src, isLive, loading: false });
+        this.setState({ protocol, src, isLive });
       });
     } else if ('flv' === protocol) {
       this.flv = global.flvjs.createPlayer({ type: 'flv', url: src, isLive: true });
@@ -240,7 +308,7 @@ export default class ReactPlayer extends React.PureComponent {
         // src: '',
         loading: false,
         isLive: true,
-        durtion: 0,
+        duration: 0,
         currentTime: 0,
         seeking: false,
         buffered: [],
@@ -253,7 +321,20 @@ export default class ReactPlayer extends React.PureComponent {
   render() {
     return (
       <div className={styles.container} ref={this.containerRef}>
-        <video className={styles.video} ref={this.videoRef} />
+        <video
+          className={styles.video}
+          ref={this.videoRef}
+          onAbort={this.onAbort}
+          onCanPlay={this.onCanPlay}
+          onDurationChange={this.onDurationChange}
+          onTimeUpdate={this.onTimeUpdate}
+          onPause={this.onPause}
+          onPlay={this.onPlay}
+          onPlaying={this.onPlay}
+          onEnded={this.onEnded}
+          onSeeked={this.onSeeked}
+          onSeeking={this.onSeeking}
+        />
         {!this.state.src && <div className={styles.videoMask} />}
         {this.state.loading && (
           <div className={styles.loading}>
@@ -263,19 +344,26 @@ export default class ReactPlayer extends React.PureComponent {
         <div className={styles.controls}>
           <div className={styles.progressSlider}>
             <Slider
-              max={this.state.isLive ? 100 : this.state.durtion}
+              max={this.state.isLive || 0 === this.state.duration ? 100 : this.state.duration}
               value={this.state.isLive ? 100 : this.state.currentTime}
               tipFormatter={this.state.isLive ? null : v => v}
+              disabled={!this.state.isLive && 0 === this.state.duration}
+              onChange={this.seek}
             />
           </div>
           <div>
             <div className={styles.left}>
-              {this.state.paused && (
+              {this.state.ended && (
+                <button type="button" onClick={this.restart}>
+                  <Icon type="reload" />
+                </button>
+              )}
+              {this.state.paused && !this.state.ended && (
                 <button type="button" onClick={this.play}>
                   <Icon type="caret-right" />
                 </button>
               )}
-              {!this.state.paused && (
+              {!this.state.paused && !this.state.ended && (
                 <button type="button" onClick={this.pause}>
                   <Icon type="pause" />
                 </button>
@@ -291,7 +379,7 @@ export default class ReactPlayer extends React.PureComponent {
                 </button>
               )}
               <span className={styles.volumeSlider}>
-                <Slider value={this.state.volume} onChange={this.chnageVolume} />
+                <Slider value={this.state.volume} onChange={this.changeVolume} />
               </span>
               {this.state.isLive && (
                 <span className={styles.controlText}>
@@ -299,7 +387,11 @@ export default class ReactPlayer extends React.PureComponent {
                   直播
                 </span>
               )}
-              {!this.state.isLive && <span className={styles.controlText}>00:00 / 1:00:00</span>}
+              {!this.state.isLive && 0 < this.state.duration && (
+                <span className={styles.controlText}>
+                  {this.state.currentTime} / {this.state.duration}
+                </span>
+              )}
             </div>
             <div className={styles.right}>
               {this.state.fullScreen && (
