@@ -112,6 +112,30 @@ export default class ReactPlayer extends React.PureComponent {
     this.setState({ ended: true });
   };
 
+  onSeeking = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ seeking: true });
+  };
+
+  onSeeked = e => {
+    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ seeking: false });
+  };
+
+  onMediaEvent = e => {
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      // return;
+    }
+    // this.setState({ seeking: false });
+  };
+
   onAbort = e => {
     if (this.unmounted) {
       return;
@@ -334,13 +358,26 @@ export default class ReactPlayer extends React.PureComponent {
           onEnded={this.onEnded}
           onSeeked={this.onSeeked}
           onSeeking={this.onSeeking}
+          onCanPlayThrough={this.onMediaEvent}
+          onEmptied={this.onMediaEvent}
+          onEncrypted={this.onMediaEvent}
+          onError={this.onMediaEvent}
+          onLoadedData={this.onMediaEvent}
+          onLoadedMetadata={this.onMediaEvent}
+          onLoadStart={this.onMediaEvent}
+          onProgress={this.onMediaEvent}
+          onRateChange={this.onMediaEvent}
+          onStalled={this.onMediaEvent}
+          onSuspend={this.onMediaEvent}
+          onVolumeChange={this.onMediaEvent}
+          onWaiting={this.onMediaEvent}
         />
         {!this.state.src && <div className={styles.videoMask} />}
-        {this.state.loading && (
+        {/* {this.state.loading && (
           <div className={styles.loading}>
             <Icon type="loading" />
           </div>
-        )}
+        )} */}
         <div className={styles.controls}>
           <div className={styles.progressSlider}>
             <Slider
@@ -407,6 +444,11 @@ export default class ReactPlayer extends React.PureComponent {
             </div>
           </div>
         </div>
+        {(this.state.loading || this.state.seeking) && (
+          <div className={styles.loading}>
+            <Icon type="loading" />
+          </div>
+        )}
         {'rtmp' === this.state.protocol && (
           <div className={styles.flash}>
             <ReactSWF

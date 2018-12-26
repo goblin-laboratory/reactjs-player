@@ -28,14 +28,15 @@
   .absolute;
   background: #000;
 }
-.loading{
+.loading {
   .absolute;
   background: transparent;
-  font-size: 50px;
+  font-size: 4em;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
 }
 .controls {
   .absolute;
@@ -51,8 +52,12 @@
   :global(.ant-slider) {
     margin: 0;
   }
-  :global(.ant-slider-track) {
-    background: #ff0000;
+  // :global(.ant-slider-track) {
+  //   background: #ff0000;
+  // }
+  :global(.ant-slider-track),
+  :global(.ant-slider-disabled) :global(.ant-slider-track) {
+    background: #ff0000 !important;
   }
   :global(.ant-slider-handle) {
     visibility: hidden;
