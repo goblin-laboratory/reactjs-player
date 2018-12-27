@@ -5,6 +5,7 @@ import ReactSWF from 'react-swf';
 import detect from './utils/detect';
 import { ReactComponent as MutedSvg } from './svgs/muted.svg';
 import { ReactComponent as UnmutedSvg } from './svgs/unmuted.svg';
+import ProcessSlider from './Slider';
 import swf from './swf/GrindPlayer.swf';
 
 import styles from './index.module.less';
@@ -39,6 +40,7 @@ export default class ReactPlayer extends React.PureComponent {
       duration: 0,
       currentTime: 0,
       seeking: false,
+      waiting: false,
       buffered: [],
       paused: false,
       muted: false,
@@ -65,7 +67,7 @@ export default class ReactPlayer extends React.PureComponent {
   }
 
   onDurationChange = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
@@ -73,15 +75,15 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onCanPlay = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted) {
       return;
     }
-    this.setState({ loading: false });
+    this.setState({ loading: false, waiting: false });
   };
 
   onTimeUpdate = e => {
-    // console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
@@ -89,7 +91,7 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onPause = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
@@ -97,7 +99,7 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onPlay = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
@@ -105,7 +107,7 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onEnded = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
@@ -113,7 +115,7 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onSeeking = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
@@ -121,11 +123,27 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onSeeked = e => {
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted || this.state.isLive) {
       return;
     }
     this.setState({ seeking: false });
+  };
+
+  onWaiting = e => {
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ waiting: true });
+  };
+
+  onProgress = e => {
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
+    if (this.unmounted || this.state.isLive) {
+      return;
+    }
+    this.setState({ buffered: e.target.buffered });
   };
 
   onMediaEvent = e => {
@@ -137,10 +155,10 @@ export default class ReactPlayer extends React.PureComponent {
   };
 
   onAbort = e => {
+    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
     if (this.unmounted) {
-      return;
+      // return;
     }
-    console.log('%cInfo:%c %s', 'color: green', 'color: black', e.type);
   };
 
   async onLoad() {
@@ -154,6 +172,16 @@ export default class ReactPlayer extends React.PureComponent {
     this.props.onReady(this.supported);
     return this.supported;
   }
+
+  getBufferedEnd = () => {
+    for (let i = this.state.buffered.length - 1; 0 <= i; i -= 1) {
+      const end = this.state.buffered.end(i);
+      if (this.state.currentTime <= end && this.state.buffered.start(i) <= this.state.currentTime) {
+        return end;
+      }
+    }
+    return 0;
+  };
 
   // addLoadEventListener = () => {
   //   document.body.addEventListener('click', this.loadEventHandle);
@@ -343,6 +371,8 @@ export default class ReactPlayer extends React.PureComponent {
   }
 
   render() {
+    const marks = {};
+    marks[this.getBufferedEnd()] = '';
     return (
       <div className={styles.container} ref={this.containerRef}>
         <video
@@ -365,20 +395,22 @@ export default class ReactPlayer extends React.PureComponent {
           onLoadedData={this.onMediaEvent}
           onLoadedMetadata={this.onMediaEvent}
           onLoadStart={this.onMediaEvent}
-          onProgress={this.onMediaEvent}
+          onProgress={this.onProgress}
           onRateChange={this.onMediaEvent}
           onStalled={this.onMediaEvent}
           onSuspend={this.onMediaEvent}
           onVolumeChange={this.onMediaEvent}
-          onWaiting={this.onMediaEvent}
+          onWaiting={this.onWaiting}
         />
         {!this.state.src && <div className={styles.videoMask} />}
-        {/* {this.state.loading && (
-          <div className={styles.loading}>
-            <Icon type="loading" />
-          </div>
-        )} */}
         <div className={styles.controls}>
+          <ProcessSlider
+            isLive={this.state.isLive}
+            currentTime={this.state.currentTime}
+            duration={this.state.duration}
+            buffered={this.state.buffered}
+            onChange={this.seek}
+          />
           <div className={styles.progressSlider}>
             <Slider
               max={this.state.isLive || 0 === this.state.duration ? 100 : this.state.duration}
@@ -418,7 +450,7 @@ export default class ReactPlayer extends React.PureComponent {
               <span className={styles.volumeSlider}>
                 <Slider value={this.state.volume} onChange={this.changeVolume} />
               </span>
-              {this.state.isLive && (
+              {this.state.isLive && this.state.src && (
                 <span className={styles.controlText}>
                   <span className={styles.liveDot} />
                   直播
@@ -444,7 +476,7 @@ export default class ReactPlayer extends React.PureComponent {
             </div>
           </div>
         </div>
-        {(this.state.loading || this.state.seeking) && (
+        {(this.state.loading || this.state.seeking || this.state.waiting) && (
           <div className={styles.loading}>
             <Icon type="loading" />
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Select, Button } from 'antd';
+import { Form, Select, Input, Checkbox, Button, Row, Col } from 'antd';
 import ReactPlayer from './lib';
 import './App.css';
 
@@ -23,12 +23,11 @@ class App extends React.PureComponent {
     this.setState({ supported });
     if (0 < supported.length) {
       this.props.form.setFieldsValue({ protocol: supported[0] });
+      this.onProtocolChange(supported[0]);
     }
   };
 
-  onSubmit = e => {
-    e.preventDefault();
-    const protocol = this.props.form.getFieldValue('protocol');
+  onProtocolChange = value => {
     const info = {
       flv: {
         src: 'http://10.8.123.179:8081/live/liveStream.flv',
@@ -42,39 +41,57 @@ class App extends React.PureComponent {
         src: 'rtmp://media01.opensight.cn/quick...1545230590_719be8ca7be6a6e64746ae68d1217f68/F4fADCyaQNSW6jItc3Sqyw',
         isLive: true,
       },
-    }[protocol];
-    this.videoRef.current.load({ protocol, ...info });
+    }[value];
+    if (info) {
+      this.props.form.setFieldsValue(info);
+    }
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const values = this.props.form.getFieldsValue();
+    this.videoRef.current.load(values);
   };
 
   render() {
     return (
       <div className="body">
         <div className="selector">
-          <Form layout="inline" onSubmit={this.onSubmit}>
-            <Form.Item>
-              {this.props.form.getFieldDecorator('protocol', {})(
-                <Select className="protocolSelector">
-                  {this.state.supported.map(it => (
-                    <Select.Option key={it} value={it}>
-                      {it}
-                    </Select.Option>
-                  ))}
-                </Select>,
-              )}
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" disabled={0 === this.state.supported.length}>
-                播放
-              </Button>
-            </Form.Item>
+          <Form onSubmit={this.onSubmit}>
+            <Row gutter={16}>
+              <Col span={2}>
+                <Form.Item>
+                  {this.props.form.getFieldDecorator('protocol', {})(
+                    <Select onChange={this.onProtocolChange}>
+                      {this.state.supported.map(it => (
+                        <Select.Option key={it} value={it}>
+                          {it}
+                        </Select.Option>
+                      ))}
+                    </Select>,
+                  )}
+                </Form.Item>
+              </Col>
+              <Col span={16}>
+                <Form.Item>
+                  {this.props.form.getFieldDecorator('src', {
+                    initialValue: '',
+                  })(<Input />)}
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item>
+                  {this.props.form.getFieldDecorator('isLive', {
+                    initialValue: false,
+                    valuePropName: 'checked',
+                  })(<Checkbox>&nbsp;直播&nbsp;&nbsp;&nbsp;&nbsp;</Checkbox>)}
+                  <Button type="primary" htmlType="submit" disabled={0 === this.state.supported.length}>
+                    播放
+                  </Button>
+                </Form.Item>
+              </Col>
+            </Row>
           </Form>
-          {/* <div>
-            测试: https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8
-            <button type="button" onClick={this.onClick}>
-              测试
-            </button>
-          </div>
-          <div>{this.state.supported.join(',')}</div> */}
         </div>
         <div className="player">
           <ReactPlayer ref={this.videoRef} protocols={['flv', 'hls', 'rtmp']} onReady={this.onPlayerReady} />
