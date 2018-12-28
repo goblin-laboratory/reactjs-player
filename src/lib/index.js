@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import screenfull from 'screenfull';
 import { Slider, Icon } from 'antd';
 import ReactSWF from 'react-swf';
 import detect from './utils/detect';
@@ -58,10 +59,12 @@ export default class ReactPlayer extends React.PureComponent {
   componentDidMount() {
     // this.addLoadEventListener();
     this.onLoad();
+    screenfull.on('change', this.onFullscreenChange);
   }
 
   componentWillUnmount() {
     // this.removeLoadEventListener();
+    screenfull.off('change', this.onFullscreenChange);
     this.unmounted = true;
     this.destory();
   }
@@ -173,6 +176,13 @@ export default class ReactPlayer extends React.PureComponent {
     return this.supported;
   }
 
+  onFullscreenChange = () => {
+    if (this.unmounted || !this.containerRef || !this.containerRef.current) {
+      return;
+    }
+    this.setState({ fullScreen: !!screenfull.element && this.containerRef.current === screenfull.element });
+  };
+
   getBufferedEnd = () => {
     for (let i = this.state.buffered.length - 1; 0 <= i; i -= 1) {
       const end = this.state.buffered.end(i);
@@ -267,6 +277,22 @@ export default class ReactPlayer extends React.PureComponent {
     }
     this.videoRef.current.muted = false;
     this.setState({ muted: false });
+  };
+
+  requestFullscreen = () => {
+    if (screenfull.enabled && this.containerRef && this.containerRef.current) {
+      screenfull.request(this.containerRef.current);
+    } else {
+      // Ignore or do something else
+    }
+  };
+
+  exitFullscreen = () => {
+    if (screenfull.enabled) {
+      screenfull.exit();
+    } else {
+      // Ignore or do something else
+    }
   };
 
   load({ protocol, src, isLive = false }) {
@@ -411,7 +437,7 @@ export default class ReactPlayer extends React.PureComponent {
             buffered={this.state.buffered}
             onChange={this.seek}
           />
-          <div className={styles.progressSlider}>
+          {/* <div className={styles.progressSlider}>
             <Slider
               max={this.state.isLive || 0 === this.state.duration ? 100 : this.state.duration}
               value={this.state.isLive ? 100 : this.state.currentTime}
@@ -419,7 +445,7 @@ export default class ReactPlayer extends React.PureComponent {
               disabled={!this.state.isLive && 0 === this.state.duration}
               onChange={this.seek}
             />
-          </div>
+          </div> */}
           <div>
             <div className={styles.left}>
               {this.state.ended && (
@@ -464,12 +490,12 @@ export default class ReactPlayer extends React.PureComponent {
             </div>
             <div className={styles.right}>
               {this.state.fullScreen && (
-                <button type="button">
+                <button type="button" onClick={this.exitFullscreen}>
                   <Icon type="fullscreen-exit" />
                 </button>
               )}
               {!this.state.fullScreen && (
-                <button type="button">
+                <button type="button" onClick={this.requestFullscreen}>
                   <Icon type="fullscreen" />
                 </button>
               )}
