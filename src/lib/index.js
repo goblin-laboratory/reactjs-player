@@ -122,7 +122,7 @@ export default class ReactPlayer extends React.PureComponent {
     if (this.unmounted || this.state.isLive) {
       return;
     }
-    this.setState({ seeking: true });
+    this.setState({ seeking: true, ended: false });
   };
 
   onSeeked = e => {
@@ -183,14 +183,91 @@ export default class ReactPlayer extends React.PureComponent {
     this.setState({ fullScreen: !!screenfull.element && this.containerRef.current === screenfull.element });
   };
 
-  getBufferedEnd = () => {
-    for (let i = this.state.buffered.length - 1; 0 <= i; i -= 1) {
-      const end = this.state.buffered.end(i);
-      if (this.state.currentTime <= end && this.state.buffered.start(i) <= this.state.currentTime) {
-        return end;
-      }
+  hlsEventHandle = e => {
+    console.log('%cHLS Event:%c %s', 'color: green', 'color: black', e);
+  };
+
+  hlsErrorEventHandle = e => {
+    if (e.fatal) {
+      console.log('%cHLS Event:%c %s (%s)', 'color: red', 'color: black', e.type, e.details);
+    } else {
+      console.log('%cHLS Event:%c %s (%s)', 'color: yellow', 'color: black', e.type, e.details);
     }
-    return 0;
+    if (!this.hls || this.unmounted) {
+      return;
+    }
+    if (!e.fatal) {
+      this.setState({ errMsg: null });
+      return;
+    }
+    switch (e.details) {
+      case global.Hls.ErrorDetails.MANIFEST_LOAD_ERROR:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: (e.response && e.response.text) || 'manifest loading fails because of a network error',
+          },
+        });
+        break;
+      case global.Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: 'manifest loading fails because of a timeout',
+          },
+        });
+        break;
+      case global.Hls.ErrorDetails.MANIFEST_PARSING_ERROR:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: e.reason || 'manifest parsing failed to find proper content',
+          },
+        });
+        break;
+      case global.Hls.ErrorDetails.LEVEL_LOAD_ERROR:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: (e.response && e.response.text) || 'level loading fails because of a network error',
+          },
+        });
+        break;
+      case global.Hls.ErrorDetails.FRAG_LOAD_ERROR:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: (e.response && e.response.text) || 'fragment loading fails because of a network error',
+          },
+        });
+        break;
+      case global.Hls.ErrorDetails.FRAG_LOAD_TIMEOUT:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: (e.response && e.response.text) || 'fragment loading fails because of a network error',
+          },
+        });
+        break;
+      case global.Hls.ErrorDetails.KEY_LOAD_TIMEOUT:
+        this.setState({
+          errMsg: {
+            type: e.type,
+            details: e.details,
+            text: (e.response && e.response.text) || 'decrypt key loading fails because of a timeout',
+          },
+        });
+        break;
+      default:
+        this.setState({ errMsg: null });
+        debugger;
+    }
   };
 
   // addLoadEventListener = () => {
@@ -316,6 +393,7 @@ export default class ReactPlayer extends React.PureComponent {
         this.play();
         this.setState({ protocol, src, isLive });
       });
+      this.addHlsEventListener(this.hls);
     } else if ('flv' === protocol) {
       this.flv = global.flvjs.createPlayer({ type: 'flv', url: src, isLive: true });
       this.flv.attachMediaElement(this.videoRef.current);
@@ -326,6 +404,60 @@ export default class ReactPlayer extends React.PureComponent {
       this.setState({ protocol, src, isLive, loading: false });
     }
     return true;
+  }
+
+  addHlsEventListener(hls) {
+    hls.on(global.Hls.Events.MEDIA_ATTACHING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.MEDIA_ATTACHED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.MEDIA_DETACHING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.MEDIA_DETACHED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_RESET, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_CODECS, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_CREATED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_APPENDING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_APPENDED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_EOS, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_FLUSHING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.BUFFER_FLUSHED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.MANIFEST_LOADING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.MANIFEST_LOADED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.MANIFEST_PARSED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.LEVEL_SWITCHING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.LEVEL_SWITCHED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.LEVEL_LOADING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.LEVEL_LOADED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.LEVEL_UPDATED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.LEVEL_PTS_UPDATED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.AUDIO_TRACKS_UPDATED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.AUDIO_TRACK_SWITCHING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.AUDIO_TRACK_SWITCHED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.AUDIO_TRACK_LOADING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.AUDIO_TRACK_LOADED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.SUBTITLE_TRACKS_UPDATED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.SUBTITLE_TRACK_SWITCH, this.hlsEventHandle);
+    hls.on(global.Hls.Events.SUBTITLE_TRACK_LOADING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.SUBTITLE_TRACK_LOADED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.SUBTITLE_FRAG_PROCESSED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.INIT_PTS_FOUND, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_LOADING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_LOAD_PROGRESS, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_LOADED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_DECRYPTED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_PARSING_INIT_SEGMENT, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_PARSING_USERDATA, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_PARSING_METADATA, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_PARSING_DATA, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_PARSED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_BUFFERED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FRAG_CHANGED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FPS_DROP, this.hlsEventHandle);
+    hls.on(global.Hls.Events.FPS_DROP_LEVEL_CAPPING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.DESTROYING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.KEY_LOADING, this.hlsEventHandle);
+    hls.on(global.Hls.Events.KEY_LOADED, this.hlsEventHandle);
+    hls.on(global.Hls.Events.STREAM_STATE_TRANSITION, this.hlsEventHandle);
+    hls.on(global.Hls.Events.ERROR, this.hlsErrorEventHandle);
   }
 
   destory() {
@@ -397,8 +529,6 @@ export default class ReactPlayer extends React.PureComponent {
   }
 
   render() {
-    const marks = {};
-    marks[this.getBufferedEnd()] = '';
     return (
       <div className={styles.container} ref={this.containerRef}>
         <video

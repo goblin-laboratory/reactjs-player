@@ -1,10 +1,11 @@
 TODO:
-  ☐ loading
-  ☐ play / pause
-  ☐ Muted / Unmuted
-  ☐ Volume
-  ☐ Progress
-  ☐ Fullscreen / Exit Fullscreen
+  ✔ loading @done(18-12-28 14:06)
+  ✔ play / pause @done(18-12-28 14:06)
+  ✔ Muted / Unmuted @done(18-12-28 14:06)
+  ✔ Volume @done(18-12-28 14:06)
+  ✔ Progress @done(18-12-28 14:06)
+  ✔ Fullscreen / Exit Fullscreen @done(18-12-28 14:06)
+  ☐ Seek
   ☐ chrome
   ☐ firefox
   ☐ IE 11
