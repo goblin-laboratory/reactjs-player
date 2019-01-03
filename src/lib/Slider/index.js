@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import styles from './index.module.less';
 
 const getBufferedEnd = (currentTime, buffered) => {
+  if (!buffered) {
+    return 0;
+  }
   for (let i = buffered.length - 1; 0 <= i; i -= 1) {
     const end = buffered.end(i);
     if (currentTime <= end && buffered.start(i) <= currentTime) {
@@ -12,38 +15,17 @@ const getBufferedEnd = (currentTime, buffered) => {
   return 0;
 };
 
-// const getMousePosition = e => {
-//   if (!e || !e.target) {
-//     return null;
-//   }
-//   const p = e.target.getBoundingClientRect();
-//   const x = Math.floor((e.target.width * (e.clientX - p.left)) / p.width);
-//   const y = Math.floor((e.target.height * (e.clientY - p.top)) / p.height);
-//   return { x, y };
-// };
-
-// const coordsForTouchEvent = e => {
-//   if (!e || !e.target) {
-//     return null;
-//   }
-//   const p = e.target.getBoundingClientRect();
-//   const x = Math.round((e.target.width * (e.changedTouches[0].clientX - p.left)) / p.width);
-//   const y = Math.round((e.target.height * (e.changedTouches[0].clientY - p.top)) / p.height);
-//   return { x, y };
-// };
-
 export default class Slider extends React.PureComponent {
   static propTypes = {
-    isLive: PropTypes.bool.isRequired,
-    currentTime: PropTypes.number.isRequired,
-    duration: PropTypes.number.isRequired,
-    buffered: PropTypes.array,
+    disabled: PropTypes.bool.isRequired,
+    value: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    buffered: PropTypes.object.isRequired,
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
     onChange: () => {},
-    buffered: [],
   };
 
   constructor(props) {
@@ -51,13 +33,14 @@ export default class Slider extends React.PureComponent {
 
     this.state = {
       // src: '',
+      value: 100,
     };
     this.sliderRef = React.createRef();
   }
 
   onClick = e => {
     e.preventDefault();
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
     const value = this.getMouseEventValue(e);
@@ -66,17 +49,17 @@ export default class Slider extends React.PureComponent {
 
   onMouseDown = e => {
     e.preventDefault();
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
-    // e.target.onselectstart = () => false;
+    e.target.onselectstart = () => false;
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
   };
 
   onMouseMove = e => {
     e.preventDefault();
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
     const value = this.getMouseEventValue(e);
@@ -87,7 +70,7 @@ export default class Slider extends React.PureComponent {
     e.preventDefault();
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseUp);
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
     const value = this.getMouseEventValue(e);
@@ -96,7 +79,7 @@ export default class Slider extends React.PureComponent {
 
   onTouchStart = e => {
     e.preventDefault();
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
     document.addEventListener('touchmove', this.onTouchMove);
@@ -106,7 +89,7 @@ export default class Slider extends React.PureComponent {
 
   onTouchMove = e => {
     e.preventDefault();
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
     const value = this.getTouchEventValue(e);
@@ -118,7 +101,7 @@ export default class Slider extends React.PureComponent {
     document.removeEventListener('touchmove', this.onTouchMove);
     document.removeEventListener('touchend', this.onTouchEnd);
     document.removeEventListener('touchcancel', this.onTouchEnd);
-    if (this.props.isLive || 0 === this.props.duration) {
+    if (this.props.disabled) {
       return;
     }
     const value = this.getTouchEventValue(e);
@@ -130,11 +113,11 @@ export default class Slider extends React.PureComponent {
       return 0;
     }
     const rect = this.sliderRef.current.getBoundingClientRect();
-    let value = Math.floor((this.props.duration * (e.clientX - rect.left)) / rect.width);
+    let value = Math.floor((this.props.max * (e.clientX - rect.left)) / rect.width);
     if (0 > value) {
       value = 0;
-    } else if (value > this.props.duration) {
-      value = this.props.duration;
+    } else if (value > this.props.max) {
+      value = this.props.max;
     }
     return value;
   };
@@ -144,23 +127,23 @@ export default class Slider extends React.PureComponent {
       return 0;
     }
     const rect = this.sliderRef.current.getBoundingClientRect();
-    let value = Math.floor((this.props.duration * (e.changedTouches[0].clientX - rect.left)) / rect.width);
+    let value = Math.floor((this.props.max * (e.changedTouches[0].clientX - rect.left)) / rect.width);
     if (0 > value) {
       value = 0;
-    } else if (value > this.props.duration) {
-      value = this.props.duration;
+    } else if (value > this.props.max) {
+      value = this.props.max;
     }
     return value;
   };
 
   render() {
-    const { isLive, currentTime, buffered, duration } = this.props;
+    const { value, buffered, max } = this.props;
     let bufferedWidth = '0';
     let trackWidth = '100%';
-    if (!(isLive || 0 === duration)) {
-      const end = getBufferedEnd(currentTime, buffered);
-      bufferedWidth = `${(100 * end) / duration}%`;
-      trackWidth = `${(100 * currentTime) / duration}%`;
+    if (0 < max) {
+      const end = getBufferedEnd(value, buffered);
+      bufferedWidth = `${(100 * end) / max}%`;
+      trackWidth = `${(100 * value) / max}%`;
     }
     return (
       // eslint-disable-next-line

@@ -28,9 +28,16 @@
   .absolute;
   background: #000;
 }
+
+.errMsg {
+  .absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 2em;
+}
+
 .loading {
   .absolute;
-  background: transparent;
   font-size: 4em;
   color: #fff;
   display: flex;
@@ -38,6 +45,7 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.3);
 }
+
 .controls {
   .absolute;
   top: auto;
@@ -48,34 +56,34 @@
   transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.progressSlider {
-  :global(.ant-slider) {
-    margin: 0;
-  }
-  // :global(.ant-slider-track) {
-  //   background: #ff0000;
-  // }
-  :global(.ant-slider-track),
-  :global(.ant-slider-disabled) :global(.ant-slider-track) {
-    background: #ff0000 !important;
-  }
-  :global(.ant-slider-handle) {
-    visibility: hidden;
-  }
-  :global(.ant-slider):hover {
-    :global(.ant-slider-track) {
-      background: #ff0000;
-    }
-    :global(.ant-slider-handle) {
-      visibility: visible;
-      background: #ff0000;
-      border: none 0 transparent;
-    }
-    :global(.ant-slider-handle):focus {
-      box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
-    }
-  }
-}
+// .progressSlider {
+//   :global(.ant-slider) {
+//     margin: 0;
+//   }
+//   // :global(.ant-slider-track) {
+//   //   background: #ff0000;
+//   // }
+//   :global(.ant-slider-track),
+//   :global(.ant-slider-disabled) :global(.ant-slider-track) {
+//     background: #ff0000 !important;
+//   }
+//   :global(.ant-slider-handle) {
+//     visibility: hidden;
+//   }
+//   :global(.ant-slider):hover {
+//     :global(.ant-slider-track) {
+//       background: #ff0000;
+//     }
+//     :global(.ant-slider-handle) {
+//       visibility: visible;
+//       background: #ff0000;
+//       border: none 0 transparent;
+//     }
+//     :global(.ant-slider-handle):focus {
+//       box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
+//     }
+//   }
+// }
 
 .controlButton {
   border: 0;

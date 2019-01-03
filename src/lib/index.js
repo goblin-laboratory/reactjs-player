@@ -4,6 +4,7 @@ import screenfull from 'screenfull';
 import { Slider, Icon } from 'antd';
 import ReactSWF from 'react-swf';
 import detect from './utils/detect';
+// import delay from './utils/delay';
 import { ReactComponent as MutedSvg } from './svgs/muted.svg';
 import { ReactComponent as UnmutedSvg } from './svgs/unmuted.svg';
 import ProcessSlider from './Slider';
@@ -35,22 +36,20 @@ export default class ReactPlayer extends React.PureComponent {
     super(props);
 
     this.state = {
-      src: '',
-      isLive: true,
+      info: null,
       loading: false,
       duration: 0,
       currentTime: 0,
       seeking: false,
       waiting: false,
-      buffered: [],
+      buffered: null,
       paused: false,
       muted: false,
       volume: 100,
-      playbackRate: 1,
+      // playbackRate: 1,
+      errMsg: null,
     };
 
-    this.loaded = false;
-    this.readied = false;
     this.videoRef = React.createRef();
     this.containerRef = React.createRef();
     this.unmounted = false;
@@ -71,97 +70,54 @@ export default class ReactPlayer extends React.PureComponent {
 
   onDurationChange = e => {
     console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
+    if (this.state.info && false === this.state.info.isLive) {
+      this.setStateSafely({ duration: e.target.duration });
     }
-    this.setState({ duration: e.target.duration });
-  };
-
-  onCanPlay = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted) {
-      return;
-    }
-    this.setState({ loading: false, waiting: false });
   };
 
   onTimeUpdate = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
+    // console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
+    if (this.state.info && false === this.state.info.isLive) {
+      this.setStateSafely({ currentTime: e.target.currentTime });
     }
-    this.setState({ currentTime: e.target.currentTime });
-  };
-
-  onPause = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
-    }
-    this.setState({ paused: true });
-  };
-
-  onPlay = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
-    }
-    this.setState({ paused: false, ended: false });
   };
 
   onEnded = e => {
     console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
+    if (this.state.info && false === this.state.info.isLive) {
+      this.setStateSafely({ ended: true });
     }
-    this.setState({ ended: true });
   };
 
   onSeeking = e => {
     console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
+    if (this.state.info && false === this.state.info.isLive) {
+      this.setStateSafely({ seeking: true, ended: false });
     }
-    this.setState({ seeking: true, ended: false });
   };
 
   onSeeked = e => {
     console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
+    if (this.state.info && false === this.state.info.isLive) {
+      this.setStateSafely({ seeking: false });
     }
-    this.setState({ seeking: false });
-  };
-
-  onWaiting = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
-    }
-    this.setState({ waiting: true });
   };
 
   onProgress = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      return;
+    if (this.state.info && false === this.state.info.isLive) {
+      this.setStateSafely({ buffered: e.target.buffered });
     }
-    this.setState({ buffered: e.target.buffered });
   };
 
   onMediaEvent = e => {
     console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted || this.state.isLive) {
-      // return;
-    }
-    // this.setState({ seeking: false });
   };
 
-  onAbort = e => {
-    console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
-    if (this.unmounted) {
-      // return;
+  onFullscreenChange = () => {
+    if (!this.containerRef || !this.containerRef.current) {
+      return;
     }
+    this.setStateSafely({ fullScreen: !!screenfull.element && this.containerRef.current === screenfull.element });
   };
 
   async onLoad() {
@@ -176,119 +132,11 @@ export default class ReactPlayer extends React.PureComponent {
     return this.supported;
   }
 
-  onFullscreenChange = () => {
-    if (this.unmounted || !this.containerRef || !this.containerRef.current) {
-      return;
-    }
-    this.setState({ fullScreen: !!screenfull.element && this.containerRef.current === screenfull.element });
-  };
-
-  hlsEventHandle = e => {
-    console.log('%cHLS Event:%c %s', 'color: green', 'color: black', e);
-  };
-
-  hlsErrorEventHandle = e => {
-    if (e.fatal) {
-      console.log('%cHLS Event:%c %s (%s)', 'color: red', 'color: black', e.type, e.details);
-    } else {
-      console.log('%cHLS Event:%c %s (%s)', 'color: yellow', 'color: black', e.type, e.details);
-    }
-    if (!this.hls || this.unmounted) {
-      return;
-    }
-    if (!e.fatal) {
-      this.setState({ errMsg: null });
-      return;
-    }
-    switch (e.details) {
-      case global.Hls.ErrorDetails.MANIFEST_LOAD_ERROR:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: (e.response && e.response.text) || 'manifest loading fails because of a network error',
-          },
-        });
-        break;
-      case global.Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: 'manifest loading fails because of a timeout',
-          },
-        });
-        break;
-      case global.Hls.ErrorDetails.MANIFEST_PARSING_ERROR:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: e.reason || 'manifest parsing failed to find proper content',
-          },
-        });
-        break;
-      case global.Hls.ErrorDetails.LEVEL_LOAD_ERROR:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: (e.response && e.response.text) || 'level loading fails because of a network error',
-          },
-        });
-        break;
-      case global.Hls.ErrorDetails.FRAG_LOAD_ERROR:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: (e.response && e.response.text) || 'fragment loading fails because of a network error',
-          },
-        });
-        break;
-      case global.Hls.ErrorDetails.FRAG_LOAD_TIMEOUT:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: (e.response && e.response.text) || 'fragment loading fails because of a network error',
-          },
-        });
-        break;
-      case global.Hls.ErrorDetails.KEY_LOAD_TIMEOUT:
-        this.setState({
-          errMsg: {
-            type: e.type,
-            details: e.details,
-            text: (e.response && e.response.text) || 'decrypt key loading fails because of a timeout',
-          },
-        });
-        break;
-      default:
-        this.setState({ errMsg: null });
-        debugger;
+  setStateSafely = state => {
+    if (!this.unmounted) {
+      this.setState(state);
     }
   };
-
-  // addLoadEventListener = () => {
-  //   document.body.addEventListener('click', this.loadEventHandle);
-  // };
-
-  // loadEventHandle = () => {
-  //   if (!this.videoRef || !this.videoRef.current) {
-  //     return;
-  //   }
-  //   if (!this.loaded) {
-  //     this.videoRef.current.src = '';
-  //     this.videoRef.current.load();
-  //   }
-  //   this.removeLoadEventListener();
-  // };
-
-  // removeLoadEventListener = () => {
-  //   document.body.removeEventListener('click', this.loadEventHandle);
-  //   this.loaded = true;
-  // };
 
   play = () => {
     if (this.hls) {
@@ -359,133 +207,57 @@ export default class ReactPlayer extends React.PureComponent {
   requestFullscreen = () => {
     if (screenfull.enabled && this.containerRef && this.containerRef.current) {
       screenfull.request(this.containerRef.current);
-    } else {
-      // Ignore or do something else
     }
   };
 
   exitFullscreen = () => {
     if (screenfull.enabled) {
       screenfull.exit();
-    } else {
-      // Ignore or do something else
     }
   };
 
-  load({ protocol, src, isLive = false }) {
+  async load(info) {
     if (!this.videoRef || !this.videoRef.current) {
       return false;
     }
-    if (!this.supported.find(it => it === protocol)) {
+    if (!this.supported.find(it => it === info.protocol)) {
       return false;
     }
-    if (this.state.src) {
-      this.destory();
-    }
-    this.protocol = protocol;
-    this.src = src;
+    this.destory();
+    this.info = info;
     this.setState({ loading: true });
-    if ('hls' === protocol) {
-      this.hls = new global.Hls();
-      this.hls.loadSource(src);
-      this.hls.attachMedia(this.videoRef.current);
-      this.hls.on(global.Hls.Events.MANIFEST_PARSED, () => {
-        this.play();
-        this.setState({ protocol, src, isLive });
-      });
-      this.addHlsEventListener(this.hls);
-    } else if ('flv' === protocol) {
-      this.flv = global.flvjs.createPlayer({ type: 'flv', url: src, isLive: true });
+    if ('hls' === info.protocol) {
+      this.loadHls(info);
+    } else if ('flv' === info.protocol) {
+      this.flv = global.flvjs.createPlayer({ type: 'flv', url: info.src, isLive: true });
       this.flv.attachMediaElement(this.videoRef.current);
       this.flv.load();
       this.play();
-      this.setState({ protocol, src, isLive, loading: false });
+      this.setState({ info, loading: false });
     } else {
-      this.setState({ protocol, src, isLive, loading: false });
+      this.setState({ info, loading: false });
     }
     return true;
   }
 
-  addHlsEventListener(hls) {
-    hls.on(global.Hls.Events.MEDIA_ATTACHING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.MEDIA_ATTACHED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.MEDIA_DETACHING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.MEDIA_DETACHED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_RESET, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_CODECS, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_CREATED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_APPENDING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_APPENDED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_EOS, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_FLUSHING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.BUFFER_FLUSHED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.MANIFEST_LOADING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.MANIFEST_LOADED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.MANIFEST_PARSED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.LEVEL_SWITCHING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.LEVEL_SWITCHED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.LEVEL_LOADING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.LEVEL_LOADED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.LEVEL_UPDATED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.LEVEL_PTS_UPDATED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.AUDIO_TRACKS_UPDATED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.AUDIO_TRACK_SWITCHING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.AUDIO_TRACK_SWITCHED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.AUDIO_TRACK_LOADING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.AUDIO_TRACK_LOADED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.SUBTITLE_TRACKS_UPDATED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.SUBTITLE_TRACK_SWITCH, this.hlsEventHandle);
-    hls.on(global.Hls.Events.SUBTITLE_TRACK_LOADING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.SUBTITLE_TRACK_LOADED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.SUBTITLE_FRAG_PROCESSED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.INIT_PTS_FOUND, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_LOADING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_LOAD_PROGRESS, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_LOADED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_DECRYPTED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_PARSING_INIT_SEGMENT, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_PARSING_USERDATA, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_PARSING_METADATA, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_PARSING_DATA, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_PARSED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_BUFFERED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FRAG_CHANGED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FPS_DROP, this.hlsEventHandle);
-    hls.on(global.Hls.Events.FPS_DROP_LEVEL_CAPPING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.DESTROYING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.KEY_LOADING, this.hlsEventHandle);
-    hls.on(global.Hls.Events.KEY_LOADED, this.hlsEventHandle);
-    hls.on(global.Hls.Events.STREAM_STATE_TRANSITION, this.hlsEventHandle);
-    hls.on(global.Hls.Events.ERROR, this.hlsErrorEventHandle);
+  loadHls(info) {
+    this.hls = new global.Hls({ debug: true });
+    this.hls.loadSource(info.src);
+    this.hls.attachMedia(this.videoRef.current);
+    this.hls.on(global.Hls.Events.MANIFEST_PARSED, () => {
+      this.play();
+      this.setStateSafely({ info });
+    });
+    this.hls.on(global.Hls.Events.ERROR, (e, data) => {
+      if (!this.hls || !data.fatal) {
+        return;
+      }
+      this.setStateSafely({ errMsg: data, loading: false });
+    });
   }
 
   destory() {
-    if (this.hls) {
-      try {
-        if (this.videoRef && this.videoRef.current) {
-          this.videoRef.current.pause();
-        }
-      } catch (errMsg) {
-        // debugger;
-      }
-      try {
-        this.hls.stopLoad();
-      } catch (errMsg) {
-        // debugger;
-      }
-      try {
-        this.hls.detachMedia();
-      } catch (errMsg) {
-        // debugger;
-      }
-      try {
-        this.hls.destory();
-      } catch (errMsg) {
-        // debugger;
-      }
-    }
-    this.hls = null;
+    this.destoryHls();
 
     if (this.flv) {
       try {
@@ -511,21 +283,38 @@ export default class ReactPlayer extends React.PureComponent {
     }
     this.flv = null;
 
-    this.protocol = '';
-    this.src = '';
-    if (this.unmounted) {
-      this.setState({
-        // src: '',
-        loading: false,
-        isLive: true,
-        duration: 0,
-        currentTime: 0,
-        seeking: false,
-        buffered: [],
-        paused: false,
-        fullScreen: false,
-      });
+    this.info = null;
+    this.setStateSafely({
+      info: null,
+      loading: false,
+      duration: 0,
+      currentTime: 0,
+      seeking: false,
+      buffered: null,
+      paused: false,
+      fullScreen: false,
+      errMsg: null,
+    });
+  }
+
+  destoryHls() {
+    if (this.hls) {
+      if (this.videoRef && this.videoRef.current) {
+        this.videoRef.current.pause();
+      }
+      try {
+        this.hls.stopLoad();
+        this.hls.detachMedia();
+      } catch (errMsg) {
+        // debugger;
+      }
+      try {
+        this.hls.destory();
+      } catch (errMsg) {
+        // debugger;
+      }
     }
+    this.hls = null;
   }
 
   render() {
@@ -534,13 +323,13 @@ export default class ReactPlayer extends React.PureComponent {
         <video
           className={styles.video}
           ref={this.videoRef}
-          onAbort={this.onAbort}
-          onCanPlay={this.onCanPlay}
+          onAbort={this.onMediaEvent}
+          onCanPlay={() => this.setStateSafely({ loading: false, waiting: false })}
           onDurationChange={this.onDurationChange}
           onTimeUpdate={this.onTimeUpdate}
-          onPause={this.onPause}
-          onPlay={this.onPlay}
-          onPlaying={this.onPlay}
+          onPause={() => this.setStateSafely({ paused: true })}
+          onPlay={() => this.setStateSafely({ paused: false, ended: false })}
+          onPlaying={() => this.setStateSafely({ paused: false, ended: false })}
           onEnded={this.onEnded}
           onSeeked={this.onSeeked}
           onSeeking={this.onSeeking}
@@ -556,26 +345,32 @@ export default class ReactPlayer extends React.PureComponent {
           onStalled={this.onMediaEvent}
           onSuspend={this.onMediaEvent}
           onVolumeChange={this.onMediaEvent}
-          onWaiting={this.onWaiting}
+          onWaiting={() => this.setStateSafely({ waiting: true })}
         />
-        {!this.state.src && <div className={styles.videoMask} />}
+        {!this.state.info && <div className={styles.videoMask} />}
+        {(this.state.loading || this.state.seeking || this.state.waiting) && (
+          <div className={styles.loading}>
+            <Icon type="loading" />
+          </div>
+        )}
+        {this.state.errMsg && (
+          <div className={styles.errMsg}>
+            <div>
+              Error: {this.state.errMsg.type} ({this.state.errMsg.details})
+            </div>
+            <div>
+              {(this.state.errMsg.response && this.state.errMsg.response.text) || this.state.errMsg.reason || ''}
+            </div>
+          </div>
+        )}
         <div className={styles.controls}>
           <ProcessSlider
-            isLive={this.state.isLive}
-            currentTime={this.state.currentTime}
-            duration={this.state.duration}
+            disabled={this.state.loading || this.state.seeking || this.state.waiting || !this.state.info}
+            value={this.state.currentTime}
+            max={this.state.duration}
             buffered={this.state.buffered}
             onChange={this.seek}
           />
-          {/* <div className={styles.progressSlider}>
-            <Slider
-              max={this.state.isLive || 0 === this.state.duration ? 100 : this.state.duration}
-              value={this.state.isLive ? 100 : this.state.currentTime}
-              tipFormatter={this.state.isLive ? null : v => v}
-              disabled={!this.state.isLive && 0 === this.state.duration}
-              onChange={this.seek}
-            />
-          </div> */}
           <div>
             <div className={styles.left}>
               {this.state.ended && (
@@ -589,7 +384,7 @@ export default class ReactPlayer extends React.PureComponent {
                 </button>
               )}
               {!this.state.paused && !this.state.ended && (
-                <button type="button" onClick={this.pause}>
+                <button type="button" onClick={this.pause} disabled={!this.state.info || this.state.loading}>
                   <Icon type="pause" />
                 </button>
               )}
@@ -606,13 +401,13 @@ export default class ReactPlayer extends React.PureComponent {
               <span className={styles.volumeSlider}>
                 <Slider value={this.state.volume} onChange={this.changeVolume} />
               </span>
-              {this.state.isLive && this.state.src && (
+              {this.state.info && false !== this.state.info.isLive && (
                 <span className={styles.controlText}>
                   <span className={styles.liveDot} />
                   直播
                 </span>
               )}
-              {!this.state.isLive && 0 < this.state.duration && (
+              {this.state.info && false === this.state.info.isLive && 0 < this.state.duration && (
                 <span className={styles.controlText}>
                   {this.state.currentTime} / {this.state.duration}
                 </span>
@@ -632,12 +427,7 @@ export default class ReactPlayer extends React.PureComponent {
             </div>
           </div>
         </div>
-        {(this.state.loading || this.state.seeking || this.state.waiting) && (
-          <div className={styles.loading}>
-            <Icon type="loading" />
-          </div>
-        )}
-        {'rtmp' === this.state.protocol && (
+        {this.state.info && 'rtmp' === this.state.info.protocol && (
           <div className={styles.flash}>
             <ReactSWF
               src={swf}
@@ -647,11 +437,7 @@ export default class ReactPlayer extends React.PureComponent {
               allowFullScreen
               allowScriptAccess="always"
               bgcolor="#000000"
-              flashVars={{
-                src: this.state.src,
-                autoPlay: true,
-                streamType: 'live',
-              }}
+              flashVars={{ src: this.state.info.src, autoPlay: true, streamType: 'live' }}
             />
           </div>
         )}
