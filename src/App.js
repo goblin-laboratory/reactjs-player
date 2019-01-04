@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Select, Input, Checkbox, Button, Row, Col } from 'antd';
 import ReactPlayer from './lib';
+import getScript from './lib/utils/getScript';
 import './App.css';
 
 class App extends React.PureComponent {
@@ -18,6 +19,17 @@ class App extends React.PureComponent {
 
     this.videoRef = React.createRef();
   }
+
+  // async componentDidMount() {
+  //   if (global.VConsole) {
+  //     return;
+  //   }
+  //   await getScript('https://cdn.jsdelivr.net/npm/vconsole@latest');
+  //   if (global.VConsole) {
+  //     // eslint-disable-next-line no-new
+  //     new global.VConsole();
+  //   }
+  // }
 
   onPlayerReady = supported => {
     this.setState({ supported });
