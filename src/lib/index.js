@@ -109,6 +109,16 @@ export default class ReactPlayer extends React.PureComponent {
     }
   };
 
+  onError = () => {
+    // console.log(e);
+    const errMsg = { type: 'MediaError', details: -1, reason: '' };
+    if (this.containerRef && this.containerRef.current && this.videoRef.current.error) {
+      errMsg.details = this.videoRef.current.error.code;
+      errMsg.reason = this.videoRef.current.error.message;
+    }
+    this.setStateSafely({ errMsg });
+  };
+
   onMediaEvent = e => {
     console.log('%cMedia Event:%c %s', 'color: green', 'color: black', e.type);
   };
@@ -336,7 +346,7 @@ export default class ReactPlayer extends React.PureComponent {
           onCanPlayThrough={this.onMediaEvent}
           onEmptied={this.onMediaEvent}
           onEncrypted={this.onMediaEvent}
-          onError={this.onMediaEvent}
+          onError={this.onError}
           onLoadedData={this.onMediaEvent}
           onLoadedMetadata={this.onMediaEvent}
           onLoadStart={this.onMediaEvent}

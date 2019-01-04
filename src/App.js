@@ -30,7 +30,7 @@ class App extends React.PureComponent {
   onProtocolChange = value => {
     const info = {
       flv: {
-        src: 'http://10.8.123.179:8081/live/liveStream.flv',
+        src: 'https://media01.opensight.cn/flv_srs/quick/WiCWK60YR4CHzyrTJsAiyw.flv',
         isLive: true,
       },
       hls: {
