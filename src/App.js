@@ -1,27 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Button } from 'antd';
+import { Form, Input, Button, Row, Col } from 'antd';
 import ReactPlayer from './components/ReactPlayer';
 import './App.css';
 
-function App() {
+function App({ form }) {
+  const [src, setSrc] = React.useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-        <div>
-          <Button type="primary">Button</Button>
-        </div>
-        <ReactPlayer />
-      </header>
+    <div className="body">
+      <div className="selector">
+        <Form
+          onSubmit={e => {
+            e.preventDefault();
+            setSrc(form.getFieldValue('src'));
+          }}
+        >
+          <Row gutter={16}>
+            <Col span={16}>
+              <Form.Item>
+                {form.getFieldDecorator('src', {
+                  initialValue: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+                })(<Input />)}
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  播放
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+      <div className="player">
+        <ReactPlayer src={src} />
+      </div>
     </div>
   );
 }
 
-export default App;
+export default Form.create()(App);
