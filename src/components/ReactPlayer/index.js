@@ -7,7 +7,7 @@ import styles from './index.module.less';
 const noop = () => {};
 
 const ReactPlayer = ({
-  streamType,
+  live,
   src,
   type,
   debug,
@@ -44,13 +44,14 @@ const ReactPlayer = ({
   const [ended, setEnded] = React.useState(false);
   const [seeking, setSeeking] = React.useState(false);
   const [waiting, setWaiting] = React.useState(false);
-  const [duration, setDuration] = React.useState(0);
+  const [duration, setDuration] = React.useState(live ? -1 : 0);
   const [currentTimeState, setCurrentTimeState] = React.useState(0);
   const [buffered, setBuffered] = React.useState(null);
   const [mutedState, setMutedState] = React.useState(muted);
   const [volumeState, setVolumeState] = React.useState(1);
   const [rate, setRate] = React.useState(1);
 
+  const playerRef = React.useRef(null);
   const videoRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -76,8 +77,16 @@ const ReactPlayer = ({
     });
     return () => {
       hls.destroy();
+      setLoading(false);
+      setPaused(false);
+      setEnded(false);
+      setSeeking(false);
+      setWaiting(false);
+      setDuration(live ? -1 : 0);
+      setCurrentTimeState(0);
+      setBuffered(null);
     };
-  }, [src, type, debug]);
+  }, [src, debug, live]);
 
   const onVideoCanPlay = React.useCallback(
     e => {
@@ -90,10 +99,12 @@ const ReactPlayer = ({
 
   const onVideoDurationChange = React.useCallback(
     e => {
-      setDuration(e.target.duration);
+      if (!live) {
+        setDuration(e.target.duration);
+      }
       onDurationChange(e);
     },
-    [onDurationChange],
+    [live, onDurationChange],
   );
 
   const onVideoTimeUpdate = React.useCallback(
@@ -195,8 +206,15 @@ const ReactPlayer = ({
     [onRateChange],
   );
 
+  const setCurrentTime = React.useCallback(ct => {
+    if (videoRef && videoRef.current) {
+      videoRef.current.currentTime = ct;
+    }
+    setCurrentTimeState(ct);
+  }, []);
+
   return (
-    <div className={styles.reactPlayer}>
+    <div className={styles.reactPlayer} ref={playerRef}>
       <video
         className={styles.video}
         ref={videoRef}
@@ -225,7 +243,7 @@ const ReactPlayer = ({
         onAbort={onAbort}
       />
       <ReactPlayerSkin
-        // streamType={streamType}
+        playerRef={playerRef}
         controls={controls}
         loading={loading}
         paused={paused}
@@ -235,7 +253,7 @@ const ReactPlayer = ({
         duration={duration}
         buffered={buffered}
         currentTime={currentTimeState}
-        setCurrentTime={setCurrentTimeState}
+        setCurrentTime={setCurrentTime}
         muted={mutedState}
         volume={volumeState}
         playbackRate={rate}
@@ -245,7 +263,7 @@ const ReactPlayer = ({
 };
 
 ReactPlayer.propTypes = {
-  streamType: PropTypes.oneOf(['live', 'record']),
+  live: PropTypes.bool,
   src: PropTypes.string,
   type: PropTypes.string,
   debug: PropTypes.bool,
@@ -279,7 +297,7 @@ ReactPlayer.propTypes = {
 };
 
 ReactPlayer.defaultProps = {
-  streamType: 'live',
+  live: false,
   src: '',
   type: '',
   debug: false,

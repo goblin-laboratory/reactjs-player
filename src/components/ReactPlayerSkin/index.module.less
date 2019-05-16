@@ -13,7 +13,15 @@
   left: 0;
   height: auto;
   width: 100%;
+  padding: 0 16px;
+  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
   overflow: hidden;
+  color: #fff;
+}
+
+.hiddenControls{
+  .controls;
+  transform: translate(0, 40px);
 }
 
 .waiting,
@@ -29,4 +37,104 @@
   align-items: center;
   justify-content: center;
   font-size: 50px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 8px 4px;
+  button {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    background-color: transparent;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 20px;
+    outline: 0 none transparent;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+  .pipBtn {
+    width: auto;
+    padding: 0 8px;
+    font-size: 14px;
+  }
+}
+
+.flexItem {
+  flex: 1;
+}
+
+.controlText {
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  display: inline-block;
+  padding: 0 8px;
+}
+
+.volumeSlider {
+  .controlText;
+  width: 120px;
+  vertical-align: bottom;
+  padding-left: 4px;
+  padding-right: 12px;
+  :global(.ant-slider) {
+    margin-top: 10px;
+  }
+  :global(.ant-slider-rail) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  :global(.ant-slider-rail) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  :global(.ant-slider-track) {
+    background: #fff;
+  }
+  :global(.ant-slider-handle) {
+    background: #fff;
+    border: none 0 transparent;
+  }
+  :global(.ant-slider-handle):focus {
+    border: none 0 transparent;
+    box-shadow: none;
+  }
+  :global(.ant-slider):hover {
+    :global(.ant-slider-rail) {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    :global(.ant-slider-track) {
+      background: #fff;
+    }
+    :global(.ant-slider-handle) {
+      background: #fff;
+      border: none 0 transparent;
+      box-shadow: none;
+    }
+    :global(.ant-slider-handle):not(:global(.ant-tooltip-open)) {
+      border: none 0 transparent;
+      box-shadow: none;
+    }
+    :global(.ant-slider-handle):focus {
+      border: none 0 transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #ff0000;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
 }
