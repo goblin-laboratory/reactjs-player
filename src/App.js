@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Row, Col } from 'antd';
-import ReactPlayer from './components/ReactPlayer';
+import ReactPlayer from './components/ReactHlsjsPlayer';
 import './App.css';
 
 function App({ form }) {

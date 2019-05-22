@@ -1,0 +1,8 @@
+TODO:
+  ☐ options 支持
+  ☐ currentTime prop update 处理
+  ☐ 自动播放被阻止
+  ☐ muted prop update 处理
+  ☐ autoPlay prop
+  ☐ loop prop
+  ☐ type prop 默认值

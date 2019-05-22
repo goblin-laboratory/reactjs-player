@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import ReactSWF from 'react-swf';
 import numeral from 'numeral';
 import { Icon, Slider, Dropdown, Menu } from 'antd';
 import CurrentTimeSlider from './CurrentTimeSlider';
@@ -22,12 +21,20 @@ const ReactPlayerSkin = ({
   buffered,
   muted,
   volume,
+  playbackRate,
+  setPlaybackRate,
   fullScreen,
-  onRestartClick,
+  onPlayClick,
+  onPauseClick,
+  onMutedClick,
+  onVolumeChange,
+  onPiPClick,
+  requestFullscreen,
 }) => {
   const [hiding, setHiding] = React.useState(false);
   const [hovering, setHovering] = React.useState(false);
   const [sliding, setSliding] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
     if (hiding || hovering || sliding) {
@@ -37,21 +44,42 @@ const ReactPlayerSkin = ({
     return () => clearTimeout(id);
   }, [hiding, hovering, sliding]);
 
+  React.useEffect(() => {
+    if (hiding) {
+      setVisible(false);
+    }
+    return () => {};
+  }, [hiding]);
+
+  const onBodyClick = React.useCallback(() => setVisible(false), []);
+  React.useEffect(() => {
+    document.body.addEventListener('click', onBodyClick);
+    return () => document.body.removeEventListener('click', onBodyClick);
+  }, [onBodyClick]);
+
+  const onMenuClick = React.useCallback(
+    e => {
+      setPlaybackRate(parseFloat(e.key, 10));
+      setVisible(false);
+    },
+    [setPlaybackRate],
+  );
+
   if (!controls) {
     return <div className={styles.reactPlayerSkin} />;
   }
 
   return (
     <div className={styles.reactPlayerSkin} onMouseMove={() => setHiding(false)}>
-      {(waiting || seeking) && (
+      {(waiting || seeking) && !loading && (
         <div className={styles.waiting}>
           <Icon type="loading" />
         </div>
       )}
       {ended && (
-        <div className={styles.ended}>
+        <button className={styles.ended} onClick={onPlayClick}>
           <Icon type="play-circle" />
-        </div>
+        </button>
       )}
       <div
         className={hiding && !hovering && !sliding ? styles.hiddenControls : styles.controls}
@@ -68,32 +96,32 @@ const ReactPlayerSkin = ({
         <div className={styles.bar}>
           <div className={styles.flexItem}>
             {ended && (
-              <button type="button" onClick={onRestartClick}>
-                <Icon type="reload" />
+              <button type="button" onClick={onPlayClick}>
+                <Icon type="caret-right" />
               </button>
             )}
             {paused && !ended && (
-              <button type="button" onClick={onRestartClick}>
+              <button type="button" onClick={onPlayClick}>
                 <Icon type="caret-right" />
               </button>
             )}
             {!paused && !ended && (
-              <button type="button" onClick={onRestartClick}>
+              <button type="button" onClick={onPauseClick}>
                 <Icon type="pause" />
               </button>
             )}
             {(muted || 0 === volume) && (
-              <button type="button" onClick={onRestartClick}>
-                <Icon component={UnmutedSvg} />
-              </button>
-            )}
-            {!muted && 0 !== volume && (
-              <button type="button" onClick={onRestartClick}>
+              <button type="button" onClick={onMutedClick}>
                 <Icon component={MutedSvg} />
               </button>
             )}
+            {!muted && 0 !== volume && (
+              <button type="button" onClick={onMutedClick}>
+                <Icon component={UnmutedSvg} />
+              </button>
+            )}
             <span className={styles.volumeSlider}>
-              <Slider value={volume} onChange={onRestartClick} max={1} step={0.1} />
+              <Slider value={volume} onChange={onVolumeChange} max={1} step={0.1} tipFormatter={v => v * 100} />
             </span>
             {0 > duration && (
               <span className={styles.controlText}>
@@ -107,13 +135,16 @@ const ReactPlayerSkin = ({
               </span>
             )}
           </div>
-          <button type="button" className={styles.pipBtn}>
-            画中画
-          </button>
+          {document.pictureInPictureEnabled && (
+            <button type="button" className={styles.textBtn} onClick={onPiPClick}>
+              画中画
+            </button>
+          )}
           {0 <= duration && (
             <Dropdown
+              visible={visible}
               overlay={
-                <Menu>
+                <Menu selectedKeys={[playbackRate.toString()]} onClick={onMenuClick}>
                   <Menu.Item key="0.25">&nbsp;&nbsp;0.25 倍速&nbsp;&nbsp;</Menu.Item>
                   <Menu.Item key="0.5">&nbsp;&nbsp;0.5 倍速&nbsp;&nbsp;</Menu.Item>
                   <Menu.Item key="1">&nbsp;&nbsp;1 倍速&nbsp;&nbsp;</Menu.Item>
@@ -126,18 +157,18 @@ const ReactPlayerSkin = ({
               placement="topRight"
               trigger={['click']}
             >
-              <button type="button" className={styles.pipBtn}>
+              <button type="button" className={styles.textBtn} onClick={() => setVisible(true)}>
                 倍速
               </button>
             </Dropdown>
           )}
           {fullScreen && (
-            <button type="button">
+            <button type="button" onClick={() => document.exitFullscreen()}>
               <Icon type="fullscreen-exit" />
             </button>
           )}
           {!fullScreen && (
-            <button type="button">
+            <button type="button" onClick={requestFullscreen}>
               <Icon type="fullscreen" />
             </button>
           )}
@@ -165,13 +196,26 @@ ReactPlayerSkin.propTypes = {
   setCurrentTime: PropTypes.func.isRequired,
   muted: PropTypes.bool.isRequired,
   volume: PropTypes.number.isRequired,
+  playbackRate: PropTypes.number.isRequired,
+  setPlaybackRate: PropTypes.func,
   fullScreen: PropTypes.bool.isRequired,
-  onRestartClick: PropTypes.func,
+  onPlayClick: PropTypes.func,
+  onPauseClick: PropTypes.func,
+  onMutedClick: PropTypes.func,
+  onVolumeChange: PropTypes.func,
+  onPiPClick: PropTypes.func,
+  requestFullscreen: PropTypes.func,
 };
 
 ReactPlayerSkin.defaultProps = {
   buffered: null,
-  onRestartClick: () => {},
+  onPlayClick: () => {},
+  onPauseClick: () => {},
+  onMutedClick: () => {},
+  onVolumeChange: () => {},
+  onPiPClick: () => {},
+  requestFullscreen: () => {},
+  setPlaybackRate: () => {},
 };
 
 export default ReactPlayerSkin;
