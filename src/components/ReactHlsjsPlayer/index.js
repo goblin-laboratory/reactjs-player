@@ -9,7 +9,7 @@ import useVideo from '../../hooks/useVideo';
 const noop = () => {};
 
 const ReactHlsjsPlayer = props => {
-  const { src, debug, live } = props;
+  const { src, config, live } = props;
   const {
     loading,
     setLoading,
@@ -68,7 +68,7 @@ const ReactHlsjsPlayer = props => {
       return noop;
     }
     setLoading(true);
-    const hls = new Hls({ debug, enableWorker: false });
+    const hls = new Hls(Object.assign({ debug: false, enableWorker: false }, config));
     hls.loadSource(src);
     hls.attachMedia(videoRef.current);
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
@@ -79,7 +79,7 @@ const ReactHlsjsPlayer = props => {
     return () => {
       hls.destroy();
     };
-  }, [src, debug, live, setLoading]);
+  }, [src, config, live, setLoading]);
 
   const changeCurrentTime = React.useCallback(
     t => {
@@ -229,7 +229,7 @@ ReactHlsjsPlayer.propTypes = {
   live: PropTypes.bool,
   src: PropTypes.string,
   type: PropTypes.string,
-  debug: PropTypes.bool,
+  config: PropTypes.object,
   controls: PropTypes.bool,
   muted: PropTypes.bool,
   autoPlay: PropTypes.bool,
@@ -263,7 +263,7 @@ ReactHlsjsPlayer.defaultProps = {
   live: false,
   src: '',
   type: '',
-  debug: false,
+  config: { debug: false, enableWorker: false },
   controls: true,
   muted: false,
   autoPlay: true,

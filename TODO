@@ -18,6 +18,8 @@
     ☐ hlsjs errMsg显示
     ☐ flvjs errMsg显示
     ☐ 使用 custom hooks 优化代码
+    ☐ 支持 hlsjs options
+    ☐ 支持 flvjs options
     ☐ 测试页面
     ☐ gh-pages 发布测试页面
 
