@@ -1,9 +1,12 @@
-.reactPlayerSkin {
+.absolute {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+}
+.reactPlayerSkin {
+  .absolute;
   overflow: hidden;
 }
 
@@ -11,8 +14,8 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  height: auto;
   width: 100%;
+  height: auto;
   padding: 0 16px;
   transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
   overflow: hidden;
@@ -21,22 +24,25 @@
 
 .hiddenControls {
   .controls;
-  transform: translate(0, 44px);
+  transform: translate(0, 46px);
 }
 
 .waiting,
 .ended,
 .loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+  .absolute;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 50px;
+}
+
+.playerMsg{
+  .absolute;
+  padding: 2em;
+  background: rgba(0, 0, 0, 0.65);
+  overflow-y: auto;
 }
 
 button.ended {

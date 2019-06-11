@@ -48,7 +48,7 @@ const getTrackTranslateX = ({ duration, currentTime, value, sliding }) => {
   return `${(100 * currentTime) / duration - 100}%`;
 };
 
-const Slider = ({ currentTime, duration, buffered, onChange }) => {
+const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
   const [value, setValue] = React.useState(currentTime);
   const [sliding, setSliding] = React.useState(false);
   const sliderRef = React.useRef(null);
@@ -136,7 +136,7 @@ const Slider = ({ currentTime, duration, buffered, onChange }) => {
       </div>
     </div>
   );
-};
+});
 
 Slider.propTypes = {
   currentTime: PropTypes.number.isRequired,

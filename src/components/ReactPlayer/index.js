@@ -1,276 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Hls from 'hls.js';
 import ReactPlayerSkin from '../ReactPlayerSkin';
 import styles from './index.module.less';
 
+import useVideo from '../../hooks/useVideo';
+import useHlsjs from '../../hooks/useHlsjs';
+import useFlvjs from '../../hooks/useFlvjs';
+import useNative from '../../hooks/useNative';
+
+// const useHlsjs = React.lazy(() => import('../../hooks/useHlsjs'));
+// const useFlvjs = React.lazy(() => import('../../hooks/useFlvjs'));
+
 const noop = () => {};
 
-const ReactPlayer = ({
-  live,
-  src,
-  type,
-  debug,
-  // autoPlay,
-  controls,
-  muted,
-  currentTime,
-  onCanPlay,
-  onDurationChange,
-  onTimeUpdate,
-  onPause,
-  onPlay,
-  onPlaying,
-  onEnded,
-  onSeeked,
-  onSeeking,
-  onCanPlayThrough,
-  onEmptied,
-  onEncrypted,
-  onError,
-  onLoadedData,
-  onLoadedMetadata,
-  onLoadStart,
-  onProgress,
-  onRateChange,
-  onStalled,
-  onSuspend,
-  onVolumeChange,
-  onWaiting,
-  onAbort,
-}) => {
-  const [loading, setLoading] = React.useState(false);
-  const [paused, setPaused] = React.useState(false);
-  const [ended, setEnded] = React.useState(false);
-  const [seeking, setSeeking] = React.useState(false);
-  const [waiting, setWaiting] = React.useState(false);
-  const [duration, setDuration] = React.useState(live ? -1 : 0);
-  const [currentTimeState, setCurrentTimeState] = React.useState(0);
-  const [buffered, setBuffered] = React.useState(null);
-  const [mutedState, setMutedState] = React.useState(muted);
-  const [volumeState, setVolumeState] = React.useState(1);
-  const [rate, setRate] = React.useState(1);
+const getRenderHooks = render => {
+  switch (render) {
+    case 'native':
+      return useNative;
+    case 'hlsjs':
+      return useHlsjs;
+    case 'flvjs':
+      return useFlvjs;
+    default:
+      return noop;
+  }
+};
 
-  const playerRef = React.useRef(null);
+const ReactPlayer = props => {
   const videoRef = React.useRef(null);
+  const playerRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (!src) {
-      if (videoRef && videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.src = '';
-        videoRef.current.load();
-      }
-      return noop;
-    }
-    if (!videoRef || !videoRef.current) {
-      return noop;
-    }
-    setLoading(true);
-    const hls = new Hls({ debug, enableWorker: false });
-    hls.loadSource(src);
-    hls.attachMedia(videoRef.current);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      if (videoRef && videoRef.current) {
-        videoRef.current.play();
-      }
-    });
-    return () => {
-      hls.destroy();
-      setLoading(false);
-      setPaused(false);
-      setEnded(false);
-      setSeeking(false);
-      setWaiting(false);
-      setDuration(live ? -1 : 0);
-      setCurrentTimeState(0);
-      setBuffered(null);
-    };
-  }, [src, debug, live]);
+  const getVideoElement = React.useCallback(() => videoRef && videoRef.current, []);
+  const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
 
-  const onVideoCanPlay = React.useCallback(
-    e => {
-      setLoading(false);
-      setWaiting(false);
-      onCanPlay(e);
-    },
-    [onCanPlay],
-  );
-
-  const onVideoDurationChange = React.useCallback(
-    e => {
-      if (!live) {
-        setDuration(e.target.duration);
-      }
-      onDurationChange(e);
-    },
-    [live, onDurationChange],
-  );
-
-  const onVideoTimeUpdate = React.useCallback(
-    e => {
-      setCurrentTimeState(e.target.currentTime);
-      onTimeUpdate(e);
-    },
-    [onTimeUpdate],
-  );
-
-  const onVideoProgress = React.useCallback(
-    e => {
-      setBuffered(e.target.buffered);
-      onProgress(e);
-    },
-    [onProgress],
-  );
-
-  const onVideoPause = React.useCallback(
-    e => {
-      setPaused(true);
-      onPause(e);
-    },
-    [onPause],
-  );
-
-  const onVideoPlay = React.useCallback(
-    e => {
-      setPaused(false);
-      setEnded(false);
-      onPlay(e);
-    },
-    [onPlay],
-  );
-
-  const onVideoPlaying = React.useCallback(
-    e => {
-      setPaused(false);
-      setEnded(false);
-      onPlaying(e);
-    },
-    [onPlaying],
-  );
-
-  const onVideoEnded = React.useCallback(
-    e => {
-      setEnded(true);
-      onEnded(e);
-    },
-    [onEnded],
-  );
-
-  const onVideoSeeked = React.useCallback(
-    e => {
-      setSeeking(false);
-      onSeeked(e);
-    },
-    [onSeeked],
-  );
-
-  const onVideoSeeking = React.useCallback(
-    e => {
-      setSeeking(true);
-      onSeeking(e);
-    },
-    [onSeeking],
-  );
-
-  const onVideoCanPlayThrough = React.useCallback(
-    e => {
-      setWaiting(false);
-      onCanPlayThrough(e);
-    },
-    [onCanPlayThrough],
-  );
-
-  const onVideoWaiting = React.useCallback(
-    e => {
-      setWaiting(true);
-      onWaiting(e);
-    },
-    [onWaiting],
-  );
-
-  const onVideoVolumeChange = React.useCallback(
-    e => {
-      setVolumeState(e.target.volume);
-      setMutedState(e.target.muted);
-      onVolumeChange(e);
-    },
-    [onVolumeChange],
-  );
-
-  const onVideoRateChange = React.useCallback(
-    e => {
-      setRate(e.target.playbackRate);
-      onRateChange(e);
-    },
-    [onRateChange],
-  );
-
-  const setCurrentTime = React.useCallback(ct => {
-    if (videoRef && videoRef.current) {
-      videoRef.current.currentTime = ct;
-    }
-    setCurrentTimeState(ct);
-  }, []);
+  const { muted, mediaEvents, ...videoProps } = useVideo(props, getVideoElement, getPlayerElement);
+  const playerMsg = getRenderHooks(props.render)(props, getVideoElement);
 
   return (
     <div className={styles.reactPlayer} ref={playerRef}>
-      <video
-        className={styles.video}
-        ref={videoRef}
-        onDurationChange={onVideoDurationChange}
-        onTimeUpdate={onVideoTimeUpdate}
-        onProgress={onVideoProgress}
-        onCanPlay={onVideoCanPlay}
-        onPause={onVideoPause}
-        onPlay={onVideoPlay}
-        onPlaying={onVideoPlaying}
-        onEnded={onVideoEnded}
-        onSeeked={onVideoSeeked}
-        onSeeking={onVideoSeeking}
-        onCanPlayThrough={onVideoCanPlayThrough}
-        onWaiting={onVideoWaiting}
-        onVolumeChange={onVideoVolumeChange}
-        onRateChange={onVideoRateChange}
-        onEmptied={onEmptied}
-        onEncrypted={onEncrypted}
-        onError={onError}
-        onLoadedData={onLoadedData}
-        onLoadedMetadata={onLoadedMetadata}
-        onLoadStart={onLoadStart}
-        onStalled={onStalled}
-        onSuspend={onSuspend}
-        onAbort={onAbort}
-      />
-      <ReactPlayerSkin
-        playerRef={playerRef}
-        controls={controls}
-        loading={loading}
-        paused={paused}
-        ended={ended}
-        seeking={seeking}
-        waiting={waiting}
-        duration={duration}
-        buffered={buffered}
-        currentTime={currentTimeState}
-        setCurrentTime={setCurrentTime}
-        muted={mutedState}
-        volume={volumeState}
-        playbackRate={rate}
-      />
+      <video className={styles.video} ref={videoRef} muted={muted} loop={props.loop} {...mediaEvents} />
+      <div className={props.src ? styles.hiddenVideoMask : styles.videoMask} />
+      <ReactPlayerSkin src={props.src} controls={props.controls} muted={muted} {...videoProps} playerMsg={playerMsg} />
     </div>
   );
 };
 
 ReactPlayer.propTypes = {
+  render: PropTypes.string,
   live: PropTypes.bool,
   src: PropTypes.string,
   type: PropTypes.string,
-  debug: PropTypes.bool,
+  config: PropTypes.object,
   controls: PropTypes.bool,
   muted: PropTypes.bool,
+  volume: PropTypes.number,
   autoPlay: PropTypes.bool,
   currentTime: PropTypes.number,
+  loop: PropTypes.bool,
   onCanPlay: PropTypes.func,
   onDurationChange: PropTypes.func,
   onTimeUpdate: PropTypes.func,
@@ -297,14 +83,17 @@ ReactPlayer.propTypes = {
 };
 
 ReactPlayer.defaultProps = {
+  render: 'hlsjs',
   live: false,
   src: '',
-  type: '',
-  debug: false,
+  type: 'application/x-mpegURL',
+  config: { debug: false, enableWorker: false },
   controls: true,
-  muted: true,
+  muted: false,
+  volume: 1,
   autoPlay: true,
   currentTime: 0,
+  loop: false,
   onCanPlay: noop,
   onDurationChange: noop,
   onTimeUpdate: noop,

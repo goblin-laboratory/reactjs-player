@@ -35,7 +35,7 @@ export default (props, getVideoElement, getPlayerElement) => {
   const [buffered, setBuffered] = React.useState(null);
   const [muted, setMuted] = React.useState(props.muted);
   const [volume, setVolume] = React.useState(volumeProp);
-  const [playbackRate, setPlaybackRate] = React.useState(1);
+  const [rate, setRate] = React.useState(1);
   const [fullScreen, setFullScreen] = React.useState(false);
 
   React.useEffect(() => {
@@ -176,7 +176,7 @@ export default (props, getVideoElement, getPlayerElement) => {
 
   const onVideoRateChange = React.useCallback(
     e => {
-      setPlaybackRate(e.target.playbackRate);
+      setRate(e.target.playbackRate);
       onRateChange(e);
     },
     [onRateChange],
@@ -196,6 +196,23 @@ export default (props, getVideoElement, getPlayerElement) => {
     setVolume(volumeProp);
     return noop;
   }, [volumeProp]);
+
+  // TODO
+  // React.useEffect(() => {
+  //   const el = getVideoElement();
+  //   if (!el || !src) {
+  //     if (el) {
+  //       el.pause();
+  //       el.src = '';
+  //       el.load();
+  //     }
+  //     return noop;
+  //   }
+  //   setLoading(true);
+  //   return () => {
+  //     setLoading(false);
+  //   };
+  // }, [src, getVideoElement]);
 
   const changeCurrentTime = React.useCallback(
     t => {
@@ -314,7 +331,7 @@ export default (props, getVideoElement, getPlayerElement) => {
     buffered,
     muted,
     volume,
-    playbackRate,
+    rate,
     fullScreen,
     mediaEvents: {
       onCanPlay: onVideoCanPlay,
