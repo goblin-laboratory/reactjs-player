@@ -1,29 +1,30 @@
 
 第一期:
-  ☐ hls.js
-  ☐ flv.js
-  ☐ GrandPlayer（浏览器兼容）
-  ☐ Native Player（ios/安卓浏览器支持）
+  ✔ hls.js @done(19-06-11 08:54)
+  ✔ flv.js @done(19-06-11 08:55)
+  ✔ GrandPlayer（浏览器兼容） @done(19-06-11 08:55)
+  ✔ Native Player（ios/安卓浏览器支持） @done(19-06-11 08:55)
 
   功能列表:
     ✔ 暂停/恢复 @done(19-05-22 17:04)
     ✔ 回放结束后重新播放 @done(19-05-22 17:04)
     ✔ loading @done(19-05-22 17:04)
     ✔ seek @done(19-05-22 17:04)
-    ☐ 直播回放区分显示进度条
+    ✔ 直播回放区分显示进度条 @done(19-06-11 08:54)
     ✔ 音量/静音 @done(19-05-22 17:04)
     ✔ 画中画 @done(19-05-22 17:04)
     ✔ 播放速度 @done(19-05-22 17:04)
     ✔ 全屏 @done(19-05-22 17:04)
-    ☐ hlsjs errMsg显示
-    ☐ flvjs errMsg显示
-    ☐ 使用 custom hooks 优化代码
-    ☐ 支持 hlsjs options
-    ☐ 支持 flvjs options
+    ✔ hlsjs errMsg显示 @done(19-06-11 08:53)
+    ✔ flvjs errMsg显示 @done(19-06-11 08:53)
+    ✔ 使用 custom hooks 优化代码 @done(19-06-11 08:54)
+    ✔ 支持 hlsjs options @done(19-06-11 08:54)
+    ✔ 支持 flvjs options @done(19-06-11 08:54)
     ☐ 测试页面
     ☐ gh-pages 发布测试页面
-
-  问题记录:
+    ✔ rtmp 支持 @done(19-06-11 08:54)
+    ✔ native 播放 @done(19-06-11 08:54)
+    ☐ 微信同层播放
 
 第二期:
   ☐ 性能优化
