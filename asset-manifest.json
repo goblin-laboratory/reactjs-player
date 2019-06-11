@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.9dd10ab1.chunk.css",
-    "main.js": "/static/js/main.81445023.chunk.js",
-    "main.js.map": "/static/js/main.81445023.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/css/2.118e93a0.chunk.css": "/static/css/2.118e93a0.chunk.css",
-    "static/js/2.6d7aec2c.chunk.js": "/static/js/2.6d7aec2c.chunk.js",
-    "static/js/2.6d7aec2c.chunk.js.map": "/static/js/2.6d7aec2c.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.2a2bc01f92059aa5a4df924239409bfb.js": "/precache-manifest.2a2bc01f92059aa5a4df924239409bfb.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.118e93a0.chunk.css.map": "/static/css/2.118e93a0.chunk.css.map",
-    "static/css/main.9dd10ab1.chunk.css.map": "/static/css/main.9dd10ab1.chunk.css.map",
-    "static/media/muted.97d7e594.svg": "/static/media/muted.97d7e594.svg",
-    "static/media/unmuted.96cb285b.svg": "/static/media/unmuted.96cb285b.svg"
+    "main.css": "/react-player/static/css/main.9dd10ab1.chunk.css",
+    "main.js": "/react-player/static/js/main.be9edf0f.chunk.js",
+    "main.js.map": "/react-player/static/js/main.be9edf0f.chunk.js.map",
+    "runtime~main.js": "/react-player/static/js/runtime~main.094a6fdb.js",
+    "runtime~main.js.map": "/react-player/static/js/runtime~main.094a6fdb.js.map",
+    "static/css/2.118e93a0.chunk.css": "/react-player/static/css/2.118e93a0.chunk.css",
+    "static/js/2.8074e04d.chunk.js": "/react-player/static/js/2.8074e04d.chunk.js",
+    "static/js/2.8074e04d.chunk.js.map": "/react-player/static/js/2.8074e04d.chunk.js.map",
+    "index.html": "/react-player/index.html",
+    "precache-manifest.f37318fbcd3b627db350e9debcdae872.js": "/react-player/precache-manifest.f37318fbcd3b627db350e9debcdae872.js",
+    "service-worker.js": "/react-player/service-worker.js",
+    "static/css/2.118e93a0.chunk.css.map": "/react-player/static/css/2.118e93a0.chunk.css.map",
+    "static/css/main.9dd10ab1.chunk.css.map": "/react-player/static/css/main.9dd10ab1.chunk.css.map",
+    "static/media/muted.97d7e594.svg": "/react-player/static/media/muted.97d7e594.svg",
+    "static/media/unmuted.96cb285b.svg": "/react-player/static/media/unmuted.96cb285b.svg"
   }
 }
