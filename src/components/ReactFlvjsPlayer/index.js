@@ -1,32 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import flvjs from 'flv.js';
 import ReactPlayerSkin from '../ReactPlayerSkin';
 import styles from './index.module.less';
 
-import useVideo from '../../hooks/useVideo';
-import useHlsjs from '../../hooks/useHlsjs';
+import useVideo from '../../hooks/useVideo.1';
 import useFlvjs from '../../hooks/useFlvjs';
-import useNative from '../../hooks/useNative';
-
-// const useHlsjs = React.lazy(() => import('../../hooks/useHlsjs'));
-// const useFlvjs = React.lazy(() => import('../../hooks/useFlvjs'));
 
 const noop = () => {};
 
-const getRenderHooks = render => {
-  switch (render) {
-    case 'native':
-      return useNative;
-    case 'hlsjs':
-      return useHlsjs;
-    case 'flvjs':
-      return useFlvjs;
-    default:
-      return noop;
-  }
-};
-
-const ReactPlayer = props => {
+const ReactFlvjsPlayer = React.memo(props => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
 
@@ -34,19 +17,18 @@ const ReactPlayer = props => {
   const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
 
   const { muted, mediaEvents, ...videoProps } = useVideo(props, getVideoElement, getPlayerElement);
-  const playerMsg = getRenderHooks(props.render)(props, getVideoElement);
+  useFlvjs(props, getVideoElement);
 
   return (
     <div className={styles.reactPlayer} ref={playerRef}>
       <video className={styles.video} ref={videoRef} muted={muted} loop={props.loop} {...mediaEvents} />
       <div className={props.src ? styles.hiddenVideoMask : styles.videoMask} />
-      <ReactPlayerSkin src={props.src} controls={props.controls} muted={muted} {...videoProps} playerMsg={playerMsg} />
+      <ReactPlayerSkin src={props.src} controls={props.controls} muted={muted} {...videoProps} />
     </div>
   );
-};
+});
 
-ReactPlayer.propTypes = {
-  render: PropTypes.string,
+ReactFlvjsPlayer.propTypes = {
   live: PropTypes.bool,
   src: PropTypes.string,
   type: PropTypes.string,
@@ -82,11 +64,10 @@ ReactPlayer.propTypes = {
   onAbort: PropTypes.func,
 };
 
-ReactPlayer.defaultProps = {
-  render: 'hlsjs',
-  live: false,
+ReactFlvjsPlayer.defaultProps = {
+  live: true,
   src: '',
-  type: 'application/x-mpegURL',
+  type: 'video/x-flv',
   config: { debug: false, enableWorker: false },
   controls: true,
   muted: false,
@@ -119,4 +100,4 @@ ReactPlayer.defaultProps = {
   onAbort: noop,
 };
 
-export default ReactPlayer;
+export default ReactFlvjsPlayer;

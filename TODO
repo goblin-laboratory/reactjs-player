@@ -1,33 +1,36 @@
-TODO:
-  ✔ loading @done(18-12-28 14:06)
-  ✔ play / pause @done(18-12-28 14:06)
-  ✔ Muted / Unmuted @done(18-12-28 14:06)
-  ✔ Volume @done(18-12-28 14:06)
-  ✔ Progress @done(18-12-28 14:06)
-  ✔ Fullscreen / Exit Fullscreen @done(18-12-28 14:06)
-  ☐ Seek
-  ☐ chrome
-  ☐ firefox
-  ☐ IE 11
-  ☐ ipad
-  ☐ 安卓 Pad
-  ☐ 代码分割
-  ☐ 移除 antd 依赖
 
-controls:
-  ☐ 非 PC 端使用默认的 controls
-  ☐ controls 自动隐藏
-  ☐ controls 支持一直显示
-  ☐ 右键菜单中循环与显示控件
-  ☐ controls 隐藏时进度条不隐藏
-  ☐ controls 显示隐藏动画可以使用 css 实现
+第一期:
+  ✔ hls.js @done(19-06-11 08:54)
+  ✔ flv.js @done(19-06-11 08:55)
+  ✔ GrandPlayer（浏览器兼容） @done(19-06-11 08:55)
+  ✔ Native Player（ios/安卓浏览器支持） @done(19-06-11 08:55)
 
-FlvJS:
-  ☐ Event
-  ☐ Error
-  ☐ 统计信息
+  功能列表:
+    ✔ 暂停/恢复 @done(19-05-22 17:04)
+    ✔ 回放结束后重新播放 @done(19-05-22 17:04)
+    ✔ loading @done(19-05-22 17:04)
+    ✔ seek @done(19-05-22 17:04)
+    ✔ 直播回放区分显示进度条 @done(19-06-11 08:54)
+    ✔ 音量/静音 @done(19-05-22 17:04)
+    ✔ 画中画 @done(19-05-22 17:04)
+    ✔ 播放速度 @done(19-05-22 17:04)
+    ✔ 全屏 @done(19-05-22 17:04)
+    ✔ hlsjs errMsg显示 @done(19-06-11 08:53)
+    ✔ flvjs errMsg显示 @done(19-06-11 08:53)
+    ✔ 使用 custom hooks 优化代码 @done(19-06-11 08:54)
+    ✔ 支持 hlsjs options @done(19-06-11 08:54)
+    ✔ 支持 flvjs options @done(19-06-11 08:54)
+    ☐ 测试页面
+    ☐ gh-pages 发布测试页面
+    ✔ rtmp 支持 @done(19-06-11 08:54)
+    ✔ native 播放 @done(19-06-11 08:54)
+    ☐ 微信同层播放
 
-HlsJS:
-  ☐ Event
-  ☐ Load 进度
-  ☐ Error
+第二期:
+  ☐ 性能优化
+  ☐ 大小优化
+  ☐ 打包方式优化
+  ☐ npm 发布
+  ☐ 文档
+  ☐ git 配置（提交校验，changelog 等）
+  ☐ 自动化测试
