@@ -1,9 +1,0 @@
-TODO:
-  ✔ options 支持 @done(19-06-06 15:59)
-  ✔ currentTime prop update 处理 @done(19-06-06 16:25)
-  ☐ 自动播放被阻止
-  ✔ muted prop update 处理 @done(19-06-06 16:25)
-  ✔ volume prop update 处理 @done(19-06-06 16:27)
-  ✘ autoPlay prop @cancelled(19-06-06 16:40)
-  ✔ loop prop @done(19-06-06 16:08)
-  ✔ type prop 默认值 @done(19-06-06 16:40)

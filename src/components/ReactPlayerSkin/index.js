@@ -127,15 +127,14 @@ const ReactPlayerSkin = React.memo(
               <span className={styles.volumeSlider}>
                 <Slider value={volume} onChange={changeVolume} max={1} step={0.1} tipFormatter={v => v * 100} />
               </span>
+              <span className={styles.controlText}>
+                {numeral(currentTime).format('00:00:00')}
+                {0 <= duration ? ` / ${numeral(duration).format('00:00:00')}` : ''}
+              </span>
               {0 > duration && (
                 <span className={styles.controlText}>
                   <span className={styles.liveDot} />
                   直播
-                </span>
-              )}
-              {0 <= duration && (
-                <span className={styles.controlText}>
-                  {numeral(currentTime).format('00:00:00')} / {numeral(duration).format('00:00:00')}
                 </span>
               )}
             </div>
