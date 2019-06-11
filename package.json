@@ -18,7 +18,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .js src"
+    "lint": "eslint --ext .js src",
+    "gh": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +40,7 @@
     "customize-cra": "^0.2.12",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "gh-pages": "^2.0.1",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "prettier": "^1.17.1",
