@@ -1,7 +1,25 @@
 {
-  "name": "react-player-hooks",
+  "name": "react-player",
+  "description": "基于 react hooks 的 video 播放组件，代码简单，扩展方便。",
   "version": "0.1.0",
-  "private": true,
+  "keywords": [
+    "react",
+    "media",
+    "player",
+    "video",
+    "hls.js",
+    "flv.js",
+    "react-hooks"
+  ],
+  "homepage": "https://goblin-laboratory.github.io/react-player/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goblin-laboratory/react-player.git"
+  },
+  "authors": [
+    "xiaosongxiaosong <kunkkaco@gmail.com> (https://github.com/xiaosongxiaosong)"
+  ],
+  "bugs": "https://github.com/goblin-laboratory/react-player/issues",
   "dependencies": {
     "antd": "^3.18.1",
     "babel-plugin-import": "^1.11.0",
@@ -19,7 +37,8 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js src",
-    "gh": "gh-pages -d build"
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
