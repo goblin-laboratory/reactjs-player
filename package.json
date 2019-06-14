@@ -22,7 +22,7 @@
   "bugs": "https://github.com/goblin-laboratory/react-player/issues",
   "dependencies": {
     "antd": "^3.18.1",
-    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-import": "^1.12.0",
     "flv.js": "^1.5.0",
     "hls.js": "^0.12.4",
     "numeral": "^2.0.6",
