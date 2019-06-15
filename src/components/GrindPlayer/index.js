@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSWF from 'react-swf';
-import grindPlayerSwf from './GrindPlayer.swf';
-import flashlsOSMFSwf from './flashlsOSMF.swf';
+import './GrindPlayer.swf';
+import './flashlsOSMF.swf';
 import styles from './index.module.less';
 
 const GrindPlayer = props => {
@@ -16,13 +16,13 @@ const GrindPlayer = props => {
     streamType: 'live',
   };
   if ('application/x-mpegURL' === props.type) {
-    flashVars.plugin_hls = flashlsOSMFSwf;
+    flashVars.plugin_hls = props.flashlsOSMFSwf;
     flashVars.streamType = 'recorded';
   }
   return (
     <div className={styles.grindPlayer}>
       <ReactSWF
-        src={grindPlayerSwf}
+        src={props.grindPlayerSwf}
         width="100%"
         height="100%"
         wmode="opaque"
@@ -38,6 +38,8 @@ const GrindPlayer = props => {
 GrindPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  grindPlayerSwf: PropTypes.string.isRequired,
+  flashlsOSMFSwf: PropTypes.string.isRequired,
 };
 
 export default GrindPlayer;

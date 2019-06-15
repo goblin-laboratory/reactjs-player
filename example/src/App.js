@@ -1,14 +1,12 @@
 import React from 'react';
 import { Form, Select, Input, Button, Row, Col } from 'antd';
-// import ReactHlsjsPlayer from './components/ReactHlsjsPlayer';
-// import ReactFlvjsPlayer from './components/ReactFlvjsPlayer';
-import ReactPlayer from './components/ReactPlayer';
-import GrindPlayer from './components/GrindPlayer';
+import ReactPlayer from 'react-player';
+import grindPlayerSwf from 'react-player/dist/GrindPlayer.swf';
+import flashlsOSMFSwf from 'react-player/dist/flashlsOSMF.swf';
 import './App.css';
 
-// http://fms.cntv.lxdns.com/live/flv/channel89.flv
-// https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8
-// rtmp://livetv.dhtv.cn:1935/live/news
+const GrindPlayer = ReactPlayer.GrindPlayer;
+
 function App({ form }) {
   const [type, setType] = React.useState('hlsjs');
   const [src, setSrc] = React.useState('');
@@ -67,8 +65,17 @@ function App({ form }) {
       <div className="player">
         {'hlsjs' === type && <ReactPlayer src={src} render={type} />}
         {'flvjs' === type && <ReactPlayer src={src} render={type} live={true} />}
-        {'rtmp' === type && <GrindPlayer src={src} type="video/rtmp" />}
-        {'rtmphls' === type && <GrindPlayer src={src} type="application/x-mpegURL" />}
+        {'rtmp' === type && (
+          <GrindPlayer src={src} type="video/rtmp" grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
+        )}
+        {'rtmphls' === type && (
+          <GrindPlayer
+            src={src}
+            type="application/x-mpegURL"
+            grindPlayerSwf={grindPlayerSwf}
+            flashlsOSMFSwf={flashlsOSMFSwf}
+          />
+        )}
       </div>
     </div>
   );
