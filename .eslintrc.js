@@ -1,6 +1,6 @@
 module.exports = {
   // parser: 'babel-eslint',
-  extends: ['react-app', 'prettier', 'prettier/react'],
+  extends: ['react-app', 'react-hooks', 'prettier', 'prettier/react'],
   plugins: ['prettier'],
   globals: {
     // 这里填入你的项目需要的全局变量
