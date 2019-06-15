@@ -5,7 +5,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
-基于 react hooks 的 video 播放组件，代码简单，扩展方便。
+基于 react hooks 的 video 播放组件，代码简洁，扩展简单。
 
 ## Getting started
 
