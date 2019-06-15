@@ -19,21 +19,21 @@ yarn start
 ## Usage
 
 ```
-npm install https://github.com/goblin-laboratory/react-player.git --save
+npm install reactjs-player --save
 # or
-yarn add https://github.com/goblin-laboratory/react-player.git
+yarn add reactjs-player
 ```
 
 ```js
 import React, { Component } from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'reactjs-player';
 
 const App = () => {
   return <ReactPlayer src="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8" render="hlsjs" />;
 };
 ```
 
-Demo page: 待补充
+Demo page: [Demo](https://goblin-laboratory.github.io/react-player/)
 
 ## Props
 
