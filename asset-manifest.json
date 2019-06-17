@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/react-player/static/css/main.b89a0c87.chunk.css",
-    "main.js": "/react-player/static/js/main.ecc46f86.chunk.js",
-    "main.js.map": "/react-player/static/js/main.ecc46f86.chunk.js.map",
+    "main.css": "/react-player/static/css/main.931c3e86.chunk.css",
+    "main.js": "/react-player/static/js/main.611a4a5d.chunk.js",
+    "main.js.map": "/react-player/static/js/main.611a4a5d.chunk.js.map",
     "runtime~main.js": "/react-player/static/js/runtime~main.094a6fdb.js",
     "runtime~main.js.map": "/react-player/static/js/runtime~main.094a6fdb.js.map",
     "static/css/2.ab7e5612.chunk.css": "/react-player/static/css/2.ab7e5612.chunk.css",
-    "static/js/2.42467a98.chunk.js": "/react-player/static/js/2.42467a98.chunk.js",
-    "static/js/2.42467a98.chunk.js.map": "/react-player/static/js/2.42467a98.chunk.js.map",
+    "static/js/2.a7f96d10.chunk.js": "/react-player/static/js/2.a7f96d10.chunk.js",
+    "static/js/2.a7f96d10.chunk.js.map": "/react-player/static/js/2.a7f96d10.chunk.js.map",
     "index.html": "/react-player/index.html",
-    "precache-manifest.14aff8d7cfb5124f730b3e28c1eb0c28.js": "/react-player/precache-manifest.14aff8d7cfb5124f730b3e28c1eb0c28.js",
+    "precache-manifest.de25b49660a157a9c8a34066d68bc426.js": "/react-player/precache-manifest.de25b49660a157a9c8a34066d68bc426.js",
     "service-worker.js": "/react-player/service-worker.js",
     "static/css/2.ab7e5612.chunk.css.map": "/react-player/static/css/2.ab7e5612.chunk.css.map",
-    "static/css/main.b89a0c87.chunk.css.map": "/react-player/static/css/main.b89a0c87.chunk.css.map",
+    "static/css/main.931c3e86.chunk.css.map": "/react-player/static/css/main.931c3e86.chunk.css.map",
     "static/media/GrindPlayer.swf": "/react-player/static/media/GrindPlayer.4a087377.swf",
     "static/media/flashlsOSMF.swf": "/react-player/static/media/flashlsOSMF.f801e174.swf"
   }
