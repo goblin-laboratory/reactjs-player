@@ -1,7 +1,6 @@
+import ReactPlayer from './components/ReactPlayer';
+import GrindPlayer from './components/GrindPlayer';
 
-import ReactPlayer from './components/ReactPlayer'
-import GrindPlayer from './components/GrindPlayer'
+ReactPlayer.GrindPlayer = GrindPlayer;
 
-ReactPlayer.GrindPlayer = GrindPlayer
-
-export default ReactPlayer
+export default ReactPlayer;

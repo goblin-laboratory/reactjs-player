@@ -11,9 +11,11 @@
     "react-dom": "^16.8.6",
     "react-player": "link:..",
     "react-scripts": "3.0.1",
-    "react-swf": "^1.0.7"
+    "react-swf": "^1.0.7",
+    "ua-parser-js": "^0.7.20"
   },
   "scripts": {
+    "lint": "eslint --ext .js src",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
