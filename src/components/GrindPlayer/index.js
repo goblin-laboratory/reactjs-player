@@ -5,24 +5,23 @@ import './GrindPlayer.swf';
 import './flashlsOSMF.swf';
 import styles from './index.module.less';
 
-const GrindPlayer = props => {
-  if (!props.src) {
+const GrindPlayer = ({ live, src, type, grindPlayerSwf, flashlsOSMFSwf }) => {
+  if (!src) {
     return <div className={styles.grindPlayer} />;
   }
   const flashVars = {
-    src: props.src,
+    src: src,
     autoPlay: true,
     bufferTime: 0.5,
-    streamType: 'live',
+    streamType: live ? 'live' : 'recorded',
   };
-  if ('application/x-mpegURL' === props.type) {
-    flashVars.plugin_hls = props.flashlsOSMFSwf;
-    flashVars.streamType = 'recorded';
+  if ('application/x-mpegURL' === type) {
+    flashVars.plugin_hls = flashlsOSMFSwf;
   }
   return (
     <div className={styles.grindPlayer}>
       <ReactSWF
-        src={props.grindPlayerSwf}
+        src={grindPlayerSwf}
         width="100%"
         height="100%"
         wmode="opaque"
@@ -36,10 +35,17 @@ const GrindPlayer = props => {
 };
 
 GrindPlayer.propTypes = {
+  live: PropTypes.bool,
   src: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  grindPlayerSwf: PropTypes.string.isRequired,
-  flashlsOSMFSwf: PropTypes.string.isRequired,
+  grindPlayerSwf: PropTypes.string,
+  flashlsOSMFSwf: PropTypes.string,
+};
+
+GrindPlayer.defaultProp = {
+  live: true,
+  grindPlayerSwf: 'http://unpkg.com/reactjs-player/dist/GrindPlayer.swf',
+  flashlsOSMFSwf: 'http://unpkg.com/reactjs-player/dist/flashlsOSMF.swf',
 };
 
 export default GrindPlayer;
