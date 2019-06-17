@@ -7,9 +7,7 @@ import useVideo from '../../hooks/useVideo';
 import useHlsjs from '../../hooks/useHlsjs';
 import useFlvjs from '../../hooks/useFlvjs';
 import useNative from '../../hooks/useNative';
-
-// const useHlsjs = React.lazy(() => import('../../hooks/useHlsjs'));
-// const useFlvjs = React.lazy(() => import('../../hooks/useFlvjs'));
+import useVideoFullscreen from '../../hooks/useVideoFullscreen';
 
 const noop = () => {};
 
@@ -35,12 +33,36 @@ const ReactPlayer = props => {
 
   const { muted, mediaEvents, ...videoProps } = useVideo(props, getVideoElement, getPlayerElement);
   const playerMsg = getRenderHooks(props.render)(props, getVideoElement);
+  const fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
 
+  const videoStyles = {};
+  if (fullscreenProps.x5videofullscreen) {
+    videoStyles.objectPosition = fullscreenProps.fullscreen ? 'center center' : props.objectPosition;
+  }
   return (
     <div className={styles.reactPlayer} ref={playerRef}>
-      <video className={styles.video} ref={videoRef} muted={muted} loop={props.loop} {...mediaEvents} />
+      <video
+        className={styles.video}
+        ref={videoRef}
+        muted={muted}
+        loop={props.loop}
+        {...mediaEvents}
+        webkit-playsinline="true"
+        playsInline={true}
+        x5-video-player-type="h5"
+        x5-video-player-fullscreen="true"
+        x5-video-orientation="landscape|portrait"
+        style={videoStyles}
+      />
       <div className={props.src ? styles.hiddenVideoMask : styles.videoMask} />
-      <ReactPlayerSkin src={props.src} controls={props.controls} muted={muted} {...videoProps} playerMsg={playerMsg} />
+      <ReactPlayerSkin
+        src={props.src}
+        controls={props.controls}
+        muted={muted}
+        {...videoProps}
+        {...fullscreenProps}
+        playerMsg={playerMsg}
+      />
     </div>
   );
 };
@@ -48,6 +70,7 @@ const ReactPlayer = props => {
 ReactPlayer.propTypes = {
   render: PropTypes.string,
   live: PropTypes.bool,
+  x5playsinline: PropTypes.bool,
   src: PropTypes.string,
   type: PropTypes.string,
   config: PropTypes.object,
@@ -80,11 +103,14 @@ ReactPlayer.propTypes = {
   onVolumeChange: PropTypes.func,
   onWaiting: PropTypes.func,
   onAbort: PropTypes.func,
+  objectPosition: PropTypes.string,
+  onX5VideoFullscreenChange: PropTypes.func,
 };
 
 ReactPlayer.defaultProps = {
   render: 'hlsjs',
   live: false,
+  x5playsinline: false,
   src: '',
   type: 'application/x-mpegURL',
   config: { debug: false, enableWorker: false },
@@ -117,6 +143,8 @@ ReactPlayer.defaultProps = {
   onVolumeChange: noop,
   onWaiting: noop,
   onAbort: noop,
+  onX5VideoFullscreenChange: noop,
+  objectPosition: 'center center',
 };
 
 export default ReactPlayer;

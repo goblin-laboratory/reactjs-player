@@ -354,8 +354,8 @@ Slider.defaultProps = {
   setSliding: function setSliding() {}
 };
 
-var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n";
-var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","playerMsg":"index-module_playerMsg__3JOcN","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV"};
+var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
+var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","playerMsg":"index-module_playerMsg__3JOcN","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
 styleInject(css$1);
 
 function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
@@ -415,7 +415,7 @@ var ReactPlayerSkin = React.memo(function (_ref) {
       muted = _ref.muted,
       volume = _ref.volume,
       playbackRate = _ref.playbackRate,
-      fullScreen = _ref.fullScreen,
+      fullscreen = _ref.fullscreen,
       changeCurrentTime = _ref.changeCurrentTime,
       onPauseClick = _ref.onPauseClick,
       onPlayClick = _ref.onPlayClick,
@@ -423,6 +423,7 @@ var ReactPlayerSkin = React.memo(function (_ref) {
       changeVolume = _ref.changeVolume,
       onPiPClick = _ref.onPiPClick,
       requestFullscreen = _ref.requestFullscreen,
+      exitFullscreen = _ref.exitFullscreen,
       changePlaybackRate = _ref.changePlaybackRate,
       playerMsg = _ref.playerMsg;
 
@@ -532,7 +533,9 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     onClick: onPauseClick
   }, React.createElement(Icon, {
     type: "pause"
-  })), (muted || 0 === volume) && React.createElement("button", {
+  })), React.createElement("span", {
+    className: styles$1.volume
+  }, (muted || 0 === volume) && React.createElement("button", {
     type: "button",
     onClick: onMutedClick
   }, React.createElement(Icon, {
@@ -552,7 +555,7 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     tipFormatter: function tipFormatter(v) {
       return v * 100;
     }
-  })), React.createElement("span", {
+  }))), React.createElement("span", {
     className: styles$1.controlText
   }, numeral(currentTime).format('00:00:00'), 0 <= duration ? " / ".concat(numeral(duration).format('00:00:00')) : ''), 0 > duration && React.createElement("span", {
     className: styles$1.controlText
@@ -590,14 +593,12 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     onClick: function onClick() {
       return setVisible(true);
     }
-  }, "\u500D\u901F")), fullScreen && React.createElement("button", {
+  }, "\u500D\u901F")), fullscreen && React.createElement("button", {
     type: "button",
-    onClick: function onClick() {
-      return document.exitFullscreen();
-    }
+    onClick: exitFullscreen
   }, React.createElement(Icon, {
     type: "fullscreen-exit"
-  })), !fullScreen && React.createElement("button", {
+  })), !fullscreen && React.createElement("button", {
     type: "button",
     onClick: requestFullscreen
   }, React.createElement(Icon, {
@@ -625,13 +626,14 @@ ReactPlayerSkin.propTypes = {
   volume: PropTypes.number.isRequired,
   playbackRate: PropTypes.number.isRequired,
   changePlaybackRate: PropTypes.func,
-  fullScreen: PropTypes.bool.isRequired,
+  fullscreen: PropTypes.bool.isRequired,
   onPlayClick: PropTypes.func,
   onPauseClick: PropTypes.func,
   onMutedClick: PropTypes.func,
   changeVolume: PropTypes.func,
   onPiPClick: PropTypes.func,
   requestFullscreen: PropTypes.func,
+  exitFullscreen: PropTypes.func,
   playerMsg: PropTypes.object
 };
 ReactPlayerSkin.defaultProps = {
@@ -642,6 +644,7 @@ ReactPlayerSkin.defaultProps = {
   changeVolume: function changeVolume() {},
   onPiPClick: function onPiPClick() {},
   requestFullscreen: function requestFullscreen() {},
+  exitFullscreen: function exitFullscreen() {},
   changePlaybackRate: function changePlaybackRate() {},
   playerMsg: null
 };
@@ -727,11 +730,6 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
       _React$useState22 = _slicedToArray(_React$useState21, 2),
       playbackRate = _React$useState22[0],
       setPlaybackRate = _React$useState22[1];
-
-  var _React$useState23 = React.useState(false),
-      _React$useState24 = _slicedToArray(_React$useState23, 2),
-      fullScreen = _React$useState24[0],
-      setFullScreen = _React$useState24[1];
 
   React.useEffect(function () {
     if (!src) {
@@ -890,20 +888,6 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
       el.requestPictureInPicture();
     }
   }, [getVideoElement]);
-  var requestFullscreen = React.useCallback(function (v) {
-    var el = getPlayerElement();
-
-    if (el) {
-      el.requestFullscreen();
-    }
-  }, [getPlayerElement]);
-  var onFullscreenChange = React.useCallback(function (v) {
-    var el = getPlayerElement();
-
-    if (el) {
-      setFullScreen(document.fullscreenElement === el);
-    }
-  }, [getPlayerElement]);
   var changePlaybackRate = React.useCallback(function (r) {
     var el = getVideoElement();
 
@@ -911,12 +895,6 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
       el.playbackRate = r;
     }
   }, [getVideoElement]);
-  React.useEffect(function () {
-    document.addEventListener('fullscreenchange', onFullscreenChange);
-    return function () {
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
-    };
-  }, [onFullscreenChange]);
   return {
     loading: loading,
     paused: paused,
@@ -929,7 +907,6 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
     muted: muted,
     volume: volume,
     playbackRate: playbackRate,
-    fullScreen: fullScreen,
     mediaEvents: {
       onCanPlay: onVideoCanPlay,
       onDurationChange: onVideoDurationChange,
@@ -961,7 +938,6 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
     onMutedClick: onMutedClick,
     changeVolume: changeVolume,
     onPiPClick: onPiPClick,
-    requestFullscreen: requestFullscreen,
     changePlaybackRate: changePlaybackRate
   };
 });
@@ -1215,7 +1191,124 @@ var useNative = (function (_ref, getVideoElement) {
   return null;
 });
 
-// const useFlvjs = React.lazy(() => import('../../hooks/useFlvjs'));
+var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
+  var x5playsinline = _ref.x5playsinline,
+      onX5VideoFullscreenChange = _ref.onX5VideoFullscreenChange;
+
+  var _React$useState = React.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      fullscreen = _React$useState2[0],
+      setFullscreen = _React$useState2[1];
+
+  var _React$useState3 = React.useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      x5videofullscreen = _React$useState4[0],
+      setX5videofullscreen = _React$useState4[1];
+
+  var requestFullscreen = React.useCallback(function (v) {
+    var el = getPlayerElement();
+
+    if (el && el.requestFullscreen) {
+      el.requestFullscreen();
+      return;
+    } else if (x5playsinline) {
+      if (x5videofullscreen) {
+        setFullscreen(true);
+        return;
+      }
+
+      var videoEl = getVideoElement();
+
+      if (videoEl && videoEl.play) {
+        videoEl.play();
+      } else {
+        console.error('全屏失败');
+      }
+    } else {
+      console.error('全屏失败');
+    }
+  }, [getVideoElement, getPlayerElement, x5playsinline, x5videofullscreen]);
+  var exitFullscreen = React.useCallback(function (v) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (x5playsinline) {
+      setFullscreen(false);
+    } else {
+      setFullscreen(false);
+    }
+  }, [x5playsinline]);
+  var onFullscreenChange = React.useCallback(function (v) {
+    var el = getPlayerElement();
+    setFullscreen(!!el && document.fullscreenElement === el);
+  }, [getPlayerElement]);
+  React.useEffect(function () {
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return function () {
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
+    };
+  }, [onFullscreenChange]);
+  var onResize = React.useCallback(function () {
+    var el = getVideoElement();
+
+    if (el) {
+      el.style.width = "".concat(global.innerWidth, "px");
+      el.style.height = "".concat(global.innerHeight, "px");
+    }
+  }, [getVideoElement]);
+  React.useEffect(function () {
+    if (!x5playsinline) {
+      return function () {};
+    }
+
+    global.addEventListener('resize', onResize);
+    return function () {
+      global.removeEventListener('resize', onResize);
+    };
+  }, [x5playsinline, onResize]);
+  var onx5videoenterfullscreen = React.useCallback(function () {
+    // alert('onx5videoenterfullscreen');
+    setX5videofullscreen(true);
+  }, []);
+  var onx5videoexitfullscreen = React.useCallback(function () {
+    // alert('onx5videoexitfullscreen');
+    setX5videofullscreen(false);
+  }, []);
+  React.useEffect(function () {
+    if (!x5playsinline) {
+      return function () {};
+    }
+
+    var el = getVideoElement();
+
+    if (!el) {
+      return function () {};
+    }
+
+    el.addEventListener('x5videoenterfullscreen', onx5videoenterfullscreen);
+    el.addEventListener('x5videoexitfullscreen', onx5videoexitfullscreen);
+    return function () {
+      el.removeEventListener('x5videoenterfullscreen', onx5videoenterfullscreen);
+      el.removeEventListener('x5videoexitfullscreen', onx5videoexitfullscreen);
+    };
+  }, [x5playsinline, getVideoElement, onx5videoenterfullscreen, onx5videoexitfullscreen]);
+  React.useEffect(function () {
+    if (!x5playsinline) {
+      return function () {};
+    }
+
+    onX5VideoFullscreenChange({
+      x5videofullscreen: x5videofullscreen,
+      fullscreen: fullscreen
+    });
+    return function () {};
+  }, [x5playsinline, x5videofullscreen, fullscreen, onX5VideoFullscreenChange]);
+  return {
+    fullscreen: fullscreen,
+    x5videofullscreen: x5videofullscreen,
+    requestFullscreen: requestFullscreen,
+    exitFullscreen: exitFullscreen
+  };
+});
 
 var noop$1 = function noop() {};
 
@@ -1245,12 +1338,19 @@ var ReactPlayer = function ReactPlayer(props) {
     return playerRef && playerRef.current;
   }, []);
 
-  var _useVideo = useVideo(props, getVideoElement, getPlayerElement),
+  var _useVideo = useVideo(props, getVideoElement),
       muted = _useVideo.muted,
       mediaEvents = _useVideo.mediaEvents,
       videoProps = _objectWithoutProperties(_useVideo, ["muted", "mediaEvents"]);
 
   var playerMsg = getRenderHooks(props.render)(props, getVideoElement);
+  var fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
+  var videoStyles = {};
+
+  if (fullscreenProps.x5videofullscreen) {
+    videoStyles.objectPosition = fullscreenProps.fullscreen ? 'center center' : props.objectPosition;
+  }
+
   return React.createElement("div", {
     className: styles$2.reactPlayer,
     ref: playerRef
@@ -1259,13 +1359,20 @@ var ReactPlayer = function ReactPlayer(props) {
     ref: videoRef,
     muted: muted,
     loop: props.loop
-  }, mediaEvents)), React.createElement("div", {
+  }, mediaEvents, {
+    "webkit-playsinline": "true",
+    playsInline: true,
+    "x5-video-player-type": "h5",
+    "x5-video-player-fullscreen": "true",
+    "x5-video-orientation": "landscape|portrait",
+    style: videoStyles
+  })), React.createElement("div", {
     className: props.src ? styles$2.hiddenVideoMask : styles$2.videoMask
   }), React.createElement(ReactPlayerSkin, _extends({
     src: props.src,
     controls: props.controls,
     muted: muted
-  }, videoProps, {
+  }, videoProps, fullscreenProps, {
     playerMsg: playerMsg
   })));
 };
@@ -1273,6 +1380,7 @@ var ReactPlayer = function ReactPlayer(props) {
 ReactPlayer.propTypes = {
   render: PropTypes.string,
   live: PropTypes.bool,
+  x5playsinline: PropTypes.bool,
   src: PropTypes.string,
   type: PropTypes.string,
   config: PropTypes.object,
@@ -1304,11 +1412,14 @@ ReactPlayer.propTypes = {
   onSuspend: PropTypes.func,
   onVolumeChange: PropTypes.func,
   onWaiting: PropTypes.func,
-  onAbort: PropTypes.func
+  onAbort: PropTypes.func,
+  objectPosition: PropTypes.string,
+  onX5VideoFullscreenChange: PropTypes.func
 };
 ReactPlayer.defaultProps = {
   render: 'hlsjs',
   live: false,
+  x5playsinline: false,
   src: '',
   type: 'application/x-mpegURL',
   config: {
@@ -1343,36 +1454,43 @@ ReactPlayer.defaultProps = {
   onSuspend: noop$1,
   onVolumeChange: noop$1,
   onWaiting: noop$1,
-  onAbort: noop$1
+  onAbort: noop$1,
+  onX5VideoFullscreenChange: noop$1,
+  objectPosition: 'center center'
 };
 
 var css$3 = ".index-module_grindPlayer__1UOcH {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  min-width: 400px;\n  min-height: 300px;\n  overflow: hidden;\n  background: #000;\n}\n";
 var styles$3 = {"grindPlayer":"index-module_grindPlayer__1UOcH"};
 styleInject(css$3);
 
-var GrindPlayer = function GrindPlayer(props) {
-  if (!props.src) {
+var GrindPlayer = function GrindPlayer(_ref) {
+  var live = _ref.live,
+      src = _ref.src,
+      type = _ref.type,
+      grindPlayerSwf = _ref.grindPlayerSwf,
+      flashlsOSMFSwf = _ref.flashlsOSMFSwf;
+
+  if (!src) {
     return React.createElement("div", {
       className: styles$3.grindPlayer
     });
   }
 
   var flashVars = {
-    src: props.src,
+    src: src,
     autoPlay: true,
     bufferTime: 0.5,
-    streamType: 'live'
+    streamType: live ? 'live' : 'recorded'
   };
 
-  if ('application/x-mpegURL' === props.type) {
-    flashVars.plugin_hls = props.flashlsOSMFSwf;
-    flashVars.streamType = 'recorded';
+  if ('application/x-mpegURL' === type) {
+    flashVars.plugin_hls = flashlsOSMFSwf;
   }
 
   return React.createElement("div", {
     className: styles$3.grindPlayer
   }, React.createElement(ReactSWF, {
-    src: props.grindPlayerSwf,
+    src: grindPlayerSwf,
     width: "100%",
     height: "100%",
     wmode: "opaque",
@@ -1384,10 +1502,16 @@ var GrindPlayer = function GrindPlayer(props) {
 };
 
 GrindPlayer.propTypes = {
+  live: PropTypes.bool,
   src: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  grindPlayerSwf: PropTypes.string.isRequired,
-  flashlsOSMFSwf: PropTypes.string.isRequired
+  grindPlayerSwf: PropTypes.string,
+  flashlsOSMFSwf: PropTypes.string
+};
+GrindPlayer.defaultProp = {
+  live: true,
+  grindPlayerSwf: 'http://unpkg.com/reactjs-player/dist/GrindPlayer.swf',
+  flashlsOSMFSwf: 'http://unpkg.com/reactjs-player/dist/flashlsOSMF.swf'
 };
 
 ReactPlayer.GrindPlayer = GrindPlayer;

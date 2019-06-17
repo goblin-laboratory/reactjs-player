@@ -22,7 +22,7 @@ const ReactPlayerSkin = React.memo(
     muted,
     volume,
     playbackRate,
-    fullScreen,
+    fullscreen,
 
     changeCurrentTime,
     onPauseClick,
@@ -31,6 +31,7 @@ const ReactPlayerSkin = React.memo(
     changeVolume,
     onPiPClick,
     requestFullscreen,
+    exitFullscreen,
     changePlaybackRate,
 
     playerMsg,
@@ -114,18 +115,20 @@ const ReactPlayerSkin = React.memo(
                   <Icon type="pause" />
                 </button>
               )}
-              {(muted || 0 === volume) && (
-                <button type="button" onClick={onMutedClick}>
-                  <Icon component={MutedSvg} />
-                </button>
-              )}
-              {!muted && 0 !== volume && (
-                <button type="button" onClick={onMutedClick}>
-                  <Icon component={UnmutedSvg} />
-                </button>
-              )}
-              <span className={styles.volumeSlider}>
-                <Slider value={volume} onChange={changeVolume} max={1} step={0.1} tipFormatter={v => v * 100} />
+              <span className={styles.volume}>
+                {(muted || 0 === volume) && (
+                  <button type="button" onClick={onMutedClick}>
+                    <Icon component={MutedSvg} />
+                  </button>
+                )}
+                {!muted && 0 !== volume && (
+                  <button type="button" onClick={onMutedClick}>
+                    <Icon component={UnmutedSvg} />
+                  </button>
+                )}
+                <span className={styles.volumeSlider}>
+                  <Slider value={volume} onChange={changeVolume} max={1} step={0.1} tipFormatter={v => v * 100} />
+                </span>
               </span>
               <span className={styles.controlText}>
                 {numeral(currentTime).format('00:00:00')}
@@ -165,12 +168,12 @@ const ReactPlayerSkin = React.memo(
                 </button>
               </Dropdown>
             )}
-            {fullScreen && (
-              <button type="button" onClick={() => document.exitFullscreen()}>
+            {fullscreen && (
+              <button type="button" onClick={exitFullscreen}>
                 <Icon type="fullscreen-exit" />
               </button>
             )}
-            {!fullScreen && (
+            {!fullscreen && (
               <button type="button" onClick={requestFullscreen}>
                 <Icon type="fullscreen" />
               </button>
@@ -207,13 +210,14 @@ ReactPlayerSkin.propTypes = {
   volume: PropTypes.number.isRequired,
   playbackRate: PropTypes.number.isRequired,
   changePlaybackRate: PropTypes.func,
-  fullScreen: PropTypes.bool.isRequired,
+  fullscreen: PropTypes.bool.isRequired,
   onPlayClick: PropTypes.func,
   onPauseClick: PropTypes.func,
   onMutedClick: PropTypes.func,
   changeVolume: PropTypes.func,
   onPiPClick: PropTypes.func,
   requestFullscreen: PropTypes.func,
+  exitFullscreen: PropTypes.func,
   playerMsg: PropTypes.object,
 };
 
@@ -225,6 +229,7 @@ ReactPlayerSkin.defaultProps = {
   changeVolume: () => {},
   onPiPClick: () => {},
   requestFullscreen: () => {},
+  exitFullscreen: () => {},
   changePlaybackRate: () => {},
   playerMsg: null,
 };

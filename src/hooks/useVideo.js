@@ -36,7 +36,6 @@ export default (props, getVideoElement, getPlayerElement) => {
   const [muted, setMuted] = React.useState(props.muted);
   const [volume, setVolume] = React.useState(volumeProp);
   const [playbackRate, setPlaybackRate] = React.useState(1);
-  const [fullScreen, setFullScreen] = React.useState(false);
 
   React.useEffect(() => {
     if (!src) {
@@ -266,26 +265,6 @@ export default (props, getVideoElement, getPlayerElement) => {
     [getVideoElement],
   );
 
-  const requestFullscreen = React.useCallback(
-    v => {
-      const el = getPlayerElement();
-      if (el) {
-        el.requestFullscreen();
-      }
-    },
-    [getPlayerElement],
-  );
-
-  const onFullscreenChange = React.useCallback(
-    v => {
-      const el = getPlayerElement();
-      if (el) {
-        setFullScreen(document.fullscreenElement === el);
-      }
-    },
-    [getPlayerElement],
-  );
-
   const changePlaybackRate = React.useCallback(
     r => {
       const el = getVideoElement();
@@ -295,13 +274,6 @@ export default (props, getVideoElement, getPlayerElement) => {
     },
     [getVideoElement],
   );
-
-  React.useEffect(() => {
-    document.addEventListener('fullscreenchange', onFullscreenChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
-    };
-  }, [onFullscreenChange]);
 
   return {
     loading,
@@ -315,7 +287,6 @@ export default (props, getVideoElement, getPlayerElement) => {
     muted,
     volume,
     playbackRate,
-    fullScreen,
     mediaEvents: {
       onCanPlay: onVideoCanPlay,
       onDurationChange: onVideoDurationChange,
@@ -347,7 +318,6 @@ export default (props, getVideoElement, getPlayerElement) => {
     onMutedClick,
     changeVolume,
     onPiPClick,
-    requestFullscreen,
     changePlaybackRate,
   };
 };

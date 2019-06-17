@@ -9,9 +9,16 @@
 }
 
 .selector {
-  min-height: 50px;
+  min-height: 92px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.form {
+  width: 100%;
   padding: 1em;
 }
+
 .protocolSelector {
   min-width: 200px;
 }
@@ -20,4 +27,23 @@
   flex: 1;
   position: relative;
   width: 100%;
+}
+
+.x5videofullscreen .selector {
+  position: relative;
+  z-index: 1;
+}
+
+.x5videofullscreen .form {
+  position: absolute;
+}
+
+.fullscreen .selector {
+  display: none;
+}
+
+/* TODO: 同层播放时 player position 设置为 relative form 不会显示  */
+.x5videofullscreen .player {
+  position: static;
+  /* z-index: -1; */
 }
