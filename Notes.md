@@ -5,6 +5,7 @@
 2. mediaelement
 3. aliplayer
 4. chimee: https://github.com/Chimeejs/chimee
+5. TCPlayerLite : https://cloud.tencent.com/document/product/454/7503
 
 ## 参考资料
 
