@@ -11,8 +11,8 @@ import useVideoFullscreen from '../../hooks/useVideoFullscreen';
 
 const noop = () => {};
 
-const getRenderHooks = render => {
-  switch (render) {
+const getRenderHooks = kernel => {
+  switch (kernel) {
     case 'native':
       return useNative;
     case 'hlsjs':
@@ -32,7 +32,7 @@ const ReactPlayer = props => {
   const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
 
   const { muted, mediaEvents, ...videoProps } = useVideo(props, getVideoElement, getPlayerElement);
-  const playerMsg = getRenderHooks(props.render)(props, getVideoElement);
+  const playerMsg = getRenderHooks(props.kernel)(props, getVideoElement);
   const fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
 
   const videoStyles = {};
@@ -47,8 +47,9 @@ const ReactPlayer = props => {
         muted={muted}
         loop={props.loop}
         {...mediaEvents}
-        webkit-playsinline="true"
+        webkit-playsinline={true}
         playsInline={true}
+        x5-playsinline={true}
         x5-video-player-type="h5"
         x5-video-player-fullscreen="true"
         x5-video-orientation="landscape|portrait"
@@ -68,7 +69,7 @@ const ReactPlayer = props => {
 };
 
 ReactPlayer.propTypes = {
-  render: PropTypes.string,
+  kernel: PropTypes.string,
   live: PropTypes.bool,
   x5playsinline: PropTypes.bool,
   src: PropTypes.string,
@@ -108,7 +109,7 @@ ReactPlayer.propTypes = {
 };
 
 ReactPlayer.defaultProps = {
-  render: 'hlsjs',
+  kernel: 'hlsjs',
   live: false,
   x5playsinline: false,
   src: '',
