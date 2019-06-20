@@ -14,37 +14,37 @@ const getSupportedList = ua => {
   if (ua.device.type) {
     // 非 PC 浏览器
     return [
-      { key: 'native', render: 'native', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' },
-      { key: 'nativelive', render: 'native', live: true, src: 'https://tvimg.uwp.ac.cn/cctv5hd.m3u8' },
+      { key: 'native', kernel: 'native', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' },
+      { key: 'nativelive', kernel: 'native', live: true, src: 'https://tvimg.uwp.ac.cn/cctv5hd.m3u8' },
     ];
   }
   const list = [];
   if (Hls.isSupported()) {
-    list.push({ key: 'hlsjs', render: 'hlsjs', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' });
+    list.push({ key: 'hlsjs', kernel: 'hlsjs', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' });
   }
   if (flvjs.isSupported()) {
     const featureList = flvjs.getFeatureList();
     if (featureList.networkStreamIO) {
-      list.push({ key: 'flvjs', render: 'flvjs', src: 'http://fms.cntv.lxdns.com/live/flv/channel89.flv' });
+      list.push({ key: 'flvjs', kernel: 'flvjs', src: 'http://fms.cntv.lxdns.com/live/flv/channel89.flv' });
     }
   }
   // mac OS 没有测试环境，暂且认为没有问题
   if ('Mac OS' === ua.os.name) {
     list.push(
-      { key: 'native', render: 'native', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' },
+      { key: 'native', kernel: 'native', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' },
       {
         key: 'nativelive',
-        render: 'native',
+        kernel: 'native',
         live: true,
         src: 'http://bcliveuniv-lh.akamaihd.net/i/iptv1_1@194050/master.m3u8',
       },
     );
   }
   list.push(
-    { key: 'rtmp', render: 'rtmp', live: true, type: 'video/rtmp', src: 'rtmp://livetv.dhtv.cn:1935/live/news' },
+    { key: 'rtmp', kernel: 'rtmp', live: true, type: 'video/rtmp', src: 'rtmp://livetv.dhtv.cn:1935/live/news' },
     {
       key: 'rtmphls',
-      render: 'rtmphls',
+      kernel: 'rtmphls',
       live: false,
       type: 'application/x-mpegURL',
       src: 'http://www.streambox.fr/playlists/x36xhzz/x36xhzz.m3u8',
@@ -122,10 +122,15 @@ function App({ form }) {
           <Row gutter={16}>
             <Col xs={8} lg={4}>
               <Form.Item>
-                <Select onChange={onChange} value={info.render}>
+                <Form.Item>
+                  {form.getFieldDecorator('src', {
+                    initialValue: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+                  })(<Input />)}
+                </Form.Item>
+                <Select onChange={onChange} value={info.kernel}>
                   {list.map(it => (
                     <Select.Option key={it.key} value={it.key}>
-                      {it.render}
+                      {it.kernel}
                     </Select.Option>
                   ))}
                 </Select>
@@ -149,7 +154,7 @@ function App({ form }) {
         </Form>
       </div>
       <div className="player">
-        {'rtmp' !== info.render && 'rtmphls' !== info.render && (
+        {'rtmp' !== info.kernel && 'rtmphls' !== info.kernel && (
           <ReactPlayer
             {...info}
             src={src}
@@ -158,7 +163,7 @@ function App({ form }) {
             objectPosition="center 92px"
           />
         )}
-        {('rtmp' === info.render || 'rtmphls' === info.render) && (
+        {('rtmp' === info.kernel || 'rtmphls' === info.kernel) && (
           <GrindPlayer {...info} src={src} grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
         )}
       </div>

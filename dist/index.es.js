@@ -649,8 +649,8 @@ ReactPlayerSkin.defaultProps = {
   playerMsg: null
 };
 
-var css$2 = ".index-module_reactPlayer__2dzH- {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_video__MtVT_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n}\n";
-var styles$2 = {"reactPlayer":"index-module_reactPlayer__2dzH-","video":"index-module_video__MtVT_"};
+var css$2 = ".index-module_reactPlayer__2dzH- {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_video__MtVT_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n}\n.index-module_videoMask__1SpT_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1YqvS {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n";
+var styles$2 = {"reactPlayer":"index-module_reactPlayer__2dzH-","video":"index-module_video__MtVT_","videoMask":"index-module_videoMask__1SpT_","hiddenVideoMask":"index-module_hiddenVideoMask__1YqvS"};
 styleInject(css$2);
 
 var noop = function noop() {};
@@ -1312,8 +1312,8 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
 
 var noop$1 = function noop() {};
 
-var getRenderHooks = function getRenderHooks(render) {
-  switch (render) {
+var getRenderHooks = function getRenderHooks(kernel) {
+  switch (kernel) {
     case 'native':
       return useNative;
 
@@ -1343,7 +1343,7 @@ var ReactPlayer = function ReactPlayer(props) {
       mediaEvents = _useVideo.mediaEvents,
       videoProps = _objectWithoutProperties(_useVideo, ["muted", "mediaEvents"]);
 
-  var playerMsg = getRenderHooks(props.render)(props, getVideoElement);
+  var playerMsg = getRenderHooks(props.kernel)(props, getVideoElement);
   var fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
   var videoStyles = {};
 
@@ -1360,8 +1360,9 @@ var ReactPlayer = function ReactPlayer(props) {
     muted: muted,
     loop: props.loop
   }, mediaEvents, {
-    "webkit-playsinline": "true",
+    "webkit-playsinline": true,
     playsInline: true,
+    "x5-playsinline": true,
     "x5-video-player-type": "h5",
     "x5-video-player-fullscreen": "true",
     "x5-video-orientation": "landscape|portrait",
@@ -1378,7 +1379,7 @@ var ReactPlayer = function ReactPlayer(props) {
 };
 
 ReactPlayer.propTypes = {
-  render: PropTypes.string,
+  kernel: PropTypes.string,
   live: PropTypes.bool,
   x5playsinline: PropTypes.bool,
   src: PropTypes.string,
@@ -1417,7 +1418,7 @@ ReactPlayer.propTypes = {
   onX5VideoFullscreenChange: PropTypes.func
 };
 ReactPlayer.defaultProps = {
-  render: 'hlsjs',
+  kernel: 'hlsjs',
   live: false,
   x5playsinline: false,
   src: '',
