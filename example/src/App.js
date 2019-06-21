@@ -122,11 +122,11 @@ function App({ form }) {
           <Row gutter={16}>
             <Col xs={8} lg={4}>
               <Form.Item>
-                <Form.Item>
+                {/* <Form.Item>
                   {form.getFieldDecorator('src', {
                     initialValue: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
                   })(<Input />)}
-                </Form.Item>
+                </Form.Item> */}
                 <Select onChange={onChange} value={info.kernel}>
                   {list.map(it => (
                     <Select.Option key={it.key} value={it.key}>
