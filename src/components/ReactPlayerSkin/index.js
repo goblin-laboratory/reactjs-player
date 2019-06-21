@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Icon, Slider, Dropdown, Menu } from 'antd';
+import ReactPlayerContext from '../ReactPlayerContext';
 import CurrentTimeSlider from './CurrentTimeSlider';
 import styles from './index.module.less';
 
@@ -10,7 +11,7 @@ import { ReactComponent as UnmutedSvg } from './unmuted.svg';
 
 const ReactPlayerSkin = React.memo(
   ({
-    controls,
+    src,
     loading,
     paused,
     waiting,
@@ -70,12 +71,9 @@ const ReactPlayerSkin = React.memo(
       [changePlaybackRate],
     );
 
-    if (!controls) {
-      return <div className={styles.reactPlayerSkin} />;
-    }
-
     return (
       <div className={styles.reactPlayerSkin} onMouseMove={() => setHiding(false)}>
+        <div className={src ? styles.hiddenVideoMask : styles.videoMask} />
         {(waiting || seeking) && !loading && (
           <div className={styles.waiting}>
             <Icon type="loading" />

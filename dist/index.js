@@ -136,6 +136,8 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
+var ReactPlayerContext = React.createContext([{}, function () {}]);
+
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -358,8 +360,8 @@ Slider.defaultProps = {
   setSliding: function setSliding() {}
 };
 
-var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
-var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","playerMsg":"index-module_playerMsg__3JOcN","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
+var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
+var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","playerMsg":"index-module_playerMsg__3JOcN","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
 styleInject(css$1);
 
 function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
@@ -407,7 +409,7 @@ var SvgUnmuted = function SvgUnmuted(props) {
 };
 
 var ReactPlayerSkin = React.memo(function (_ref) {
-  var controls = _ref.controls,
+  var src = _ref.src,
       loading = _ref.loading,
       paused = _ref.paused,
       waiting = _ref.waiting,
@@ -483,19 +485,14 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     changePlaybackRate(parseFloat(e.key, 10));
     setVisible(false);
   }, [changePlaybackRate]);
-
-  if (!controls) {
-    return React.createElement("div", {
-      className: styles$1.reactPlayerSkin
-    });
-  }
-
   return React.createElement("div", {
     className: styles$1.reactPlayerSkin,
     onMouseMove: function onMouseMove() {
       return setHiding(false);
     }
-  }, (waiting || seeking) && !loading && React.createElement("div", {
+  }, React.createElement("div", {
+    className: src ? styles$1.hiddenVideoMask : styles$1.videoMask
+  }), (waiting || seeking) && !loading && React.createElement("div", {
     className: styles$1.waiting
   }, React.createElement(antd.Icon, {
     type: "loading"
@@ -653,8 +650,13 @@ ReactPlayerSkin.defaultProps = {
   playerMsg: null
 };
 
-var css$2 = ".index-module_reactPlayer__2dzH- {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_video__MtVT_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n}\n.index-module_videoMask__1SpT_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1YqvS {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n";
-var styles$2 = {"reactPlayer":"index-module_reactPlayer__2dzH-","video":"index-module_video__MtVT_","videoMask":"index-module_videoMask__1SpT_","hiddenVideoMask":"index-module_hiddenVideoMask__1YqvS"};
+var ReactPlayerSkinWapper = function ReactPlayerSkinWapper() {
+  var props = React.useContext(ReactPlayerContext);
+  return React.createElement(ReactPlayerSkin, props);
+};
+
+var css$2 = ".index-module_reactPlayer__2dzH- {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_video__MtVT_ {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n}\n";
+var styles$2 = {"reactPlayer":"index-module_reactPlayer__2dzH-","video":"index-module_video__MtVT_"};
 styleInject(css$2);
 
 var noop = function noop() {};
@@ -1024,39 +1026,6 @@ var useHlsjs = (function (_ref, getVideoElement) {
   return playerMsg;
 });
 
-//   switch (type) {
-//     case flvjs.Events.ErrorTypes:
-//       return '网络错误';
-//     case flvjs.Events.MEDIA_ERROR:
-//       return '媒体错误';
-//     default:
-//       return '未知错误';
-//   }
-// };
-// const parseErrorDetail = detail => {
-//   switch (detail) {
-//     case flvjs.ErrorDetails.NETWORK_EXCEPTION:
-//       return '异常';
-//     case flvjs.ErrorDetails.NETWORK_STATUS_CODE_INVALID:
-//       return 'NETWORK_STATUS_CODE_INVALID';
-//     case flvjs.ErrorDetails.NETWORK_TIMEOUT:
-//       return '超时';
-//     case flvjs.ErrorDetails.NETWORK_UNRECOVERABLE_EARLY_EOF:
-//       return 'NETWORK_UNRECOVERABLE_EARLY_EOF';
-//     case flvjs.ErrorDetails.MEDIA_MSE_ERROR:
-//       return '解码异常';
-//     case flvjs.ErrorDetails.MEDIA_FORMAT_ERROR:
-//       return '媒体流参数异常';
-//     case flvjs.ErrorDetails.MEDIA_FORMAT_UNSUPPORTED:
-//       return '编码格式不支持';
-//     case flvjs.ErrorDetails.MEDIA_CODEC_UNSUPPORTED:
-//       return '音频或视频编码格式不支持';
-//     default:
-//       return '网络异常';
-//   }
-// };
-// const noop = () => {};
-
 var useFlvjs = (function (_ref, getVideoElement) {
   var src = _ref.src,
       config = _ref.config;
@@ -1362,34 +1331,33 @@ var ReactPlayer = function ReactPlayer(props) {
     className: styles$2.video,
     ref: videoRef,
     muted: muted,
-    loop: props.loop
+    loop: props.loop,
+    controls: 'controls' === props.controls
   }, mediaEvents, {
-    "webkit-playsinline": true,
-    playsInline: true,
-    "x5-playsinline": true,
+    "webkit-playsinline": props.playsInline,
+    playsInline: props.playsInline,
+    "x5-playsinline": props.playsInline,
     "x5-video-player-type": "h5",
     "x5-video-player-fullscreen": "true",
     "x5-video-orientation": "landscape|portrait",
     style: videoStyles
-  })), React.createElement("div", {
-    className: props.src ? styles$2.hiddenVideoMask : styles$2.videoMask
-  }), React.createElement(ReactPlayerSkin, _extends({
-    src: props.src,
-    controls: props.controls,
-    muted: muted
-  }, videoProps, fullscreenProps, {
-    playerMsg: playerMsg
-  })));
+  })), React.createElement(ReactPlayerContext.Provider, {
+    value: _objectSpread({
+      src: props.src,
+      muted: muted
+    }, videoProps, fullscreenProps, {
+      playerMsg: playerMsg
+    })
+  }, true === props.controls && React.createElement(ReactPlayerSkinWapper, null), props.children));
 };
 
 ReactPlayer.propTypes = {
-  kernel: PropTypes.string,
-  live: PropTypes.bool,
-  x5playsinline: PropTypes.bool,
-  src: PropTypes.string,
-  type: PropTypes.string,
+  kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
+  live: PropTypes.bool.isRequired,
   config: PropTypes.object,
-  controls: PropTypes.bool,
+  src: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  controls: PropTypes.oneOf([false, true, 'controls']),
   muted: PropTypes.bool,
   volume: PropTypes.number,
   autoPlay: PropTypes.bool,
@@ -1418,19 +1386,17 @@ ReactPlayer.propTypes = {
   onVolumeChange: PropTypes.func,
   onWaiting: PropTypes.func,
   onAbort: PropTypes.func,
+  x5playsinline: PropTypes.bool,
   objectPosition: PropTypes.string,
-  onX5VideoFullscreenChange: PropTypes.func
+  onX5VideoFullscreenChange: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 ReactPlayer.defaultProps = {
-  kernel: 'hlsjs',
-  live: false,
-  x5playsinline: false,
+  // kernel: 'hlsjs',
+  // live: false,
+  config: null,
   src: '',
-  type: 'application/x-mpegURL',
-  config: {
-    debug: false,
-    enableWorker: false
-  },
+  // type: '',
   controls: true,
   muted: false,
   volume: 1,
@@ -1460,8 +1426,10 @@ ReactPlayer.defaultProps = {
   onVolumeChange: noop$1,
   onWaiting: noop$1,
   onAbort: noop$1,
+  x5playsinline: false,
   onX5VideoFullscreenChange: noop$1,
-  objectPosition: 'center center'
+  objectPosition: 'center center',
+  children: null
 };
 
 var css$3 = ".index-module_grindPlayer__1UOcH {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  min-width: 400px;\n  min-height: 300px;\n  overflow: hidden;\n  background: #000;\n}\n";
@@ -1520,6 +1488,8 @@ GrindPlayer.defaultProp = {
 };
 
 ReactPlayer.GrindPlayer = GrindPlayer;
+ReactPlayer.ReactPlayerContext = ReactPlayerContext;
+ReactPlayer.ReactPlayerSkin = ReactPlayerSkin;
 
 module.exports = ReactPlayer;
 //# sourceMappingURL=index.js.map

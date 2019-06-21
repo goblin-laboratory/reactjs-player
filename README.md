@@ -99,34 +99,37 @@ const App = () => {
 
 ## Props
 
-| Prop          | Type     | Optional | Default | Description |
-| ------------- | -------- | -------- | ------- | ----------- |
-| `kernel`      | `String` | `false`  | `'--'`  |             |
-| `live`        | `Bool`   | `false`  | `--`    |             |
-| `src`         | `String` | `true`   | `''`    |             |
-| `type`        | `String` | `false`  | `--`    |             |
-| `config`      | `Object` | `false`  | `--`    |             |
-| `controls`    | `Bool`   | `true`   | `true`  |             |
-| `muted`       | `Bool`   | `true`   | `false` |             |
-| `volume`      | `Number` | `true`   | `1.0`   |             |
-| `autoPlay`    | `Bool`   | `true`   | `true`  |             |
-| `currentTime` | `Number` | `true`   | `0`     |             |
-| `loop`        | `Bool`   | `true`   | `false` |             |
-| `playsInline` | `Bool`   | `true`   | `true`  |             |
+| Prop          | Type                           | Optional | Default | Description            |
+| ------------- | ------------------------------ | -------- | ------- | ---------------------- |
+| `kernel`      | `['hlsjs', 'flvjs', 'native']` | `false`  |         |                        |
+| `live`        | `Bool`                         | `false`  |         |                        |
+| `config`      | `Object`                       | `true`   | `null`  | kernel config          |
+| --            | --                             | --       | --      | --                     |
+| `src`         | `String`                       | `true`   | `''`    |                        |
+| `type`        | `String`                       | `false`  | `--`    |                        |
+| `controls`    | `[true', false', 'controls']`  | `false`  | `true`  |                        |
+| `muted`       | `Bool`                         | `true`   | `false` | 静音                   |
+| `volume`      | `Number`                       | `true`   | `1.0`   | 默认音量               |
+| `autoPlay`    | `Bool`                         | `true`   | `true`  | 暂未实现               |
+| `currentTime` | `Number`                       | `true`   | `0`     |                        |
+| `loop`        | `Bool`                         | `true`   | `false` |                        |
+| `playsInline` | `Bool`                         | `true`   | `true`  | 页面内播放，iOS 端支持 |
 
-#### Hls.js Props
+**kernel**
 
-| Prop     | Default                                 | Description |
-| -------- | --------------------------------------- | ----------- |
-| `type`   | `application/x-mpegURL`                 |             |
-| `config` | `{ debug: false, enableWorker: false }` |             |
+| Value      | Description                                       |
+| ---------- | ------------------------------------------------- |
+| `'hlsjs'`  | use [hls.js](https://github.com/video-dev/hls.js) |
+| `'flvjs'`  | use [flv.js](https://github.com/bilibili/flv.js)  |
+| `'native'` | use native video                                  |
 
-#### Flv.js Props
+**controls**
 
-| Prop     | Default                                 | Description |
-| -------- | --------------------------------------- | ----------- |
-| `type`   | `application/x-mpegURL`                 |             |
-| `config` | `{ debug: false, enableWorker: false }` |             |
+| Value        | Description           |
+| ------------ | --------------------- |
+| `true`       | ReactPlayerSkin       |
+| `false`      | without controls      |
+| `'controls'` | video native controls |
 
 ### Config props
 
@@ -192,6 +195,14 @@ const App = () => {
 | `type`           | `String` | `true`   | `'video/rtmp'`                                            |             |
 | `grindPlayerSwf` | `String` | `true`   | `'https://unpkg.com/reactjs-player/dist/GrindPlayer.swf'` |             |
 | `flashlsOSMFSwf` | `String` | `true`   | `'https://unpkg.com/reactjs-player/dist/flashlsOSMF.swf'` |             |
+
+### ReactPlayerSkin
+
+待补充
+
+### ReactPlayerContext
+
+待补充
 
 ## Supported media
 

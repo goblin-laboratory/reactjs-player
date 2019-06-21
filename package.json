@@ -30,7 +30,7 @@
     "build": "rollup -c ./scripts/rollup.config.prod.js",
     "start": "rollup -c ./scripts/rollup.config.dev.js -w",
     "prepare": "yarn run build",
-    "predeploy": "cd example && yarn install && yarn run build",
+    "predeploy": "yarn run build && cd example && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
   "eslintConfig": {
