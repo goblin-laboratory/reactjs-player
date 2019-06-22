@@ -1,7 +1,7 @@
 {
   "name": "reactjs-player",
   "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "keywords": [
     "react",
     "media",
@@ -19,6 +19,7 @@
   "authors": [
     "xiaosongxiaosong <kunkkaco@gmail.com> (https://github.com/xiaosongxiaosong)"
   ],
+  "license": "MIT",
   "bugs": "https://github.com/goblin-laboratory/react-player/issues",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
