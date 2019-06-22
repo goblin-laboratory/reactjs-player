@@ -61,6 +61,8 @@ const ReactPlayer = props => {
       <ReactPlayerContext.Provider
         value={{
           src: props.src,
+          controls: props.controls,
+          poster: props.poster,
           muted: muted,
           ...videoProps,
           ...fullscreenProps,
@@ -78,10 +80,12 @@ ReactPlayer.propTypes = {
   kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
+  onKernelError: PropTypes.func,
 
   src: PropTypes.string,
   type: PropTypes.string.isRequired,
   controls: PropTypes.oneOf([false, true, 'controls']),
+  poster: PropTypes.string,
   muted: PropTypes.bool,
   volume: PropTypes.number,
   autoPlay: PropTypes.bool,
@@ -123,10 +127,12 @@ ReactPlayer.defaultProps = {
   // kernel: 'hlsjs',
   // live: false,
   config: null,
+  onKernelError: noop,
 
   src: '',
   // type: '',
   controls: true,
+  poster: '',
   muted: false,
   volume: 1,
   autoPlay: true,

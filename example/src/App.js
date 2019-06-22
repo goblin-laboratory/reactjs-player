@@ -158,6 +158,7 @@ function App({ form }) {
           <ReactPlayer
             {...info}
             src={src}
+            poster="https://raw.githubusercontent.com/goblin-laboratory/react-player/master/logo128x128.png"
             x5playsinline={x5playsinline}
             onX5VideoFullscreenChange={onX5VideoFullscreenChange}
             objectPosition="center 92px"

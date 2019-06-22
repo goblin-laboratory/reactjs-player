@@ -1,7 +1,7 @@
 import React from 'react';
 import Hls from 'hls.js';
 
-export default ({ src, config }, getVideoElement) => {
+export default ({ src, config, onKernelError }, getVideoElement) => {
   const [hlsPlayer, setHlsPlayer] = React.useState(null);
   const [playerMsg, setPlayerMsg] = React.useState(null);
 
@@ -35,25 +35,30 @@ export default ({ src, config }, getVideoElement) => {
     };
   }, [getVideoElement, hlsPlayer]);
 
-  const onPlayerError = React.useCallback((e, info) => {
-    if (info && info.fatal) {
-      setPlayerMsg({ type: info.type, detail: info.details });
-    }
-  }, []);
+  const onError = React.useCallback(
+    (e, info) => {
+      if (info && info.fatal) {
+        const msg = { type: info.type, detail: info.details };
+        setPlayerMsg(msg);
+        onKernelError(msg);
+      }
+    },
+    [onKernelError],
+  );
 
   React.useEffect(() => {
     if (!hlsPlayer) {
       setPlayerMsg(null);
       return () => {};
     }
-    hlsPlayer.on(Hls.Events.ERROR, onPlayerError);
+    hlsPlayer.on(Hls.Events.ERROR, onError);
     return () => {
       try {
         hlsPlayer.off(Hls.Events.ERROR);
       } catch (errMsg) {}
       setPlayerMsg(null);
     };
-  }, [hlsPlayer, onPlayerError]);
+  }, [hlsPlayer, onError]);
 
   return playerMsg;
 };

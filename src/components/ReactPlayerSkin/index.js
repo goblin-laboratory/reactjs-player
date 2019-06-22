@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Icon, Slider, Dropdown, Menu } from 'antd';
-import ReactPlayerContext from '../ReactPlayerContext';
 import CurrentTimeSlider from './CurrentTimeSlider';
 import styles from './index.module.less';
 
@@ -12,18 +11,19 @@ import { ReactComponent as UnmutedSvg } from './unmuted.svg';
 const ReactPlayerSkin = React.memo(
   ({
     src,
+    poster,
+    muted,
+    volume,
+    currentTime,
+    duration,
+    playbackRate,
+    fullscreen,
     loading,
     paused,
     waiting,
     seeking,
     ended,
-    duration,
-    currentTime,
     buffered,
-    muted,
-    volume,
-    playbackRate,
-    fullscreen,
 
     changeCurrentTime,
     onPauseClick,
@@ -74,6 +74,7 @@ const ReactPlayerSkin = React.memo(
     return (
       <div className={styles.reactPlayerSkin} onMouseMove={() => setHiding(false)}>
         <div className={src ? styles.hiddenVideoMask : styles.videoMask} />
+        {poster && (!src || loading) && <img className={styles.poster} src={poster} alt="" />}
         {(waiting || seeking) && !loading && (
           <div className={styles.waiting}>
             <Icon type="loading" />

@@ -2,7 +2,9 @@
 
 # ReactPlayer
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
+![reactjs-player](https://img.shields.io/npm/v/reactjs-player.svg?style=flat-square)
+![reactjs-player](https://img.shields.io/bundlephobia/minzip/reactjs-player.svg?style=flat-square)
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。
@@ -99,21 +101,26 @@ const App = () => {
 
 ## Props
 
-| Prop          | Type                           | Optional | Default | Description            |
-| ------------- | ------------------------------ | -------- | ------- | ---------------------- |
-| `kernel`      | `['hlsjs', 'flvjs', 'native']` | `false`  |         |                        |
-| `live`        | `Bool`                         | `false`  |         |                        |
-| `config`      | `Object`                       | `true`   | `null`  | kernel config          |
-| --            | --                             | --       | --      | --                     |
-| `src`         | `String`                       | `true`   | `''`    |                        |
-| `type`        | `String`                       | `false`  | `--`    |                        |
-| `controls`    | `[true', false', 'controls']`  | `false`  | `true`  |                        |
-| `muted`       | `Bool`                         | `true`   | `false` | 静音                   |
-| `volume`      | `Number`                       | `true`   | `1.0`   | 默认音量               |
-| `autoPlay`    | `Bool`                         | `true`   | `true`  | 暂未实现               |
-| `currentTime` | `Number`                       | `true`   | `0`     |                        |
-| `loop`        | `Bool`                         | `true`   | `false` |                        |
-| `playsInline` | `Bool`                         | `true`   | `true`  | 页面内播放，iOS 端支持 |
+props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/video#Attributes
+
+| Prop           | Type     | Default | Description       |
+| -------------- | -------- | ------- | ----------------- |
+| `kernel`       | `Enum`   |         |                   |
+| `live`         | `Bool`   |         |                   |
+| `config`       | `Object` | `null`  | kernel config     |
+| --             | --       | --      | --                |
+| `src`          | `String` | `''`    |                   |
+| `type`         | `String` |         |                   |
+| `poster`       | `String` | `''`    |                   |
+| `controls`     | `Enum`   | `true`  |                   |
+| `muted`        | `Bool`   | `false` | Not supported yet |
+| `autoPlay`     | `Bool`   | `true`  | Not supported yet |
+| `loop`         | `Bool`   | `false` |                   |
+| `playsInline`  | `Bool`   | `true`  |                   |
+| --             | --       | --      | --                |
+| `currentTime`  | `Number` | `0`     | Not supported yet |
+| `volume`       | `Number` | `1.0`   | Not supported yet |
+| `playbackRate` | `Number` | `1.0`   | Not supported yet |
 
 **kernel**
 
@@ -131,78 +138,133 @@ const App = () => {
 | `false`      | without controls      |
 | `'controls'` | video native controls |
 
-### Config props
+<!-- ### Config props
 
 | Prop          | Type     | Optional | Default | Description |
 | ------------- | -------- | -------- | ------- | ----------- |
 | `currentTime` | `Number` | `true`   | `0`     |             |
-| `volume`      | `Number` | `true`   | `1.0`   |             |
+| `volume`      | `Number` | `true`   | `1.0`   |             | -->
 
 ### Callback props
 
 [媒体事件](https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Media_events)说明
 
-| Prop               | Description |
-| ------------------ | ----------- |
-| `onCanPlay`        |             |
-| `onDurationChange` |             |
-| `onTimeUpdate`     |             |
-| `onPause`          |             |
-| `onPlay`           |             |
-| `onPlaying`        |             |
-| `onEnded`          |             |
-| `onSeeked`         |             |
-| `onSeeking`        |             |
-| `onCanPlayThrough` |             |
-| `onEmptied`        |             |
-| `onEncrypted`      |             |
-| `onError`          |             |
-| `onLoadedData`     |             |
-| `onLoadedMetadata` |             |
-| `onLoadStart`      |             |
-| `onProgress`       |             |
-| `onRateChange`     |             |
-| `onStalled`        |             |
-| `onSuspend`        |             |
-| `onVolumeChange`   |             |
-| `onWaiting`        |             |
-| `onAbort`          |             |
+| Prop               | Description                      |
+| ------------------ | -------------------------------- |
+| `onKernelError`    | fired when flv.js / hls.js error |
+| --                 | --                               |
+| `onCanPlay`        |                                  |
+| `onDurationChange` |                                  |
+| `onTimeUpdate`     |                                  |
+| `onPause`          |                                  |
+| `onPlay`           |                                  |
+| `onPlaying`        |                                  |
+| `onEnded`          |                                  |
+| `onSeeked`         |                                  |
+| `onSeeking`        |                                  |
+| `onCanPlayThrough` |                                  |
+| `onEmptied`        |                                  |
+| `onEncrypted`      |                                  |
+| `onError`          |                                  |
+| `onLoadedData`     |                                  |
+| `onLoadedMetadata` |                                  |
+| `onLoadStart`      |                                  |
+| `onProgress`       |                                  |
+| `onRateChange`     |                                  |
+| `onStalled`        |                                  |
+| `onSuspend`        |                                  |
+| `onVolumeChange`   |                                  |
+| `onWaiting`        |                                  |
+| `onAbort`          |                                  |
 
 ### 同层播放 Props
 
-| Prop                        | Type       | Optional | Default        | Description |
-| --------------------------- | ---------- | -------- | -------------- | ----------- |
-| `x5playsinline`             | `Bool`     | `true`   | `false`        |             |
-| `objectPosition`            | `String`   | `true`   | `'center top'` |             |
-| `onX5VideoFullscreenChange` | `Function` | `true`   | `noop`         |             |
+同层播放接入指南：
+
+1. https://x5.tencent.com/tbs/guide/video.html
+2. https://x5.tencent.com/tbs/guide/web/x5-video.html
+
+| Prop                        | Type       | Default        | Description |
+| --------------------------- | ---------- | -------------- | ----------- |
+| `x5playsinline`             | `Bool`     | `false`        |             |
+| `objectPosition`            | `String`   | `'center top'` |             |
+| `onX5VideoFullscreenChange` | `Function` | `noop`         |             |
 
 ## Methods
 
 暂未支持
 
-| Method           | Return Type | Description |
-| ---------------- | ----------- | ----------- |
-| `getCurrentTime` | `Number`    |             |
-| `setCurrentTime` | `Number`    |             |
-| `getBuffered`    | `Object`    |             |
+| Method            | Return Type | Description |
+| ----------------- | ----------- | ----------- |
+| `isPlaying`       | `Bool`      |             |
+| `isFullscreen`    | `Object`    |             |
+| `getCurrentTime`  | `Number`    |             |
+| `setCurrentTime`  | `Number`    |             |
+| `getBuffered`     | `Object`    |             |
+| `setPlaybackRate` | `Number`    |             |
+| `getPlaybackRate` | `Number`    |             |
+| `isPiP`           | `Bool`      |             |
 
 ### GrindPlayer
 
-| Prop             | Type     | Optional | Default                                                   | Description |
-| ---------------- | -------- | -------- | --------------------------------------------------------- | ----------- |
-| `live`           | `Bool`   | `true`   | `true`                                                    |             |
-| `src`            | `String` | `true`   | `''`                                                      |             |
-| `type`           | `String` | `true`   | `'video/rtmp'`                                            |             |
-| `grindPlayerSwf` | `String` | `true`   | `'https://unpkg.com/reactjs-player/dist/GrindPlayer.swf'` |             |
-| `flashlsOSMFSwf` | `String` | `true`   | `'https://unpkg.com/reactjs-player/dist/flashlsOSMF.swf'` |             |
-
-### ReactPlayerSkin
-
-待补充
+| Prop             | Type     | Default                                                   | Description |
+| ---------------- | -------- | --------------------------------------------------------- | ----------- |
+| `live`           | `Bool`   | `true`                                                    |             |
+| `src`            | `String` | `''`                                                      |             |
+| `type`           | `String` | `'video/rtmp'`                                            |             |
+| `grindPlayerSwf` | `String` | `'https://unpkg.com/reactjs-player/dist/GrindPlayer.swf'` |             |
+| `flashlsOSMFSwf` | `String` | `'https://unpkg.com/reactjs-player/dist/flashlsOSMF.swf'` |             |
 
 ### ReactPlayerContext
 
-待补充
+订阅 ReactPlayer 的 Context，必须在 ReactPlayer 的子组件中使用
+
+```jsx
+import React from 'react';
+import ReactPlayer from 'reactjs-player';
+
+const ReactPlayerContext = ReactPlayer.ReactPlayerContext;
+
+const ReactPlayerChild = () => {
+  const {
+    src,
+    loading,
+    paused,
+    waiting,
+    seeking,
+    ended,
+    duration,
+    currentTime,
+    buffered,
+    muted,
+    volume,
+    playbackRate,
+    fullscreen,
+
+    changeCurrentTime,
+    onPauseClick,
+    onPlayClick,
+    onMutedClick,
+    changeVolume,
+    onPiPClick,
+    requestFullscreen,
+    exitFullscreen,
+    changePlaybackRate,
+
+    playerMsg,
+  } = React.useContext(ReactPlayerContext);
+
+  return <>{loading && <div>loading</div>}</>;
+};
+
+const App = () => {
+  return (
+    <ReactPlayer kernel="hlsjs" src="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8">
+      <ReactPlayerChild />
+    </ReactPlayer>
+  );
+};
+```
 
 ## Supported media
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import flvjs from 'flv.js';
 
-export default ({ src, config }, getVideoElement) => {
+export default ({ src, config, onKernelError }, getVideoElement) => {
   const [flvPlayer, setFlvPlayer] = React.useState(null);
   const [playerMsg, setPlayerMsg] = React.useState(null);
 
@@ -43,21 +43,26 @@ export default ({ src, config }, getVideoElement) => {
     };
   }, [getVideoElement, flvPlayer]);
 
-  const onPlayerError = React.useCallback((type, detail) => {
-    setPlayerMsg({ type, detail });
-  }, []);
+  const onError = React.useCallback(
+    (type, detail) => {
+      const info = { type, detail };
+      setPlayerMsg(info);
+      onKernelError(info);
+    },
+    [onKernelError],
+  );
 
   React.useEffect(() => {
     if (!flvPlayer) {
       return () => {};
     }
-    flvPlayer.on(flvjs.Events.ERROR, onPlayerError);
+    flvPlayer.on(flvjs.Events.ERROR, onError);
     return () => {
       try {
         flvPlayer.off(flvjs.Events.ERROR);
       } catch (errMsg) {}
     };
-  }, [flvPlayer, onPlayerError]);
+  }, [flvPlayer, onError]);
 
   return playerMsg;
 };
