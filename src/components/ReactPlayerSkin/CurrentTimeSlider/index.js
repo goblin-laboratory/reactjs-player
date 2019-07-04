@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import ReactSWF from 'react-swf';
+import numeral from 'numeral';
 import styles from './index.module.less';
 
 const getBufferedEnd = (currentTime, buffered) => {
@@ -48,20 +49,29 @@ const getTrackTranslateX = ({ duration, currentTime, value, sliding }) => {
   return `${(100 * currentTime) / duration - 100}%`;
 };
 
+const getMouseTranslateX = ({ duration, mousePos }) => {
+  if (0 >= duration) {
+    return '0';
+  }
+  return `${(100 * mousePos) / duration}%`;
+};
+
 const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
   const [value, setValue] = React.useState(currentTime);
   const [sliding, setSliding] = React.useState(false);
+  const [mouseovered, setMouseovered] = React.useState(false);
+  const [mousePos, setMousePos] = React.useState(0);
   const sliderRef = React.useRef(null);
   const rectRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (sliding && sliderRef && sliderRef.current) {
+    if ((sliding || mouseovered) && sliderRef && sliderRef.current) {
       rectRef.current = sliderRef.current.getBoundingClientRect();
     }
     return () => {
       rectRef.current = null;
     };
-  }, [sliding]);
+  }, [sliding, mouseovered]);
 
   const onClick = React.useCallback(
     e => {
@@ -117,22 +127,53 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
     }
   }, [sliding, onMouseMove, onMouseUp]);
 
+  const onSliderMouseOver = React.useCallback(() => {
+    if (0 < duration) {
+      setMouseovered(true);
+    }
+  }, [duration]);
+
+  const onSliderMouseOut = React.useCallback(() => {
+    setMouseovered(false);
+  }, []);
+
+  const onSliderMouseMove = React.useCallback(
+    e => {
+      e.preventDefault();
+      if (0 >= duration || !rectRef || !rectRef.current) {
+        return;
+      }
+      const v = getValue(e, rectRef.current, duration);
+      setMousePos(v);
+    },
+    [duration],
+  );
+
   const bufferedTranslateX = getBufferedTranslateX({ buffered, currentTime, sliding, duration });
   const trackTranslateX = getTrackTranslateX({ duration, currentTime, value, sliding });
+  const mouseTranslateX = getMouseTranslateX({ duration, mousePos });
 
   return (
-    <div className={sliding ? styles.slidingSlider : styles.slider} ref={sliderRef} onClick={onClick}>
+    <div
+      className={sliding ? styles.slidingSlider : styles.slider}
+      ref={sliderRef}
+      onClick={onClick}
+      onMouseOver={onSliderMouseOver}
+      onMouseOut={onSliderMouseOut}
+      onMouseMove={onSliderMouseMove}
+    >
       <div className={styles.sliderRail}>
         <div className={styles.sliderBuffered} style={{ transform: `translateX(${bufferedTranslateX})` }} />
         <div className={styles.sliderTrack} style={{ transform: `translateX(${trackTranslateX})` }} />
       </div>
       <div className={styles.sliderHandleRail} style={{ transform: `translateX(${trackTranslateX})` }}>
-        <div
-          tabIndex={0}
-          className={styles.sliderHandle}
-          onMouseDown={onMouseDown}
-          // onTouchStart={this.onTouchStart}
-        />
+        <div tabIndex={0} className={styles.sliderHandle} onMouseDown={onMouseDown} />
+      </div>
+      <div
+        className={styles.mousePosTip}
+        style={{ transform: `translateX(${mouseTranslateX})`, visibility: mouseovered ? 'visible' : 'hidden' }}
+      >
+        <div className={styles.tip}>{numeral(mousePos).format('00:00:00')}</div>
       </div>
     </div>
   );

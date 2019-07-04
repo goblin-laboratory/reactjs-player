@@ -35,7 +35,7 @@
   transform: translate(-100%, 0);
 }
 
-.sliderHandleRail{
+.sliderHandleRail {
   position: absolute;
   left: 0;
   top: 4px;
@@ -71,6 +71,42 @@
 
 .slider:hover {
   .sliderHandle {
+    visibility: visible;
+  }
+}
+
+.mousePosTip {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  // width: 200px;
+  // height: 20px;
+  // visibility: hidden;
+  .tip {
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+    // line-height: 2em;
+    background: #333;
+    color: #fff;
+    transform: translateX(-50%);
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+  }
+}
+
+.slider:hover,
+.slidingSlider:hover {
+  .mousePosTip {
     visibility: visible;
   }
 }

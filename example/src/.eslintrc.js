@@ -1,7 +1,7 @@
 module.exports = {
   // parser: 'babel-eslint',
   extends: ['react-app', 'prettier', 'prettier/react'],
-  plugins: ['prettier', 'react', 'react-hooks'],
+  plugins: ['prettier'],
   globals: {
     // 这里填入你的项目需要的全局变量
     // 这里值为 false 表示这个全局变量不允许被重新赋值，比如：
@@ -20,10 +20,5 @@ module.exports = {
         trailingComma: 'all',
       },
     ],
-    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
   },
-  // settings: {
-  //   version: require('./package.json').peerDependencies.react,
-  // },
 };

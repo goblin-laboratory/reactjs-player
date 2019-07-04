@@ -9,7 +9,7 @@
 }
 
 .selector {
-  min-height: 92px;
+  min-height: 90px;
   overflow: hidden;
   background: #fff;
 }
@@ -17,6 +17,10 @@
 .form {
   width: 100%;
   padding: 1em;
+}
+
+.form .ant-form-item {
+  margin-bottom: 0;
 }
 
 .protocolSelector {

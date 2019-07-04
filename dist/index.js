@@ -165,8 +165,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".index-module_slider__Za-8u,\n.index-module_slidingSlider__3gRQj {\n  position: relative;\n  height: 20px;\n  cursor: pointer;\n}\n.index-module_sliderRail__3tNs7 {\n  position: absolute;\n  left: 0;\n  top: 8px;\n  width: 100%;\n  height: 4px;\n  background-color: rgba(255, 255, 255, 0.2);\n  transition: background-color 0.3s;\n  overflow: hidden;\n}\n.index-module_sliderBuffered__3hgu8 {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(255, 255, 255, 0.5);\n  transition: background-color 0.3s;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderTrack__PJZ0o {\n  position: absolute;\n  background: #ff0000;\n  transition: background-color 0.3s ease;\n  width: 100%;\n  height: 100%;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandleRail__3a1BQ {\n  position: absolute;\n  left: 0;\n  top: 4px;\n  width: 100%;\n  height: 12px;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandle__1T8w2 {\n  position: absolute;\n  top: 0;\n  right: -6px;\n  width: 12px;\n  height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  box-shadow: 0;\n  visibility: hidden;\n  background: #ff0000;\n  border: none 0 transparent;\n  outline: none;\n}\n.index-module_sliderHandle__1T8w2:focus {\n  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);\n}\n.index-module_slidingSlider__3gRQj .index-module_sliderHandle__1T8w2 {\n  visibility: visible;\n}\n.index-module_slider__Za-8u:hover .index-module_sliderHandle__1T8w2 {\n  visibility: visible;\n}\n";
-var styles = {"slider":"index-module_slider__Za-8u","slidingSlider":"index-module_slidingSlider__3gRQj","sliderRail":"index-module_sliderRail__3tNs7","sliderBuffered":"index-module_sliderBuffered__3hgu8","sliderTrack":"index-module_sliderTrack__PJZ0o","sliderHandleRail":"index-module_sliderHandleRail__3a1BQ","sliderHandle":"index-module_sliderHandle__1T8w2"};
+var css = ".index-module_slider__Za-8u,\n.index-module_slidingSlider__3gRQj {\n  position: relative;\n  height: 20px;\n  cursor: pointer;\n}\n.index-module_sliderRail__3tNs7 {\n  position: absolute;\n  left: 0;\n  top: 8px;\n  width: 100%;\n  height: 4px;\n  background-color: rgba(255, 255, 255, 0.2);\n  transition: background-color 0.3s;\n  overflow: hidden;\n}\n.index-module_sliderBuffered__3hgu8 {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(255, 255, 255, 0.5);\n  transition: background-color 0.3s;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderTrack__PJZ0o {\n  position: absolute;\n  background: #ff0000;\n  transition: background-color 0.3s ease;\n  width: 100%;\n  height: 100%;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandleRail__3a1BQ {\n  position: absolute;\n  left: 0;\n  top: 4px;\n  width: 100%;\n  height: 12px;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandle__1T8w2 {\n  position: absolute;\n  top: 0;\n  right: -6px;\n  width: 12px;\n  height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  box-shadow: 0;\n  visibility: hidden;\n  background: #ff0000;\n  border: none 0 transparent;\n  outline: none;\n}\n.index-module_sliderHandle__1T8w2:focus {\n  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);\n}\n.index-module_slidingSlider__3gRQj .index-module_sliderHandle__1T8w2 {\n  visibility: visible;\n}\n.index-module_slider__Za-8u:hover .index-module_sliderHandle__1T8w2 {\n  visibility: visible;\n}\n.index-module_mousePosTip__3xzjQ {\n  position: absolute;\n  bottom: 100%;\n  left: 0;\n  width: 100%;\n}\n.index-module_mousePosTip__3xzjQ .index-module_tip__3KBl3 {\n  display: inline-block;\n  padding: 0.4em 0.8em;\n  border-radius: 4px;\n  background: #333;\n  color: #fff;\n  transform: translateX(-50%);\n}\n.index-module_mousePosTip__3xzjQ .index-module_tip__3KBl3:after {\n  content: '';\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 5px;\n  border-style: solid;\n  border-color: #333 transparent transparent transparent;\n}\n.index-module_slider__Za-8u:hover .index-module_mousePosTip__3xzjQ,\n.index-module_slidingSlider__3gRQj:hover .index-module_mousePosTip__3xzjQ {\n  visibility: visible;\n}\n";
+var styles = {"slider":"index-module_slider__Za-8u","slidingSlider":"index-module_slidingSlider__3gRQj","sliderRail":"index-module_sliderRail__3tNs7","sliderBuffered":"index-module_sliderBuffered__3hgu8","sliderTrack":"index-module_sliderTrack__PJZ0o","sliderHandleRail":"index-module_sliderHandleRail__3a1BQ","sliderHandle":"index-module_sliderHandle__1T8w2","mousePosTip":"index-module_mousePosTip__3xzjQ","tip":"index-module_tip__3KBl3"};
 styleInject(css);
 
 var getBufferedEnd = function getBufferedEnd(currentTime, buffered) {
@@ -234,11 +234,22 @@ var getTrackTranslateX = function getTrackTranslateX(_ref2) {
   return "".concat(100 * currentTime / duration - 100, "%");
 };
 
-var Slider = React.memo(function (_ref3) {
-  var currentTime = _ref3.currentTime,
-      duration = _ref3.duration,
-      buffered = _ref3.buffered,
-      onChange = _ref3.onChange;
+var getMouseTranslateX = function getMouseTranslateX(_ref3) {
+  var duration = _ref3.duration,
+      mousePos = _ref3.mousePos;
+
+  if (0 >= duration) {
+    return '0';
+  }
+
+  return "".concat(100 * mousePos / duration, "%");
+};
+
+var Slider = React.memo(function (_ref4) {
+  var currentTime = _ref4.currentTime,
+      duration = _ref4.duration,
+      buffered = _ref4.buffered,
+      onChange = _ref4.onChange;
 
   var _React$useState = React.useState(currentTime),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -250,17 +261,27 @@ var Slider = React.memo(function (_ref3) {
       sliding = _React$useState4[0],
       setSliding = _React$useState4[1];
 
+  var _React$useState5 = React.useState(false),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      mouseovered = _React$useState6[0],
+      setMouseovered = _React$useState6[1];
+
+  var _React$useState7 = React.useState(0),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      mousePos = _React$useState8[0],
+      setMousePos = _React$useState8[1];
+
   var sliderRef = React.useRef(null);
   var rectRef = React.useRef(null);
   React.useEffect(function () {
-    if (sliding && sliderRef && sliderRef.current) {
+    if ((sliding || mouseovered) && sliderRef && sliderRef.current) {
       rectRef.current = sliderRef.current.getBoundingClientRect();
     }
 
     return function () {
       rectRef.current = null;
     };
-  }, [sliding]);
+  }, [sliding, mouseovered]);
   var onClick = React.useCallback(function (e) {
     e.preventDefault();
     var rect = e.currentTarget.getBoundingClientRect();
@@ -305,6 +326,24 @@ var Slider = React.memo(function (_ref3) {
       return function () {};
     }
   }, [sliding, onMouseMove, onMouseUp]);
+  var onSliderMouseOver = React.useCallback(function () {
+    if (0 < duration) {
+      setMouseovered(true);
+    }
+  }, [duration]);
+  var onSliderMouseOut = React.useCallback(function () {
+    setMouseovered(false);
+  }, []);
+  var onSliderMouseMove = React.useCallback(function (e) {
+    e.preventDefault();
+
+    if (0 >= duration || !rectRef || !rectRef.current) {
+      return;
+    }
+
+    var v = getValue(e, rectRef.current, duration);
+    setMousePos(v);
+  }, [duration]);
   var bufferedTranslateX = getBufferedTranslateX({
     buffered: buffered,
     currentTime: currentTime,
@@ -317,10 +356,17 @@ var Slider = React.memo(function (_ref3) {
     value: value,
     sliding: sliding
   });
+  var mouseTranslateX = getMouseTranslateX({
+    duration: duration,
+    mousePos: mousePos
+  });
   return React.createElement("div", {
     className: sliding ? styles.slidingSlider : styles.slider,
     ref: sliderRef,
-    onClick: onClick
+    onClick: onClick,
+    onMouseOver: onSliderMouseOver,
+    onMouseOut: onSliderMouseOut,
+    onMouseMove: onSliderMouseMove
   }, React.createElement("div", {
     className: styles.sliderRail
   }, React.createElement("div", {
@@ -341,9 +387,16 @@ var Slider = React.memo(function (_ref3) {
   }, React.createElement("div", {
     tabIndex: 0,
     className: styles.sliderHandle,
-    onMouseDown: onMouseDown // onTouchStart={this.onTouchStart}
-
-  })));
+    onMouseDown: onMouseDown
+  })), React.createElement("div", {
+    className: styles.mousePosTip,
+    style: {
+      transform: "translateX(".concat(mouseTranslateX, ")"),
+      visibility: mouseovered ? 'visible' : 'hidden'
+    }
+  }, React.createElement("div", {
+    className: styles.tip
+  }, numeral(mousePos).format('00:00:00'))));
 });
 Slider.propTypes = {
   currentTime: PropTypes.number.isRequired,
@@ -360,7 +413,7 @@ Slider.defaultProps = {
   setSliding: function setSliding() {}
 };
 
-var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_poster__aD3NV {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  object-fit: contain;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  overflow: hidden;\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
+var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_poster__aD3NV {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  object-fit: contain;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
 var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","poster":"index-module_poster__aD3NV","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","playerMsg":"index-module_playerMsg__3JOcN","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
 styleInject(css$1);
 

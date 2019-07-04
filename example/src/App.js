@@ -14,47 +14,59 @@ const getSupportedList = ua => {
   if (ua.device.type) {
     // 非 PC 浏览器
     return [
-      { key: 'native', kernel: 'native', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' },
-      { key: 'nativelive', kernel: 'native', live: true, src: 'https://tvimg.uwp.ac.cn/cctv5hd.m3u8' },
+      {
+        key: 'native',
+        kernel: 'native',
+        src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+        type: 'application/x-mpegURL',
+      },
+      { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
     ];
   }
   const list = [];
   if (Hls.isSupported()) {
-    list.push({ key: 'hlsjs', kernel: 'hlsjs', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' });
+    list.push({
+      key: 'hlsjs',
+      kernel: 'hlsjs',
+      live: false,
+      src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+      type: 'application/x-mpegURL',
+    });
   }
   if (flvjs.isSupported()) {
     const featureList = flvjs.getFeatureList();
     if (featureList.networkStreamIO) {
-      list.push({ key: 'flvjs', kernel: 'flvjs', src: 'http://fms.cntv.lxdns.com/live/flv/channel89.flv' });
+      list.push({ key: 'flvjs', kernel: 'flvjs', live: false, src: '', type: 'video/x-flv' });
     }
   }
   // mac OS 没有测试环境，暂且认为没有问题
   if ('Mac OS' === ua.os.name) {
     list.push(
-      { key: 'native', kernel: 'native', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' },
       {
-        key: 'nativelive',
+        key: 'native',
         kernel: 'native',
-        live: true,
-        src: 'http://bcliveuniv-lh.akamaihd.net/i/iptv1_1@194050/master.m3u8',
+        live: false,
+        src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+        type: 'application/x-mpegURL',
       },
+      { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
     );
   }
   list.push(
-    { key: 'rtmp', kernel: 'rtmp', live: true, type: 'video/rtmp', src: 'rtmp://livetv.dhtv.cn:1935/live/news' },
+    { key: 'rtmp', kernel: 'flash', live: true, src: 'rtmp://livetv.dhtv.cn:1935/live/news', type: 'video/rtmp' },
     {
-      key: 'rtmphls',
-      kernel: 'rtmphls',
+      key: 'flashls',
+      kernel: 'flash',
       live: false,
-      type: 'application/x-mpegURL',
       src: 'http://www.streambox.fr/playlists/x36xhzz/x36xhzz.m3u8',
+      type: 'application/x-mpegURL',
     },
   );
   return list;
 };
 
-function App({ form }) {
-  const [list, setList] = React.useState([]);
+const App = React.memo(({ form }) => {
+  const [list, setList] = React.useState(null);
   const [info, setInfo] = React.useState(null);
   const [src, setSrc] = React.useState('');
   const [x5playsinline, setX5playsinline] = React.useState(false);
@@ -62,22 +74,27 @@ function App({ form }) {
 
   React.useEffect(() => {
     const ua = UAParser(global.navigator.userAgent);
-
     const supportedList = getSupportedList(ua);
     setList(supportedList);
     setInfo(supportedList[0]);
-
     setX5playsinline('Android' === ua.os.name && 'WeChat' === ua.browser.name);
   }, []);
 
   const onChange = React.useCallback(
     v => {
-      setSrc('');
       const item = list.find(it => it.key === v);
-      setInfo(item);
       form.setFieldsValue({ src: item.src });
     },
     [form, list],
+  );
+
+  const onSubmit = React.useCallback(
+    values => {
+      const item = list.find(it => it.key === values.type);
+      setInfo(item);
+      setSrc(values.src);
+    },
+    [list],
   );
 
   const onX5VideoFullscreenChange = React.useCallback(
@@ -91,17 +108,15 @@ function App({ form }) {
     [x5playsinline],
   );
 
-  if (!info || 0 === list.length) {
+  if (!list || 0 === list.length) {
     return null;
   }
-  const style = {};
-  if (fullscreenState.x5videofullscreen) {
-    // style.position = 'absolute';
-    // style.width = '100%';
-    if (fullscreenState.fullscreen) {
-      style.display = 'none';
-    }
-  }
+  // const style = {};
+  // if (fullscreenState.x5videofullscreen) {
+  //   if (fullscreenState.fullscreen) {
+  //     style.display = 'none';
+  //   }
+  // }
   let className = 'body';
   if (fullscreenState.x5videofullscreen) {
     className += ' x5videofullscreen';
@@ -109,6 +124,7 @@ function App({ form }) {
       className += ' fullscreen';
     }
   }
+
   return (
     <div className={className}>
       <div className="selector">
@@ -116,24 +132,28 @@ function App({ form }) {
           className="form"
           onSubmit={e => {
             e.preventDefault();
-            setSrc(form.getFieldValue('src'));
+            form.validateFieldsAndScroll((errors, values) => {
+              if (errors) {
+                return;
+              }
+              onSubmit(values);
+            });
           }}
         >
           <Row gutter={16}>
             <Col xs={8} lg={4}>
               <Form.Item>
-                {/* <Form.Item>
-                  {form.getFieldDecorator('src', {
-                    initialValue: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
-                  })(<Input />)}
-                </Form.Item> */}
-                <Select onChange={onChange} value={info.kernel}>
-                  {list.map(it => (
-                    <Select.Option key={it.key} value={it.key}>
-                      {it.kernel}
-                    </Select.Option>
-                  ))}
-                </Select>
+                {form.getFieldDecorator('type', {
+                  initialValue: info.key,
+                })(
+                  <Select onChange={onChange}>
+                    {list.map(it => (
+                      <Select.Option key={it.key} value={it.key}>
+                        {it.key}
+                      </Select.Option>
+                    ))}
+                  </Select>,
+                )}
               </Form.Item>
             </Col>
             <Col xs={8} lg={16}>
@@ -150,26 +170,27 @@ function App({ form }) {
                 </Button>
               </Form.Item>
             </Col>
+            <Col xs={24}>src:&nbsp;&nbsp;{src}</Col>
           </Row>
         </Form>
       </div>
       <div className="player">
-        {'rtmp' !== info.kernel && 'rtmphls' !== info.kernel && (
+        {'flash' !== info.kernel && (
           <ReactPlayer
             {...info}
             src={src}
             poster="https://raw.githubusercontent.com/goblin-laboratory/react-player/master/logo128x128.png"
             x5playsinline={x5playsinline}
             onX5VideoFullscreenChange={onX5VideoFullscreenChange}
-            objectPosition="center 92px"
+            objectPosition="center 90px"
           />
         )}
-        {('rtmp' === info.kernel || 'rtmphls' === info.kernel) && (
+        {'flash' === info.kernel && (
           <GrindPlayer {...info} src={src} grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
         )}
       </div>
     </div>
   );
-}
+});
 
 export default Form.create()(App);
