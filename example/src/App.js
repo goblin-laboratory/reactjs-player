@@ -3,9 +3,9 @@ import UAParser from 'ua-parser-js';
 import Hls from 'hls.js';
 import flvjs from 'flv.js';
 import { Form, Select, Input, Button, Row, Col } from 'antd';
-import ReactPlayer from 'react-player';
-import grindPlayerSwf from 'react-player/dist/GrindPlayer.swf';
-import flashlsOSMFSwf from 'react-player/dist/flashlsOSMF.swf';
+import ReactPlayer from 'reactjs-player';
+import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
+import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
 import './App.css';
 
 const GrindPlayer = ReactPlayer.GrindPlayer;
