@@ -75,19 +75,16 @@
   }
 }
 
-.mousePosTip {
+.tooltip {
   position: absolute;
-  bottom: 100%;
+  bottom: 120%;
   left: 0;
   width: 100%;
-  // width: 200px;
-  // height: 20px;
-  // visibility: hidden;
+  // pointer-events: none;
   .tip {
     display: inline-block;
     padding: 0.4em 0.8em;
     border-radius: 4px;
-    // line-height: 2em;
     background: #333;
     color: #fff;
     transform: translateX(-50%);
@@ -101,12 +98,5 @@
       border-style: solid;
       border-color: #333 transparent transparent transparent;
     }
-  }
-}
-
-.slider:hover,
-.slidingSlider:hover {
-  .mousePosTip {
-    visibility: visible;
   }
 }

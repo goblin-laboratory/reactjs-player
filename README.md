@@ -15,9 +15,9 @@
 
 - 结构简单：使用 `react hooks` 做状态管理，将不同的状态拆分到不同的 `react custom hooks` 中，`ReactPlayer` 中进行组合
 - 扩展方便：扩展时实现对应的 `react custom hooks` 并在 `ReactPlayer` 中根据条件进行加载
-- 代码简洁：只做播放器内部的状态管理和控制栏显示与控制，Gzip 后只有 8KB
+- 代码简洁：只做播放器内部的状态管理和控制栏显示与控制
 - 理解容易： `ReactPlayer` 事件基于 `vidoe` [媒体事件](https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Media_events) 进行扩展，减小理解成本
-- 使用相对复杂：不同于市面上其他的 h5 播放器，`ReactPlayer` 将控制权交给使用者，无法做到一行代码播放所有兼容的格式
+- 使用相对复杂：不同于其他的 h5 播放器，`ReactPlayer` 将控制权交给使用者，无法做到一行代码播放所有兼容的格式
 
 ## Getting started
 
@@ -54,6 +54,7 @@ const App = () => {
 ```jsx
 <ReactPlayer
   kernel="hlsjs"
+  live={false}
   src="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"
   type="application/x-mpegURL"
 />
@@ -214,6 +215,8 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `type`           | `String` | `'video/rtmp'`                                            |             |
 | `grindPlayerSwf` | `String` | `'https://unpkg.com/reactjs-player/dist/GrindPlayer.swf'` |             |
 | `flashlsOSMFSwf` | `String` | `'https://unpkg.com/reactjs-player/dist/flashlsOSMF.swf'` |             |
+
+> 注意：使用 Flash 时需要在根目录存放 crossdomain.xml 文件
 
 ### ReactPlayerContext
 

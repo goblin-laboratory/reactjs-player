@@ -3,7 +3,7 @@
 ## 播放器
 1. videojs
 2. mediaelement
-3. aliplayer
+3. aliplayer: https://player.alicdn.com/aliplayer/index.html
 4. chimee: https://github.com/Chimeejs/chimee
 5. TCPlayerLite : https://cloud.tencent.com/document/product/454/7503
 
