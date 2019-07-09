@@ -1,0 +1,27 @@
+language: node_js
+
+# deploy:
+#   provider: pages
+#   skip-cleanup: true
+#   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+#   keep-history: true
+
+node_js:
+- 10
+
+cache: yarn
+
+before_install:
+  - npm install -g yarn
+
+install:
+  - yarn install
+
+script:
+  - yarn lint
+  - yarn build
+  - yarn test
+
+# after_success:
+  # - yarn coveralls
+  # - yarn deploy

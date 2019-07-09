@@ -3,9 +3,10 @@
 # ReactPlayer
 
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
-![reactjs-player](https://img.shields.io/npm/v/reactjs-player.svg?style=flat-square)
+[![npm](https://img.shields.io/npm/v/reactjs-player.svg?color=blue&style=flat-square)](https://www.npmjs.com/package/reactjs-player)
 ![reactjs-player](https://img.shields.io/bundlephobia/minzip/reactjs-player.svg?style=flat-square)
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+
 
 基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。
 
@@ -274,6 +275,10 @@ const App = () => {
 - HLS
 - FLV
 - RTMP
+
+## TODO
+
+[TODO](./TODO)
 
 ## 微信同层播放
 
