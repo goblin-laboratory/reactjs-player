@@ -75,12 +75,10 @@ export default ({ x5playsinline, onX5VideoFullscreenChange }, getVideoElement, g
   }, [x5playsinline, onResize]);
 
   const onx5videoenterfullscreen = React.useCallback(() => {
-    // alert('onx5videoenterfullscreen');
     setX5videofullscreen(true);
   }, []);
 
   const onx5videoexitfullscreen = React.useCallback(() => {
-    // alert('onx5videoexitfullscreen');
     setX5videofullscreen(false);
   }, []);
 
