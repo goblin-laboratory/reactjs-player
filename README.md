@@ -2,6 +2,7 @@
 
 # ReactPlayer
 
+[![Travis (.org)](https://img.shields.io/travis/goblin-laboratory/react-player.svg?style=flat-square)](https://travis-ci.org/goblin-laboratory/react-player)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 [![npm](https://img.shields.io/npm/v/reactjs-player.svg?color=blue&style=flat-square)](https://www.npmjs.com/package/reactjs-player)
 ![reactjs-player](https://img.shields.io/bundlephobia/minzip/reactjs-player.svg?style=flat-square)

@@ -1277,11 +1277,9 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
     };
   }, [x5playsinline, onResize]);
   var onx5videoenterfullscreen = React.useCallback(function () {
-    // alert('onx5videoenterfullscreen');
     setX5videofullscreen(true);
   }, []);
   var onx5videoexitfullscreen = React.useCallback(function () {
-    // alert('onx5videoexitfullscreen');
     setX5videofullscreen(false);
   }, []);
   React.useEffect(function () {

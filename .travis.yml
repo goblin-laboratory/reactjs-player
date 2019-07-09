@@ -22,6 +22,6 @@ script:
   - yarn build
   - yarn test
 
-# after_success:
-  # - yarn coveralls
+after_success:
+  - yarn cov
   # - yarn deploy
