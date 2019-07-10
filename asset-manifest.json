@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/react-player/static/css/main.f0cfedb2.chunk.css",
-    "main.js": "/react-player/static/js/main.e05d03c4.chunk.js",
-    "main.js.map": "/react-player/static/js/main.e05d03c4.chunk.js.map",
+    "main.css": "/react-player/static/css/main.4f80ac51.chunk.css",
+    "main.js": "/react-player/static/js/main.85921da1.chunk.js",
+    "main.js.map": "/react-player/static/js/main.85921da1.chunk.js.map",
     "runtime~main.js": "/react-player/static/js/runtime~main.094a6fdb.js",
     "runtime~main.js.map": "/react-player/static/js/runtime~main.094a6fdb.js.map",
-    "static/css/2.ab7e5612.chunk.css": "/react-player/static/css/2.ab7e5612.chunk.css",
-    "static/js/2.d14866a0.chunk.js": "/react-player/static/js/2.d14866a0.chunk.js",
-    "static/js/2.d14866a0.chunk.js.map": "/react-player/static/js/2.d14866a0.chunk.js.map",
+    "static/css/2.985dc165.chunk.css": "/react-player/static/css/2.985dc165.chunk.css",
+    "static/js/2.4bd65a04.chunk.js": "/react-player/static/js/2.4bd65a04.chunk.js",
+    "static/js/2.4bd65a04.chunk.js.map": "/react-player/static/js/2.4bd65a04.chunk.js.map",
     "index.html": "/react-player/index.html",
-    "precache-manifest.46767811635d40091ddcc983eb92611a.js": "/react-player/precache-manifest.46767811635d40091ddcc983eb92611a.js",
+    "precache-manifest.58a1c7555dff3599cc2286afb6dce7b5.js": "/react-player/precache-manifest.58a1c7555dff3599cc2286afb6dce7b5.js",
     "service-worker.js": "/react-player/service-worker.js",
-    "static/css/2.ab7e5612.chunk.css.map": "/react-player/static/css/2.ab7e5612.chunk.css.map",
-    "static/css/main.f0cfedb2.chunk.css.map": "/react-player/static/css/main.f0cfedb2.chunk.css.map",
+    "static/css/2.985dc165.chunk.css.map": "/react-player/static/css/2.985dc165.chunk.css.map",
+    "static/css/main.4f80ac51.chunk.css.map": "/react-player/static/css/main.4f80ac51.chunk.css.map",
     "static/media/GrindPlayer.swf": "/react-player/static/media/GrindPlayer.4a087377.swf",
     "static/media/flashlsOSMF.swf": "/react-player/static/media/flashlsOSMF.f801e174.swf"
   }
