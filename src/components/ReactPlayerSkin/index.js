@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Icon, Slider, Dropdown, Menu } from 'antd';
 import CurrentTimeSlider from './CurrentTimeSlider';
+import 'antd/lib/slider/style/index.css';
+import 'antd/lib/dropdown/style/index.css';
 import styles from './index.module.less';
 
 import { ReactComponent as MutedSvg } from './muted.svg';

@@ -25,7 +25,7 @@
   ✔ native 播放 @done(19-06-11 08:54)
   ✔ 微信同层播放 @done(19-06-17 14:49)
   ✔ ios 微信同层播放 @done(19-06-16 13:47)
-  ✔ video errMsg 处理 @done(19-07-09 11:32)
+  ☐ video errMsg 处理
   ✔ 回放进度条鼠标位置时间提示 @done(19-07-09 11:38)
 
 第二期（构建优化）:
@@ -35,15 +35,20 @@
   ✔ 文档 @done(19-07-09 11:32)
   ☐ git 配置（提交校验，changelog 等）
   ✔ 单元测试配置 @done(19-07-09 11:38)
-  ☐ 测试覆盖率统计
-  ☐ 发布版本代码 uglify
+  ✔ 测试覆盖率统计 @done(19-07-09 14:31)
+  ✔ travis-ci 持续集成 @done(19-07-09 14:31)
+  ☐ 发布版本代码 uglify: rollup-plugin-terser
+  ☐ rollup-plugin-clear
 
 第三期（代码优化）:
   ☐ 性能优化（mouse move 防抖节流）
   ☐ 拆分 hooks 便于维护和测试
-  ☐ 完善测试用例
-  ☐ 去除 antd 依赖
+  ☐ 完善单元测试，提升测试覆盖率
+  ☐ 去除 antd 依赖: 音量 slider, Icon button, dropdown
+  ☐ playerMsg => kernelMsg
+  ☐ ref Methods 支持
 
 问题记录:
   ✘ 同层播放时 player 的 position 必须设置为 static 标题栏才能正常显示 @cancelled(19-06-19 11:06)
   ☐ 华为手机同层播放时蒙板问题
+  ☐ hls.js 本地测试 enableWorker 为 true 时报错

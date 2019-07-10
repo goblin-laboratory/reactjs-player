@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Icon, Slider as Slider$1, Dropdown, Menu } from 'antd';
+import 'antd/lib/slider/style/index.css';
+import 'antd/lib/dropdown/style/index.css';
 import Hls from 'hls.js';
 import flvjs from 'flv.js';
 import ReactSWF from 'react-swf';

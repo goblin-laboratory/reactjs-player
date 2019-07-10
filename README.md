@@ -3,7 +3,7 @@
 # ReactPlayer
 
 [![npm](https://img.shields.io/npm/v/reactjs-player.svg?color=blue&style=flat-square)](https://www.npmjs.com/package/reactjs-player)
-![reactjs-player](https://img.shields.io/bundlephobia/minzip/reactjs-player.svg?style=flat-square)
+[![reactjs-player](https://img.shields.io/bundlephobia/minzip/reactjs-player.svg?style=flat-square)](https://www.npmjs.com/package/reactjs-player)
 [![Travis (.org)](https://img.shields.io/travis/goblin-laboratory/react-player.svg?style=flat-square)](https://travis-ci.org/goblin-laboratory/react-player)
 [![Coveralls github](https://img.shields.io/coveralls/github/goblin-laboratory/react-player.svg?style=flat-square)](https://coveralls.io/github/goblin-laboratory/react-player)
 

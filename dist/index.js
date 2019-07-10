@@ -6,6 +6,8 @@ var React = _interopDefault(require('react'));
 var PropTypes = _interopDefault(require('prop-types'));
 var numeral = _interopDefault(require('numeral'));
 var antd = require('antd');
+require('antd/lib/slider/style/index.css');
+require('antd/lib/dropdown/style/index.css');
 var Hls = _interopDefault(require('hls.js'));
 var flvjs = _interopDefault(require('flv.js'));
 var ReactSWF = _interopDefault(require('react-swf'));
