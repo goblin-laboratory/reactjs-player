@@ -14,30 +14,32 @@ const ReactPlayerSkin = React.memo(
   ({
     src,
     poster,
-    muted,
-    volume,
-    currentTime,
-    duration,
-    playbackRate,
-    fullscreen,
+    controls, // state
     loading,
     paused,
-    waiting,
-    seeking,
     ended,
-    buffered,
-
-    changeCurrentTime,
-    onPauseClick,
+    seeking,
+    waiting,
     onPlayClick,
-    onMutedClick,
+    onPauseClick, // time
+    duration,
+    buffered,
+    currentTime,
+    changeCurrentTime, // volume
+    muted,
+    volume,
     changeVolume,
-    onPiPClick,
+    onMutedClick, // playbackRate
+    playbackRate,
+    changePlaybackRate, // pip
+    pictureInPictureEnabled,
+    pip,
+    requestPictureInPicture,
+    exitPictureInPicture, // fullscreen
+    fullscreen,
     requestFullscreen,
-    exitFullscreen,
-    changePlaybackRate,
-
-    playerMsg,
+    exitFullscreen, // kernel
+    kernelMsg,
   }) => {
     const [hiding, setHiding] = React.useState(false);
     const [hovering, setHovering] = React.useState(false);
@@ -142,10 +144,19 @@ const ReactPlayerSkin = React.memo(
                 </span>
               )}
             </div>
-            {document.pictureInPictureEnabled && (
-              <button type="button" className={styles.textBtn} onClick={onPiPClick}>
-                画中画
-              </button>
+            {pictureInPictureEnabled && (
+              <>
+                {!pip && (
+                  <button type="button" className={styles.textBtn} onClick={requestPictureInPicture}>
+                    画中画
+                  </button>
+                )}
+                {pip && (
+                  <button type="button" className={styles.textBtn} onClick={exitPictureInPicture}>
+                    退出画中画
+                  </button>
+                )}
+              </>
             )}
             {0 <= duration && (
               <Dropdown
@@ -158,7 +169,7 @@ const ReactPlayerSkin = React.memo(
                     <Menu.Item key="1.25">&nbsp;&nbsp;1.25 倍速&nbsp;&nbsp;</Menu.Item>
                     <Menu.Item key="1.5">&nbsp;&nbsp;1.5 倍速&nbsp;&nbsp;</Menu.Item>
                     <Menu.Item key="2">&nbsp;&nbsp;2 倍速&nbsp;&nbsp;</Menu.Item>
-                    <Menu.Item key="4">&nbsp;&nbsp;4 倍速&nbsp;&nbsp;</Menu.Item>
+                    {/* <Menu.Item key="4">&nbsp;&nbsp;4 倍速&nbsp;&nbsp;</Menu.Item> */}
                   </Menu>
                 }
                 placement="topRight"
@@ -181,14 +192,14 @@ const ReactPlayerSkin = React.memo(
             )}
           </div>
         </div>
-        {loading && !playerMsg && (
+        {loading && !kernelMsg && (
           <div className={styles.loading}>
             <Icon type="loading" />
           </div>
         )}
-        {playerMsg && (
-          <div className={styles.playerMsg}>
-            {playerMsg.type}: {playerMsg.detail}
+        {kernelMsg && (
+          <div className={styles.kernelMsg}>
+            {kernelMsg.type}: {kernelMsg.detail}
           </div>
         )}
       </div>
@@ -197,42 +208,48 @@ const ReactPlayerSkin = React.memo(
 );
 
 ReactPlayerSkin.propTypes = {
+  src: PropTypes.string,
+  poster: PropTypes.string,
   controls: PropTypes.bool.isRequired,
+  // state
   loading: PropTypes.bool.isRequired,
   paused: PropTypes.bool.isRequired,
   ended: PropTypes.bool.isRequired,
   seeking: PropTypes.bool.isRequired,
   waiting: PropTypes.bool.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
+  onPauseClick: PropTypes.func.isRequired,
+  // time
   duration: PropTypes.number.isRequired,
   buffered: PropTypes.object,
   currentTime: PropTypes.number.isRequired,
   changeCurrentTime: PropTypes.func.isRequired,
+  // volume
   muted: PropTypes.bool.isRequired,
   volume: PropTypes.number.isRequired,
+  changeVolume: PropTypes.func.isRequired,
+  onMutedClick: PropTypes.func.isRequired,
+  // playbackRate
   playbackRate: PropTypes.number.isRequired,
-  changePlaybackRate: PropTypes.func,
+  changePlaybackRate: PropTypes.func.isRequired,
+  // pip
+  pictureInPictureEnabled: PropTypes.bool.isRequired,
+  pip: PropTypes.bool.isRequired,
+  requestPictureInPicture: PropTypes.func.isRequired,
+  exitPictureInPicture: PropTypes.func.isRequired,
+  // fullscreen
   fullscreen: PropTypes.bool.isRequired,
-  onPlayClick: PropTypes.func,
-  onPauseClick: PropTypes.func,
-  onMutedClick: PropTypes.func,
-  changeVolume: PropTypes.func,
-  onPiPClick: PropTypes.func,
-  requestFullscreen: PropTypes.func,
-  exitFullscreen: PropTypes.func,
-  playerMsg: PropTypes.object,
+  requestFullscreen: PropTypes.func.isRequired,
+  exitFullscreen: PropTypes.func.isRequired,
+  // kernel
+  kernelMsg: PropTypes.object,
 };
 
 ReactPlayerSkin.defaultProps = {
+  src: '',
+  poster: '',
   buffered: null,
-  onPlayClick: () => {},
-  onPauseClick: () => {},
-  onMutedClick: () => {},
-  changeVolume: () => {},
-  onPiPClick: () => {},
-  requestFullscreen: () => {},
-  exitFullscreen: () => {},
-  changePlaybackRate: () => {},
-  playerMsg: null,
+  kernelMsg: null,
 };
 
 export default ReactPlayerSkin;

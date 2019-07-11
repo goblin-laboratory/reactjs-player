@@ -23,24 +23,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
 function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
@@ -55,42 +37,6 @@ function _objectSpread(target) {
     ownKeys.forEach(function (key) {
       _defineProperty(target, key, source[key]);
     });
-  }
-
-  return target;
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
   }
 
   return target;
@@ -389,11 +335,11 @@ Slider.defaultProps = {
   onChange: function onChange() {}
 };
 
-var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n}\n.index-module_poster__aD3NV {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  object-fit: contain;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  color: #fff;\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);\n  color: #fff;\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_playerMsg__3JOcN {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
-var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","poster":"index-module_poster__aD3NV","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","playerMsg":"index-module_playerMsg__3JOcN","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
+var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #eee;\n  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);\n}\n.index-module_poster__aD3NV {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  object-fit: contain;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_kernelMsg__pwhrY {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
+var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","poster":"index-module_poster__aD3NV","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","kernelMsg":"index-module_kernelMsg__pwhrY","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
 styleInject(css$1);
 
-function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 var _ref =
 /*#__PURE__*/
@@ -407,7 +353,7 @@ React.createElement("path", {
 });
 
 var SvgMuted = function SvgMuted(props) {
-  return React.createElement("svg", _extends$1({
+  return React.createElement("svg", _extends({
     className: "muted_svg__icon",
     viewBox: "0 0 1024 1024",
     width: 64,
@@ -415,7 +361,7 @@ var SvgMuted = function SvgMuted(props) {
   }, props), _ref, _ref2);
 };
 
-function _extends$2() { _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$2.apply(this, arguments); }
+function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
 
 var _ref$1 =
 /*#__PURE__*/
@@ -429,7 +375,7 @@ React.createElement("path", {
 });
 
 var SvgUnmuted = function SvgUnmuted(props) {
-  return React.createElement("svg", _extends$2({
+  return React.createElement("svg", _extends$1({
     className: "unmuted_svg__icon",
     viewBox: "0 0 1024 1024",
     width: 64,
@@ -440,28 +386,32 @@ var SvgUnmuted = function SvgUnmuted(props) {
 var ReactPlayerSkin = React.memo(function (_ref) {
   var src = _ref.src,
       poster = _ref.poster,
-      muted = _ref.muted,
-      volume = _ref.volume,
-      currentTime = _ref.currentTime,
-      duration = _ref.duration,
-      playbackRate = _ref.playbackRate,
-      fullscreen = _ref.fullscreen,
+      controls = _ref.controls,
       loading = _ref.loading,
       paused = _ref.paused,
-      waiting = _ref.waiting,
-      seeking = _ref.seeking,
       ended = _ref.ended,
-      buffered = _ref.buffered,
-      changeCurrentTime = _ref.changeCurrentTime,
-      onPauseClick = _ref.onPauseClick,
+      seeking = _ref.seeking,
+      waiting = _ref.waiting,
       onPlayClick = _ref.onPlayClick,
-      onMutedClick = _ref.onMutedClick,
+      onPauseClick = _ref.onPauseClick,
+      duration = _ref.duration,
+      buffered = _ref.buffered,
+      currentTime = _ref.currentTime,
+      changeCurrentTime = _ref.changeCurrentTime,
+      muted = _ref.muted,
+      volume = _ref.volume,
       changeVolume = _ref.changeVolume,
-      onPiPClick = _ref.onPiPClick,
+      onMutedClick = _ref.onMutedClick,
+      playbackRate = _ref.playbackRate,
+      changePlaybackRate = _ref.changePlaybackRate,
+      pictureInPictureEnabled = _ref.pictureInPictureEnabled,
+      pip = _ref.pip,
+      requestPictureInPicture = _ref.requestPictureInPicture,
+      exitPictureInPicture = _ref.exitPictureInPicture,
+      fullscreen = _ref.fullscreen,
       requestFullscreen = _ref.requestFullscreen,
       exitFullscreen = _ref.exitFullscreen,
-      changePlaybackRate = _ref.changePlaybackRate,
-      playerMsg = _ref.playerMsg;
+      kernelMsg = _ref.kernelMsg;
 
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -596,11 +546,15 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     className: styles$1.controlText
   }, React.createElement("span", {
     className: styles$1.liveDot
-  }), "\u76F4\u64AD")), document.pictureInPictureEnabled && React.createElement("button", {
+  }), "\u76F4\u64AD")), pictureInPictureEnabled && React.createElement(React.Fragment, null, !pip && React.createElement("button", {
     type: "button",
     className: styles$1.textBtn,
-    onClick: onPiPClick
-  }, "\u753B\u4E2D\u753B"), 0 <= duration && React.createElement(Dropdown, {
+    onClick: requestPictureInPicture
+  }, "\u753B\u4E2D\u753B"), pip && React.createElement("button", {
+    type: "button",
+    className: styles$1.textBtn,
+    onClick: exitPictureInPicture
+  }, "\u9000\u51FA\u753B\u4E2D\u753B")), 0 <= duration && React.createElement(Dropdown, {
     visible: visible,
     overlay: React.createElement(Menu, {
       selectedKeys: [playbackRate.toString()],
@@ -617,9 +571,7 @@ var ReactPlayerSkin = React.memo(function (_ref) {
       key: "1.5"
     }, "\xA0\xA01.5 \u500D\u901F\xA0\xA0"), React.createElement(Menu.Item, {
       key: "2"
-    }, "\xA0\xA02 \u500D\u901F\xA0\xA0"), React.createElement(Menu.Item, {
-      key: "4"
-    }, "\xA0\xA04 \u500D\u901F\xA0\xA0")),
+    }, "\xA0\xA02 \u500D\u901F\xA0\xA0")),
     placement: "topRight",
     trigger: ['click']
   }, React.createElement("button", {
@@ -638,50 +590,56 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     onClick: requestFullscreen
   }, React.createElement(Icon, {
     type: "fullscreen"
-  })))), loading && !playerMsg && React.createElement("div", {
+  })))), loading && !kernelMsg && React.createElement("div", {
     className: styles$1.loading
   }, React.createElement(Icon, {
     type: "loading"
-  })), playerMsg && React.createElement("div", {
-    className: styles$1.playerMsg
-  }, playerMsg.type, ": ", playerMsg.detail));
+  })), kernelMsg && React.createElement("div", {
+    className: styles$1.kernelMsg
+  }, kernelMsg.type, ": ", kernelMsg.detail));
 });
 ReactPlayerSkin.propTypes = {
+  src: PropTypes.string,
+  poster: PropTypes.string,
   controls: PropTypes.bool.isRequired,
+  // state
   loading: PropTypes.bool.isRequired,
   paused: PropTypes.bool.isRequired,
   ended: PropTypes.bool.isRequired,
   seeking: PropTypes.bool.isRequired,
   waiting: PropTypes.bool.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
+  onPauseClick: PropTypes.func.isRequired,
+  // time
   duration: PropTypes.number.isRequired,
   buffered: PropTypes.object,
   currentTime: PropTypes.number.isRequired,
   changeCurrentTime: PropTypes.func.isRequired,
+  // volume
   muted: PropTypes.bool.isRequired,
   volume: PropTypes.number.isRequired,
+  changeVolume: PropTypes.func.isRequired,
+  onMutedClick: PropTypes.func.isRequired,
+  // playbackRate
   playbackRate: PropTypes.number.isRequired,
-  changePlaybackRate: PropTypes.func,
+  changePlaybackRate: PropTypes.func.isRequired,
+  // pip
+  pictureInPictureEnabled: PropTypes.bool.isRequired,
+  pip: PropTypes.bool.isRequired,
+  requestPictureInPicture: PropTypes.func.isRequired,
+  exitPictureInPicture: PropTypes.func.isRequired,
+  // fullscreen
   fullscreen: PropTypes.bool.isRequired,
-  onPlayClick: PropTypes.func,
-  onPauseClick: PropTypes.func,
-  onMutedClick: PropTypes.func,
-  changeVolume: PropTypes.func,
-  onPiPClick: PropTypes.func,
-  requestFullscreen: PropTypes.func,
-  exitFullscreen: PropTypes.func,
-  playerMsg: PropTypes.object
+  requestFullscreen: PropTypes.func.isRequired,
+  exitFullscreen: PropTypes.func.isRequired,
+  // kernel
+  kernelMsg: PropTypes.object
 };
 ReactPlayerSkin.defaultProps = {
+  src: '',
+  poster: '',
   buffered: null,
-  onPlayClick: function onPlayClick() {},
-  onPauseClick: function onPauseClick() {},
-  onMutedClick: function onMutedClick() {},
-  changeVolume: function changeVolume() {},
-  onPiPClick: function onPiPClick() {},
-  requestFullscreen: function requestFullscreen() {},
-  exitFullscreen: function exitFullscreen() {},
-  changePlaybackRate: function changePlaybackRate() {},
-  playerMsg: null
+  kernelMsg: null
 };
 
 var ReactPlayerSkinWapper = function ReactPlayerSkinWapper() {
@@ -693,18 +651,9 @@ var css$2 = ".index-module_reactPlayer__2dzH- {\n  position: absolute;\n  top: 0
 var styles$2 = {"reactPlayer":"index-module_reactPlayer__2dzH-","video":"index-module_video__MtVT_"};
 styleInject(css$2);
 
-var noop = function noop() {};
-
-var useVideo = (function (props, getVideoElement, getPlayerElement) {
-  var live = props.live,
-      src = props.src,
-      currentTimeProp = props.currentTime,
-      mutedProp = props.muted,
-      volumeProp = props.volume,
+var useVideoState = (function (props, getVideoElement) {
+  var src = props.src,
       onCanPlay = props.onCanPlay,
-      onDurationChange = props.onDurationChange,
-      onTimeUpdate = props.onTimeUpdate,
-      onProgress = props.onProgress,
       onPause = props.onPause,
       onPlay = props.onPlay,
       onPlaying = props.onPlaying,
@@ -712,9 +661,7 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
       onSeeked = props.onSeeked,
       onSeeking = props.onSeeking,
       onCanPlayThrough = props.onCanPlayThrough,
-      onWaiting = props.onWaiting,
-      onVolumeChange = props.onVolumeChange,
-      onRateChange = props.onRateChange;
+      onWaiting = props.onWaiting;
 
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -741,80 +688,18 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
       waiting = _React$useState10[0],
       setWaiting = _React$useState10[1];
 
-  var _React$useState11 = React.useState(live ? -1 : 0),
-      _React$useState12 = _slicedToArray(_React$useState11, 2),
-      duration = _React$useState12[0],
-      setDuration = _React$useState12[1];
-
-  var _React$useState13 = React.useState(0),
-      _React$useState14 = _slicedToArray(_React$useState13, 2),
-      currentTime = _React$useState14[0],
-      setCurrentTime = _React$useState14[1];
-
-  var _React$useState15 = React.useState(null),
-      _React$useState16 = _slicedToArray(_React$useState15, 2),
-      buffered = _React$useState16[0],
-      setBuffered = _React$useState16[1];
-
-  var _React$useState17 = React.useState(props.muted),
-      _React$useState18 = _slicedToArray(_React$useState17, 2),
-      muted = _React$useState18[0],
-      setMuted = _React$useState18[1];
-
-  var _React$useState19 = React.useState(volumeProp),
-      _React$useState20 = _slicedToArray(_React$useState19, 2),
-      volume = _React$useState20[0],
-      setVolume = _React$useState20[1];
-
-  var _React$useState21 = React.useState(1),
-      _React$useState22 = _slicedToArray(_React$useState21, 2),
-      playbackRate = _React$useState22[0],
-      setPlaybackRate = _React$useState22[1];
-
   React.useEffect(function () {
-    if (!src) {
-      return noop;
-    }
-
-    setLoading(true);
+    setLoading(!!src);
     setPaused(false);
     setEnded(false);
     setSeeking(false);
     setWaiting(false);
-    setDuration(live ? -1 : 0);
-    setCurrentTime(0);
-    setBuffered(null);
-    return function () {
-      setLoading(false);
-      setPaused(false);
-      setEnded(false);
-      setSeeking(false);
-      setWaiting(false);
-      setDuration(live ? -1 : 0);
-      setCurrentTime(0);
-      setBuffered(null);
-    };
-  }, [src, live]);
+  }, [src]);
   var onVideoCanPlay = React.useCallback(function (e) {
     setLoading(false);
     setWaiting(false);
     onCanPlay(e);
   }, [onCanPlay]);
-  var onVideoDurationChange = React.useCallback(function (e) {
-    if (!live) {
-      setDuration(e.target.duration);
-    }
-
-    onDurationChange(e);
-  }, [live, onDurationChange]);
-  var onVideoTimeUpdate = React.useCallback(function (e) {
-    setCurrentTime(e.target.currentTime);
-    onTimeUpdate(e);
-  }, [onTimeUpdate]);
-  var onVideoProgress = React.useCallback(function (e) {
-    setBuffered(e.target.buffered);
-    onProgress(e);
-  }, [onProgress]);
   var onVideoPause = React.useCallback(function (e) {
     setPaused(true);
     onPause(e);
@@ -849,38 +734,6 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
     setWaiting(true);
     onWaiting(e);
   }, [onWaiting]);
-  var onVideoVolumeChange = React.useCallback(function (e) {
-    var v = e.target.volume;
-    var m = 0 === v ? true : e.target.muted;
-    setVolume(v);
-    setMuted(m);
-    onVolumeChange(e);
-  }, [onVolumeChange]);
-  var onVideoRateChange = React.useCallback(function (e) {
-    setPlaybackRate(e.target.playbackRate);
-    onRateChange(e);
-  }, [onRateChange]);
-  React.useEffect(function () {
-    setCurrentTime(currentTimeProp);
-    return noop;
-  }, [currentTimeProp]);
-  React.useEffect(function () {
-    setMuted(mutedProp);
-    return noop;
-  }, [mutedProp]);
-  React.useEffect(function () {
-    setVolume(volumeProp);
-    return noop;
-  }, [volumeProp]);
-  var changeCurrentTime = React.useCallback(function (t) {
-    var el = getVideoElement();
-
-    if (el) {
-      el.currentTime = t;
-    }
-
-    setCurrentTime(t);
-  }, [getVideoElement]);
   var onPauseClick = React.useCallback(function (t) {
     var el = getVideoElement();
 
@@ -903,6 +756,122 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
 
     setPaused(true);
   }, [getVideoElement, ended]);
+  return {
+    loading: loading,
+    paused: paused,
+    ended: ended,
+    seeking: seeking,
+    waiting: waiting,
+    onPauseClick: onPauseClick,
+    onPlayClick: onPlayClick,
+    // 媒体事件
+    onCanPlay: onVideoCanPlay,
+    onPause: onVideoPause,
+    onPlay: onVideoPlay,
+    onPlaying: onVideoPlaying,
+    onEnded: onVideoEnded,
+    onSeeked: onVideoSeeked,
+    onSeeking: onVideoSeeking,
+    onCanPlayThrough: onVideoCanPlayThrough,
+    onWaiting: onVideoWaiting
+  };
+});
+
+var useVideoTime = (function (props, getVideoElement) {
+  var live = props.live,
+      src = props.src,
+      currentTimeProp = props.currentTime,
+      onDurationChange = props.onDurationChange,
+      onTimeUpdate = props.onTimeUpdate,
+      onProgress = props.onProgress;
+
+  var _React$useState = React.useState(live ? -1 : 0),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      duration = _React$useState2[0],
+      setDuration = _React$useState2[1];
+
+  var _React$useState3 = React.useState(currentTimeProp),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      currentTime = _React$useState4[0],
+      setCurrentTime = _React$useState4[1];
+
+  var _React$useState5 = React.useState(null),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      buffered = _React$useState6[0],
+      setBuffered = _React$useState6[1];
+
+  React.useEffect(function () {
+    setDuration(live ? -1 : 0);
+    setCurrentTime(0);
+    setBuffered(null);
+  }, [src, live]);
+  var onVideoDurationChange = React.useCallback(function (e) {
+    if (!live) {
+      setDuration(e.target.duration);
+    }
+
+    onDurationChange(e);
+  }, [live, onDurationChange]);
+  var onVideoTimeUpdate = React.useCallback(function (e) {
+    setCurrentTime(e.target.currentTime);
+    onTimeUpdate(e);
+  }, [onTimeUpdate]);
+  var onVideoProgress = React.useCallback(function (e) {
+    setBuffered(e.target.buffered);
+    onProgress(e);
+  }, [onProgress]);
+  var changeCurrentTime = React.useCallback(function (t) {
+    var el = getVideoElement();
+
+    if (el) {
+      el.currentTime = t;
+    }
+
+    setCurrentTime(t);
+  }, [getVideoElement]);
+  React.useEffect(function () {
+    if (!live) {
+      return;
+    }
+
+    if (duration > currentTimeProp) {
+      changeCurrentTime(currentTimeProp);
+    }
+  }, [live, currentTimeProp, duration, changeCurrentTime]);
+  return {
+    duration: duration,
+    currentTime: currentTime,
+    buffered: buffered,
+    changeCurrentTime: changeCurrentTime,
+    // 媒体事件
+    onDurationChange: onVideoDurationChange,
+    onTimeUpdate: onVideoTimeUpdate,
+    onProgress: onVideoProgress
+  };
+});
+
+var useVideoVolume = (function (props, getVideoElement) {
+  var mutedProp = props.muted,
+      volumeProp = props.volume,
+      onVolumeChange = props.onVolumeChange;
+
+  var _React$useState = React.useState(mutedProp),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      muted = _React$useState2[0],
+      setMuted = _React$useState2[1];
+
+  var _React$useState3 = React.useState(volumeProp),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      volume = _React$useState4[0],
+      setVolume = _React$useState4[1];
+
+  var onVideoVolumeChange = React.useCallback(function (e) {
+    var v = e.target.volume;
+    var m = 0 === v ? true : e.target.muted;
+    setVolume(v);
+    setMuted(m);
+    onVolumeChange(e);
+  }, [onVolumeChange]);
   var onMutedClick = React.useCallback(function (e) {
     var el = getVideoElement();
 
@@ -921,13 +890,35 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
       el.volume = v;
     }
   }, [getVideoElement]);
-  var onPiPClick = React.useCallback(function (v) {
-    var el = getVideoElement();
+  return {
+    muted: muted,
+    volume: volume,
+    onMutedClick: onMutedClick,
+    changeVolume: changeVolume,
+    // 媒体事件
+    onVolumeChange: onVideoVolumeChange
+  };
+});
 
-    if (el) {
-      el.requestPictureInPicture();
+var useVideoPlaybackRate = (function (props, getVideoElement) {
+  var live = props.live,
+      onRateChange = props.onRateChange;
+
+  var _React$useState = React.useState(1),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      playbackRate = _React$useState2[0],
+      setPlaybackRate = _React$useState2[1];
+
+  React.useEffect(function () {
+    if (live) {
+      // debugger;
+      setPlaybackRate(1);
     }
-  }, [getVideoElement]);
+  }, [live]);
+  var onVideoRateChange = React.useCallback(function (e) {
+    setPlaybackRate(e.target.playbackRate);
+    onRateChange(e);
+  }, [onRateChange]);
   var changePlaybackRate = React.useCallback(function (r) {
     var el = getVideoElement();
 
@@ -936,272 +927,74 @@ var useVideo = (function (props, getVideoElement, getPlayerElement) {
     }
   }, [getVideoElement]);
   return {
-    loading: loading,
-    paused: paused,
-    ended: ended,
-    seeking: seeking,
-    waiting: waiting,
-    duration: duration,
-    currentTime: currentTime,
-    buffered: buffered,
-    muted: muted,
-    volume: volume,
     playbackRate: playbackRate,
-    mediaEvents: {
-      onCanPlay: onVideoCanPlay,
-      onDurationChange: onVideoDurationChange,
-      onTimeUpdate: onVideoTimeUpdate,
-      onProgress: onVideoProgress,
-      onPause: onVideoPause,
-      onPlay: onVideoPlay,
-      onPlaying: onVideoPlaying,
-      onEnded: onVideoEnded,
-      onSeeked: onVideoSeeked,
-      onSeeking: onVideoSeeking,
-      onCanPlayThrough: onVideoCanPlayThrough,
-      onWaiting: onVideoWaiting,
-      onVolumeChange: onVideoVolumeChange,
-      onRateChange: onVideoRateChange,
-      onEmptied: props.onEmptied,
-      onEncrypted: props.onEncrypted,
-      onError: props.onError,
-      onLoadedData: props.onLoadedData,
-      onLoadedMetadata: props.onLoadedMetadata,
-      onLoadStart: props.onLoadStart,
-      onStalled: props.onStalled,
-      onSuspend: props.onSuspend,
-      onAbort: props.onAbort
-    },
-    changeCurrentTime: changeCurrentTime,
-    onPauseClick: onPauseClick,
-    onPlayClick: onPlayClick,
-    onMutedClick: onMutedClick,
-    changeVolume: changeVolume,
-    onPiPClick: onPiPClick,
-    changePlaybackRate: changePlaybackRate
+    changePlaybackRate: changePlaybackRate,
+    // 媒体事件
+    onRateChange: onVideoRateChange
   };
 });
 
-var useHlsjs = (function (_ref, getVideoElement) {
-  var src = _ref.src,
-      config = _ref.config,
-      onKernelError = _ref.onKernelError;
+var noop = function noop() {};
 
-  var _React$useState = React.useState(null),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      hlsPlayer = _React$useState2[0],
-      setHlsPlayer = _React$useState2[1];
-
-  var _React$useState3 = React.useState(null),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      playerMsg = _React$useState4[0],
-      setPlayerMsg = _React$useState4[1];
-
-  React.useEffect(function () {
-    var el = getVideoElement();
-
-    if (!el || !src) {
-      setHlsPlayer(null);
-      return function () {};
-    }
-
-    var hls = new Hls(Object.assign({
-      debug: false,
-      enableWorker: false
-    }, config));
-    hls.loadSource(src);
-    setHlsPlayer(hls);
-    return function () {
-      setHlsPlayer(null);
-    };
-  }, [getVideoElement, src, config]);
-  React.useEffect(function () {
-    if (!hlsPlayer) {
-      return function () {};
-    }
-
-    var el = getVideoElement();
-
-    if (el) {
-      hlsPlayer.attachMedia(el);
-      hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function () {
-        return el.play();
-      });
-    }
-
-    return function () {
-      try {
-        hlsPlayer.destroy();
-      } catch (errMsg) {}
-    };
-  }, [getVideoElement, hlsPlayer]);
-  var onError = React.useCallback(function (e, info) {
-    if (info && info.fatal) {
-      var msg = {
-        type: info.type,
-        detail: info.details
-      };
-      setPlayerMsg(msg);
-      onKernelError(msg);
-    }
-  }, [onKernelError]);
-  React.useEffect(function () {
-    if (!hlsPlayer) {
-      setPlayerMsg(null);
-      return function () {};
-    }
-
-    hlsPlayer.on(Hls.Events.ERROR, onError);
-    return function () {
-      try {
-        hlsPlayer.off(Hls.Events.ERROR);
-      } catch (errMsg) {}
-
-      setPlayerMsg(null);
-    };
-  }, [hlsPlayer, onError]);
-  return playerMsg;
-});
-
-var useFlvjs = (function (_ref, getVideoElement) {
-  var src = _ref.src,
-      config = _ref.config,
-      onKernelError = _ref.onKernelError;
-
-  var _React$useState = React.useState(null),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      flvPlayer = _React$useState2[0],
-      setFlvPlayer = _React$useState2[1];
-
-  var _React$useState3 = React.useState(null),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      playerMsg = _React$useState4[0],
-      setPlayerMsg = _React$useState4[1];
-
-  React.useEffect(function () {
-    var el = getVideoElement();
-
-    if (!el || !src) {
-      setFlvPlayer(null);
-      return function () {};
-    }
-
-    setFlvPlayer(flvjs.createPlayer({
-      isLive: true,
-      type: 'flv',
-      url: src
-    }, _objectSpread({}, config)));
-    return function () {
-      setFlvPlayer(null);
-    };
-  }, [getVideoElement, src, config]);
-  React.useEffect(function () {
-    if (!flvPlayer) {
-      return function () {};
-    }
-
-    var el = getVideoElement();
-
-    if (el) {
-      flvPlayer.attachMediaElement(el);
-      flvPlayer.load();
-      flvPlayer.play();
-    }
-
-    return function () {
-      try {
-        flvPlayer.pause();
-      } catch (errMsg) {}
-
-      try {
-        flvPlayer.unload();
-      } catch (errMsg) {}
-
-      try {
-        flvPlayer.detachMediaElement();
-      } catch (errMsg) {}
-
-      try {
-        flvPlayer.destroy();
-      } catch (errMsg) {}
-    };
-  }, [getVideoElement, flvPlayer]);
-  var onError = React.useCallback(function (type, detail) {
-    var info = {
-      type: type,
-      detail: detail
-    };
-    setPlayerMsg(info);
-    onKernelError(info);
-  }, [onKernelError]);
-  React.useEffect(function () {
-    if (!flvPlayer) {
-      return function () {};
-    }
-
-    flvPlayer.on(flvjs.Events.ERROR, onError);
-    return function () {
-      try {
-        flvPlayer.off(flvjs.Events.ERROR);
-      } catch (errMsg) {}
-    };
-  }, [flvPlayer, onError]);
-  return playerMsg;
-});
-
-var useNative = (function (_ref, getVideoElement) {
+var useVideoPiP = (function (_ref, getVideoElement) {
   var src = _ref.src;
 
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      loaded = _React$useState2[0],
-      setLoaded = _React$useState2[1];
+      enabled = _React$useState2[0],
+      setEnabled = _React$useState2[1];
+
+  var _React$useState3 = React.useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      pip = _React$useState4[0],
+      setPiP = _React$useState4[1];
 
   React.useEffect(function () {
+    setEnabled(!!document.pictureInPictureEnabled);
+  }, []);
+  var requestPictureInPicture = React.useCallback(function (v) {
     var el = getVideoElement();
 
-    if (!el || !src) {
-      return function () {};
+    if (el && el.requestPictureInPicture) {
+      el.requestPictureInPicture();
     }
-
-    el.src = src;
-    el.load();
-    el.play();
-    return function () {
-      el.pause();
-      el.src = '';
-
-      try {
-        el.load();
-      } catch (errMsg) {}
-    };
-  }, [getVideoElement, src]);
-  var onDocumentClick = React.useCallback(function () {
+  }, [getVideoElement]);
+  var exitPictureInPicture = React.useCallback(function (e) {
+    if (document.exitPictureInPicture) {
+      document.exitPictureInPicture();
+    }
+  }, []);
+  React.useEffect(function () {
+    if (pip && !src) {
+      exitPictureInPicture();
+    }
+  }, [src, pip, exitPictureInPicture]);
+  var onenterpictureinpicture = React.useCallback(function (e) {
+    setPiP(true);
+  }, []);
+  var onleavepictureinpicture = React.useCallback(function (e) {
+    setPiP(false);
+  }, []);
+  React.useEffect(function () {
     var el = getVideoElement();
 
     if (!el) {
-      setLoaded(false);
-      return function () {};
+      return noop;
     }
 
-    el.src = '';
-    el.load();
-    setLoaded(true);
-  }, [getVideoElement]);
-  React.useEffect(function () {
-    document.addEventListener('click', onDocumentClick);
+    el.addEventListener('enterpictureinpicture', onenterpictureinpicture);
+    el.addEventListener('leavepictureinpicture', onleavepictureinpicture);
     return function () {
-      document.removeEventListener('click', onDocumentClick);
+      el.removeEventListener('enterpictureinpicture', onenterpictureinpicture);
+      el.removeEventListener('leavepictureinpicture', onleavepictureinpicture);
     };
-  }, [onDocumentClick]);
-  React.useEffect(function () {
-    if (loaded) {
-      document.removeEventListener('click', onDocumentClick);
-    }
-
-    return function () {};
-  }, [loaded, onDocumentClick]);
-  return null;
+  }, [getVideoElement, onenterpictureinpicture, onleavepictureinpicture]);
+  return {
+    pictureInPictureEnabled: enabled,
+    pip: pip,
+    requestPictureInPicture: requestPictureInPicture,
+    exitPictureInPicture: exitPictureInPicture
+  };
 });
 
 var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
@@ -1321,6 +1114,228 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
   };
 });
 
+var useHlsjs = (function (_ref, getVideoElement) {
+  var src = _ref.src,
+      config = _ref.config,
+      onKernelError = _ref.onKernelError;
+
+  var _React$useState = React.useState(null),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      hlsPlayer = _React$useState2[0],
+      setHlsPlayer = _React$useState2[1];
+
+  var _React$useState3 = React.useState(null),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      kernelMsg = _React$useState4[0],
+      setKernelMsg = _React$useState4[1];
+
+  React.useEffect(function () {
+    var el = getVideoElement();
+
+    if (!el || !src) {
+      setHlsPlayer(null);
+      return function () {};
+    }
+
+    var hls = new Hls(Object.assign({
+      debug: false,
+      enableWorker: false
+    }, config));
+    hls.loadSource(src);
+    setHlsPlayer(hls);
+    return function () {
+      setHlsPlayer(null);
+    };
+  }, [getVideoElement, src, config]);
+  React.useEffect(function () {
+    if (!hlsPlayer) {
+      return function () {};
+    }
+
+    var el = getVideoElement();
+
+    if (el) {
+      hlsPlayer.attachMedia(el);
+      hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function () {
+        return el.play();
+      });
+    }
+
+    return function () {
+      try {
+        hlsPlayer.destroy();
+      } catch (errMsg) {}
+    };
+  }, [getVideoElement, hlsPlayer]);
+  var onError = React.useCallback(function (e, info) {
+    if (info && info.fatal) {
+      var msg = {
+        type: info.type,
+        detail: info.details
+      };
+      setKernelMsg(msg);
+      onKernelError(msg);
+    }
+  }, [onKernelError]);
+  React.useEffect(function () {
+    if (!hlsPlayer) {
+      setKernelMsg(null);
+      return function () {};
+    }
+
+    hlsPlayer.on(Hls.Events.ERROR, onError);
+    return function () {
+      try {
+        hlsPlayer.off(Hls.Events.ERROR);
+      } catch (errMsg) {}
+
+      setKernelMsg(null);
+    };
+  }, [hlsPlayer, onError]);
+  return kernelMsg;
+});
+
+var useFlvjs = (function (_ref, getVideoElement) {
+  var src = _ref.src,
+      config = _ref.config,
+      onKernelError = _ref.onKernelError;
+
+  var _React$useState = React.useState(null),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      flvPlayer = _React$useState2[0],
+      setFlvPlayer = _React$useState2[1];
+
+  var _React$useState3 = React.useState(null),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      kernelMsg = _React$useState4[0],
+      setKernelMsg = _React$useState4[1];
+
+  React.useEffect(function () {
+    var el = getVideoElement();
+
+    if (!el || !src) {
+      setFlvPlayer(null);
+      return function () {};
+    }
+
+    setFlvPlayer(flvjs.createPlayer({
+      isLive: true,
+      type: 'flv',
+      url: src
+    }, _objectSpread({}, config)));
+    return function () {
+      setFlvPlayer(null);
+    };
+  }, [getVideoElement, src, config]);
+  React.useEffect(function () {
+    if (!flvPlayer) {
+      return function () {};
+    }
+
+    var el = getVideoElement();
+
+    if (el) {
+      flvPlayer.attachMediaElement(el);
+      flvPlayer.load();
+      flvPlayer.play();
+    }
+
+    return function () {
+      try {
+        flvPlayer.pause();
+      } catch (errMsg) {}
+
+      try {
+        flvPlayer.unload();
+      } catch (errMsg) {}
+
+      try {
+        flvPlayer.detachMediaElement();
+      } catch (errMsg) {}
+
+      try {
+        flvPlayer.destroy();
+      } catch (errMsg) {}
+    };
+  }, [getVideoElement, flvPlayer]);
+  var onError = React.useCallback(function (type, detail) {
+    var info = {
+      type: type,
+      detail: detail
+    };
+    setKernelMsg(info);
+    onKernelError(info);
+  }, [onKernelError]);
+  React.useEffect(function () {
+    if (!flvPlayer) {
+      return function () {};
+    }
+
+    flvPlayer.on(flvjs.Events.ERROR, onError);
+    return function () {
+      try {
+        flvPlayer.off(flvjs.Events.ERROR);
+      } catch (errMsg) {}
+    };
+  }, [flvPlayer, onError]);
+  return kernelMsg;
+});
+
+var useNative = (function (_ref, getVideoElement) {
+  var src = _ref.src;
+
+  var _React$useState = React.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      loaded = _React$useState2[0],
+      setLoaded = _React$useState2[1];
+
+  React.useEffect(function () {
+    var el = getVideoElement();
+
+    if (!el || !src) {
+      return function () {};
+    }
+
+    el.src = src;
+    el.load();
+    el.play();
+    return function () {
+      el.pause();
+      el.src = '';
+
+      try {
+        el.load();
+      } catch (errMsg) {}
+    };
+  }, [getVideoElement, src]);
+  var onDocumentClick = React.useCallback(function () {
+    var el = getVideoElement();
+
+    if (!el) {
+      setLoaded(false);
+      return function () {};
+    }
+
+    el.src = '';
+    el.load();
+    setLoaded(true);
+  }, [getVideoElement]);
+  React.useEffect(function () {
+    document.addEventListener('click', onDocumentClick);
+    return function () {
+      document.removeEventListener('click', onDocumentClick);
+    };
+  }, [onDocumentClick]);
+  React.useEffect(function () {
+    if (loaded) {
+      document.removeEventListener('click', onDocumentClick);
+    }
+
+    return function () {};
+  }, [loaded, onDocumentClick]);
+  return null;
+});
+
 var noop$1 = function noop() {};
 
 var getRenderHooks = function getRenderHooks(kernel) {
@@ -1348,14 +1363,13 @@ var ReactPlayer = function ReactPlayer(props) {
   var getPlayerElement = React.useCallback(function () {
     return playerRef && playerRef.current;
   }, []);
-
-  var _useVideo = useVideo(props, getVideoElement),
-      muted = _useVideo.muted,
-      mediaEvents = _useVideo.mediaEvents,
-      videoProps = _objectWithoutProperties(_useVideo, ["muted", "mediaEvents"]);
-
-  var playerMsg = getRenderHooks(props.kernel)(props, getVideoElement);
+  var videoProps = useVideoState(props, getVideoElement);
+  var timeProps = useVideoTime(props, getVideoElement);
+  var volumeProps = useVideoVolume(props, getVideoElement);
+  var playbackRateProps = useVideoPlaybackRate(props, getVideoElement);
+  var piPProps = useVideoPiP(props, getVideoElement);
   var fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
+  var kernelMsg = getRenderHooks(props.kernel)(props, getVideoElement);
   var videoStyles = {};
 
   if (fullscreenProps.x5videofullscreen) {
@@ -1365,28 +1379,75 @@ var ReactPlayer = function ReactPlayer(props) {
   return React.createElement("div", {
     className: styles$2.reactPlayer,
     ref: playerRef
-  }, React.createElement("video", _extends({
+  }, React.createElement("video", {
     className: styles$2.video,
     ref: videoRef,
-    muted: muted,
     loop: props.loop,
-    controls: 'controls' === props.controls
-  }, mediaEvents, {
+    controls: 'controls' === props.controls,
     "webkit-playsinline": props.playsInline,
     playsInline: props.playsInline,
     "x5-playsinline": props.playsInline,
     "x5-video-player-type": "h5",
     "x5-video-player-fullscreen": "true",
     "x5-video-orientation": "landscape|portrait",
-    style: videoStyles
-  })), React.createElement(ReactPlayerContext.Provider, {
+    style: videoStyles // useVideoState
+    ,
+    onCanPlay: videoProps.onCanPlay,
+    onPause: videoProps.onPause,
+    onPlay: videoProps.onPlay,
+    onPlaying: videoProps.onPlaying,
+    onEnded: videoProps.onEnded,
+    onSeeked: videoProps.onSeeked,
+    onSeeking: videoProps.onSeeking,
+    onCanPlayThrough: videoProps.onCanPlayThrough,
+    onWaiting: videoProps.onWaiting // useVideoTime
+    ,
+    onDurationChange: timeProps.onDurationChange,
+    onTimeUpdate: timeProps.onTimeUpdate,
+    onProgress: timeProps.onProgress // useVideoVolume
+    ,
+    muted: volumeProps.muted,
+    onVolumeChange: volumeProps.onVolumeChange // useVideoPlaybackRate
+    ,
+    onRateChange: playbackRateProps.onVolumeChange // 未处理媒体事件
+    ,
+    onEmptied: props.onEmptied,
+    onEncrypted: props.onEncrypted,
+    onError: props.onError,
+    onLoadedData: props.onLoadedData,
+    onLoadedMetadata: props.onLoadedMetadata,
+    onLoadStart: props.onLoadStart,
+    onStalled: props.onStalled,
+    onSuspend: props.onSuspend,
+    onAbort: props.onAbort
+  }), React.createElement(ReactPlayerContext.Provider, {
     value: _objectSpread({
       src: props.src,
       controls: props.controls,
       poster: props.poster,
-      muted: muted
-    }, videoProps, fullscreenProps, {
-      playerMsg: playerMsg
+      // useVideoState
+      loading: videoProps.loading,
+      paused: videoProps.paused,
+      ended: videoProps.ended,
+      seeking: videoProps.seeking,
+      waiting: videoProps.waiting,
+      onPauseClick: videoProps.onPauseClick,
+      onPlayClick: videoProps.onPlayClick,
+      // useVideoTime
+      duration: timeProps.duration,
+      currentTime: timeProps.currentTime,
+      buffered: timeProps.buffered,
+      changeCurrentTime: timeProps.changeCurrentTime,
+      // useVideoVolume
+      muted: volumeProps.muted,
+      volume: volumeProps.volume,
+      onMutedClick: volumeProps.onMutedClick,
+      changeVolume: volumeProps.changeVolume,
+      // useVideoPlaybackRate
+      playbackRate: playbackRateProps.playbackRate,
+      changePlaybackRate: playbackRateProps.changePlaybackRate
+    }, piPProps, fullscreenProps, {
+      kernelMsg: kernelMsg
     })
   }, true === props.controls && React.createElement(ReactPlayerSkinWapper, null), props.children));
 };

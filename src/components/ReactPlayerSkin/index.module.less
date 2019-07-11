@@ -10,9 +10,11 @@
 .reactPlayerSkin {
   .absolute;
   overflow: hidden;
+  color: #eee;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-.poster{
+.poster {
   .absolute;
   background: #000;
   object-fit: contain;
@@ -36,8 +38,7 @@
   width: 100%;
   height: auto;
   padding: 0 16px;
-  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
-  color: #fff;
+  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .hiddenControls {
@@ -56,7 +57,7 @@
   font-size: 50px;
 }
 
-.playerMsg {
+.kernelMsg {
   .absolute;
   padding: 2em;
   background: rgba(0, 0, 0, 0.65);

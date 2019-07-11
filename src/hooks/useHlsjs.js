@@ -3,7 +3,7 @@ import Hls from 'hls.js';
 
 export default ({ src, config, onKernelError }, getVideoElement) => {
   const [hlsPlayer, setHlsPlayer] = React.useState(null);
-  const [playerMsg, setPlayerMsg] = React.useState(null);
+  const [kernelMsg, setKernelMsg] = React.useState(null);
 
   React.useEffect(() => {
     const el = getVideoElement();
@@ -39,7 +39,7 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
     (e, info) => {
       if (info && info.fatal) {
         const msg = { type: info.type, detail: info.details };
-        setPlayerMsg(msg);
+        setKernelMsg(msg);
         onKernelError(msg);
       }
     },
@@ -48,7 +48,7 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
 
   React.useEffect(() => {
     if (!hlsPlayer) {
-      setPlayerMsg(null);
+      setKernelMsg(null);
       return () => {};
     }
     hlsPlayer.on(Hls.Events.ERROR, onError);
@@ -56,9 +56,9 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
       try {
         hlsPlayer.off(Hls.Events.ERROR);
       } catch (errMsg) {}
-      setPlayerMsg(null);
+      setKernelMsg(null);
     };
   }, [hlsPlayer, onError]);
 
-  return playerMsg;
+  return kernelMsg;
 };

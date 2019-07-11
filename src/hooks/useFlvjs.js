@@ -3,7 +3,7 @@ import flvjs from 'flv.js';
 
 export default ({ src, config, onKernelError }, getVideoElement) => {
   const [flvPlayer, setFlvPlayer] = React.useState(null);
-  const [playerMsg, setPlayerMsg] = React.useState(null);
+  const [kernelMsg, setKernelMsg] = React.useState(null);
 
   React.useEffect(() => {
     const el = getVideoElement();
@@ -46,7 +46,7 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
   const onError = React.useCallback(
     (type, detail) => {
       const info = { type, detail };
-      setPlayerMsg(info);
+      setKernelMsg(info);
       onKernelError(info);
     },
     [onKernelError],
@@ -64,5 +64,5 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
     };
   }, [flvPlayer, onError]);
 
-  return playerMsg;
+  return kernelMsg;
 };

@@ -44,7 +44,7 @@
   ☐ 性能优化（mouse move 防抖节流）
   ☐ 拆分 hooks 便于维护和测试
   ☐ 完善单元测试，提升测试覆盖率
-  ☐ 去除 antd 依赖: 音量 slider, Icon button, dropdown
+  ✘ 去除 antd 依赖: 音量 slider, Icon button, dropdown @cancelled(19-07-11 09:35)
   ☐ playerMsg => kernelMsg
   ☐ ref Methods 支持
 
