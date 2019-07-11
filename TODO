@@ -45,8 +45,12 @@
   ☐ 拆分 hooks 便于维护和测试
   ☐ 完善单元测试，提升测试覆盖率
   ✘ 去除 antd 依赖: 音量 slider, Icon button, dropdown @cancelled(19-07-11 09:35)
-  ☐ playerMsg => kernelMsg
+  ✔ playerMsg => kernelMsg @done(19-07-11 14:30)
   ☐ ref Methods 支持
+  ☐ onX5VideoFullscreenChange => onFullscreenChange
+
+第四期:
+  ☐ TypeScript
 
 问题记录:
   ✘ 同层播放时 player 的 position 必须设置为 static 标题栏才能正常显示 @cancelled(19-06-19 11:06)
