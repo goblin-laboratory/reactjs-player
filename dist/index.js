@@ -752,13 +752,13 @@ var useVideoState = (function (props, getVideoElement) {
 
     if (el) {
       if (ended) {
-        el.currentTime = 0;
+        el.currentTime = 0; // setEnded(false);
       }
 
       el.play();
     }
 
-    setPaused(true);
+    setPaused(false);
   }, [getVideoElement, ended]);
   return {
     loading: loading,
@@ -974,6 +974,7 @@ var useVideoPiP = (function (_ref, getVideoElement) {
     }
   }, [src, pip, exitPictureInPicture]);
   var onenterpictureinpicture = React.useCallback(function (e) {
+    console.log('enterpictureinpicture');
     setPiP(true);
   }, []);
   var onleavepictureinpicture = React.useCallback(function (e) {

@@ -120,10 +120,11 @@ export default (props, getVideoElement) => {
       if (el) {
         if (ended) {
           el.currentTime = 0;
+          // setEnded(false);
         }
         el.play();
       }
-      setPaused(true);
+      setPaused(false);
     },
     [getVideoElement, ended],
   );

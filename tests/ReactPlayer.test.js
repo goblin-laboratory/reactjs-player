@@ -15,18 +15,19 @@ describe('ReactPlayer: hlsjs', () => {
       />,
     );
   });
-
-  // it('fullscreen', async () => {
-  //   const { getByText, debug } = render(
-  //     <ReactPlayer
-  //       kernel="hlsjs"
-  //       live={false}
-  //       src="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"
-  //       type="application/x-mpegURL"
-  //     />,
-  //   );
-  //   // debug();
-  //   await waitForElement(() => getByText('0:00:01'), { timeout: 30 * 1000 });
-  //   debug();
-  // });
 });
+
+// describe('ReactPlayer: native', () => {
+//   it('render without crashing', () => {
+//     render(<ReactPlayer kernel="native" live={false} src="http://cdn.toxicjohann.com/lostStar.mp4" type="video/mp4" />);
+//   });
+// });
+
+// describe('ReactPlayer: flvjs', () => {
+//   it('render without crashing', () => {
+//     window.MediaSource = function() {};
+//     render(
+//       <ReactPlayer kernel="flvjs" live={false} src="http://cdn.toxicjohann.com/lostStar.mp4" type="video/x-flv" />,
+//     );
+//   });
+// });
