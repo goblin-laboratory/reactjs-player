@@ -33,7 +33,6 @@ export default ({ src }, getVideoElement) => {
   }, [src, pip, exitPictureInPicture]);
 
   const onenterpictureinpicture = React.useCallback(e => {
-    console.log('enterpictureinpicture');
     setPiP(true);
   }, []);
 

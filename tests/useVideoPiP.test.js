@@ -29,7 +29,6 @@ describe('useVideoPiP:', () => {
     const videoEl = document.querySelector('video');
     const { result } = renderHook(() => useVideoPiP({ src: '' }, () => videoEl));
     videoEl.requestPictureInPicture = () => {
-      console.log('enterpictureinpicture');
       videoEl.dispatchEvent(new Event('enterpictureinpicture'));
     };
     document.exitPictureInPicture = () => {

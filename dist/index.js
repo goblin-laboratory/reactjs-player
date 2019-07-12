@@ -974,7 +974,6 @@ var useVideoPiP = (function (_ref, getVideoElement) {
     }
   }, [src, pip, exitPictureInPicture]);
   var onenterpictureinpicture = React.useCallback(function (e) {
-    console.log('enterpictureinpicture');
     setPiP(true);
   }, []);
   var onleavepictureinpicture = React.useCallback(function (e) {
@@ -1359,7 +1358,7 @@ var getRenderHooks = function getRenderHooks(kernel) {
   }
 };
 
-var ReactPlayer = function ReactPlayer(props) {
+var ReactPlayer = function ReactPlayer(props, ref) {
   var videoRef = React.useRef(null);
   var playerRef = React.useRef(null);
   var getVideoElement = React.useCallback(function () {
@@ -1381,6 +1380,34 @@ var ReactPlayer = function ReactPlayer(props) {
     videoStyles.objectPosition = fullscreenProps.fullscreen ? 'center center' : props.objectPosition;
   }
 
+  React.useImperativeHandle(ref, function () {
+    return {
+      isPlaying: function isPlaying() {
+        return props.src && !(videoProps.loading || videoProps.waiting || videoProps.ended || videoProps.paused);
+      },
+      isFullscreen: function isFullscreen() {
+        return fullscreenProps.fullscreen;
+      },
+      getCurrentTime: function getCurrentTime() {
+        return timeProps.currentTime;
+      },
+      setCurrentTime: function setCurrentTime(ct) {
+        return timeProps.changeCurrentTime(ct);
+      },
+      getBuffered: function getBuffered() {
+        return timeProps.buffered;
+      },
+      getPlaybackRate: function getPlaybackRate() {
+        return playbackRateProps.playbackRate;
+      },
+      setPlaybackRate: function setPlaybackRate(rate) {
+        return playbackRateProps.changePlaybackRate(rate);
+      },
+      isPiP: function isPiP() {
+        return piPProps.pictureInPictureEnabled && piPProps.pip;
+      }
+    };
+  });
   return React.createElement("div", {
     className: styles$2.reactPlayer,
     ref: playerRef
@@ -1541,6 +1568,7 @@ ReactPlayer.defaultProps = {
   objectPosition: 'center center',
   children: null
 };
+var ReactPlayer$1 = React.forwardRef(ReactPlayer);
 
 var css$3 = ".index-module_grindPlayer__1UOcH {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  min-width: 400px;\n  min-height: 300px;\n  overflow: hidden;\n  background: #000;\n}\n";
 var styles$3 = {"grindPlayer":"index-module_grindPlayer__1UOcH"};
@@ -1597,9 +1625,9 @@ GrindPlayer.defaultProp = {
   flashlsOSMFSwf: 'http://unpkg.com/reactjs-player/dist/flashlsOSMF.swf'
 };
 
-ReactPlayer.GrindPlayer = GrindPlayer;
-ReactPlayer.ReactPlayerContext = ReactPlayerContext;
-ReactPlayer.ReactPlayerSkin = ReactPlayerSkin;
+ReactPlayer$1.GrindPlayer = GrindPlayer;
+ReactPlayer$1.ReactPlayerContext = ReactPlayerContext;
+ReactPlayer$1.ReactPlayerSkin = ReactPlayerSkin;
 
-module.exports = ReactPlayer;
+module.exports = ReactPlayer$1;
 //# sourceMappingURL=index.js.map

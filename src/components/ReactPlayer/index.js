@@ -31,7 +31,7 @@ const getRenderHooks = kernel => {
   }
 };
 
-const ReactPlayer = props => {
+const ReactPlayer = (props, ref) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
 
@@ -51,6 +51,17 @@ const ReactPlayer = props => {
   if (fullscreenProps.x5videofullscreen) {
     videoStyles.objectPosition = fullscreenProps.fullscreen ? 'center center' : props.objectPosition;
   }
+
+  React.useImperativeHandle(ref, () => ({
+    isPlaying: () => props.src && !(videoProps.loading || videoProps.waiting || videoProps.ended || videoProps.paused),
+    isFullscreen: () => fullscreenProps.fullscreen,
+    getCurrentTime: () => timeProps.currentTime,
+    setCurrentTime: ct => timeProps.changeCurrentTime(ct),
+    getBuffered: () => timeProps.buffered,
+    getPlaybackRate: () => playbackRateProps.playbackRate,
+    setPlaybackRate: rate => playbackRateProps.changePlaybackRate(rate),
+    isPiP: () => piPProps.pictureInPictureEnabled && piPProps.pip,
+  }));
 
   return (
     <div className={styles.reactPlayer} ref={playerRef}>
@@ -182,13 +193,10 @@ ReactPlayer.propTypes = {
 };
 
 ReactPlayer.defaultProps = {
-  // kernel: 'hlsjs',
-  // live: false,
   config: null,
   onKernelError: noop,
 
   src: '',
-  // type: '',
   controls: true,
   poster: '',
   muted: false,
@@ -226,4 +234,4 @@ ReactPlayer.defaultProps = {
   children: null,
 };
 
-export default ReactPlayer;
+export default React.forwardRef(ReactPlayer);
