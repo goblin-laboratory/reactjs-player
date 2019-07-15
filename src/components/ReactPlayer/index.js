@@ -32,24 +32,87 @@ const getRenderHooks = kernel => {
   }
 };
 
-const ReactPlayer = (props, ref) => {
+const ReactPlayer = (
+  {
+    kernel,
+    live,
+
+    config = null,
+    onKernelError = noop,
+
+    src = '',
+    type,
+    controls = true,
+    poster = '',
+    muted = false,
+    // autoPlay = true,
+
+    className = '',
+    videoProps = null,
+    playerProps = null,
+
+    onCanPlay = noop,
+    onDurationChange = noop,
+    onTimeUpdate = noop,
+    onPause = noop,
+    onPlay = noop,
+    onPlaying = noop,
+    onEnded = noop,
+    onSeeked = noop,
+    onSeeking = noop,
+    onCanPlayThrough = noop,
+    onEmptied = noop,
+    onEncrypted = noop,
+    onError = noop,
+    onLoadedData = noop,
+    onLoadedMetadata = noop,
+    onLoadStart = noop,
+    onProgress = noop,
+    onRateChange = noop,
+    onStalled = noop,
+    onSuspend = noop,
+    onVolumeChange = noop,
+    onWaiting = noop,
+    onAbort = noop,
+
+    x5playsinline = false,
+    onFullscreenChange = noop,
+
+    children = null,
+  },
+  ref,
+) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
 
   const getVideoElement = React.useCallback(() => videoRef && videoRef.current, []);
   const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
 
-  const stateProps = useVideoState(props, getVideoElement);
-  const timeProps = useVideoTime(props, getVideoElement);
-  const volumeProps = useVideoVolume(props, getVideoElement);
-  const playbackRateProps = useVideoPlaybackRate(props, getVideoElement);
-  const piPProps = useVideoPiP(props, getVideoElement);
-  const fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
+  const stateProps = useVideoState(
+    {
+      src,
+      onCanPlay,
+      onPause,
+      onPlay,
+      onPlaying,
+      onEnded,
+      onSeeked,
+      onSeeking,
+      onCanPlayThrough,
+      onWaiting,
+    },
+    getVideoElement,
+  );
+  const timeProps = useVideoTime({ live, src, onDurationChange, onTimeUpdate, onProgress }, getVideoElement);
+  const volumeProps = useVideoVolume({ muted, onVolumeChange }, getVideoElement);
+  const playbackRateProps = useVideoPlaybackRate({ live, onRateChange }, getVideoElement);
+  const piPProps = useVideoPiP({ src }, getVideoElement);
+  const fullscreenProps = useVideoFullscreen({ x5playsinline, onFullscreenChange }, getVideoElement, getPlayerElement);
 
-  const kernelMsg = getRenderHooks(props.kernel)(props, getVideoElement);
+  const kernelMsg = getRenderHooks(kernel)({ src, config, onKernelError }, getVideoElement);
 
   React.useImperativeHandle(ref, () => ({
-    isPlaying: () => props.src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
+    isPlaying: () => src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
     isFullscreen: () => fullscreenProps.fullscreen,
     getCurrentTime: () => timeProps.currentTime,
     setCurrentTime: ct => timeProps.changeCurrentTime(ct),
@@ -60,19 +123,19 @@ const ReactPlayer = (props, ref) => {
   }));
 
   return (
-    <div className={`${styles.reactPlayer} ${props.className}`} ref={playerRef}>
+    <div className={`${styles.reactPlayer} ${className}`} ref={playerRef} {...playerProps}>
       <video
         className={styles.video}
         ref={videoRef}
-        loop={props.loop}
-        controls={'controls' === props.controls}
+        controls={'controls' === controls}
+        type={type}
         // webkit-playsinline={props.playsInline}
         // playsInline={props.playsInline}
         // x5-playsinline={props.playsInline}
         // x5-video-player-type="h5"
         // x5-video-player-fullscreen="true"
         // x5-video-orientation="landscape|portrait"
-        {...props.videoProps}
+        {...videoProps}
         // useVideoState
         onCanPlay={stateProps.onCanPlay}
         onPause={stateProps.onPause}
@@ -91,23 +154,23 @@ const ReactPlayer = (props, ref) => {
         muted={volumeProps.muted}
         onVolumeChange={volumeProps.onVolumeChange}
         // useVideoPlaybackRate
-        onRateChange={playbackRateProps.onVolumeChange}
+        onRateChange={playbackRateProps.onRateChange}
         // 未处理媒体事件
-        onEmptied={props.onEmptied}
-        onEncrypted={props.onEncrypted}
-        onError={props.onError}
-        onLoadedData={props.onLoadedData}
-        onLoadedMetadata={props.onLoadedMetadata}
-        onLoadStart={props.onLoadStart}
-        onStalled={props.onStalled}
-        onSuspend={props.onSuspend}
-        onAbort={props.onAbort}
+        onEmptied={onEmptied}
+        onEncrypted={onEncrypted}
+        onError={onError}
+        onLoadedData={onLoadedData}
+        onLoadedMetadata={onLoadedMetadata}
+        onLoadStart={onLoadStart}
+        onStalled={onStalled}
+        onSuspend={onSuspend}
+        onAbort={onAbort}
       />
       <ReactPlayerContext.Provider
         value={{
-          src: props.src,
-          controls: props.controls,
-          poster: props.poster,
+          src: src,
+          controls: controls,
+          poster: poster,
           // useVideoState
           loading: stateProps.loading,
           paused: stateProps.paused,
@@ -130,12 +193,13 @@ const ReactPlayer = (props, ref) => {
           playbackRate: playbackRateProps.playbackRate,
           changePlaybackRate: playbackRateProps.changePlaybackRate,
           ...piPProps,
+          x5playsinline,
           ...fullscreenProps,
           kernelMsg: kernelMsg,
         }}
       >
-        {true === props.controls && <ReactPlayerSkinWapper />}
-        {props.children}
+        {true === controls && <ReactPlayerSkinWapper />}
+        {children}
       </ReactPlayerContext.Provider>
     </div>
   );
@@ -152,10 +216,12 @@ ReactPlayer.propTypes = {
   controls: PropTypes.oneOf([false, true, 'controls']),
   poster: PropTypes.string,
   muted: PropTypes.bool,
-  volume: PropTypes.number,
-  autoPlay: PropTypes.bool,
-  currentTime: PropTypes.number,
-  loop: PropTypes.bool,
+  // volume: PropTypes.number,
+  // autoPlay: PropTypes.bool,
+
+  className: PropTypes.string,
+  videoProps: PropTypes.object,
+  playerProps: PropTypes.object,
 
   onCanPlay: PropTypes.func,
   onDurationChange: PropTypes.func,
@@ -184,9 +250,6 @@ ReactPlayer.propTypes = {
   x5playsinline: PropTypes.bool,
   onFullscreenChange: PropTypes.func,
 
-  className: PropTypes.string,
-  videoProps: PropTypes.object,
-  playerProps: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
@@ -198,10 +261,12 @@ ReactPlayer.defaultProps = {
   controls: true,
   poster: '',
   muted: false,
-  volume: 1,
-  autoPlay: true,
-  currentTime: 0,
-  loop: false,
+  // autoPlay: true,
+
+  className: '',
+  videoProps: null,
+  playerProps: null,
+
   onCanPlay: noop,
   onDurationChange: noop,
   onTimeUpdate: noop,
@@ -229,9 +294,6 @@ ReactPlayer.defaultProps = {
   x5playsinline: false,
   onFullscreenChange: noop,
 
-  className: '',
-  videoProps: null,
-  playerProps: null,
   children: null,
 };
 

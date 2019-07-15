@@ -1,19 +1,20 @@
 import React from 'react';
 
-export default (props, getVideoElement) => {
-  const {
+export default (
+  {
     src,
-    onCanPlay,
-    onPause,
-    onPlay,
-    onPlaying,
-    onEnded,
-    onSeeked,
-    onSeeking,
-    onCanPlayThrough,
-    onWaiting,
-  } = props;
-
+    onCanPlay = () => {},
+    onPause = () => {},
+    onPlay = () => {},
+    onPlaying = () => {},
+    onEnded = () => {},
+    onSeeked = () => {},
+    onSeeking = () => {},
+    onCanPlayThrough = () => {},
+    onWaiting = () => {},
+  },
+  getVideoElement,
+) => {
   const [loading, setLoading] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
   const [ended, setEnded] = React.useState(false);

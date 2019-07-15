@@ -59,21 +59,24 @@ describe('useVideoTime:', () => {
 
     // TypeError: Cannot set property duration of [object HTMLMediaElement] which has only a getter
     // const duration = 10 * 60 * 1000;
-    // act(() => {
-    //   videoEl.duration = duration;
-    //   const e = new Event('durationchange', { target: videoEl });
-    //   videoEl.dispatchEvent(e);
-    // });
+    act(() => {
+      // videoEl.duration = duration;
+      const e = new Event('durationchange', { target: videoEl });
+      videoEl.dispatchEvent(e);
+    });
     // expect(result.current.duration).toBe(duration);
+    expect(result.current.duration).toBe(0);
 
     // TypeError: Cannot set property buffered of [object HTMLMediaElement] which has only a getter
     // const buffered = { length: 1, start: () => 0, end: () => 10 * 1000 };
-    // act(() => {
-    //   videoEl.buffered = buffered;
-    //   const e = new Event('progress', { target: videoEl });
-    //   videoEl.dispatchEvent(e);
-    // });
-    // expect(result.current.buffered).toBe(buffered);
+    act(() => {
+      // videoEl.buffered = buffered;
+      const e = new Event('progress', { target: videoEl });
+      videoEl.dispatchEvent(e);
+    });
+    expect(result.current.buffered.length).toBe(0);
+    expect(typeof result.current.buffered.start).toBe('function');
+    expect(typeof result.current.buffered.end).toBe('function');
 
     let currentTime = 5 * 1000;
     act(() => {

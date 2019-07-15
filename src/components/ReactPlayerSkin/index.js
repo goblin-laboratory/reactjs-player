@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Icon, Slider, Dropdown, Menu } from 'antd';
 import TimeSlider from '../TimeSlider';
+import 'antd/lib/tooltip/style/index.css';
 import 'antd/lib/slider/style/index.css';
 import 'antd/lib/dropdown/style/index.css';
 import styles from './index.module.less';
@@ -35,8 +36,9 @@ const ReactPlayerSkin = React.memo(
     pip,
     requestPictureInPicture,
     exitPictureInPicture,
-    fullscreen,
     x5playsinline,
+    fullscreen,
+    x5videofullscreen,
     requestFullscreen,
     exitFullscreen,
     kernelMsg,
@@ -130,7 +132,7 @@ const ReactPlayerSkin = React.memo(
                   </button>
                 )}
                 <span className={styles.volumeSlider}>
-                  <Slider value={volume} onChange={changeVolume} max={1} step={0.1} tipFormatter={v => v * 100} />
+                  <Slider value={volume * 100} onChange={v => changeVolume(v / 100)} max={100} />
                 </span>
               </span>
               <span className={styles.controlText}>
@@ -145,18 +147,13 @@ const ReactPlayerSkin = React.memo(
               )}
             </div>
             {pictureInPictureEnabled && (
-              <>
-                {!pip && (
-                  <button type="button" className={styles.textBtn} onClick={requestPictureInPicture}>
-                    画中画
-                  </button>
-                )}
-                {pip && (
-                  <button type="button" className={styles.textBtn} onClick={exitPictureInPicture}>
-                    退出画中画
-                  </button>
-                )}
-              </>
+              <button
+                type="button"
+                className={styles.textBtn}
+                onClick={pip ? exitPictureInPicture : requestPictureInPicture}
+              >
+                画中画
+              </button>
             )}
             {0 <= duration && (
               <Dropdown
@@ -169,7 +166,6 @@ const ReactPlayerSkin = React.memo(
                     <Menu.Item key="1.25">&nbsp;&nbsp;1.25 倍速&nbsp;&nbsp;</Menu.Item>
                     <Menu.Item key="1.5">&nbsp;&nbsp;1.5 倍速&nbsp;&nbsp;</Menu.Item>
                     <Menu.Item key="2">&nbsp;&nbsp;2 倍速&nbsp;&nbsp;</Menu.Item>
-                    {/* <Menu.Item key="4">&nbsp;&nbsp;4 倍速&nbsp;&nbsp;</Menu.Item> */}
                   </Menu>
                 }
                 placement="topRight"
@@ -192,8 +188,8 @@ const ReactPlayerSkin = React.memo(
             )}
           </div>
         </div>
-        {!x5playsinline && !ended && (
-          <button className={styles.ended} onClick={onPlayClick}>
+        {x5playsinline && !x5videofullscreen && src && !loading && !waiting && !seeking && !ended && !kernelMsg && (
+          <button className={styles.blocked} onClick={onPlayClick}>
             <Icon type="play-circle" />
           </button>
         )}
@@ -244,6 +240,7 @@ ReactPlayerSkin.propTypes = {
   exitPictureInPicture: PropTypes.func.isRequired,
   // fullscreen
   x5playsinline: PropTypes.bool.isRequired,
+  x5videofullscreen: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   requestFullscreen: PropTypes.func.isRequired,
   exitFullscreen: PropTypes.func.isRequired,

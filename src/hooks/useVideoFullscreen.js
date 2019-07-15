@@ -1,5 +1,7 @@
 import React from 'react';
 
+const debug = console.error;
+
 export default ({ x5playsinline, onFullscreenChange = () => {} }, getVideoElement, getPlayerElement) => {
   const [fullscreen, setFullscreen] = React.useState(false);
   const [x5videofullscreen, setX5videofullscreen] = React.useState(false);
@@ -11,7 +13,7 @@ export default ({ x5playsinline, onFullscreenChange = () => {} }, getVideoElemen
           setFullscreen(true);
         } else {
           // 异常分支
-          console.error('useVideoFullscreen: 全屏异常，未进入同层播放的情况下触发了全屏');
+          debug('useVideoFullscreen: 全屏异常，未进入同层播放的情况下触发了全屏');
           const videoEl = getVideoElement();
           if (videoEl && videoEl.play) {
             videoEl.play();
@@ -24,7 +26,7 @@ export default ({ x5playsinline, onFullscreenChange = () => {} }, getVideoElemen
         el.requestFullscreen();
       } else {
         // 异常分支，不应该进入
-        console.error('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
+        debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
       }
     },
     [getVideoElement, getPlayerElement, x5playsinline, x5videofullscreen],
@@ -38,7 +40,7 @@ export default ({ x5playsinline, onFullscreenChange = () => {} }, getVideoElemen
         document.exitFullscreen();
       } else {
         // 异常分支，不应该进入
-        console.error('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
+        debug('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
       }
     },
     [x5playsinline],

@@ -104,24 +104,24 @@ const App = () => {
 
 props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/video#Attributes
 
-| Prop           | Type     | Default | Description       |
-| -------------- | -------- | ------- | ----------------- |
-| `kernel`       | `Enum`   |         |                   |
-| `live`         | `Bool`   |         |                   |
-| `config`       | `Object` | `null`  | kernel config     |
-| --             | --       | --      | --                |
-| `src`          | `String` | `''`    |                   |
-| `type`         | `String` |         |                   |
-| `poster`       | `String` | `''`    |                   |
-| `controls`     | `Enum`   | `true`  |                   |
-| `muted`        | `Bool`   | `false` | Not supported yet |
-| `autoPlay`     | `Bool`   | `true`  | Not supported yet |
-| `loop`         | `Bool`   | `false` |                   |
-| `playsInline`  | `Bool`   | `true`  |                   |
-| --             | --       | --      | --                |
-| `currentTime`  | `Number` | `0`     | Not supported yet |
-| `volume`       | `Number` | `1.0`   | Not supported yet |
-| `playbackRate` | `Number` | `1.0`   | Not supported yet |
+| Prop            | Type     | Default | Description       |
+| --------------- | -------- | ------- | ----------------- |
+| `kernel`        | `Enum`   |         |                   |
+| `live`          | `Bool`   |         |                   |
+| `config`        | `Object` | `null`  | kernel config     |
+| --              | --       | --      | --                |
+| `src`           | `String` | `''`    |                   |
+| `type`          | `String` |         |                   |
+| `poster`        | `String` | `''`    |                   |
+| `controls`      | `Enum`   | `true`  |                   |
+| `muted`         | `Bool`   | `false` |                   |
+| `autoPlay`      | `Bool`   | `true`  | Not supported yet |
+| --              | --       | --      | --                |
+| `className`     | `String` | `''`    |                   |
+| `playerProps`   | `Object` | `null`  |                   |
+| `videoProps`    | `Object` | `null`  |                   |
+| --              | --       | --      | --                |
+| `x5playsinline` | `Bool`   | `false` |                   |
 
 **kernel**
 
@@ -139,57 +139,38 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `false`      | without controls      |
 | `'controls'` | video native controls |
 
-<!-- ### Config props
-
-| Prop          | Type     | Optional | Default | Description |
-| ------------- | -------- | -------- | ------- | ----------- |
-| `currentTime` | `Number` | `true`   | `0`     |             |
-| `volume`      | `Number` | `true`   | `1.0`   |             | -->
-
 ### Callback props
 
 [媒体事件](https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Media_events)说明
 
-| Prop                 | Description                                           |
-| -------------------- | ----------------------------------------------------- |
-| `onKernelError`      | fired when flv.js / hls.js error                      |
-| `onFullscreenChange` | fired when `fullscreen` or `x5videofullscreen` change |
-| --                   | --                                                    |
-| `onCanPlay`          |                                                       |
-| `onDurationChange`   |                                                       |
-| `onTimeUpdate`       |                                                       |
-| `onPause`            |                                                       |
-| `onPlay`             |                                                       |
-| `onPlaying`          |                                                       |
-| `onEnded`            |                                                       |
-| `onSeeked`           |                                                       |
-| `onSeeking`          |                                                       |
-| `onCanPlayThrough`   |                                                       |
-| `onEmptied`          |                                                       |
-| `onEncrypted`        |                                                       |
-| `onError`            |                                                       |
-| `onLoadedData`       |                                                       |
-| `onLoadedMetadata`   |                                                       |
-| `onLoadStart`        |                                                       |
-| `onProgress`         |                                                       |
-| `onRateChange`       |                                                       |
-| `onStalled`          |                                                       |
-| `onSuspend`          |                                                       |
-| `onVolumeChange`     |                                                       |
-| `onWaiting`          |                                                       |
-| `onAbort`            |                                                       |
-
-### 同层播放 Props
-
-同层播放接入指南：
-
-1. https://x5.tencent.com/tbs/guide/video.html
-2. https://x5.tencent.com/tbs/guide/web/x5-video.html
-
-| Prop             | Type     | Default        | Description |
-| ---------------- | -------- | -------------- | ----------- |
-| `x5playsinline`  | `Bool`   | `false`        |             |
-| `objectPosition` | `String` | `'center top'` |             |
+| Prop                 | Description                                          |
+| -------------------- | ---------------------------------------------------- |
+| `onKernelError`      | fire when flv.js / hls.js error                      |
+| `onFullscreenChange` | fire when `fullscreen` or `x5videofullscreen` change |
+| --                   | --                                                   |
+| `onCanPlay`          |                                                      |
+| `onDurationChange`   |                                                      |
+| `onTimeUpdate`       |                                                      |
+| `onPause`            |                                                      |
+| `onPlay`             |                                                      |
+| `onPlaying`          |                                                      |
+| `onEnded`            |                                                      |
+| `onSeeked`           |                                                      |
+| `onSeeking`          |                                                      |
+| `onCanPlayThrough`   |                                                      |
+| `onEmptied`          |                                                      |
+| `onEncrypted`        |                                                      |
+| `onError`            |                                                      |
+| `onLoadedData`       |                                                      |
+| `onLoadedMetadata`   |                                                      |
+| `onLoadStart`        |                                                      |
+| `onProgress`         |                                                      |
+| `onRateChange`       |                                                      |
+| `onStalled`          |                                                      |
+| `onSuspend`          |                                                      |
+| `onVolumeChange`     |                                                      |
+| `onWaiting`          |                                                      |
+| `onAbort`            |                                                      |
 
 ## Methods
 
@@ -203,6 +184,8 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `setPlaybackRate` | `Number`    |             |
 | `getPlaybackRate` | `Number`    |             |
 | `isPiP`           | `Bool`      |             |
+
+> Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component
 
 ### GrindPlayer
 

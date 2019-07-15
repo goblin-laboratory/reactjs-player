@@ -17,18 +17,6 @@ describe('useVideoVolume:', () => {
     expect(typeof result.current.onVolumeChange).toBe('function');
   });
 
-  it('初始值', () => {
-    const { result } = renderHook(() => useVideoVolume({ src: '', live: false, volume: 0.8, muted: true }, () => {}));
-
-    expect(result.current.muted).toBe(true);
-    expect(result.current.volume).toBe(0.8);
-
-    expect(typeof result.current.onMutedClick).toBe('function');
-    expect(typeof result.current.changeVolume).toBe('function');
-
-    expect(typeof result.current.onVolumeChange).toBe('function');
-  });
-
   it('onVolumeChange', () => {
     let videoEl = null;
     const { result } = renderHook(() =>

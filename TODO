@@ -53,9 +53,9 @@
   ✔ className @done(19-07-15 11:15)
   example 配套修改:
     ☐ ref Methods 测试
-    ☐ onFullscreenChange
-    ☐ 同层播放
-    ☐ videoProps( playsInline, objectPosition, x5-playsinline ... )
+    ✔ onFullscreenChange @done(19-07-15 18:39)
+    ✔ 同层播放 @done(19-07-15 18:39)
+    ✔ videoProps( playsInline, objectPosition, x5-playsinline ... ) @done(19-07-15 18:39)
 
 0.6.x:
   ☐ 使用 gloabl 样式，支持使用者覆盖默认样式

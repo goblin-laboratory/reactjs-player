@@ -6,6 +6,7 @@ var React = _interopDefault(require('react'));
 var PropTypes = _interopDefault(require('prop-types'));
 var numeral = _interopDefault(require('numeral'));
 var antd = require('antd');
+require('antd/lib/tooltip/style/index.css');
 require('antd/lib/slider/style/index.css');
 require('antd/lib/dropdown/style/index.css');
 var Hls = _interopDefault(require('hls.js'));
@@ -357,8 +358,8 @@ Slider.defaultProps = {
   onChange: function onChange() {}
 };
 
-var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #eee;\n  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);\n}\n.index-module_poster__aD3NV {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  object-fit: contain;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n}\n.index-module_kernelMsg__pwhrY {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
-var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","poster":"index-module_poster__aD3NV","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","kernelMsg":"index-module_kernelMsg__pwhrY","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
+var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.index-module_reactPlayerSkin__T5sda {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  color: #eee;\n  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);\n}\n.index-module_poster__aD3NV {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  object-fit: contain;\n}\n.index-module_videoMask__33AfB {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n}\n.index-module_hiddenVideoMask__1hS85 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: #000;\n  opacity: 0;\n  background: transparent;\n}\n.index-module_controls__2BzYi {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);\n}\n.index-module_hiddenControls__QF8y7 {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: auto;\n  padding: 0 16px;\n  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);\n  transform: translate(0, 46px);\n}\n.index-module_waiting__2ykzZ,\n.index-module_ended__34SNQ,\n.index-module_blocked___IXp3,\n.index-module_loading__2hpf6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 50px;\n  background: transparent;\n  border: 0;\n  margin: 0;\n  padding: 0;\n}\n.index-module_kernelMsg__pwhrY {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  padding: 2em;\n  background: rgba(0, 0, 0, 0.65);\n  overflow-y: auto;\n}\nbutton.index-module_ended__34SNQ {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  outline: 0 none transparent;\n}\n.index-module_bar__3PNIv {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  padding: 0 8px 4px;\n}\n.index-module_bar__3PNIv button {\n  border: 0;\n  padding: 0;\n  margin: 0;\n  cursor: pointer;\n  background-color: transparent;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  font-size: 20px;\n  outline: 0 none transparent;\n  display: inline-block;\n  vertical-align: bottom;\n}\n.index-module_bar__3PNIv .index-module_textBtn__87xqT {\n  width: auto;\n  padding: 0 8px;\n  font-size: 14px;\n}\n.index-module_flexItem__25tbu {\n  flex: 1;\n  overflow: hidden;\n  white-space: nowrap;\n}\n.index-module_controlText__3a7jG {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n}\n.index-module_volumeSlider__31qjt {\n  height: 32px;\n  line-height: 32px;\n  font-size: 14px;\n  display: inline-block;\n  padding: 0 8px;\n  width: 120px;\n  vertical-align: bottom;\n  padding-left: 4px;\n  padding-right: 12px;\n}\n.index-module_volumeSlider__31qjt .ant-slider {\n  margin-top: 10px;\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n}\n.index-module_volumeSlider__31qjt .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-rail {\n  background: rgba(255, 255, 255, 0.2);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-track {\n  background: rgba(255, 255, 255, 0.85);\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle {\n  background: rgba(255, 255, 255, 0.85);\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_volumeSlider__31qjt .ant-slider:hover .ant-slider-handle:focus {\n  border: none 0 transparent;\n  box-shadow: none;\n}\n.index-module_liveDot__1xpHV {\n  width: 6px;\n  height: 6px;\n  display: inline-block;\n  border-radius: 50%;\n  background: #ff0000;\n  margin-right: 8px;\n  vertical-align: middle;\n  position: relative;\n  top: -2px;\n}\n@media (max-width: 575px) {\n  .index-module_volume__b7UTa {\n    display: none;\n  }\n}\n";
+var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","poster":"index-module_poster__aD3NV","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","blocked":"index-module_blocked___IXp3","loading":"index-module_loading__2hpf6","kernelMsg":"index-module_kernelMsg__pwhrY","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
 styleInject(css$1);
 
 function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
@@ -408,7 +409,6 @@ var SvgUnmuted = function SvgUnmuted(props) {
 var ReactPlayerSkin = React.memo(function (_ref) {
   var src = _ref.src,
       poster = _ref.poster,
-      controls = _ref.controls,
       loading = _ref.loading,
       paused = _ref.paused,
       ended = _ref.ended,
@@ -430,7 +430,9 @@ var ReactPlayerSkin = React.memo(function (_ref) {
       pip = _ref.pip,
       requestPictureInPicture = _ref.requestPictureInPicture,
       exitPictureInPicture = _ref.exitPictureInPicture,
+      x5playsinline = _ref.x5playsinline,
       fullscreen = _ref.fullscreen,
+      x5videofullscreen = _ref.x5videofullscreen,
       requestFullscreen = _ref.requestFullscreen,
       exitFullscreen = _ref.exitFullscreen,
       kernelMsg = _ref.kernelMsg;
@@ -555,28 +557,22 @@ var ReactPlayerSkin = React.memo(function (_ref) {
   })), React.createElement("span", {
     className: styles$1.volumeSlider
   }, React.createElement(antd.Slider, {
-    value: volume,
-    onChange: changeVolume,
-    max: 1,
-    step: 0.1,
-    tipFormatter: function tipFormatter(v) {
-      return v * 100;
-    }
+    value: volume * 100,
+    onChange: function onChange(v) {
+      return changeVolume(v / 100);
+    },
+    max: 100
   }))), React.createElement("span", {
     className: styles$1.controlText
   }, numeral(currentTime).format('00:00:00'), 0 <= duration ? " / ".concat(numeral(duration).format('00:00:00')) : ''), 0 > duration && React.createElement("span", {
     className: styles$1.controlText
   }, React.createElement("span", {
     className: styles$1.liveDot
-  }), "\u76F4\u64AD")), pictureInPictureEnabled && React.createElement(React.Fragment, null, !pip && React.createElement("button", {
+  }), "\u76F4\u64AD")), pictureInPictureEnabled && React.createElement("button", {
     type: "button",
     className: styles$1.textBtn,
-    onClick: requestPictureInPicture
-  }, "\u753B\u4E2D\u753B"), pip && React.createElement("button", {
-    type: "button",
-    className: styles$1.textBtn,
-    onClick: exitPictureInPicture
-  }, "\u9000\u51FA\u753B\u4E2D\u753B")), 0 <= duration && React.createElement(antd.Dropdown, {
+    onClick: pip ? exitPictureInPicture : requestPictureInPicture
+  }, "\u753B\u4E2D\u753B"), 0 <= duration && React.createElement(antd.Dropdown, {
     visible: visible,
     overlay: React.createElement(antd.Menu, {
       selectedKeys: [playbackRate.toString()],
@@ -612,8 +608,8 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     onClick: requestFullscreen
   }, React.createElement(antd.Icon, {
     type: "fullscreen"
-  })))), !x5playsinline && !ended && React.createElement("button", {
-    className: styles$1.ended,
+  })))), x5playsinline && !x5videofullscreen && src && !loading && !waiting && !seeking && !ended && !kernelMsg && React.createElement("button", {
+    className: styles$1.blocked,
     onClick: onPlayClick
   }, React.createElement(antd.Icon, {
     type: "play-circle"
@@ -657,6 +653,7 @@ ReactPlayerSkin.propTypes = {
   exitPictureInPicture: PropTypes.func.isRequired,
   // fullscreen
   x5playsinline: PropTypes.bool.isRequired,
+  x5videofullscreen: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   requestFullscreen: PropTypes.func.isRequired,
   exitFullscreen: PropTypes.func.isRequired,
@@ -679,17 +676,26 @@ var css$2 = ".index-module_reactPlayer__2dzH- {\n  position: absolute;\n  top: 0
 var styles$2 = {"reactPlayer":"index-module_reactPlayer__2dzH-","video":"index-module_video__MtVT_"};
 styleInject(css$2);
 
-var useVideoState = (function (props, getVideoElement) {
-  var src = props.src,
-      onCanPlay = props.onCanPlay,
-      onPause = props.onPause,
-      onPlay = props.onPlay,
-      onPlaying = props.onPlaying,
-      onEnded = props.onEnded,
-      onSeeked = props.onSeeked,
-      onSeeking = props.onSeeking,
-      onCanPlayThrough = props.onCanPlayThrough,
-      onWaiting = props.onWaiting;
+var useVideoState = (function (_ref, getVideoElement) {
+  var src = _ref.src,
+      _ref$onCanPlay = _ref.onCanPlay,
+      onCanPlay = _ref$onCanPlay === void 0 ? function () {} : _ref$onCanPlay,
+      _ref$onPause = _ref.onPause,
+      onPause = _ref$onPause === void 0 ? function () {} : _ref$onPause,
+      _ref$onPlay = _ref.onPlay,
+      onPlay = _ref$onPlay === void 0 ? function () {} : _ref$onPlay,
+      _ref$onPlaying = _ref.onPlaying,
+      onPlaying = _ref$onPlaying === void 0 ? function () {} : _ref$onPlaying,
+      _ref$onEnded = _ref.onEnded,
+      onEnded = _ref$onEnded === void 0 ? function () {} : _ref$onEnded,
+      _ref$onSeeked = _ref.onSeeked,
+      onSeeked = _ref$onSeeked === void 0 ? function () {} : _ref$onSeeked,
+      _ref$onSeeking = _ref.onSeeking,
+      onSeeking = _ref$onSeeking === void 0 ? function () {} : _ref$onSeeking,
+      _ref$onCanPlayThrough = _ref.onCanPlayThrough,
+      onCanPlayThrough = _ref$onCanPlayThrough === void 0 ? function () {} : _ref$onCanPlayThrough,
+      _ref$onWaiting = _ref.onWaiting,
+      onWaiting = _ref$onWaiting === void 0 ? function () {} : _ref$onWaiting;
 
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -808,7 +814,6 @@ var useVideoState = (function (props, getVideoElement) {
 var useVideoTime = (function (props, getVideoElement) {
   var live = props.live,
       src = props.src,
-      currentTimeProp = props.currentTime,
       onDurationChange = props.onDurationChange,
       onTimeUpdate = props.onTimeUpdate,
       onProgress = props.onProgress;
@@ -818,7 +823,7 @@ var useVideoTime = (function (props, getVideoElement) {
       duration = _React$useState2[0],
       setDuration = _React$useState2[1];
 
-  var _React$useState3 = React.useState(currentTimeProp),
+  var _React$useState3 = React.useState(0),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
       currentTime = _React$useState4[0],
       setCurrentTime = _React$useState4[1];
@@ -857,15 +862,6 @@ var useVideoTime = (function (props, getVideoElement) {
 
     setCurrentTime(t);
   }, [getVideoElement]);
-  React.useEffect(function () {
-    if (!live) {
-      return;
-    }
-
-    if (duration > currentTimeProp) {
-      changeCurrentTime(currentTimeProp);
-    }
-  }, [live, currentTimeProp, duration, changeCurrentTime]);
   return {
     duration: duration,
     currentTime: currentTime,
@@ -880,7 +876,6 @@ var useVideoTime = (function (props, getVideoElement) {
 
 var useVideoVolume = (function (props, getVideoElement) {
   var mutedProp = props.muted,
-      volumeProp = props.volume,
       onVolumeChange = props.onVolumeChange;
 
   var _React$useState = React.useState(mutedProp),
@@ -888,7 +883,7 @@ var useVideoVolume = (function (props, getVideoElement) {
       muted = _React$useState2[0],
       setMuted = _React$useState2[1];
 
-  var _React$useState3 = React.useState(volumeProp),
+  var _React$useState3 = React.useState(1),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
       volume = _React$useState4[0],
       setVolume = _React$useState4[1];
@@ -937,12 +932,6 @@ var useVideoPlaybackRate = (function (props, getVideoElement) {
       playbackRate = _React$useState2[0],
       setPlaybackRate = _React$useState2[1];
 
-  React.useEffect(function () {
-    if (live) {
-      // debugger;
-      setPlaybackRate(1);
-    }
-  }, [live]);
   var onVideoRateChange = React.useCallback(function (e) {
     setPlaybackRate(e.target.playbackRate);
     onRateChange(e);
@@ -952,8 +941,15 @@ var useVideoPlaybackRate = (function (props, getVideoElement) {
 
     if (el) {
       el.playbackRate = r;
+      setPlaybackRate(r);
     }
   }, [getVideoElement]);
+  React.useEffect(function () {
+    if (live) {
+      setPlaybackRate(1);
+      changePlaybackRate(1);
+    }
+  }, [live, changePlaybackRate]);
   return {
     playbackRate: playbackRate,
     changePlaybackRate: changePlaybackRate,
@@ -1025,6 +1021,7 @@ var useVideoPiP = (function (_ref, getVideoElement) {
   };
 });
 
+var debug = console.error;
 var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
   var x5playsinline = _ref.x5playsinline,
       _ref$onFullscreenChan = _ref.onFullscreenChange,
@@ -1046,7 +1043,7 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
         setFullscreen(true);
       } else {
         // 异常分支
-        console.error('全屏异常：未进入同层播放的情况下触发了全屏');
+        debug('useVideoFullscreen: 全屏异常，未进入同层播放的情况下触发了全屏');
         var videoEl = getVideoElement();
 
         if (videoEl && videoEl.play) {
@@ -1063,7 +1060,7 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
       el.requestFullscreen();
     } else {
       // 异常分支，不应该进入
-      console.error('全屏异常：浏览器不支持 requestFullscreen');
+      debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
     }
   }, [getVideoElement, getPlayerElement, x5playsinline, x5videofullscreen]);
   var exitFullscreen = React.useCallback(function (v) {
@@ -1073,7 +1070,7 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
       document.exitFullscreen();
     } else {
       // 异常分支，不应该进入
-      console.error('退出全屏异常：浏览器不支持 exitFullscreen');
+      debug('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
     }
   }, [x5playsinline]);
   var onChange = React.useCallback(function (v) {
@@ -1383,12 +1380,85 @@ var getRenderHooks = function getRenderHooks(kernel) {
       return useFlvjs;
 
     default:
-      console.error("\u6682\u4E0D\u652F\u6301 kernel(".concat(kernel, ")"));
+      console.error("ReactPlayer: \u6682\u4E0D\u652F\u6301 kernel(".concat(kernel, ")"));
       return noop$1;
   }
 };
 
-var ReactPlayer = function ReactPlayer(props, ref) {
+var ReactPlayer = function ReactPlayer(_ref, ref) {
+  var kernel = _ref.kernel,
+      live = _ref.live,
+      _ref$config = _ref.config,
+      config = _ref$config === void 0 ? null : _ref$config,
+      _ref$onKernelError = _ref.onKernelError,
+      onKernelError = _ref$onKernelError === void 0 ? noop$1 : _ref$onKernelError,
+      _ref$src = _ref.src,
+      src = _ref$src === void 0 ? '' : _ref$src,
+      type = _ref.type,
+      _ref$controls = _ref.controls,
+      controls = _ref$controls === void 0 ? true : _ref$controls,
+      _ref$poster = _ref.poster,
+      poster = _ref$poster === void 0 ? '' : _ref$poster,
+      _ref$muted = _ref.muted,
+      muted = _ref$muted === void 0 ? false : _ref$muted,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      _ref$videoProps = _ref.videoProps,
+      videoProps = _ref$videoProps === void 0 ? null : _ref$videoProps,
+      _ref$playerProps = _ref.playerProps,
+      playerProps = _ref$playerProps === void 0 ? null : _ref$playerProps,
+      _ref$onCanPlay = _ref.onCanPlay,
+      onCanPlay = _ref$onCanPlay === void 0 ? noop$1 : _ref$onCanPlay,
+      _ref$onDurationChange = _ref.onDurationChange,
+      onDurationChange = _ref$onDurationChange === void 0 ? noop$1 : _ref$onDurationChange,
+      _ref$onTimeUpdate = _ref.onTimeUpdate,
+      onTimeUpdate = _ref$onTimeUpdate === void 0 ? noop$1 : _ref$onTimeUpdate,
+      _ref$onPause = _ref.onPause,
+      onPause = _ref$onPause === void 0 ? noop$1 : _ref$onPause,
+      _ref$onPlay = _ref.onPlay,
+      onPlay = _ref$onPlay === void 0 ? noop$1 : _ref$onPlay,
+      _ref$onPlaying = _ref.onPlaying,
+      onPlaying = _ref$onPlaying === void 0 ? noop$1 : _ref$onPlaying,
+      _ref$onEnded = _ref.onEnded,
+      onEnded = _ref$onEnded === void 0 ? noop$1 : _ref$onEnded,
+      _ref$onSeeked = _ref.onSeeked,
+      onSeeked = _ref$onSeeked === void 0 ? noop$1 : _ref$onSeeked,
+      _ref$onSeeking = _ref.onSeeking,
+      onSeeking = _ref$onSeeking === void 0 ? noop$1 : _ref$onSeeking,
+      _ref$onCanPlayThrough = _ref.onCanPlayThrough,
+      onCanPlayThrough = _ref$onCanPlayThrough === void 0 ? noop$1 : _ref$onCanPlayThrough,
+      _ref$onEmptied = _ref.onEmptied,
+      onEmptied = _ref$onEmptied === void 0 ? noop$1 : _ref$onEmptied,
+      _ref$onEncrypted = _ref.onEncrypted,
+      onEncrypted = _ref$onEncrypted === void 0 ? noop$1 : _ref$onEncrypted,
+      _ref$onError = _ref.onError,
+      onError = _ref$onError === void 0 ? noop$1 : _ref$onError,
+      _ref$onLoadedData = _ref.onLoadedData,
+      onLoadedData = _ref$onLoadedData === void 0 ? noop$1 : _ref$onLoadedData,
+      _ref$onLoadedMetadata = _ref.onLoadedMetadata,
+      onLoadedMetadata = _ref$onLoadedMetadata === void 0 ? noop$1 : _ref$onLoadedMetadata,
+      _ref$onLoadStart = _ref.onLoadStart,
+      onLoadStart = _ref$onLoadStart === void 0 ? noop$1 : _ref$onLoadStart,
+      _ref$onProgress = _ref.onProgress,
+      onProgress = _ref$onProgress === void 0 ? noop$1 : _ref$onProgress,
+      _ref$onRateChange = _ref.onRateChange,
+      onRateChange = _ref$onRateChange === void 0 ? noop$1 : _ref$onRateChange,
+      _ref$onStalled = _ref.onStalled,
+      onStalled = _ref$onStalled === void 0 ? noop$1 : _ref$onStalled,
+      _ref$onSuspend = _ref.onSuspend,
+      onSuspend = _ref$onSuspend === void 0 ? noop$1 : _ref$onSuspend,
+      _ref$onVolumeChange = _ref.onVolumeChange,
+      onVolumeChange = _ref$onVolumeChange === void 0 ? noop$1 : _ref$onVolumeChange,
+      _ref$onWaiting = _ref.onWaiting,
+      onWaiting = _ref$onWaiting === void 0 ? noop$1 : _ref$onWaiting,
+      _ref$onAbort = _ref.onAbort,
+      onAbort = _ref$onAbort === void 0 ? noop$1 : _ref$onAbort,
+      _ref$x5playsinline = _ref.x5playsinline,
+      x5playsinline = _ref$x5playsinline === void 0 ? false : _ref$x5playsinline,
+      _ref$onFullscreenChan = _ref.onFullscreenChange,
+      onFullscreenChange = _ref$onFullscreenChan === void 0 ? noop$1 : _ref$onFullscreenChan,
+      _ref$children = _ref.children,
+      children = _ref$children === void 0 ? null : _ref$children;
   var videoRef = React.useRef(null);
   var playerRef = React.useRef(null);
   var getVideoElement = React.useCallback(function () {
@@ -1397,17 +1467,49 @@ var ReactPlayer = function ReactPlayer(props, ref) {
   var getPlayerElement = React.useCallback(function () {
     return playerRef && playerRef.current;
   }, []);
-  var stateProps = useVideoState(props, getVideoElement);
-  var timeProps = useVideoTime(props, getVideoElement);
-  var volumeProps = useVideoVolume(props, getVideoElement);
-  var playbackRateProps = useVideoPlaybackRate(props, getVideoElement);
-  var piPProps = useVideoPiP(props, getVideoElement);
-  var fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
-  var kernelMsg = getRenderHooks(props.kernel)(props, getVideoElement);
+  var stateProps = useVideoState({
+    src: src,
+    onCanPlay: onCanPlay,
+    onPause: onPause,
+    onPlay: onPlay,
+    onPlaying: onPlaying,
+    onEnded: onEnded,
+    onSeeked: onSeeked,
+    onSeeking: onSeeking,
+    onCanPlayThrough: onCanPlayThrough,
+    onWaiting: onWaiting
+  }, getVideoElement);
+  var timeProps = useVideoTime({
+    live: live,
+    src: src,
+    onDurationChange: onDurationChange,
+    onTimeUpdate: onTimeUpdate,
+    onProgress: onProgress
+  }, getVideoElement);
+  var volumeProps = useVideoVolume({
+    muted: muted,
+    onVolumeChange: onVolumeChange
+  }, getVideoElement);
+  var playbackRateProps = useVideoPlaybackRate({
+    live: live,
+    onRateChange: onRateChange
+  }, getVideoElement);
+  var piPProps = useVideoPiP({
+    src: src
+  }, getVideoElement);
+  var fullscreenProps = useVideoFullscreen({
+    x5playsinline: x5playsinline,
+    onFullscreenChange: onFullscreenChange
+  }, getVideoElement, getPlayerElement);
+  var kernelMsg = getRenderHooks(kernel)({
+    src: src,
+    config: config,
+    onKernelError: onKernelError
+  }, getVideoElement);
   React.useImperativeHandle(ref, function () {
     return {
       isPlaying: function isPlaying() {
-        return props.src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused);
+        return src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused);
       },
       isFullscreen: function isFullscreen() {
         return fullscreenProps.fullscreen;
@@ -1432,22 +1534,21 @@ var ReactPlayer = function ReactPlayer(props, ref) {
       }
     };
   });
-  return React.createElement("div", {
-    className: "".concat(styles$2.reactPlayer, " ").concat(props.className),
+  return React.createElement("div", _extends({
+    className: "".concat(styles$2.reactPlayer, " ").concat(className),
     ref: playerRef
-  }, React.createElement("video", _extends({
+  }, playerProps), React.createElement("video", _extends({
     className: styles$2.video,
     ref: videoRef,
-    loop: props.loop,
-    controls: 'controls' === props.controls // webkit-playsinline={props.playsInline}
+    controls: 'controls' === controls,
+    type: type // webkit-playsinline={props.playsInline}
     // playsInline={props.playsInline}
     // x5-playsinline={props.playsInline}
     // x5-video-player-type="h5"
     // x5-video-player-fullscreen="true"
     // x5-video-orientation="landscape|portrait"
 
-  }, props.videoProps, {
-    // style={videoStyles}
+  }, videoProps, {
     // useVideoState
     onCanPlay: stateProps.onCanPlay,
     onPause: stateProps.onPause,
@@ -1466,22 +1567,22 @@ var ReactPlayer = function ReactPlayer(props, ref) {
     muted: volumeProps.muted,
     onVolumeChange: volumeProps.onVolumeChange // useVideoPlaybackRate
     ,
-    onRateChange: playbackRateProps.onVolumeChange // 未处理媒体事件
+    onRateChange: playbackRateProps.onRateChange // 未处理媒体事件
     ,
-    onEmptied: props.onEmptied,
-    onEncrypted: props.onEncrypted,
-    onError: props.onError,
-    onLoadedData: props.onLoadedData,
-    onLoadedMetadata: props.onLoadedMetadata,
-    onLoadStart: props.onLoadStart,
-    onStalled: props.onStalled,
-    onSuspend: props.onSuspend,
-    onAbort: props.onAbort
+    onEmptied: onEmptied,
+    onEncrypted: onEncrypted,
+    onError: onError,
+    onLoadedData: onLoadedData,
+    onLoadedMetadata: onLoadedMetadata,
+    onLoadStart: onLoadStart,
+    onStalled: onStalled,
+    onSuspend: onSuspend,
+    onAbort: onAbort
   })), React.createElement(ReactPlayerContext.Provider, {
     value: _objectSpread({
-      src: props.src,
-      controls: props.controls,
-      poster: props.poster,
+      src: src,
+      controls: controls,
+      poster: poster,
       // useVideoState
       loading: stateProps.loading,
       paused: stateProps.paused,
@@ -1503,10 +1604,12 @@ var ReactPlayer = function ReactPlayer(props, ref) {
       // useVideoPlaybackRate
       playbackRate: playbackRateProps.playbackRate,
       changePlaybackRate: playbackRateProps.changePlaybackRate
-    }, piPProps, fullscreenProps, {
+    }, piPProps, {
+      x5playsinline: x5playsinline
+    }, fullscreenProps, {
       kernelMsg: kernelMsg
     })
-  }, true === props.controls && React.createElement(ReactPlayerSkinWapper, null), props.children));
+  }, true === controls && React.createElement(ReactPlayerSkinWapper, null), children));
 };
 
 ReactPlayer.propTypes = {
@@ -1519,10 +1622,11 @@ ReactPlayer.propTypes = {
   controls: PropTypes.oneOf([false, true, 'controls']),
   poster: PropTypes.string,
   muted: PropTypes.bool,
-  volume: PropTypes.number,
-  autoPlay: PropTypes.bool,
-  currentTime: PropTypes.number,
-  loop: PropTypes.bool,
+  // volume: PropTypes.number,
+  // autoPlay: PropTypes.bool,
+  className: PropTypes.string,
+  videoProps: PropTypes.object,
+  playerProps: PropTypes.object,
   onCanPlay: PropTypes.func,
   onDurationChange: PropTypes.func,
   onTimeUpdate: PropTypes.func,
@@ -1548,9 +1652,6 @@ ReactPlayer.propTypes = {
   onAbort: PropTypes.func,
   x5playsinline: PropTypes.bool,
   onFullscreenChange: PropTypes.func,
-  className: PropTypes.string,
-  videoProps: PropTypes.object,
-  playerProps: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 ReactPlayer.defaultProps = {
@@ -1560,10 +1661,10 @@ ReactPlayer.defaultProps = {
   controls: true,
   poster: '',
   muted: false,
-  volume: 1,
-  autoPlay: true,
-  currentTime: 0,
-  loop: false,
+  // autoPlay: true,
+  className: '',
+  videoProps: null,
+  playerProps: null,
   onCanPlay: noop$1,
   onDurationChange: noop$1,
   onTimeUpdate: noop$1,
@@ -1589,9 +1690,6 @@ ReactPlayer.defaultProps = {
   onAbort: noop$1,
   x5playsinline: false,
   onFullscreenChange: noop$1,
-  className: '',
-  videoProps: null,
-  playerProps: null,
   children: null
 };
 var ReactPlayer$1 = React.forwardRef(ReactPlayer);

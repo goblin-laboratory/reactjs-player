@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default (props, getVideoElement) => {
-  const { live, src, currentTime: currentTimeProp, onDurationChange, onTimeUpdate, onProgress } = props;
+  const { live, src, onDurationChange, onTimeUpdate, onProgress } = props;
 
   const [duration, setDuration] = React.useState(live ? -1 : 0);
-  const [currentTime, setCurrentTime] = React.useState(currentTimeProp);
+  const [currentTime, setCurrentTime] = React.useState(0);
   const [buffered, setBuffered] = React.useState(null);
 
   React.useEffect(() => {
@@ -49,15 +49,6 @@ export default (props, getVideoElement) => {
     },
     [getVideoElement],
   );
-
-  React.useEffect(() => {
-    if (!live) {
-      return;
-    }
-    if (duration > currentTimeProp) {
-      changeCurrentTime(currentTimeProp);
-    }
-  }, [live, currentTimeProp, duration, changeCurrentTime]);
 
   return {
     duration,

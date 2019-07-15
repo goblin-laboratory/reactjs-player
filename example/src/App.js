@@ -70,14 +70,25 @@ const App = React.memo(({ form }) => {
   const [info, setInfo] = React.useState(null);
   const [src, setSrc] = React.useState('');
   const [x5playsinline, setX5playsinline] = React.useState(false);
-  const [fullscreenState, setX5videofullscreen] = React.useState({ x5videofullscreen: false, fullscreen: false });
+  const [fullscreen, setFullscreen] = React.useState({ x5videofullscreen: false, fullscreen: false });
+  const [videoProps, setVideoProps] = React.useState(null);
 
   React.useEffect(() => {
     const ua = UAParser(global.navigator.userAgent);
+    if (ua.device.type) {
+      setVideoProps({
+        playsInline: true,
+        'webkit-playsinline': 'true',
+        'x5-playsinline': 'true',
+        'x5-video-player-type': 'h5',
+        'x5-video-player-fullscreen': 'true',
+        'x5-video-orientation': 'landscape|portrait',
+      });
+    }
+    setX5playsinline('Android' === ua.os.name && 'WeChat' === ua.browser.name);
     const supportedList = getSupportedList(ua);
     setList(supportedList);
     setInfo(supportedList[0]);
-    setX5playsinline('Android' === ua.os.name && 'WeChat' === ua.browser.name);
   }, []);
 
   const onChange = React.useCallback(
@@ -97,36 +108,27 @@ const App = React.memo(({ form }) => {
     [list],
   );
 
-  const onX5VideoFullscreenChange = React.useCallback(
-    v => {
-      if (x5playsinline) {
-        setX5videofullscreen(v);
-      } else {
-        setX5videofullscreen({ x5videofullscreen: false, fullscreen: false });
-      }
-    },
-    [x5playsinline],
-  );
+  const onFullscreenChange = React.useCallback(v => {
+    setFullscreen(v);
+  }, []);
 
   if (!list || 0 === list.length) {
     return null;
   }
-  // const style = {};
-  // if (fullscreenState.x5videofullscreen) {
-  //   if (fullscreenState.fullscreen) {
-  //     style.display = 'none';
-  //   }
-  // }
-  let className = 'body';
-  if (fullscreenState.x5videofullscreen) {
-    className += ' x5videofullscreen';
-    if (fullscreenState.fullscreen) {
-      className += ' fullscreen';
+
+  const bodyClassNames = ['body'];
+  const vidoeStyle = {};
+  if (fullscreen.x5videofullscreen) {
+    bodyClassNames.push('x5videofullscreen');
+    vidoeStyle.objectPosition = 'center 90px';
+    if (fullscreen.fullscreen) {
+      bodyClassNames.push('fullscreen');
+      vidoeStyle.objectPosition = 'center center';
     }
   }
 
   return (
-    <div className={className}>
+    <div className={bodyClassNames.join(' ')}>
       <div className="selector">
         <Form
           className="form"
@@ -170,7 +172,9 @@ const App = React.memo(({ form }) => {
                 </Button>
               </Form.Item>
             </Col>
-            <Col xs={24}>src:&nbsp;&nbsp;{src}</Col>
+            <Col xs={24} className="src">
+              src:&nbsp;&nbsp;{src}
+            </Col>
           </Row>
         </Form>
       </div>
@@ -181,8 +185,8 @@ const App = React.memo(({ form }) => {
             src={src}
             poster="https://raw.githubusercontent.com/goblin-laboratory/react-player/master/logo128x128.png"
             x5playsinline={x5playsinline}
-            onX5VideoFullscreenChange={onX5VideoFullscreenChange}
-            objectPosition="center 90px"
+            onFullscreenChange={onFullscreenChange}
+            videoProps={{ ...videoProps, style: vidoeStyle }}
           />
         )}
         {'flash' === info.kernel && (

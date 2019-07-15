@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default (props, getVideoElement) => {
-  const { muted: mutedProp, volume: volumeProp, onVolumeChange } = props;
+  const { muted: mutedProp, onVolumeChange } = props;
 
   const [muted, setMuted] = React.useState(mutedProp);
-  const [volume, setVolume] = React.useState(volumeProp);
+  const [volume, setVolume] = React.useState(1);
 
   const onVideoVolumeChange = React.useCallback(
     e => {

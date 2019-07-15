@@ -4,16 +4,12 @@
 
 每次提交，Commit message 都包括三个部分：Header，Body 和 Footer。
 
-```html
-<type
-  >(<scope
-    >):
-    <subject>
-      <!-- 空一行 -->
-      <body>
-        <!-- 空一行 -->
-        <footer></footer></body></subject></scope
-></type>
+```
+<type>(<scope>): <subject>
+// 空一行
+<body>
+// 空一行
+<footer>
 ```
 
 其中，Header 是必需的，Body 和 Footer 可以省略。

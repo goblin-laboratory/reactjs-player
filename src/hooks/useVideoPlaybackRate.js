@@ -5,13 +5,6 @@ export default (props, getVideoElement) => {
 
   const [playbackRate, setPlaybackRate] = React.useState(1);
 
-  React.useEffect(() => {
-    if (live) {
-      // debugger;
-      setPlaybackRate(1);
-    }
-  }, [live]);
-
   const onVideoRateChange = React.useCallback(
     e => {
       setPlaybackRate(e.target.playbackRate);
@@ -25,10 +18,18 @@ export default (props, getVideoElement) => {
       const el = getVideoElement();
       if (el) {
         el.playbackRate = r;
+        setPlaybackRate(r);
       }
     },
     [getVideoElement],
   );
+
+  React.useEffect(() => {
+    if (live) {
+      setPlaybackRate(1);
+      changePlaybackRate(1);
+    }
+  }, [live, changePlaybackRate]);
 
   return {
     playbackRate,
