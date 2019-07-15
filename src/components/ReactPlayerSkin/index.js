@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Icon, Slider, Dropdown, Menu } from 'antd';
-import CurrentTimeSlider from './CurrentTimeSlider';
+import TimeSlider from '../TimeSlider';
 import 'antd/lib/slider/style/index.css';
 import 'antd/lib/dropdown/style/index.css';
 import styles from './index.module.less';
@@ -94,7 +94,7 @@ const ReactPlayerSkin = React.memo(
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
         >
-          <CurrentTimeSlider
+          <TimeSlider
             duration={duration}
             currentTime={currentTime}
             buffered={buffered}

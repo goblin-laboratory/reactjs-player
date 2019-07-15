@@ -47,7 +47,7 @@
   ☐ ref Methods 支持
   ☐ ref Methods 测试
   ☐ onX5VideoFullscreenChange => onFullscreenChange
-  ☐ CurrentTimeSilder => components/TimeSilder
+  ✔ CurrentTimeSilder => components/TimeSilder @done(19-07-15 10:08)
   ☐ videoProps 支持
   ☐ playerProps 支持
 
