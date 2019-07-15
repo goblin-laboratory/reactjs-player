@@ -25,10 +25,9 @@
   ✔ native 播放 @done(19-06-11 08:54)
   ✔ 微信同层播放 @done(19-06-17 14:49)
   ✔ ios 微信同层播放 @done(19-06-16 13:47)
-  ☐ video errMsg 处理
   ✔ 回放进度条鼠标位置时间提示 @done(19-07-09 11:38)
 
-第二期（构建优化）:
+构建优化:
   ✘ 大小优化 @cancelled(19-06-16 13:38)
   ✔ 打包方式优化 @done(19-06-16 13:38)
   ✔ npm 发布 @done(19-06-16 13:38)
@@ -40,17 +39,37 @@
   ☐ 发布版本代码 uglify: rollup-plugin-terser
   ☐ rollup-plugin-clear
 
-第三期（代码优化）:
-  ☐ 性能优化（mouse move 防抖节流）
-  ☐ 拆分 hooks 便于维护和测试
-  ☐ 完善单元测试，提升测试覆盖率
+0.5.x:
+  ✔ 拆分 hooks 便于维护和测试 @done(19-07-13 16:13)
+  ✔ 完善单元测试，提升测试覆盖率 @done(19-07-13 16:28)
   ✘ 去除 antd 依赖: 音量 slider, Icon button, dropdown @cancelled(19-07-11 09:35)
   ✔ playerMsg => kernelMsg @done(19-07-11 14:30)
   ☐ ref Methods 支持
+  ☐ ref Methods 测试
   ☐ onX5VideoFullscreenChange => onFullscreenChange
+  ☐ CurrentTimeSilder => components/TimeSilder
+  ☐ videoProps 支持
+  ☐ playerProps 支持
 
-第四期:
+单元测试:
+  ☐ useFlvjs
+  ☐ useHlsjs
+  ☐ useNative
+  ✔ useVideoState @done(19-07-13 16:26)
+  ✔ useVideoTime @done(19-07-13 16:26)
+  ✔ useVideoVolume @done(19-07-13 16:26)
+  ✔ useVideoPlaybackRate @done(19-07-13 16:26)
+  ✔ useVideoPiP @done(19-07-13 16:26)
+  ✔ useVideoFullscreen @done(19-07-13 16:26)
+  ☐ ReactPlayer
+  ☐ GrindPlayer
+  ☐ ReactPlayerSkin
+  ☐ CurrentTimeSilder
+
+带规划:
   ☐ TypeScript
+  ☐ 性能优化（mouse move 防抖节流）
+  ☐ 去除 antd 依赖: 音量 slider, Icon button, dropdown
 
 问题记录:
   ✘ 同层播放时 player 的 position 必须设置为 static 标题栏才能正常显示 @cancelled(19-06-19 11:06)

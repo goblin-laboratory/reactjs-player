@@ -1523,12 +1523,9 @@ ReactPlayer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 ReactPlayer.defaultProps = {
-  // kernel: 'hlsjs',
-  // live: false,
   config: null,
   onKernelError: noop$1,
   src: '',
-  // type: '',
   controls: true,
   poster: '',
   muted: false,

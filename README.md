@@ -7,7 +7,6 @@
 [![Travis (.org)](https://img.shields.io/travis/goblin-laboratory/react-player.svg?style=flat-square)](https://travis-ci.org/goblin-laboratory/react-player)
 [![Coveralls github](https://img.shields.io/coveralls/github/goblin-laboratory/react-player.svg?style=flat-square)](https://coveralls.io/github/goblin-laboratory/react-player)
 
-
 基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。
 
 ## 特点
@@ -193,8 +192,6 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `onX5VideoFullscreenChange` | `Function` | `noop`         |             |
 
 ## Methods
-
-暂未支持
 
 | Method            | Return Type | Description |
 | ----------------- | ----------- | ----------- |
