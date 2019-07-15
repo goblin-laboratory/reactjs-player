@@ -27,6 +27,24 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
 function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
@@ -343,7 +361,7 @@ var css$1 = ".index-module_absolute__cPxTn {\n  position: absolute;\n  top: 0;\n
 var styles$1 = {"absolute":"index-module_absolute__cPxTn","reactPlayerSkin":"index-module_reactPlayerSkin__T5sda","poster":"index-module_poster__aD3NV","videoMask":"index-module_videoMask__33AfB","hiddenVideoMask":"index-module_hiddenVideoMask__1hS85","controls":"index-module_controls__2BzYi","hiddenControls":"index-module_hiddenControls__QF8y7","waiting":"index-module_waiting__2ykzZ","ended":"index-module_ended__34SNQ","loading":"index-module_loading__2hpf6","kernelMsg":"index-module_kernelMsg__pwhrY","bar":"index-module_bar__3PNIv","textBtn":"index-module_textBtn__87xqT","flexItem":"index-module_flexItem__25tbu","controlText":"index-module_controlText__3a7jG","volumeSlider":"index-module_volumeSlider__31qjt","liveDot":"index-module_liveDot__1xpHV","volume":"index-module_volume__b7UTa"};
 styleInject(css$1);
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
 
 var _ref =
 /*#__PURE__*/
@@ -357,7 +375,7 @@ React.createElement("path", {
 });
 
 var SvgMuted = function SvgMuted(props) {
-  return React.createElement("svg", _extends({
+  return React.createElement("svg", _extends$1({
     className: "muted_svg__icon",
     viewBox: "0 0 1024 1024",
     width: 64,
@@ -365,7 +383,7 @@ var SvgMuted = function SvgMuted(props) {
   }, props), _ref, _ref2);
 };
 
-function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
+function _extends$2() { _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$2.apply(this, arguments); }
 
 var _ref$1 =
 /*#__PURE__*/
@@ -379,7 +397,7 @@ React.createElement("path", {
 });
 
 var SvgUnmuted = function SvgUnmuted(props) {
-  return React.createElement("svg", _extends$1({
+  return React.createElement("svg", _extends$2({
     className: "unmuted_svg__icon",
     viewBox: "0 0 1024 1024",
     width: 64,
@@ -594,7 +612,12 @@ var ReactPlayerSkin = React.memo(function (_ref) {
     onClick: requestFullscreen
   }, React.createElement(antd.Icon, {
     type: "fullscreen"
-  })))), loading && !kernelMsg && React.createElement("div", {
+  })))), !x5playsinline && !ended && React.createElement("button", {
+    className: styles$1.ended,
+    onClick: onPlayClick
+  }, React.createElement(antd.Icon, {
+    type: "play-circle"
+  })), loading && !kernelMsg && React.createElement("div", {
     className: styles$1.loading
   }, React.createElement(antd.Icon, {
     type: "loading"
@@ -633,6 +656,7 @@ ReactPlayerSkin.propTypes = {
   requestPictureInPicture: PropTypes.func.isRequired,
   exitPictureInPicture: PropTypes.func.isRequired,
   // fullscreen
+  x5playsinline: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   requestFullscreen: PropTypes.func.isRequired,
   exitFullscreen: PropTypes.func.isRequired,
@@ -1003,7 +1027,8 @@ var useVideoPiP = (function (_ref, getVideoElement) {
 
 var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
   var x5playsinline = _ref.x5playsinline,
-      onX5VideoFullscreenChange = _ref.onX5VideoFullscreenChange;
+      _ref$onFullscreenChan = _ref.onFullscreenChange,
+      onFullscreenChange = _ref$onFullscreenChan === void 0 ? function () {} : _ref$onFullscreenChan;
 
   var _React$useState = React.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -1016,47 +1041,51 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
       setX5videofullscreen = _React$useState4[1];
 
   var requestFullscreen = React.useCallback(function (v) {
+    if (x5playsinline) {
+      if (x5videofullscreen) {
+        setFullscreen(true);
+      } else {
+        // 异常分支
+        console.error('全屏异常：未进入同层播放的情况下触发了全屏');
+        var videoEl = getVideoElement();
+
+        if (videoEl && videoEl.play) {
+          videoEl.play();
+        }
+      }
+
+      return;
+    }
+
     var el = getPlayerElement();
 
     if (el && el.requestFullscreen) {
       el.requestFullscreen();
-      return;
-    } else if (x5playsinline) {
-      if (x5videofullscreen) {
-        setFullscreen(true);
-        return;
-      }
-
-      var videoEl = getVideoElement();
-
-      if (videoEl && videoEl.play) {
-        videoEl.play();
-      } else {
-        console.error('全屏失败');
-      }
     } else {
-      console.error('全屏失败');
+      // 异常分支，不应该进入
+      console.error('全屏异常：浏览器不支持 requestFullscreen');
     }
   }, [getVideoElement, getPlayerElement, x5playsinline, x5videofullscreen]);
   var exitFullscreen = React.useCallback(function (v) {
-    if (document.exitFullscreen) {
+    if (x5playsinline) {
+      setFullscreen(false);
+    } else if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if (x5playsinline) {
-      setFullscreen(false);
     } else {
-      setFullscreen(false);
+      // 异常分支，不应该进入
+      console.error('退出全屏异常：浏览器不支持 exitFullscreen');
     }
   }, [x5playsinline]);
-  var onFullscreenChange = React.useCallback(function (v) {
+  var onChange = React.useCallback(function (v) {
     var el = getPlayerElement();
     setFullscreen(!!el && document.fullscreenElement === el);
   }, [getPlayerElement]);
   React.useEffect(function () {
-    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('fullscreenchange', onChange);
     return function () {
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
+      document.removeEventListener('fullscreenchange', onChange);
     };
-  }, [onFullscreenChange]);
+  }, [onChange]);
   var onResize = React.useCallback(function () {
     var el = getVideoElement();
 
@@ -1077,10 +1106,13 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
   }, [x5playsinline, onResize]);
   var onx5videoenterfullscreen = React.useCallback(function () {
     setX5videofullscreen(true);
-  }, []);
+  }, []); // 退出同层播放时应该同时退出全屏状态
+
   var onx5videoexitfullscreen = React.useCallback(function () {
+    setFullscreen(false);
     setX5videofullscreen(false);
-  }, []);
+  }, []); // 同层播放事件订阅处理
+
   React.useEffect(function () {
     if (!x5playsinline) {
       return function () {};
@@ -1098,18 +1130,15 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
       el.removeEventListener('x5videoenterfullscreen', onx5videoenterfullscreen);
       el.removeEventListener('x5videoexitfullscreen', onx5videoexitfullscreen);
     };
-  }, [x5playsinline, getVideoElement, onx5videoenterfullscreen, onx5videoexitfullscreen]);
-  React.useEffect(function () {
-    if (!x5playsinline) {
-      return function () {};
-    }
+  }, [x5playsinline, getVideoElement, onx5videoenterfullscreen, onx5videoexitfullscreen]); // fullscreen 或 x5videofullscreen 状态变化通知
 
-    onX5VideoFullscreenChange({
+  React.useEffect(function () {
+    onFullscreenChange({
       x5videofullscreen: x5videofullscreen,
       fullscreen: fullscreen
     });
     return function () {};
-  }, [x5playsinline, x5videofullscreen, fullscreen, onX5VideoFullscreenChange]);
+  }, [x5videofullscreen, fullscreen, onFullscreenChange]);
   return {
     fullscreen: fullscreen,
     x5videofullscreen: x5videofullscreen,
@@ -1354,6 +1383,7 @@ var getRenderHooks = function getRenderHooks(kernel) {
       return useFlvjs;
 
     default:
+      console.error("\u6682\u4E0D\u652F\u6301 kernel(".concat(kernel, ")"));
       return noop$1;
   }
 };
@@ -1367,23 +1397,17 @@ var ReactPlayer = function ReactPlayer(props, ref) {
   var getPlayerElement = React.useCallback(function () {
     return playerRef && playerRef.current;
   }, []);
-  var videoProps = useVideoState(props, getVideoElement);
+  var stateProps = useVideoState(props, getVideoElement);
   var timeProps = useVideoTime(props, getVideoElement);
   var volumeProps = useVideoVolume(props, getVideoElement);
   var playbackRateProps = useVideoPlaybackRate(props, getVideoElement);
   var piPProps = useVideoPiP(props, getVideoElement);
   var fullscreenProps = useVideoFullscreen(props, getVideoElement, getPlayerElement);
   var kernelMsg = getRenderHooks(props.kernel)(props, getVideoElement);
-  var videoStyles = {};
-
-  if (fullscreenProps.x5videofullscreen) {
-    videoStyles.objectPosition = fullscreenProps.fullscreen ? 'center center' : props.objectPosition;
-  }
-
   React.useImperativeHandle(ref, function () {
     return {
       isPlaying: function isPlaying() {
-        return props.src && !(videoProps.loading || videoProps.waiting || videoProps.ended || videoProps.paused);
+        return props.src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused);
       },
       isFullscreen: function isFullscreen() {
         return fullscreenProps.fullscreen;
@@ -1409,30 +1433,31 @@ var ReactPlayer = function ReactPlayer(props, ref) {
     };
   });
   return React.createElement("div", {
-    className: styles$2.reactPlayer,
+    className: "".concat(styles$2.reactPlayer, " ").concat(props.className),
     ref: playerRef
-  }, React.createElement("video", {
+  }, React.createElement("video", _extends({
     className: styles$2.video,
     ref: videoRef,
     loop: props.loop,
-    controls: 'controls' === props.controls,
-    "webkit-playsinline": props.playsInline,
-    playsInline: props.playsInline,
-    "x5-playsinline": props.playsInline,
-    "x5-video-player-type": "h5",
-    "x5-video-player-fullscreen": "true",
-    "x5-video-orientation": "landscape|portrait",
-    style: videoStyles // useVideoState
-    ,
-    onCanPlay: videoProps.onCanPlay,
-    onPause: videoProps.onPause,
-    onPlay: videoProps.onPlay,
-    onPlaying: videoProps.onPlaying,
-    onEnded: videoProps.onEnded,
-    onSeeked: videoProps.onSeeked,
-    onSeeking: videoProps.onSeeking,
-    onCanPlayThrough: videoProps.onCanPlayThrough,
-    onWaiting: videoProps.onWaiting // useVideoTime
+    controls: 'controls' === props.controls // webkit-playsinline={props.playsInline}
+    // playsInline={props.playsInline}
+    // x5-playsinline={props.playsInline}
+    // x5-video-player-type="h5"
+    // x5-video-player-fullscreen="true"
+    // x5-video-orientation="landscape|portrait"
+
+  }, props.videoProps, {
+    // style={videoStyles}
+    // useVideoState
+    onCanPlay: stateProps.onCanPlay,
+    onPause: stateProps.onPause,
+    onPlay: stateProps.onPlay,
+    onPlaying: stateProps.onPlaying,
+    onEnded: stateProps.onEnded,
+    onSeeked: stateProps.onSeeked,
+    onSeeking: stateProps.onSeeking,
+    onCanPlayThrough: stateProps.onCanPlayThrough,
+    onWaiting: stateProps.onWaiting // useVideoTime
     ,
     onDurationChange: timeProps.onDurationChange,
     onTimeUpdate: timeProps.onTimeUpdate,
@@ -1452,19 +1477,19 @@ var ReactPlayer = function ReactPlayer(props, ref) {
     onStalled: props.onStalled,
     onSuspend: props.onSuspend,
     onAbort: props.onAbort
-  }), React.createElement(ReactPlayerContext.Provider, {
+  })), React.createElement(ReactPlayerContext.Provider, {
     value: _objectSpread({
       src: props.src,
       controls: props.controls,
       poster: props.poster,
       // useVideoState
-      loading: videoProps.loading,
-      paused: videoProps.paused,
-      ended: videoProps.ended,
-      seeking: videoProps.seeking,
-      waiting: videoProps.waiting,
-      onPauseClick: videoProps.onPauseClick,
-      onPlayClick: videoProps.onPlayClick,
+      loading: stateProps.loading,
+      paused: stateProps.paused,
+      ended: stateProps.ended,
+      seeking: stateProps.seeking,
+      waiting: stateProps.waiting,
+      onPauseClick: stateProps.onPauseClick,
+      onPlayClick: stateProps.onPlayClick,
       // useVideoTime
       duration: timeProps.duration,
       currentTime: timeProps.currentTime,
@@ -1522,8 +1547,10 @@ ReactPlayer.propTypes = {
   onWaiting: PropTypes.func,
   onAbort: PropTypes.func,
   x5playsinline: PropTypes.bool,
-  objectPosition: PropTypes.string,
-  onX5VideoFullscreenChange: PropTypes.func,
+  onFullscreenChange: PropTypes.func,
+  className: PropTypes.string,
+  videoProps: PropTypes.object,
+  playerProps: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 ReactPlayer.defaultProps = {
@@ -1561,8 +1588,10 @@ ReactPlayer.defaultProps = {
   onWaiting: noop$1,
   onAbort: noop$1,
   x5playsinline: false,
-  onX5VideoFullscreenChange: noop$1,
-  objectPosition: 'center center',
+  onFullscreenChange: noop$1,
+  className: '',
+  videoProps: null,
+  playerProps: null,
   children: null
 };
 var ReactPlayer$1 = React.forwardRef(ReactPlayer);

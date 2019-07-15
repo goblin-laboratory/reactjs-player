@@ -32,7 +32,8 @@
   ✔ 打包方式优化 @done(19-06-16 13:38)
   ✔ npm 发布 @done(19-06-16 13:38)
   ✔ 文档 @done(19-07-09 11:32)
-  ☐ git 配置（提交校验，changelog 等）
+  ✔ commitlint @done(19-07-15 11:23)
+  ☐ changelog
   ✔ 单元测试配置 @done(19-07-09 11:38)
   ✔ 测试覆盖率统计 @done(19-07-09 14:31)
   ✔ travis-ci 持续集成 @done(19-07-09 14:31)
@@ -44,12 +45,23 @@
   ✔ 完善单元测试，提升测试覆盖率 @done(19-07-13 16:28)
   ✘ 去除 antd 依赖: 音量 slider, Icon button, dropdown @cancelled(19-07-11 09:35)
   ✔ playerMsg => kernelMsg @done(19-07-11 14:30)
-  ☐ ref Methods 支持
-  ☐ ref Methods 测试
-  ☐ onX5VideoFullscreenChange => onFullscreenChange
+  ✔ ref Methods 支持 @done(19-07-15 11:15)
+  ✔ onX5VideoFullscreenChange => onFullscreenChange @done(19-07-15 11:15)
   ✔ CurrentTimeSilder => components/TimeSilder @done(19-07-15 10:08)
-  ☐ videoProps 支持
-  ☐ playerProps 支持
+  ✔ videoProps 支持 @done(19-07-15 11:16)
+  ✔ playerProps 支持 @done(19-07-15 11:15)
+  ✔ className @done(19-07-15 11:15)
+  example 配套修改:
+    ☐ ref Methods 测试
+    ☐ onFullscreenChange
+    ☐ 同层播放
+    ☐ videoProps( playsInline, objectPosition, x5-playsinline ... )
+
+0.6.x:
+  ☐ 使用 gloabl 样式，支持使用者覆盖默认样式
+  ☐ useVideoPiP: 不支持 PiP 时 request / exit 被调用
+  ☐ useVideoTime: 未开始播放时 change current time
+  ☐ useVideoFullscreen: 未开始播放时 request / exit 被调用
 
 单元测试:
   ☐ useFlvjs
@@ -64,7 +76,7 @@
   ☐ ReactPlayer
   ☐ GrindPlayer
   ☐ ReactPlayerSkin
-  ☐ CurrentTimeSilder
+  ☐ TimeSilder
 
 带规划:
   ☐ TypeScript

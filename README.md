@@ -150,33 +150,34 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 
 [媒体事件](https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Media_events)说明
 
-| Prop               | Description                      |
-| ------------------ | -------------------------------- |
-| `onKernelError`    | fired when flv.js / hls.js error |
-| --                 | --                               |
-| `onCanPlay`        |                                  |
-| `onDurationChange` |                                  |
-| `onTimeUpdate`     |                                  |
-| `onPause`          |                                  |
-| `onPlay`           |                                  |
-| `onPlaying`        |                                  |
-| `onEnded`          |                                  |
-| `onSeeked`         |                                  |
-| `onSeeking`        |                                  |
-| `onCanPlayThrough` |                                  |
-| `onEmptied`        |                                  |
-| `onEncrypted`      |                                  |
-| `onError`          |                                  |
-| `onLoadedData`     |                                  |
-| `onLoadedMetadata` |                                  |
-| `onLoadStart`      |                                  |
-| `onProgress`       |                                  |
-| `onRateChange`     |                                  |
-| `onStalled`        |                                  |
-| `onSuspend`        |                                  |
-| `onVolumeChange`   |                                  |
-| `onWaiting`        |                                  |
-| `onAbort`          |                                  |
+| Prop                 | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `onKernelError`      | fired when flv.js / hls.js error                      |
+| `onFullscreenChange` | fired when `fullscreen` or `x5videofullscreen` change |
+| --                   | --                                                    |
+| `onCanPlay`          |                                                       |
+| `onDurationChange`   |                                                       |
+| `onTimeUpdate`       |                                                       |
+| `onPause`            |                                                       |
+| `onPlay`             |                                                       |
+| `onPlaying`          |                                                       |
+| `onEnded`            |                                                       |
+| `onSeeked`           |                                                       |
+| `onSeeking`          |                                                       |
+| `onCanPlayThrough`   |                                                       |
+| `onEmptied`          |                                                       |
+| `onEncrypted`        |                                                       |
+| `onError`            |                                                       |
+| `onLoadedData`       |                                                       |
+| `onLoadedMetadata`   |                                                       |
+| `onLoadStart`        |                                                       |
+| `onProgress`         |                                                       |
+| `onRateChange`       |                                                       |
+| `onStalled`          |                                                       |
+| `onSuspend`          |                                                       |
+| `onVolumeChange`     |                                                       |
+| `onWaiting`          |                                                       |
+| `onAbort`            |                                                       |
 
 ### 同层播放 Props
 
@@ -185,11 +186,10 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 1. https://x5.tencent.com/tbs/guide/video.html
 2. https://x5.tencent.com/tbs/guide/web/x5-video.html
 
-| Prop                        | Type       | Default        | Description |
-| --------------------------- | ---------- | -------------- | ----------- |
-| `x5playsinline`             | `Bool`     | `false`        |             |
-| `objectPosition`            | `String`   | `'center top'` |             |
-| `onX5VideoFullscreenChange` | `Function` | `noop`         |             |
+| Prop             | Type     | Default        | Description |
+| ---------------- | -------- | -------------- | ----------- |
+| `x5playsinline`  | `Bool`   | `false`        |             |
+| `objectPosition` | `String` | `'center top'` |             |
 
 ## Methods
 

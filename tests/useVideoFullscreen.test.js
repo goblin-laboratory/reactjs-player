@@ -7,7 +7,7 @@ import useVideoFullscreen from '../src/hooks/useVideoFullscreen';
 describe('useVideoFullscreen:', () => {
   it('类型与默认值检查', () => {
     const { result } = renderHook(() =>
-      useVideoFullscreen({ x5playsinline: false, onX5VideoFullscreenChange: () => {} }, () => {}, () => {}),
+      useVideoFullscreen({ x5playsinline: false, onFullscreenChange: () => {} }, () => {}, () => {}),
     );
 
     expect(result.current.fullscreen).toBe(false);
@@ -32,7 +32,7 @@ describe('useVideoFullscreen:', () => {
     expect(!!document.exitFullscreen).toBe(true);
 
     const { result } = renderHook(() =>
-      useVideoFullscreen({ x5playsinline: false, onX5VideoFullscreenChange: () => {} }, () => videoEl, () => videoEl),
+      useVideoFullscreen({ x5playsinline: false, onFullscreenChange: () => {} }, () => videoEl, () => videoEl),
     );
 
     act(() => {
@@ -55,7 +55,7 @@ describe('useVideoFullscreen:', () => {
     expect(!!document.exitFullscreen).toBe(false);
 
     const { result } = renderHook(() =>
-      useVideoFullscreen({ x5playsinline: true, onX5VideoFullscreenChange: () => {} }, () => videoEl, () => videoEl),
+      useVideoFullscreen({ x5playsinline: true, onFullscreenChange: () => {} }, () => videoEl, () => videoEl),
     );
 
     act(() => {
@@ -87,7 +87,7 @@ describe('useVideoFullscreen:', () => {
 
   it('unmounted', () => {
     const { result } = renderHook(() =>
-      useVideoFullscreen({ x5playsinline: false, onX5VideoFullscreenChange: () => {} }, () => {}, () => {}),
+      useVideoFullscreen({ x5playsinline: false, onFullscreenChange: () => {} }, () => {}, () => {}),
     );
 
     act(() => {
@@ -103,7 +103,7 @@ describe('useVideoFullscreen:', () => {
 
   it('unmounted with x5playsinline', () => {
     const { result } = renderHook(() =>
-      useVideoFullscreen({ x5playsinline: true, onX5VideoFullscreenChange: () => {} }, () => {}, () => {}),
+      useVideoFullscreen({ x5playsinline: true, onFullscreenChange: () => {} }, () => {}, () => {}),
     );
 
     act(() => {

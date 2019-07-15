@@ -14,31 +14,31 @@ const ReactPlayerSkin = React.memo(
   ({
     src,
     poster,
-    controls, // state
     loading,
     paused,
     ended,
     seeking,
     waiting,
     onPlayClick,
-    onPauseClick, // time
+    onPauseClick,
     duration,
     buffered,
     currentTime,
-    changeCurrentTime, // volume
+    changeCurrentTime,
     muted,
     volume,
     changeVolume,
-    onMutedClick, // playbackRate
+    onMutedClick,
     playbackRate,
-    changePlaybackRate, // pip
+    changePlaybackRate,
     pictureInPictureEnabled,
     pip,
     requestPictureInPicture,
-    exitPictureInPicture, // fullscreen
+    exitPictureInPicture,
     fullscreen,
+    x5playsinline,
     requestFullscreen,
-    exitFullscreen, // kernel
+    exitFullscreen,
     kernelMsg,
   }) => {
     const [hiding, setHiding] = React.useState(false);
@@ -192,6 +192,11 @@ const ReactPlayerSkin = React.memo(
             )}
           </div>
         </div>
+        {!x5playsinline && !ended && (
+          <button className={styles.ended} onClick={onPlayClick}>
+            <Icon type="play-circle" />
+          </button>
+        )}
         {loading && !kernelMsg && (
           <div className={styles.loading}>
             <Icon type="loading" />
@@ -238,6 +243,7 @@ ReactPlayerSkin.propTypes = {
   requestPictureInPicture: PropTypes.func.isRequired,
   exitPictureInPicture: PropTypes.func.isRequired,
   // fullscreen
+  x5playsinline: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   requestFullscreen: PropTypes.func.isRequired,
   exitFullscreen: PropTypes.func.isRequired,

@@ -1,28 +1,30 @@
 import React from 'react';
 
-export default ({ x5playsinline, onX5VideoFullscreenChange }, getVideoElement, getPlayerElement) => {
+export default ({ x5playsinline, onFullscreenChange = () => {} }, getVideoElement, getPlayerElement) => {
   const [fullscreen, setFullscreen] = React.useState(false);
   const [x5videofullscreen, setX5videofullscreen] = React.useState(false);
 
   const requestFullscreen = React.useCallback(
     v => {
+      if (x5playsinline) {
+        if (x5videofullscreen) {
+          setFullscreen(true);
+        } else {
+          // 异常分支
+          console.error('useVideoFullscreen: 全屏异常，未进入同层播放的情况下触发了全屏');
+          const videoEl = getVideoElement();
+          if (videoEl && videoEl.play) {
+            videoEl.play();
+          }
+        }
+        return;
+      }
       const el = getPlayerElement();
       if (el && el.requestFullscreen) {
         el.requestFullscreen();
-        return;
-      } else if (x5playsinline) {
-        if (x5videofullscreen) {
-          setFullscreen(true);
-          return;
-        }
-        const videoEl = getVideoElement();
-        if (videoEl && videoEl.play) {
-          videoEl.play();
-        } else {
-          console.error('全屏失败');
-        }
       } else {
-        console.error('全屏失败');
+        // 异常分支，不应该进入
+        console.error('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
       }
     },
     [getVideoElement, getPlayerElement, x5playsinline, x5videofullscreen],
@@ -30,18 +32,19 @@ export default ({ x5playsinline, onX5VideoFullscreenChange }, getVideoElement, g
 
   const exitFullscreen = React.useCallback(
     v => {
-      if (document.exitFullscreen) {
+      if (x5playsinline) {
+        setFullscreen(false);
+      } else if (document.exitFullscreen) {
         document.exitFullscreen();
-      } else if (x5playsinline) {
-        setFullscreen(false);
       } else {
-        setFullscreen(false);
+        // 异常分支，不应该进入
+        console.error('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
       }
     },
     [x5playsinline],
   );
 
-  const onFullscreenChange = React.useCallback(
+  const onChange = React.useCallback(
     v => {
       const el = getPlayerElement();
       setFullscreen(!!el && document.fullscreenElement === el);
@@ -50,11 +53,11 @@ export default ({ x5playsinline, onX5VideoFullscreenChange }, getVideoElement, g
   );
 
   React.useEffect(() => {
-    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('fullscreenchange', onChange);
     return () => {
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
+      document.removeEventListener('fullscreenchange', onChange);
     };
-  }, [onFullscreenChange]);
+  }, [onChange]);
 
   const onResize = React.useCallback(() => {
     const el = getVideoElement();
@@ -78,10 +81,13 @@ export default ({ x5playsinline, onX5VideoFullscreenChange }, getVideoElement, g
     setX5videofullscreen(true);
   }, []);
 
+  // 退出同层播放时应该同时退出全屏状态
   const onx5videoexitfullscreen = React.useCallback(() => {
+    setFullscreen(false);
     setX5videofullscreen(false);
   }, []);
 
+  // 同层播放事件订阅处理
   React.useEffect(() => {
     if (!x5playsinline) {
       return () => {};
@@ -98,13 +104,11 @@ export default ({ x5playsinline, onX5VideoFullscreenChange }, getVideoElement, g
     };
   }, [x5playsinline, getVideoElement, onx5videoenterfullscreen, onx5videoexitfullscreen]);
 
+  // fullscreen 或 x5videofullscreen 状态变化通知
   React.useEffect(() => {
-    if (!x5playsinline) {
-      return () => {};
-    }
-    onX5VideoFullscreenChange({ x5videofullscreen, fullscreen });
+    onFullscreenChange({ x5videofullscreen, fullscreen });
     return () => {};
-  }, [x5playsinline, x5videofullscreen, fullscreen, onX5VideoFullscreenChange]);
+  }, [x5videofullscreen, fullscreen, onFullscreenChange]);
 
   return {
     fullscreen,

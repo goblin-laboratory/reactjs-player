@@ -27,6 +27,7 @@ const getRenderHooks = kernel => {
     case 'flvjs':
       return useFlvjs;
     default:
+      console.error(`ReactPlayer: 暂不支持 kernel(${kernel})`);
       return noop;
   }
 };
@@ -38,7 +39,7 @@ const ReactPlayer = (props, ref) => {
   const getVideoElement = React.useCallback(() => videoRef && videoRef.current, []);
   const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
 
-  const videoProps = useVideoState(props, getVideoElement);
+  const stateProps = useVideoState(props, getVideoElement);
   const timeProps = useVideoTime(props, getVideoElement);
   const volumeProps = useVideoVolume(props, getVideoElement);
   const playbackRateProps = useVideoPlaybackRate(props, getVideoElement);
@@ -47,13 +48,8 @@ const ReactPlayer = (props, ref) => {
 
   const kernelMsg = getRenderHooks(props.kernel)(props, getVideoElement);
 
-  const videoStyles = {};
-  if (fullscreenProps.x5videofullscreen) {
-    videoStyles.objectPosition = fullscreenProps.fullscreen ? 'center center' : props.objectPosition;
-  }
-
   React.useImperativeHandle(ref, () => ({
-    isPlaying: () => props.src && !(videoProps.loading || videoProps.waiting || videoProps.ended || videoProps.paused),
+    isPlaying: () => props.src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
     isFullscreen: () => fullscreenProps.fullscreen,
     getCurrentTime: () => timeProps.currentTime,
     setCurrentTime: ct => timeProps.changeCurrentTime(ct),
@@ -64,29 +60,29 @@ const ReactPlayer = (props, ref) => {
   }));
 
   return (
-    <div className={styles.reactPlayer} ref={playerRef}>
+    <div className={`${styles.reactPlayer} ${props.className}`} ref={playerRef}>
       <video
         className={styles.video}
         ref={videoRef}
         loop={props.loop}
         controls={'controls' === props.controls}
-        webkit-playsinline={props.playsInline}
-        playsInline={props.playsInline}
-        x5-playsinline={props.playsInline}
-        x5-video-player-type="h5"
-        x5-video-player-fullscreen="true"
-        x5-video-orientation="landscape|portrait"
-        style={videoStyles}
+        // webkit-playsinline={props.playsInline}
+        // playsInline={props.playsInline}
+        // x5-playsinline={props.playsInline}
+        // x5-video-player-type="h5"
+        // x5-video-player-fullscreen="true"
+        // x5-video-orientation="landscape|portrait"
+        {...props.videoProps}
         // useVideoState
-        onCanPlay={videoProps.onCanPlay}
-        onPause={videoProps.onPause}
-        onPlay={videoProps.onPlay}
-        onPlaying={videoProps.onPlaying}
-        onEnded={videoProps.onEnded}
-        onSeeked={videoProps.onSeeked}
-        onSeeking={videoProps.onSeeking}
-        onCanPlayThrough={videoProps.onCanPlayThrough}
-        onWaiting={videoProps.onWaiting}
+        onCanPlay={stateProps.onCanPlay}
+        onPause={stateProps.onPause}
+        onPlay={stateProps.onPlay}
+        onPlaying={stateProps.onPlaying}
+        onEnded={stateProps.onEnded}
+        onSeeked={stateProps.onSeeked}
+        onSeeking={stateProps.onSeeking}
+        onCanPlayThrough={stateProps.onCanPlayThrough}
+        onWaiting={stateProps.onWaiting}
         // useVideoTime
         onDurationChange={timeProps.onDurationChange}
         onTimeUpdate={timeProps.onTimeUpdate}
@@ -113,13 +109,13 @@ const ReactPlayer = (props, ref) => {
           controls: props.controls,
           poster: props.poster,
           // useVideoState
-          loading: videoProps.loading,
-          paused: videoProps.paused,
-          ended: videoProps.ended,
-          seeking: videoProps.seeking,
-          waiting: videoProps.waiting,
-          onPauseClick: videoProps.onPauseClick,
-          onPlayClick: videoProps.onPlayClick,
+          loading: stateProps.loading,
+          paused: stateProps.paused,
+          ended: stateProps.ended,
+          seeking: stateProps.seeking,
+          waiting: stateProps.waiting,
+          onPauseClick: stateProps.onPauseClick,
+          onPlayClick: stateProps.onPlayClick,
           // useVideoTime
           duration: timeProps.duration,
           currentTime: timeProps.currentTime,
@@ -186,9 +182,11 @@ ReactPlayer.propTypes = {
   onAbort: PropTypes.func,
 
   x5playsinline: PropTypes.bool,
-  objectPosition: PropTypes.string,
-  onX5VideoFullscreenChange: PropTypes.func,
+  onFullscreenChange: PropTypes.func,
 
+  className: PropTypes.string,
+  videoProps: PropTypes.object,
+  playerProps: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
@@ -229,8 +227,11 @@ ReactPlayer.defaultProps = {
   onAbort: noop,
 
   x5playsinline: false,
-  onX5VideoFullscreenChange: noop,
-  objectPosition: 'center center',
+  onFullscreenChange: noop,
+
+  className: '',
+  videoProps: null,
+  playerProps: null,
   children: null,
 };
 
