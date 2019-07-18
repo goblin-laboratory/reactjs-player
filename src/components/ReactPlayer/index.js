@@ -112,7 +112,7 @@ const ReactPlayer = (
   const kernelMsg = getRenderHooks(kernel)({ src, config, onKernelError }, getVideoElement);
 
   React.useImperativeHandle(ref, () => ({
-    isPlaying: () => src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
+    isPlaying: () => !!src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
     isFullscreen: () => fullscreenProps.fullscreen,
     getCurrentTime: () => timeProps.currentTime,
     setCurrentTime: ct => timeProps.changeCurrentTime(ct),

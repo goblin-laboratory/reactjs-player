@@ -8,6 +8,7 @@
     "hls.js": "^0.12.4",
     "numeral": "^2.0.6",
     "react": "link:../node_modules/react",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "3.0.1",
     "react-swf": "^1.0.7",

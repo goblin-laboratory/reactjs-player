@@ -8,6 +8,9 @@
 - chimee: https://github.com/Chimeejs/chimee
 - TCPlayerLite : https://cloud.tencent.com/document/product/454/7503
 
+## 测试源
+- https://bitmovin.com/mpeg-dash-hls-examples-sample-streams/
+
 ## 参考资料
 
 - React: https://react.docschina.org/docs/events.html#media-events

@@ -1509,7 +1509,7 @@ var ReactPlayer = function ReactPlayer(_ref, ref) {
   React.useImperativeHandle(ref, function () {
     return {
       isPlaying: function isPlaying() {
-        return src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused);
+        return !!src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused);
       },
       isFullscreen: function isFullscreen() {
         return fullscreenProps.fullscreen;
