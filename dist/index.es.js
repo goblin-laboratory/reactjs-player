@@ -1052,8 +1052,20 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
 
     var el = getPlayerElement();
 
-    if (el && el.requestFullscreen) {
+    if (!el) {
+      debug('useVideoFullscreen: 全屏异常，unmounted');
+      return;
+    } // const requestFullscreen = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+
+
+    if (el.requestFullscreen) {
       el.requestFullscreen();
+    } else if (el.msRequestFullscreen) {
+      // 兼容 IE11
+      el.msRequestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      // 兼容微信 PC 版内置浏览器
+      el.webkitRequestFullscreen();
     } else {
       // 异常分支，不应该进入
       debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
@@ -1064,6 +1076,10 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
       setFullscreen(false);
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
     } else {
       // 异常分支，不应该进入
       debug('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
@@ -1071,12 +1087,25 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
   }, [x5playsinline]);
   var onChange = React.useCallback(function (v) {
     var el = getPlayerElement();
-    setFullscreen(!!el && document.fullscreenElement === el);
+    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    setFullscreen(!!el && fullscreenElement === el);
   }, [getPlayerElement]);
   React.useEffect(function () {
     document.addEventListener('fullscreenchange', onChange);
     return function () {
       document.removeEventListener('fullscreenchange', onChange);
+    };
+  }, [onChange]);
+  React.useEffect(function () {
+    document.addEventListener('webkitfullscreenchange', onChange);
+    return function () {
+      document.removeEventListener('webkitfullscreenchange', onChange);
+    };
+  }, [onChange]);
+  React.useEffect(function () {
+    document.onmsfullscreenchange = onChange;
+    return function () {
+      document.onmsfullscreenchange = null;
     };
   }, [onChange]);
   var onResize = React.useCallback(function () {

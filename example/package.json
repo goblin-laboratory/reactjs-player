@@ -8,6 +8,7 @@
     "hls.js": "^0.12.4",
     "numeral": "^2.0.6",
     "react": "link:../node_modules/react",
+    "react-app-polyfill": "^1.0.1",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "3.0.1",
@@ -29,12 +30,14 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "last 1 ie version"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "last 1 ie version"
     ]
   },
   "devDependencies": {

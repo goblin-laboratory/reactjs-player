@@ -150,13 +150,10 @@ const App = React.memo(({ form }) => {
   }
 
   const bodyClassNames = ['container'];
-  // const vidoeStyle = {};
-  if (fullscreen.x5videofullscreen) {
+  if (x5playsinline && fullscreen.x5videofullscreen) {
     bodyClassNames.push('x5videofullscreen');
-    // vidoeStyle.objectPosition = 'center 0';
     if (fullscreen.fullscreen) {
       bodyClassNames.push('fullscreen');
-      // vidoeStyle.objectPosition = 'center center';
     }
   }
 

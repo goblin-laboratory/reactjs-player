@@ -51,8 +51,8 @@
   ✔ videoProps 支持 @done(19-07-15 11:16)
   ✔ playerProps 支持 @done(19-07-15 11:15)
   ✔ className @done(19-07-15 11:15)
-  ☐ IE 11 全屏/退出全屏
-  ☐ PC 版微信 全屏/退出全屏
+  ✔ IE 11 全屏/退出全屏 @done(19-07-19 18:34)
+  ✔ PC 版微信 全屏/退出全屏 @done(19-07-19 18:34)
   example 配套修改:
     ☐ ref Methods 测试
     ✔ onFullscreenChange @done(19-07-15 18:39)
