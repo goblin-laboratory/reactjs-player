@@ -58,22 +58,30 @@
 }
 
 .x5videofullscreen .header {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 1;
 }
 
-.x5videofullscreen .form {
-  position: absolute;
+.x5videofullscreen .blankImg {
+  padding-top: 50px;
 }
 
-.fullscreen .header {
+.x5videofullscreen .main video {
+  object-position: center 50px;
+}
+
+.fullscreen .header,
+.fullscreen .aside,
+.fullscreen .footer {
   display: none;
 }
-
-/* TODO: 同层播放时 player position 设置为 relative form 不会显示  */
-.x5videofullscreen .main {
+.fullscreen .main {
   position: static;
-  /* z-index: -1; */
+}
+.fullscreen .main video {
+  object-position: center center;
 }
 
 .src {
@@ -205,6 +213,8 @@
     margin: 0;
     background: #333;
     color: #fff;
+    height: 40px;
+    line-height: 40px;
   }
 }
 
@@ -258,12 +268,12 @@
   padding: 4px;
 }
 
-.testActionTitle{
+.testActionTitle {
   text-align: center;
   width: 4em;
 }
 
-.testAction{
+.testAction {
   text-align: center;
   color: #1890ff;
   cursor: pointer;

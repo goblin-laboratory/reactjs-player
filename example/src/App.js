@@ -150,13 +150,13 @@ const App = React.memo(({ form }) => {
   }
 
   const bodyClassNames = ['container'];
-  const vidoeStyle = {};
+  // const vidoeStyle = {};
   if (fullscreen.x5videofullscreen) {
     bodyClassNames.push('x5videofullscreen');
-    vidoeStyle.objectPosition = 'center 50px';
+    // vidoeStyle.objectPosition = 'center 0';
     if (fullscreen.fullscreen) {
       bodyClassNames.push('fullscreen');
-      vidoeStyle.objectPosition = 'center center';
+      // vidoeStyle.objectPosition = 'center center';
     }
   }
 
@@ -212,7 +212,7 @@ const App = React.memo(({ form }) => {
             poster="https://raw.githubusercontent.com/goblin-laboratory/react-player/master/logo128x128.png"
             x5playsinline={x5playsinline}
             onFullscreenChange={onFullscreenChange}
-            videoProps={{ ...videoProps, style: vidoeStyle }}
+            videoProps={videoProps}
           />
         )}
         {'flash' === info.kernel && (
@@ -236,9 +236,11 @@ const App = React.memo(({ form }) => {
                   <Divider>接口测试</Divider>
                   <table className="testTable">
                     <thead>
-                      <th>接口</th>
-                      <th className="testActionTitle">运行</th>
-                      <th>结果</th>
+                      <tr>
+                        <th>接口</th>
+                        <th className="testActionTitle">运行</th>
+                        <th>结果</th>
+                      </tr>
                     </thead>
                     <tbody>
                       <tr>
