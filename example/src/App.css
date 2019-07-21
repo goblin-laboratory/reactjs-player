@@ -255,26 +255,3 @@
 .srcValue {
   word-break: break-all;
 }
-
-.testTable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.testTable,
-.testTable th,
-.testTable td {
-  border: 1px solid #e8e8e8;
-  padding: 4px;
-}
-
-.testActionTitle {
-  text-align: center;
-  width: 4em;
-}
-
-.testAction {
-  text-align: center;
-  color: #1890ff;
-  cursor: pointer;
-}

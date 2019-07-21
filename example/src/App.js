@@ -2,7 +2,7 @@ import React from 'react';
 import UAParser from 'ua-parser-js';
 import Hls from 'hls.js';
 import flvjs from 'flv.js';
-import { Form, Select, Input, Button, Tabs, Descriptions, Divider, Icon } from 'antd';
+import { Form, Select, Input, Button, Tabs, Descriptions, Icon } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactPlayer from 'reactjs-player';
 import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
@@ -10,6 +10,8 @@ import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
 import blank16x9 from './blank16x9.png';
 import './App.css';
 
+// import Interface from './components/Interface';
+const Interface = React.lazy(() => import('./components/Interface'));
 const GrindPlayer = ReactPlayer.GrindPlayer;
 
 const getSupportedList = ua => {
@@ -115,35 +117,8 @@ const App = React.memo(({ form }) => {
   }, []);
 
   // 接口测试
-  const [isPlayingResult, setIsPlayingResult] = React.useState('--');
-  const [getCurrentTimeResult, setGetCurrentTimeResult] = React.useState('--');
-  const [setCurrentTimeResult, setSetCurrentTimeResult] = React.useState('--');
-  const [getBufferedResult, setGetBufferedResult] = React.useState('--');
-  const [setPlaybackRateResult, setSetPlaybackRateResult] = React.useState('--');
-  const [getPlaybackRateResult, setGetPlaybackRateResult] = React.useState('--');
-  const [isFullscreenResult, setIsFullscreenResult] = React.useState('--');
-  const [isPiPResult, setIsPiPResultResult] = React.useState('--');
-
   const ref = React.useRef(null);
-
-  const onIsPlayingClick = React.useCallback(() => {
-    if (ref && ref.current) {
-      setIsPlayingResult(ref.current.isPlaying().toString());
-    } else {
-      setIsPlayingResult('--');
-    }
-  }, []);
-
-  React.useEffect(() => {
-    setIsPlayingResult('--');
-    setGetCurrentTimeResult('--');
-    setSetCurrentTimeResult('--');
-    setGetBufferedResult('--');
-    setSetPlaybackRateResult('--');
-    setGetPlaybackRateResult('--');
-    setIsFullscreenResult('--');
-    setIsPiPResultResult('--');
-  }, [src]);
+  const getPlayer = React.useCallback(() => ref && ref.current, []);
 
   if (!list || 0 === list.length) {
     return null;
@@ -218,7 +193,7 @@ const App = React.memo(({ form }) => {
       </main>
       <aside className="aside">
         <div className="asideContainer">
-          <Tabs className="asideTabs" activeKey="info">
+          <Tabs className="asideTabs" defaultActiveKey="info">
             <Tabs.TabPane tab="信息" key="info">
               <Scrollbars>
                 <div className="infoTabPane">
@@ -230,74 +205,16 @@ const App = React.memo(({ form }) => {
                     </Descriptions.Item>
                     <Descriptions.Item label="type">{info.type}</Descriptions.Item>
                   </Descriptions>
-                  <Divider>接口测试</Divider>
-                  <table className="testTable">
-                    <thead>
-                      <tr>
-                        <th>接口</th>
-                        <th className="testActionTitle">运行</th>
-                        <th>结果</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>isPlaying</td>
-                        <td className="testAction" onClick={onIsPlayingClick}>
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{isPlayingResult}</td>
-                      </tr>
-                      <tr>
-                        <td>getCurrentTime</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{getCurrentTimeResult}</td>
-                      </tr>
-                      <tr>
-                        <td>setCurrentTime</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{setCurrentTimeResult}</td>
-                      </tr>
-                      <tr>
-                        <td>getBuffered</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{getBufferedResult}</td>
-                      </tr>
-                      <tr>
-                        <td>setPlaybackRate</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{setPlaybackRateResult}</td>
-                      </tr>
-                      <tr>
-                        <td>getPlaybackRate</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{getPlaybackRateResult}</td>
-                      </tr>
-                      <tr>
-                        <td>isPiP</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{isPiPResult}</td>
-                      </tr>
-                      <tr>
-                        <td>isFullscreen</td>
-                        <td className="testAction">
-                          <Icon type="play-circle" />
-                        </td>
-                        <td>{isFullscreenResult}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                </div>
+              </Scrollbars>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="接口测试" key="interface">
+              <Scrollbars>
+                <div className="infoTabPane">
+                  {/* <Interface getPlayer={getPlayer} src={src} /> */}
+                  <React.Suspense fallback={null}>
+                    <Interface getPlayer={getPlayer} src={src} />
+                  </React.Suspense>
                 </div>
               </Scrollbars>
             </Tabs.TabPane>
