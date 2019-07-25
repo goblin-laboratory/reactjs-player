@@ -41,6 +41,7 @@ export default (props, getVideoElement) => {
 
   const changeCurrentTime = React.useCallback(
     t => {
+      // TOOD: currentTime 非法值校验
       const el = getVideoElement();
       if (el) {
         el.currentTime = t;

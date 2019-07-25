@@ -53,18 +53,37 @@
   ✔ className @done(19-07-15 11:15)
   ✔ IE 11 全屏/退出全屏 @done(19-07-19 18:34)
   ✔ PC 版微信 全屏/退出全屏 @done(19-07-19 18:34)
+  ✔ ref 支持 getDuration Method @done(19-07-23 17:47)
+  ✔ ref 支持 getVolume Method @done(19-07-25 17:49)
+  ✔ ref 支持 setVolume Method @done(19-07-25 17:49)
+  ✔ ref 支持 isMuted Method @done(19-07-25 17:49)
+  ✔ ref 支持 toggleMute Method @done(19-07-25 17:49)
   example 配套修改:
-    ☐ ref Methods 测试
     ✔ onFullscreenChange @done(19-07-15 18:39)
     ✔ 同层播放 @done(19-07-15 18:39)
     ✔ videoProps( playsInline, objectPosition, x5-playsinline ... ) @done(19-07-15 18:39)
     ✔ 布局调整：电脑端上左右，手机端上中下布局 @done(19-07-18 17:22)
+    ref Methods 测试:
+      ✔ isPlaying @done(19-07-23 17:38)
+      ✔ getDuration @done(19-07-23 18:37)
+      ✔ getCurrentTime @done(19-07-23 17:38)
+      ✔ setCurrentTime @done(19-07-25 17:47)
+      ✔ getBuffered @done(19-07-25 17:47)
+      ✔ getVolume @done(19-07-25 17:48)
+      ✔ setVolume @done(19-07-25 17:48)
+      ✔ isMuted @done(19-07-25 17:48)
+      ✔ toggleMute @done(19-07-25 17:48)
+      ✔ getPlaybackRate @done(19-07-25 17:47)
+      ✔ setPlaybackRate @done(19-07-25 17:47)
+      ✔ isPiP @done(19-07-25 17:47)
+      ✔ isFullscreen @done(19-07-25 17:47)
 
 0.6.x:
   ☐ 使用 gloabl 样式，支持使用者覆盖默认样式
   ☐ useVideoPiP: 不支持 PiP 时 request / exit 被调用
   ☐ useVideoTime: 未开始播放时 change current time
   ☐ useVideoFullscreen: 未开始播放时 request / exit 被调用
+  ☐ live 时 setPlaybackRate
 
 单元测试:
   ☐ useFlvjs

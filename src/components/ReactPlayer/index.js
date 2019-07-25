@@ -113,13 +113,18 @@ const ReactPlayer = (
 
   React.useImperativeHandle(ref, () => ({
     isPlaying: () => !!src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
-    isFullscreen: () => fullscreenProps.fullscreen,
+    getDuration: () => timeProps.duration,
     getCurrentTime: () => timeProps.currentTime,
     setCurrentTime: ct => timeProps.changeCurrentTime(ct),
     getBuffered: () => timeProps.buffered,
+    getVolume: () => volumeProps.volume,
+    setVolume: v => volumeProps.changeVolume(v),
+    isMuted: () => volumeProps.muted,
+    toggleMute: () => volumeProps.onMutedClick(),
     getPlaybackRate: () => playbackRateProps.playbackRate,
     setPlaybackRate: rate => playbackRateProps.changePlaybackRate(rate),
     isPiP: () => piPProps.pictureInPictureEnabled && piPProps.pip,
+    isFullscreen: () => fullscreenProps.fullscreen,
   }));
 
   return (
