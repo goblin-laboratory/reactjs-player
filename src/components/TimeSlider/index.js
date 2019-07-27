@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import ReactSWF from 'react-swf';
 import numeral from 'numeral';
 import styles from './index.module.less';
 
@@ -58,7 +57,10 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
   const [sliding, setSliding] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const [tooltip, setTooltip] = React.useState(0);
+
   const sliderRef = React.useRef(null);
+  const reactRef = React.useRef(null);
+  const updateRef = React.useRef(null);
 
   const onClick = React.useCallback(
     e => {
@@ -71,29 +73,58 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
     [onChange, duration],
   );
 
+  const onMouseDown = React.useCallback(e => {
+    e.preventDefault();
+    if (!sliderRef || !sliderRef.current || !reactRef) {
+      return;
+    }
+    const react = sliderRef.current.getBoundingClientRect();
+    reactRef.current = { left: react.left, width: react.width };
+    setSliding(true);
+  }, []);
+
+  const update = React.useCallback(() => {
+    if (!updateRef || !updateRef.current) {
+      return;
+    }
+    if (undefined !== updateRef.current.value) {
+      setValue(updateRef.current.value);
+    }
+    if (undefined !== updateRef.current.tooltip) {
+      setTooltip(updateRef.current.tooltip);
+    }
+    updateRef.current = null;
+  }, []);
+
   const onMouseUp = React.useCallback(
     e => {
       e.preventDefault();
-      if (sliderRef && sliderRef.current) {
-        const rect = sliderRef.current.getBoundingClientRect();
-        const v = getValue(e, rect, duration);
+      if (reactRef && reactRef.current && updateRef) {
+        const v = getValue(e, reactRef.current, duration);
+        updateRef.current = { value: v };
+        update();
         onChange(v);
-        setSliding(false);
       }
+      setSliding(false);
     },
-    [onChange, duration],
+    [onChange, duration, update],
   );
 
   const onMouseMove = React.useCallback(
     e => {
       e.preventDefault();
-      if (sliderRef && sliderRef.current) {
-        const rect = sliderRef.current.getBoundingClientRect();
-        const v = getValue(e, rect, duration);
-        setValue(v);
+      if (!reactRef || !reactRef.current || !updateRef) {
+        return;
+      }
+      const v = getValue(e, reactRef.current, duration);
+      if (updateRef.current) {
+        updateRef.current.value = v;
+      } else {
+        updateRef.current = { value: v };
+        global.requestAnimationFrame(update);
       }
     },
-    [duration],
+    [duration, update],
   );
 
   React.useEffect(() => {
@@ -108,19 +139,57 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
     return () => {};
   }, [sliding, onMouseMove, onMouseUp]);
 
-  const setTooltipVisible = React.useCallback(v => 0 < duration && setVisible(v), [duration]);
+  const onSliderMouseOver = React.useCallback(
+    e => {
+      e.preventDefault();
+      if (0 >= duration) {
+        return;
+      }
+      const react = sliderRef.current.getBoundingClientRect();
+      reactRef.current = { left: react.left, width: react.width };
+      setVisible(true);
+    },
+    [duration],
+  );
+
+  const onSliderMouseOut = React.useCallback(e => {
+    e.preventDefault();
+    setVisible(false);
+  }, []);
 
   const onSliderMouseMove = React.useCallback(
     e => {
       e.preventDefault();
-      if (sliderRef && sliderRef.current) {
-        const rect = sliderRef.current.getBoundingClientRect();
-        const v = getValue(e, rect, duration);
-        setTooltip(v);
+      if (!reactRef || !reactRef.current || !updateRef) {
+        return;
+      }
+      const v = getValue(e, reactRef.current, duration);
+      if (updateRef.current) {
+        updateRef.current.tooltip = v;
+      } else {
+        updateRef.current = { tooltip: v };
+        global.requestAnimationFrame(update);
       }
     },
-    [duration],
+    [duration, update],
   );
+
+  const onResize = React.useCallback(e => {
+    e.preventDefault();
+    if (!sliderRef || !sliderRef.current) {
+      return;
+    }
+    const react = sliderRef.current.getBoundingClientRect();
+    reactRef.current = { left: react.left, width: react.width };
+  }, []);
+
+  React.useEffect(() => {
+    if (sliding || visible) {
+      global.addEventListener('resize', onResize);
+    } else {
+      global.removeEventListener('resize', onResize);
+    }
+  }, [sliding, visible, onResize]);
 
   const bufferedTranslateX = getBufferedTranslateX({ buffered, currentTime, sliding, duration });
   const trackTranslateX = getTrackTranslateX({ duration, currentTime, value, sliding });
@@ -131,8 +200,8 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
       className={sliding ? styles.slidingSlider : styles.slider}
       ref={sliderRef}
       onClick={onClick}
-      onMouseOver={() => setTooltipVisible(true)}
-      onMouseOut={() => setTooltipVisible(false)}
+      onMouseOver={onSliderMouseOver}
+      onMouseOut={onSliderMouseOut}
       onMouseMove={onSliderMouseMove}
     >
       <div className={styles.sliderRail}>
@@ -140,7 +209,7 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
         <div className={styles.sliderTrack} style={{ transform: `translateX(${trackTranslateX})` }} />
       </div>
       <div className={styles.sliderHandleRail} style={{ transform: `translateX(${trackTranslateX})` }}>
-        <div tabIndex={0} className={styles.sliderHandle} onMouseDown={() => setSliding(true)} />
+        <div tabIndex={0} className={styles.sliderHandle} onMouseDown={onMouseDown} />
       </div>
       <div
         className={styles.tooltip}

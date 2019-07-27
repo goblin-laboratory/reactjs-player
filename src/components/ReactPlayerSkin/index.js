@@ -48,19 +48,63 @@ const ReactPlayerSkin = React.memo(
     const [sliding, setSliding] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
 
-    React.useEffect(() => {
-      if (hiding || hovering || sliding) {
-        return () => {};
+    const autoHideRef = React.useRef(null);
+
+    const autoHide = React.useCallback(timestamp => {
+      if (!autoHideRef || !autoHideRef.current) {
+        return;
       }
-      const id = setTimeout(() => setHiding(true), 3000);
-      return () => clearTimeout(id);
-    }, [hiding, hovering, sliding]);
+      if (undefined === autoHideRef.current.timestamp) {
+        autoHideRef.current.timestamp = timestamp;
+        global.requestAnimationFrame(autoHide);
+        return;
+      }
+      if (3000 > timestamp - autoHideRef.current.timestamp) {
+        global.requestAnimationFrame(autoHide);
+        return;
+      }
+      autoHideRef.current = null;
+      setHiding(true);
+    }, []);
+
+    const show = React.useCallback(
+      timestamp => {
+        if (!autoHideRef) {
+          return;
+        }
+        if (!autoHideRef.current) {
+          setHiding(false);
+          global.requestAnimationFrame(autoHide);
+        }
+        // setHiding(false);
+        autoHideRef.current = { timestamp };
+      },
+      [autoHide],
+    );
+
+    const onMouseMove = React.useCallback(() => {
+      global.requestAnimationFrame(show);
+    }, [show]);
+
+    React.useEffect(() => {
+      if (!autoHideRef) {
+        return;
+      }
+      if (hiding || hovering || sliding) {
+        autoHideRef.current = null;
+        return;
+      }
+      if (autoHideRef.current) {
+        return;
+      }
+      autoHideRef.current = {};
+      global.requestAnimationFrame(autoHide);
+    }, [hiding, hovering, sliding, autoHide]);
 
     React.useEffect(() => {
       if (hiding) {
         setVisible(false);
       }
-      return () => {};
     }, [hiding]);
 
     const onBodyClick = React.useCallback(() => setVisible(false), []);
@@ -78,7 +122,7 @@ const ReactPlayerSkin = React.memo(
     );
 
     return (
-      <div className={styles.reactPlayerSkin} onMouseMove={() => setHiding(false)}>
+      <div className={styles.reactPlayerSkin} onMouseMove={onMouseMove}>
         <div className={src ? styles.hiddenVideoMask : styles.videoMask} />
         {poster && (!src || loading) && <img className={styles.poster} src={poster} alt="" />}
         {(waiting || seeking) && !loading && (

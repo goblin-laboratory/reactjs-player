@@ -58,6 +58,12 @@
   ✔ ref 支持 setVolume Method @done(19-07-25 17:49)
   ✔ ref 支持 isMuted Method @done(19-07-25 17:49)
   ✔ ref 支持 toggleMute Method @done(19-07-25 17:49)
+  性能优化:
+    ✔ timeupdate 事件优化 @done(19-07-26 15:45)
+    ✔ progress 事件优化 @done(19-07-26 16:28)
+    ✔ TimeSlider tooltip 事件优化 @done(19-07-26 16:29)
+    ✔ TimeSlider Slider MouseMove 事件优化 @done(19-07-27 18:25)
+    ✔ autohide setTimeout 优化 @done(19-07-26 18:25)
   example 配套修改:
     ✔ onFullscreenChange @done(19-07-15 18:39)
     ✔ 同层播放 @done(19-07-15 18:39)
