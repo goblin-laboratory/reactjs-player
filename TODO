@@ -90,6 +90,7 @@
   ☐ useVideoTime: 未开始播放时 change current time
   ☐ useVideoFullscreen: 未开始播放时 request / exit 被调用
   ☐ live 时 setPlaybackRate
+  ☐ 移除 hls.js /flv.js 依赖
 
 单元测试:
   ☐ useFlvjs
