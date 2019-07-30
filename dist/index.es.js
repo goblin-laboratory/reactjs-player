@@ -9,6 +9,42 @@ import Hls from 'hls.js';
 import flvjs from 'flv.js';
 import ReactSWF from 'react-swf';
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -128,7 +164,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".index-module_slider__1Rofk,\n.index-module_slidingSlider__1oUqO {\n  position: relative;\n  height: 20px;\n  cursor: pointer;\n}\n.index-module_sliderRail__p8d-4 {\n  position: absolute;\n  left: 0;\n  top: 8px;\n  width: 100%;\n  height: 4px;\n  background-color: rgba(255, 255, 255, 0.2);\n  transition: background-color 0.3s;\n  overflow: hidden;\n}\n.index-module_sliderBuffered__2pVve {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(255, 255, 255, 0.5);\n  transition: background-color 0.3s;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderTrack__SC9eC {\n  position: absolute;\n  background: #ff0000;\n  transition: background-color 0.3s ease;\n  width: 100%;\n  height: 100%;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandleRail__cDiHR {\n  position: absolute;\n  left: 0;\n  top: 4px;\n  width: 100%;\n  height: 12px;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandle__2KIqN {\n  position: absolute;\n  top: 0;\n  right: -6px;\n  width: 12px;\n  height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  box-shadow: 0;\n  visibility: hidden;\n  background: #ff0000;\n  border: none 0 transparent;\n  outline: none;\n}\n.index-module_sliderHandle__2KIqN:focus {\n  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);\n}\n.index-module_slidingSlider__1oUqO .index-module_sliderHandle__2KIqN {\n  visibility: visible;\n}\n.index-module_slider__1Rofk:hover .index-module_sliderHandle__2KIqN {\n  visibility: visible;\n}\n.index-module_tooltip__IdSMM {\n  position: absolute;\n  bottom: 120%;\n  left: 0;\n  width: 100%;\n}\n.index-module_tooltip__IdSMM .index-module_tip__Hp2Tv {\n  display: inline-block;\n  padding: 0.4em 0.8em;\n  border-radius: 4px;\n  background: #333;\n  color: #fff;\n  transform: translateX(-50%);\n}\n.index-module_tooltip__IdSMM .index-module_tip__Hp2Tv:after {\n  content: '';\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 5px;\n  border-style: solid;\n  border-color: #333 transparent transparent transparent;\n}\n";
+var css = ".index-module_slider__1Rofk,\n.index-module_slidingSlider__1oUqO {\n  position: relative;\n  height: 20px;\n  cursor: pointer;\n}\n.index-module_sliderRail__p8d-4 {\n  position: absolute;\n  left: 0;\n  top: 8px;\n  width: 100%;\n  height: 4px;\n  background-color: rgba(255, 255, 255, 0.2);\n  overflow: hidden;\n}\n.index-module_sliderBuffered__2pVve {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(255, 255, 255, 0.5);\n  transform: translate(-100%, 0);\n}\n.index-module_sliderTrack__SC9eC {\n  position: absolute;\n  background: #ff0000;\n  width: 100%;\n  height: 100%;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandleRail__cDiHR {\n  position: absolute;\n  left: 0;\n  top: 4px;\n  width: 100%;\n  height: 12px;\n  transform: translate(-100%, 0);\n}\n.index-module_sliderHandle__2KIqN {\n  position: absolute;\n  top: 0;\n  right: -6px;\n  width: 12px;\n  height: 12px;\n  cursor: pointer;\n  border-radius: 50%;\n  box-shadow: 0;\n  visibility: hidden;\n  background: #ff0000;\n  border: none 0 transparent;\n  outline: none;\n}\n.index-module_sliderHandle__2KIqN:focus {\n  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);\n}\n.index-module_slidingSlider__1oUqO .index-module_sliderHandle__2KIqN {\n  visibility: visible;\n}\n.index-module_slider__1Rofk:hover .index-module_sliderHandle__2KIqN {\n  visibility: visible;\n}\n.index-module_tooltip__IdSMM {\n  position: absolute;\n  bottom: 120%;\n  left: 0;\n  width: 100%;\n}\n.index-module_tooltip__IdSMM .index-module_tip__Hp2Tv {\n  display: inline-block;\n  padding: 0.4em 0.8em;\n  border-radius: 4px;\n  background: #333;\n  color: #fff;\n  transform: translateX(-50%);\n}\n.index-module_tooltip__IdSMM .index-module_tip__Hp2Tv:after {\n  content: '';\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border-width: 5px;\n  border-style: solid;\n  border-color: #333 transparent transparent transparent;\n}\n";
 var styles = {"slider":"index-module_slider__1Rofk","slidingSlider":"index-module_slidingSlider__1oUqO","sliderRail":"index-module_sliderRail__p8d-4","sliderBuffered":"index-module_sliderBuffered__2pVve","sliderTrack":"index-module_sliderTrack__SC9eC","sliderHandleRail":"index-module_sliderHandleRail__cDiHR","sliderHandle":"index-module_sliderHandle__2KIqN","tooltip":"index-module_tooltip__IdSMM","tip":"index-module_tip__Hp2Tv"};
 styleInject(css);
 
@@ -231,6 +267,8 @@ var Slider = React.memo(function (_ref4) {
       setTooltip = _React$useState8[1];
 
   var sliderRef = React.useRef(null);
+  var reactRef = React.useRef(null);
+  var updateRef = React.useRef(null);
   var onClick = React.useCallback(function (e) {
     e.preventDefault();
     var rect = e.currentTarget.getBoundingClientRect();
@@ -238,25 +276,67 @@ var Slider = React.memo(function (_ref4) {
     onChange(v);
     setSliding(false);
   }, [onChange, duration]);
+  var onMouseDown = React.useCallback(function (e) {
+    e.preventDefault();
+
+    if (!sliderRef || !sliderRef.current || !reactRef) {
+      return;
+    }
+
+    var react = sliderRef.current.getBoundingClientRect();
+    reactRef.current = {
+      left: react.left,
+      width: react.width
+    };
+    setSliding(true);
+  }, []);
+  var update = React.useCallback(function () {
+    if (!updateRef || !updateRef.current) {
+      return;
+    }
+
+    if (undefined !== updateRef.current.value) {
+      setValue(updateRef.current.value);
+    }
+
+    if (undefined !== updateRef.current.tooltip) {
+      setTooltip(updateRef.current.tooltip);
+    }
+
+    updateRef.current = null;
+  }, []);
   var onMouseUp = React.useCallback(function (e) {
     e.preventDefault();
 
-    if (sliderRef && sliderRef.current) {
-      var rect = sliderRef.current.getBoundingClientRect();
-      var v = getValue(e, rect, duration);
+    if (reactRef && reactRef.current && updateRef) {
+      var v = getValue(e, reactRef.current, duration);
+      updateRef.current = {
+        value: v
+      };
+      update();
       onChange(v);
-      setSliding(false);
     }
-  }, [onChange, duration]);
+
+    setSliding(false);
+  }, [onChange, duration, update]);
   var onMouseMove = React.useCallback(function (e) {
     e.preventDefault();
 
-    if (sliderRef && sliderRef.current) {
-      var rect = sliderRef.current.getBoundingClientRect();
-      var v = getValue(e, rect, duration);
-      setValue(v);
+    if (!reactRef || !reactRef.current || !updateRef) {
+      return;
     }
-  }, [duration]);
+
+    var v = getValue(e, reactRef.current, duration);
+
+    if (updateRef.current) {
+      updateRef.current.value = v;
+    } else {
+      updateRef.current = {
+        value: v
+      };
+      global.requestAnimationFrame(update);
+    }
+  }, [duration, update]);
   React.useEffect(function () {
     if (sliding) {
       document.addEventListener('mousemove', onMouseMove);
@@ -269,18 +349,62 @@ var Slider = React.memo(function (_ref4) {
 
     return function () {};
   }, [sliding, onMouseMove, onMouseUp]);
-  var setTooltipVisible = React.useCallback(function (v) {
-    return 0 < duration && setVisible(v);
+  var onSliderMouseOver = React.useCallback(function (e) {
+    e.preventDefault();
+
+    if (0 >= duration) {
+      return;
+    }
+
+    var react = sliderRef.current.getBoundingClientRect();
+    reactRef.current = {
+      left: react.left,
+      width: react.width
+    };
+    setVisible(true);
   }, [duration]);
+  var onSliderMouseOut = React.useCallback(function (e) {
+    e.preventDefault();
+    setVisible(false);
+  }, []);
   var onSliderMouseMove = React.useCallback(function (e) {
     e.preventDefault();
 
-    if (sliderRef && sliderRef.current) {
-      var rect = sliderRef.current.getBoundingClientRect();
-      var v = getValue(e, rect, duration);
-      setTooltip(v);
+    if (!reactRef || !reactRef.current || !updateRef) {
+      return;
     }
-  }, [duration]);
+
+    var v = getValue(e, reactRef.current, duration);
+
+    if (updateRef.current) {
+      updateRef.current.tooltip = v;
+    } else {
+      updateRef.current = {
+        tooltip: v
+      };
+      global.requestAnimationFrame(update);
+    }
+  }, [duration, update]);
+  var onResize = React.useCallback(function (e) {
+    e.preventDefault();
+
+    if (!sliderRef || !sliderRef.current) {
+      return;
+    }
+
+    var react = sliderRef.current.getBoundingClientRect();
+    reactRef.current = {
+      left: react.left,
+      width: react.width
+    };
+  }, []);
+  React.useEffect(function () {
+    if (sliding || visible) {
+      global.addEventListener('resize', onResize);
+    } else {
+      global.removeEventListener('resize', onResize);
+    }
+  }, [sliding, visible, onResize]);
   var bufferedTranslateX = getBufferedTranslateX({
     buffered: buffered,
     currentTime: currentTime,
@@ -301,12 +425,8 @@ var Slider = React.memo(function (_ref4) {
     className: sliding ? styles.slidingSlider : styles.slider,
     ref: sliderRef,
     onClick: onClick,
-    onMouseOver: function onMouseOver() {
-      return setTooltipVisible(true);
-    },
-    onMouseOut: function onMouseOut() {
-      return setTooltipVisible(false);
-    },
+    onMouseOver: onSliderMouseOver,
+    onMouseOut: onSliderMouseOut,
     onMouseMove: onSliderMouseMove
   }, React.createElement("div", {
     className: styles.sliderRail
@@ -328,9 +448,7 @@ var Slider = React.memo(function (_ref4) {
   }, React.createElement("div", {
     tabIndex: 0,
     className: styles.sliderHandle,
-    onMouseDown: function onMouseDown() {
-      return setSliding(true);
-    }
+    onMouseDown: onMouseDown
   })), React.createElement("div", {
     className: styles.tooltip,
     style: {
@@ -453,24 +571,65 @@ var ReactPlayerSkin = React.memo(function (_ref) {
       visible = _React$useState8[0],
       setVisible = _React$useState8[1];
 
-  React.useEffect(function () {
-    if (hiding || hovering || sliding) {
-      return function () {};
+  var autoHideRef = React.useRef(null);
+  var autoHide = React.useCallback(function (timestamp) {
+    if (!autoHideRef || !autoHideRef.current) {
+      return;
     }
 
-    var id = setTimeout(function () {
-      return setHiding(true);
-    }, 3000);
-    return function () {
-      return clearTimeout(id);
+    if (undefined === autoHideRef.current.timestamp) {
+      autoHideRef.current.timestamp = timestamp;
+      global.requestAnimationFrame(autoHide);
+      return;
+    }
+
+    if (3000 > timestamp - autoHideRef.current.timestamp) {
+      global.requestAnimationFrame(autoHide);
+      return;
+    }
+
+    autoHideRef.current = null;
+    setHiding(true);
+  }, []);
+  var show = React.useCallback(function (timestamp) {
+    if (!autoHideRef) {
+      return;
+    }
+
+    if (!autoHideRef.current) {
+      setHiding(false);
+      global.requestAnimationFrame(autoHide);
+    } // setHiding(false);
+
+
+    autoHideRef.current = {
+      timestamp: timestamp
     };
-  }, [hiding, hovering, sliding]);
+  }, [autoHide]);
+  var onMouseMove = React.useCallback(function () {
+    global.requestAnimationFrame(show);
+  }, [show]);
+  React.useEffect(function () {
+    if (!autoHideRef) {
+      return;
+    }
+
+    if (hiding || hovering || sliding) {
+      autoHideRef.current = null;
+      return;
+    }
+
+    if (autoHideRef.current) {
+      return;
+    }
+
+    autoHideRef.current = {};
+    global.requestAnimationFrame(autoHide);
+  }, [hiding, hovering, sliding, autoHide]);
   React.useEffect(function () {
     if (hiding) {
       setVisible(false);
     }
-
-    return function () {};
   }, [hiding]);
   var onBodyClick = React.useCallback(function () {
     return setVisible(false);
@@ -487,9 +646,7 @@ var ReactPlayerSkin = React.memo(function (_ref) {
   }, [changePlaybackRate]);
   return React.createElement("div", {
     className: styles$1.reactPlayerSkin,
-    onMouseMove: function onMouseMove() {
-      return setHiding(false);
-    }
+    onMouseMove: onMouseMove
   }, React.createElement("div", {
     className: src ? styles$1.hiddenVideoMask : styles$1.videoMask
   }), poster && (!src || loading) && React.createElement("img", {
@@ -829,10 +986,15 @@ var useVideoTime = (function (props, getVideoElement) {
       buffered = _React$useState6[0],
       setBuffered = _React$useState6[1];
 
+  var updateRef = React.useRef(null);
   React.useEffect(function () {
     setDuration(live ? -1 : 0);
     setCurrentTime(0);
     setBuffered(null);
+
+    if (updateRef && updateRef.current) {
+      updateRef.current = null;
+    }
   }, [src, live]);
   var onVideoDurationChange = React.useCallback(function (e) {
     if (!live) {
@@ -841,14 +1003,57 @@ var useVideoTime = (function (props, getVideoElement) {
 
     onDurationChange(e);
   }, [live, onDurationChange]);
+  var update = React.useCallback(function (timestamp) {
+    if (!updateRef || !updateRef.current) {
+      return;
+    }
+
+    if (200 > timestamp - updateRef.current.timestamp) {
+      global.requestAnimationFrame(update);
+      return;
+    }
+
+    if (undefined !== updateRef.current.currentTime) {
+      setCurrentTime(updateRef.current.currentTime);
+    }
+
+    if (undefined !== updateRef.current.buffered) {
+      setBuffered(updateRef.current.buffered);
+    }
+
+    updateRef.current = null;
+  }, []);
   var onVideoTimeUpdate = React.useCallback(function (e) {
-    setCurrentTime(e.target.currentTime);
+    if (updateRef) {
+      if (updateRef.current) {
+        updateRef.current.currentTime = e.target.currentTime;
+      } else {
+        updateRef.current = {
+          currentTime: e.target.currentTime,
+          timestamp: performance.now()
+        };
+        global.requestAnimationFrame(update);
+      }
+    }
+
     onTimeUpdate(e);
-  }, [onTimeUpdate]);
+  }, [onTimeUpdate, update]);
   var onVideoProgress = React.useCallback(function (e) {
-    setBuffered(e.target.buffered);
+    if (updateRef) {
+      if (updateRef.current) {
+        updateRef.current.buffered = e.target.buffered;
+      } else {
+        updateRef.current = {
+          buffered: e.target.buffered,
+          timestamp: performance.now()
+        };
+        global.requestAnimationFrame(update); // global.requestIdleCallback(update, { timeout: 200 });
+      }
+    } // setBuffered(e.target.buffered);
+
+
     onProgress(e);
-  }, [onProgress]);
+  }, [onProgress, update]);
   var changeCurrentTime = React.useCallback(function (t) {
     // TOOD: currentTime 非法值校验
     var el = getVideoElement();
@@ -1170,6 +1375,98 @@ var useVideoFullscreen = (function (_ref, getVideoElement, getPlayerElement) {
   };
 });
 
+var getElement = function getElement(getEl) {
+  var timeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3000;
+  return new Promise(function (resolve) {
+    var el = getEl();
+
+    if (el) {
+      resolve(el);
+      return;
+    }
+
+    setTimeout(function () {
+      resolve(getEl());
+    }, timeout);
+  });
+};
+
+var utils = {
+  debug: console.error,
+  getElement: getElement
+};
+
+var debug$1 = utils.debug,
+    getElement$1 = utils.getElement;
+
+var destroyHls = function destroyHls(hls) {
+  if (!hls) {
+    return;
+  }
+
+  try {
+    hls.destroy();
+  } catch (err) {// debugger;
+  }
+};
+
+var load = function load(el, src, config, onHlsError) {
+  var timeout = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 3 * 1000;
+  return new Promise(function (resolve, reject) {
+    var onParsed = function onParsed() {
+      off();
+      el.play();
+      resolve(hls);
+    };
+
+    var onError = function onError(e, info) {
+      onHlsError(e, info);
+
+      if (info && info.fatal) {
+        off();
+        reject({
+          hls: hls,
+          message: 'hls error'
+        });
+      }
+    };
+
+    var interval = 0;
+
+    var onTimeout = function onTimeout() {
+      interval = 0;
+      off();
+      reject({
+        hls: hls,
+        message: 'hls timeout'
+      });
+    };
+
+    var off = function off() {
+      if (interval) {
+        clearTimeout(interval);
+      }
+
+      interval = 0;
+      hls.off(Hls.Events.MANIFEST_PARSED, onParsed);
+      hls.off(Hls.Events.ERROR, onError);
+    }; // TODO: https://github.com/video-dev/hls.js/pull/2174
+
+
+    var hls = new Hls(Object.assign({
+      enableWorker: false
+    }, config));
+    hls.loadSource(src);
+    hls.attachMedia(el);
+    hls.on(Hls.Events.MANIFEST_PARSED, onParsed);
+    hls.on(Hls.Events.ERROR, onError);
+    interval = setTimeout(onTimeout, timeout);
+  })["catch"](function (errMsg) {
+    destroyHls(errMsg && errMsg.hls);
+    return null;
+  });
+};
+
 var useHlsjs = (function (_ref, getVideoElement) {
   var src = _ref.src,
       config = _ref.config,
@@ -1185,45 +1482,8 @@ var useHlsjs = (function (_ref, getVideoElement) {
       kernelMsg = _React$useState4[0],
       setKernelMsg = _React$useState4[1];
 
-  React.useEffect(function () {
-    var el = getVideoElement();
-
-    if (!el || !src) {
-      setHlsPlayer(null);
-      return function () {};
-    }
-
-    var hls = new Hls(Object.assign({
-      debug: false,
-      enableWorker: false
-    }, config));
-    hls.loadSource(src);
-    setHlsPlayer(hls);
-    return function () {
-      setHlsPlayer(null);
-    };
-  }, [getVideoElement, src, config]);
-  React.useEffect(function () {
-    if (!hlsPlayer) {
-      return function () {};
-    }
-
-    var el = getVideoElement();
-
-    if (el) {
-      hlsPlayer.attachMedia(el);
-      hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function () {
-        return el.play();
-      });
-    }
-
-    return function () {
-      try {
-        hlsPlayer.destroy();
-      } catch (errMsg) {}
-    };
-  }, [getVideoElement, hlsPlayer]);
-  var onError = React.useCallback(function (e, info) {
+  var ref = React.useRef('');
+  var onHlsError = React.useCallback(function (e, info) {
     if (info && info.fatal) {
       var msg = {
         type: info.type,
@@ -1234,20 +1494,110 @@ var useHlsjs = (function (_ref, getVideoElement) {
     }
   }, [onKernelError]);
   React.useEffect(function () {
-    if (!hlsPlayer) {
-      setKernelMsg(null);
-      return function () {};
+    var play =
+    /*#__PURE__*/
+    function () {
+      var _ref2 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var el, hls;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (src) {
+                  _context.next = 3;
+                  break;
+                }
+
+                setHlsPlayer(null);
+                return _context.abrupt("return");
+
+              case 3:
+                _context.next = 5;
+                return getElement$1(getVideoElement);
+
+              case 5:
+                el = _context.sent;
+
+                if (!(ref.current !== src)) {
+                  _context.next = 8;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 8:
+                if (el) {
+                  _context.next = 13;
+                  break;
+                }
+
+                ref.current = '';
+                setHlsPlayer(null); // TODO: 提示用户
+
+                debug$1('useHlsjs: 获取 video 元素失败');
+                return _context.abrupt("return");
+
+              case 13:
+                _context.next = 15;
+                return load(el, src, config, onHlsError);
+
+              case 15:
+                hls = _context.sent;
+
+                if (!(ref.current !== src)) {
+                  _context.next = 19;
+                  break;
+                }
+
+                destroyHls(hls);
+                return _context.abrupt("return");
+
+              case 19:
+                if (hls) {
+                  _context.next = 23;
+                  break;
+                }
+
+                ref.current = '';
+                setHlsPlayer(null);
+                return _context.abrupt("return");
+
+              case 23:
+                setHlsPlayer(hls);
+
+              case 24:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function play() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    ref.current = src;
+    play();
+    return;
+  }, [getVideoElement, src, config, onHlsError]);
+  React.useEffect(function () {
+    return function () {
+      return setKernelMsg(null);
+    };
+  }, [src]);
+  React.useEffect(function () {
+    if (hlsPlayer) {
+      hlsPlayer.on(Hls.Events.ERROR, onHlsError);
     }
 
-    hlsPlayer.on(Hls.Events.ERROR, onError);
     return function () {
-      try {
-        hlsPlayer.off(Hls.Events.ERROR);
-      } catch (errMsg) {}
-
-      setKernelMsg(null);
+      return destroyHls(hlsPlayer);
     };
-  }, [hlsPlayer, onError]);
+  }, [hlsPlayer, onHlsError]);
   return kernelMsg;
 });
 
