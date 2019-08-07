@@ -58,6 +58,13 @@
   ✔ ref 支持 setVolume Method @done(19-07-25 17:49)
   ✔ ref 支持 isMuted Method @done(19-07-25 17:49)
   ✔ ref 支持 toggleMute Method @done(19-07-25 17:49)
+  ✔ ReactPlayerContext 支持 getVideoElement @done(19-08-07 16:29)
+  ✔ useFlvjs src 变化时 kenerMsg 销毁 @done(19-08-07 16:29)
+  ✔ useFlvjs change src 时异常 @done(19-08-07 18:08)
+  ☐ 直播暂停恢复时自动跳转到最新
+  ☐ 直播 duration 使用实际 duration，不要强制设置成 -1
+  ☐ seek 时回跳问题
+  ☐ Skin 在白色视频中看不清楚
   性能优化:
     ✔ timeupdate 事件优化 @done(19-07-26 15:45)
     ✔ progress 事件优化 @done(19-07-26 16:28)
