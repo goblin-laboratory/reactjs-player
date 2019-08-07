@@ -173,6 +173,7 @@ const ReactPlayer = (
       />
       <ReactPlayerContext.Provider
         value={{
+          getVideoElement,
           src: src,
           controls: controls,
           poster: poster,
