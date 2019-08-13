@@ -1,7 +1,7 @@
 {
   "name": "reactjs-player",
   "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "keywords": [
     "react",
     "media",
