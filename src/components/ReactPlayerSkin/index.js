@@ -122,8 +122,12 @@ const ReactPlayerSkin = React.memo(
     );
 
     return (
-      <div className={styles.reactPlayerSkin} onMouseMove={onMouseMove}>
-        <div className={src ? styles.hiddenVideoMask : styles.videoMask} />
+      <div className={styles.reactPlayerSkin}>
+        <button
+          className={src ? styles.hiddenVideoMask : styles.videoMask}
+          onMouseMove={onMouseMove}
+          onClick={onMouseMove}
+        />
         {poster && (!src || loading) && <img className={styles.poster} src={poster} alt="" />}
         {(waiting || seeking) && !loading && (
           <div className={styles.waiting}>

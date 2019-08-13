@@ -23,12 +23,21 @@
 .videoMask {
   .absolute;
   background: #000;
+  // background: transparent;
+  border: 0 none transparent;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
-
 .hiddenVideoMask {
   .videoMask;
   opacity: 0;
   background: transparent;
+}
+.videoMask:focus,
+.hiddenVideoMask:focus {
+  outline: 0 none transparent;
 }
 
 .controls {
