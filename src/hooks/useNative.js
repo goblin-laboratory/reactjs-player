@@ -5,19 +5,17 @@ export default ({ src }, getVideoElement) => {
 
   React.useEffect(() => {
     const el = getVideoElement();
-    if (!el || !src) {
-      return () => {};
+    if (!el) {
+      return;
     }
+    el.pause();
     el.src = src;
-    el.load();
-    el.play();
-    return () => {
-      el.pause();
-      el.src = '';
-      try {
-        el.load();
-      } catch (errMsg) {}
-    };
+    try {
+      el.load();
+    } catch (errMsg) {}
+    if (src) {
+      el.play();
+    }
   }, [getVideoElement, src]);
 
   const onDocumentClick = React.useCallback(() => {
@@ -42,8 +40,31 @@ export default ({ src }, getVideoElement) => {
     if (loaded) {
       document.removeEventListener('click', onDocumentClick);
     }
-    return () => {};
   }, [loaded, onDocumentClick]);
+
+  const onUnload = React.useCallback(
+    e => {
+      const el = getVideoElement();
+      if (!el) {
+        return;
+      }
+      el.pause();
+      el.src = '';
+      try {
+        el.load();
+      } catch (errMsg) {}
+    },
+    [getVideoElement],
+  );
+
+  React.useEffect(() => {
+    global.addEventListener('beforeunload', onUnload);
+    global.addEventListener('pagehide', onUnload);
+    global.addEventListener('unload', onUnload);
+    return () => {
+      onUnload({ type: 'useEffect' });
+    };
+  }, [onUnload]);
 
   return null;
 };
