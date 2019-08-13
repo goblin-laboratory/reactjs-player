@@ -65,6 +65,12 @@
   ☐ 直播 duration 使用实际 duration，不要强制设置成 -1
   ☐ seek 时回跳问题
   ☐ Skin 在白色视频中看不清楚
+  ☐ flv.js/hls.js 按需加载
+  ✔ iOS 点击后皮肤不显示问题 @done(19-08-13 16:44)
+  ☐ 手机端拖动进度
+  ☐ tooltipe 不会自动隐藏
+  ✔ 手机页面跳转时销毁资源 @done(19-08-13 16:41)
+  ✔ iOS 全屏异常 @done(19-08-13 16:41)
   性能优化:
     ✔ timeupdate 事件优化 @done(19-07-26 15:45)
     ✔ progress 事件优化 @done(19-07-26 16:28)
@@ -91,13 +97,44 @@
       ✔ isPiP @done(19-07-25 17:47)
       ✔ isFullscreen @done(19-07-25 17:47)
 
+      销毁资源:
+        安卓关闭页面:
+          ✔ unload @done(19-08-13 14:58)
+          ✔ pagehide @done(19-08-13 15:00)
+          ✘ beforeunload @cancelled(19-08-13 15:00)
+          ✘ useEffect @cancelled(19-08-13 15:01)
+        安卓跳转前进:
+          ✔ unload @done(19-08-13 15:03)
+          ✔ pagehide @done(19-08-13 15:04)
+          ✔ beforeunload @done(19-08-13 15:05)
+          ✘ useEffect @cancelled(19-08-13 15:06)
+        安卓返回:
+          ✔ unload @done(19-08-13 15:38)
+          ✔ pagehide @done(19-08-13 15:41)
+          ✔ beforeunload @done(19-08-13 15:41)
+          ✘ useEffect @cancelled(19-08-13 15:41)
+        iOS 关闭页面:
+          ✔ unload @done(19-08-13 15:55)
+          ✔ pagehide @done(19-08-13 15:55)
+          ✘ beforeunload @cancelled(19-08-13 15:58)
+          ✘ useEffect @cancelled(19-08-13 15:58)
+        iOS 跳转前进:
+          ✘ unload @cancelled(19-08-13 15:58)
+          ✘ pagehide @cancelled(19-08-13 15:58)
+          ✘ beforeunload @cancelled(19-08-13 15:58)
+          ✘ useEffect @cancelled(19-08-13 15:58)
+        iOS 返回:
+          ✘ unload @cancelled(19-08-13 15:59)
+          ✘ pagehide @cancelled(19-08-13 15:59)
+          ✘ beforeunload @cancelled(19-08-13 15:59)
+          ✘ useEffect @cancelled(19-08-13 15:59)
+
 0.6.x:
   ☐ 使用 gloabl 样式，支持使用者覆盖默认样式
   ☐ useVideoPiP: 不支持 PiP 时 request / exit 被调用
   ☐ useVideoTime: 未开始播放时 change current time
   ☐ useVideoFullscreen: 未开始播放时 request / exit 被调用
   ☐ live 时 setPlaybackRate
-  ☐ 移除 hls.js /flv.js 依赖
 
 单元测试:
   ☐ useFlvjs
@@ -114,7 +151,7 @@
   ☐ ReactPlayerSkin
   ☐ TimeSilder
 
-带规划:
+待规划:
   ☐ TypeScript
   ☐ 性能优化（mouse move 防抖节流）
   ☐ 去除 antd 依赖: 音量 slider, Icon button, dropdown
