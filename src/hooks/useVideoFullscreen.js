@@ -36,8 +36,14 @@ export default ({ x5playsinline, onFullscreenChange = () => {} }, getVideoElemen
         // 兼容微信 PC 版内置浏览器
         el.webkitRequestFullscreen();
       } else {
-        // 异常分支，不应该进入
-        debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
+        const videoEl = getVideoElement();
+        if (videoEl && videoEl.webkitEnterFullScreen) {
+          // 兼容 iOS Safari
+          videoEl.webkitEnterFullScreen();
+        } else {
+          // 异常分支，不应该进入
+          debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
+        }
       }
     },
     [getVideoElement, getPlayerElement, x5playsinline, x5videofullscreen],
