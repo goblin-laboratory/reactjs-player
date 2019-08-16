@@ -27,16 +27,16 @@ const getValue = (e, rect, duration) => {
   return Math.round((duration * (e.clientX - rect.left)) / rect.width);
 };
 
-const getBufferedTranslateX = ({ buffered, currentTime, sliding, duration }) => {
-  if (0 >= duration || sliding) {
+const getBufferedTranslateX = ({ buffered, currentTime, sliding, duration, live }) => {
+  if (live || 0 >= duration || sliding) {
     return '-100%';
   }
   const e = getBufferedEnd(currentTime, buffered);
   return `${((100 * e) / duration - 100).toFixed(1)}%`;
 };
 
-const getTrackTranslateX = ({ duration, currentTime, value, sliding }) => {
-  if (0 > duration) {
+const getTrackTranslateX = ({ duration, currentTime, value, sliding, live }) => {
+  if (live) {
     return '0';
   }
   if (0 === duration) {
@@ -45,14 +45,14 @@ const getTrackTranslateX = ({ duration, currentTime, value, sliding }) => {
   return `${((100 * (sliding ? value : currentTime)) / duration - 100).toFixed(1)}%`;
 };
 
-const getMouseTranslateX = ({ duration, tooltip }) => {
-  if (0 >= duration) {
+const getMouseTranslateX = ({ duration, tooltip, live }) => {
+  if (live || 0 >= duration) {
     return '0';
   }
   return `${((100 * tooltip) / duration).toFixed(1)}%`;
 };
 
-const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
+const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) => {
   const [value, setValue] = React.useState(currentTime);
   const [sliding, setSliding] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
@@ -65,23 +65,29 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
   const onClick = React.useCallback(
     e => {
       e.preventDefault();
+      if (live) {
+        return;
+      }
       const rect = e.currentTarget.getBoundingClientRect();
       const v = getValue(e, rect, duration);
       onChange(v);
       setSliding(false);
     },
-    [onChange, duration],
+    [onChange, live, duration],
   );
 
-  const onMouseDown = React.useCallback(e => {
-    e.preventDefault();
-    if (!sliderRef || !sliderRef.current || !reactRef) {
-      return;
-    }
-    const react = sliderRef.current.getBoundingClientRect();
-    reactRef.current = { left: react.left, width: react.width };
-    setSliding(true);
-  }, []);
+  const onMouseDown = React.useCallback(
+    e => {
+      e.preventDefault();
+      if (!sliderRef || !sliderRef.current || !reactRef || live) {
+        return;
+      }
+      const react = sliderRef.current.getBoundingClientRect();
+      reactRef.current = { left: react.left, width: react.width };
+      setSliding(true);
+    },
+    [live],
+  );
 
   const update = React.useCallback(() => {
     if (!updateRef || !updateRef.current) {
@@ -142,14 +148,14 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
   const onSliderMouseOver = React.useCallback(
     e => {
       e.preventDefault();
-      if (0 >= duration) {
+      if (live) {
         return;
       }
       const react = sliderRef.current.getBoundingClientRect();
       reactRef.current = { left: react.left, width: react.width };
       setVisible(true);
     },
-    [duration],
+    [live],
   );
 
   const onSliderMouseOut = React.useCallback(e => {
@@ -191,9 +197,9 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
     }
   }, [sliding, visible, onResize]);
 
-  const bufferedTranslateX = getBufferedTranslateX({ buffered, currentTime, sliding, duration });
-  const trackTranslateX = getTrackTranslateX({ duration, currentTime, value, sliding });
-  const tooltipTranslateX = getMouseTranslateX({ duration, tooltip });
+  const bufferedTranslateX = getBufferedTranslateX({ buffered, currentTime, sliding, duration, live });
+  const trackTranslateX = getTrackTranslateX({ duration, currentTime, value, sliding, live });
+  const tooltipTranslateX = getMouseTranslateX({ duration, tooltip, live });
 
   return (
     <div
@@ -202,6 +208,7 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
       onClick={onClick}
       onMouseOver={onSliderMouseOver}
       onMouseOut={onSliderMouseOut}
+      // onTouchEnd={onSliderTouchEnd}
       onMouseMove={onSliderMouseMove}
     >
       <div className={styles.sliderRail}>
@@ -209,11 +216,11 @@ const Slider = React.memo(({ currentTime, duration, buffered, onChange }) => {
         <div className={styles.sliderTrack} style={{ transform: `translateX(${trackTranslateX})` }} />
       </div>
       <div className={styles.sliderHandleRail} style={{ transform: `translateX(${trackTranslateX})` }}>
-        <div tabIndex={0} className={styles.sliderHandle} onMouseDown={onMouseDown} />
+        <button type="button" className={styles.sliderHandle} onMouseDown={onMouseDown} />
       </div>
       <div
         className={styles.tooltip}
-        style={{ transform: `translateX(${tooltipTranslateX})`, visibility: visible ? 'visible' : 'hidden' }}
+        style={{ transform: `translateX(${tooltipTranslateX})`, opacity: visible ? 1 : 0 }}
       >
         <div className={styles.tip}>{numeral(tooltip).format('00:00:00')}</div>
       </div>

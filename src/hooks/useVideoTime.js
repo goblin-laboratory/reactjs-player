@@ -1,31 +1,29 @@
 import React from 'react';
 
 export default (props, getVideoElement) => {
-  const { live, src, onDurationChange, onTimeUpdate, onProgress } = props;
+  const { src, onDurationChange, onTimeUpdate, onProgress } = props;
 
-  const [duration, setDuration] = React.useState(live ? -1 : 0);
+  const [duration, setDuration] = React.useState(0);
   const [currentTime, setCurrentTime] = React.useState(0);
   const [buffered, setBuffered] = React.useState(null);
   const updateRef = React.useRef(null);
 
   React.useEffect(() => {
-    setDuration(live ? -1 : 0);
+    setDuration(0);
     setCurrentTime(0);
     setBuffered(null);
 
     if (updateRef && updateRef.current) {
       updateRef.current = null;
     }
-  }, [src, live]);
+  }, [src]);
 
   const onVideoDurationChange = React.useCallback(
     e => {
-      if (!live) {
-        setDuration(e.target.duration);
-      }
+      setDuration(e.target.duration);
       onDurationChange(e);
     },
-    [live, onDurationChange],
+    [onDurationChange],
   );
 
   const update = React.useCallback(timestamp => {
@@ -36,10 +34,10 @@ export default (props, getVideoElement) => {
       global.requestAnimationFrame(update);
       return;
     }
-    if (undefined !== updateRef.current.currentTime) {
+    if (updateRef.current && undefined !== updateRef.current.currentTime) {
       setCurrentTime(updateRef.current.currentTime);
     }
-    if (undefined !== updateRef.current.buffered) {
+    if (updateRef.current && undefined !== updateRef.current.buffered) {
       setBuffered(updateRef.current.buffered);
     }
     updateRef.current = null;
@@ -48,6 +46,7 @@ export default (props, getVideoElement) => {
   const onVideoTimeUpdate = React.useCallback(
     e => {
       if (updateRef) {
+        // debugger;
         if (updateRef.current) {
           updateRef.current.currentTime = e.target.currentTime;
         } else {
@@ -79,12 +78,16 @@ export default (props, getVideoElement) => {
 
   const changeCurrentTime = React.useCallback(
     t => {
-      // TOOD: currentTime 非法值校验
+      const v = parseFloat(t);
+      if (isNaN(v)) {
+        return;
+      }
       const el = getVideoElement();
       if (el) {
-        el.currentTime = t;
+        el.currentTime = v;
       }
-      setCurrentTime(t);
+      updateRef.current = null;
+      setCurrentTime(v);
     },
     [getVideoElement],
   );

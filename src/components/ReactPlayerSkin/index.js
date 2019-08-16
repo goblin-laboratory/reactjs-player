@@ -10,9 +10,11 @@ import styles from './index.module.less';
 
 import { ReactComponent as MutedSvg } from './muted.svg';
 import { ReactComponent as UnmutedSvg } from './unmuted.svg';
+import bgImg from './bg.png';
 
 const ReactPlayerSkin = React.memo(
   ({
+    live,
     src,
     poster,
     loading,
@@ -48,58 +50,47 @@ const ReactPlayerSkin = React.memo(
     const [sliding, setSliding] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
 
-    const autoHideRef = React.useRef(null);
+    const autoHideRef = React.useRef(0);
 
     const autoHide = React.useCallback(timestamp => {
       if (!autoHideRef || !autoHideRef.current) {
         return;
       }
-      if (undefined === autoHideRef.current.timestamp) {
-        autoHideRef.current.timestamp = timestamp;
+      if (3000 > timestamp - autoHideRef.current) {
         global.requestAnimationFrame(autoHide);
         return;
       }
-      if (3000 > timestamp - autoHideRef.current.timestamp) {
-        global.requestAnimationFrame(autoHide);
-        return;
-      }
-      autoHideRef.current = null;
+      autoHideRef.current = 0;
       setHiding(true);
     }, []);
 
-    const show = React.useCallback(
-      timestamp => {
-        if (!autoHideRef) {
-          return;
-        }
-        if (!autoHideRef.current) {
-          setHiding(false);
-          global.requestAnimationFrame(autoHide);
-        }
-        // setHiding(false);
-        autoHideRef.current = { timestamp };
-      },
-      [autoHide],
-    );
-
     const onMouseMove = React.useCallback(() => {
-      global.requestAnimationFrame(show);
-    }, [show]);
+      if (!autoHideRef) {
+        return;
+      }
+      if (!autoHideRef.current) {
+        setHiding(false);
+      }
+      autoHideRef.current = global.performance.now();
+    }, []);
+
+    React.useEffect(() => {
+      setHiding(false);
+    }, [src]);
+
+    const hidden = React.useMemo(() => hiding && !hovering && !sliding, [hiding, hovering, sliding]);
 
     React.useEffect(() => {
       if (!autoHideRef) {
         return;
       }
-      if (hiding || hovering || sliding) {
-        autoHideRef.current = null;
+      if (hidden) {
+        autoHideRef.current = 0;
         return;
       }
-      if (autoHideRef.current) {
-        return;
-      }
-      autoHideRef.current = {};
+      autoHideRef.current = global.performance.now();
       global.requestAnimationFrame(autoHide);
-    }, [hiding, hovering, sliding, autoHide]);
+    }, [hidden, autoHide]);
 
     React.useEffect(() => {
       if (hiding) {
@@ -123,6 +114,10 @@ const ReactPlayerSkin = React.memo(
 
     return (
       <div className={styles.reactPlayerSkin}>
+        <div
+          className={hidden ? styles.hiddenControlsBg : styles.controlsBg}
+          style={{ backgroundImage: `url(${bgImg})` }}
+        />
         <button
           className={src ? styles.hiddenVideoMask : styles.videoMask}
           onMouseMove={onMouseMove}
@@ -140,11 +135,12 @@ const ReactPlayerSkin = React.memo(
           </button>
         )}
         <div
-          className={hiding && !hovering && !sliding ? styles.hiddenControls : styles.controls}
+          className={hidden ? styles.hiddenControls : styles.controls}
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
         >
           <TimeSlider
+            live={live}
             duration={duration}
             currentTime={currentTime}
             buffered={buffered}
@@ -185,14 +181,21 @@ const ReactPlayerSkin = React.memo(
               </span>
               <span className={styles.controlText}>
                 {numeral(currentTime).format('00:00:00')}
-                {0 <= duration ? ` / ${numeral(duration).format('00:00:00')}` : ''}
+                {live ? (
+                  <span className={styles.controlText}>
+                    <span className={styles.liveDot} />
+                    直播
+                  </span>
+                ) : (
+                  ` / ${numeral(duration).format('00:00:00')}`
+                )}
               </span>
-              {0 > duration && (
+              {/* {live && (
                 <span className={styles.controlText}>
                   <span className={styles.liveDot} />
                   直播
                 </span>
-              )}
+              )} */}
             </div>
             {pictureInPictureEnabled && (
               <button
@@ -257,6 +260,7 @@ const ReactPlayerSkin = React.memo(
 );
 
 ReactPlayerSkin.propTypes = {
+  live: PropTypes.bool,
   src: PropTypes.string,
   poster: PropTypes.string,
   controls: PropTypes.bool.isRequired,
@@ -297,6 +301,7 @@ ReactPlayerSkin.propTypes = {
 };
 
 ReactPlayerSkin.defaultProps = {
+  live: false,
   src: '',
   poster: '',
   buffered: null,

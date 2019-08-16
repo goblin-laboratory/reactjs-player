@@ -103,7 +103,7 @@ const ReactPlayer = (
     },
     getVideoElement,
   );
-  const timeProps = useVideoTime({ live, src, onDurationChange, onTimeUpdate, onProgress }, getVideoElement);
+  const timeProps = useVideoTime({ src, onDurationChange, onTimeUpdate, onProgress }, getVideoElement);
   const volumeProps = useVideoVolume({ muted, onVolumeChange }, getVideoElement);
   const playbackRateProps = useVideoPlaybackRate({ live, onRateChange }, getVideoElement);
   const piPProps = useVideoPiP({ src }, getVideoElement);
@@ -174,6 +174,7 @@ const ReactPlayer = (
       <ReactPlayerContext.Provider
         value={{
           getVideoElement,
+          live: live,
           src: src,
           controls: controls,
           poster: poster,

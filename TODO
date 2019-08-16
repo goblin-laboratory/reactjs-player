@@ -62,13 +62,13 @@
   ✔ useFlvjs src 变化时 kenerMsg 销毁 @done(19-08-07 16:29)
   ✔ useFlvjs change src 时异常 @done(19-08-07 18:08)
   ☐ 直播暂停恢复时自动跳转到最新
-  ☐ 直播 duration 使用实际 duration，不要强制设置成 -1
-  ☐ seek 时回跳问题
-  ☐ Skin 在白色视频中看不清楚
+  ✔ 直播 duration 使用实际 duration，不要强制设置成 -1 @done(19-08-16 17:54)
+  ✔ seek 时回跳问题 @done(19-08-16 17:33)
+  ✔ Skin 在白色视频中看不清楚 @done(19-08-16 16:36)
   ☐ flv.js/hls.js 按需加载
   ✔ iOS 点击后皮肤不显示问题 @done(19-08-13 16:44)
   ☐ 手机端拖动进度
-  ☐ tooltipe 不会自动隐藏
+  ☐ 手机端 tooltipe 不会自动隐藏
   ✔ 手机页面跳转时销毁资源 @done(19-08-13 16:41)
   ✔ iOS 全屏异常 @done(19-08-13 16:41)
   性能优化:

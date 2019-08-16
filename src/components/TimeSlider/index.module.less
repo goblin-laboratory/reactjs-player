@@ -1,7 +1,7 @@
 .slider,
 .slidingSlider {
   position: relative;
-  height: 20px;
+  height: 16px;
   cursor: pointer;
 }
 
@@ -10,10 +10,8 @@
   left: 0;
   top: 8px;
   width: 100%;
-  height: 4px;
-  // border-radius: 4px;
+  height: 5px;
   background-color: rgba(255, 255, 255, 0.2);
-  // transition: background-color 0.3s;
   overflow: hidden;
 }
 
@@ -22,7 +20,6 @@
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
-  // transition: transform 0.2s ease-in-out;
   transform: translate(-100%, 0);
 }
 
@@ -31,7 +28,6 @@
   background: #ff0000;
   width: 100%;
   height: 100%;
-  // transition: transform 0.2s ease-in-out;
   transform: translate(-100%, 0);
 }
 
@@ -41,11 +37,13 @@
   top: 4px;
   width: 100%;
   height: 12px;
-  // transition: transform 0.2s ease-in-out;
   transform: translate(-100%, 0);
 }
 
 .sliderHandle {
+  margin: 0;
+  border: transparent 0 none;
+  padding: 0;
   position: absolute;
   top: 0;
   right: -6px;
@@ -54,25 +52,30 @@
   cursor: pointer;
   border-radius: 50%;
   box-shadow: 0;
-  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
   background: #ff0000;
-  border: none 0 transparent;
-  outline: none;
-}
-
-.sliderHandle:focus {
-  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
+  outline: 0 transparent none;
+  &:focus {
+    outline: 0 transparent none;
+  }
+  &:hover,
+  &:active {
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
+  }
 }
 
 .slidingSlider {
   .sliderHandle {
-    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
 .slider:hover {
   .sliderHandle {
-    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
@@ -81,8 +84,6 @@
   bottom: 120%;
   left: 0;
   width: 100%;
-  // transition: transform 0.2s ease-in-out;
-  // pointer-events: none;
   .tip {
     display: inline-block;
     padding: 0.4em 0.8em;
