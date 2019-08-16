@@ -25,7 +25,7 @@ describe('useVideoTime:', () => {
   it('类型与默认值检查：直播', () => {
     const { result } = renderHook(() => useVideoTime({ src: '', live: true }, () => {}));
 
-    expect(result.current.duration).toBe(-1);
+    expect(result.current.duration).toBe(0);
     expect(result.current.currentTime).toBe(0);
     expect(result.current.buffered).toBe(null);
 
