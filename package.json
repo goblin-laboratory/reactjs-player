@@ -25,15 +25,15 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "scripts": {
+    "start": "rollup -c ./scripts/rollup.config.dev.js -w",
+    "build": "rollup -c ./scripts/rollup.config.prod.js",
     "lint": "eslint --ext .js src",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "cov": "jest --coverage --coverageReporters=text-lcov | coveralls",
-    "build": "rollup -c ./scripts/rollup.config.prod.js",
-    "start": "rollup -c ./scripts/rollup.config.dev.js -w",
-    "prepare": "yarn run build",
-    "predeploy": "cd example && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "predeploy": "yarn run build && cd example && yarn run build",
+    "deploy": "gh-pages -d example/build",
+    "changelog": "lerna version --conventional-commits"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -66,6 +66,7 @@
     "hls.js": "^0.12.4",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
+    "lerna": "^3.16.4",
     "less": "^3.9.0",
     "numeral": "^2.0.6",
     "prettier": "^1.18.2",
