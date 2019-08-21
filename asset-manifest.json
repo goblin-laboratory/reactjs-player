@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-player/static/css/main.7e4a267b.chunk.css",
-    "main.js": "/react-player/static/js/main.827fce64.chunk.js",
-    "main.js.map": "/react-player/static/js/main.827fce64.chunk.js.map",
+    "main.js": "/react-player/static/js/main.cfc95097.chunk.js",
+    "main.js.map": "/react-player/static/js/main.cfc95097.chunk.js.map",
     "runtime~main.js": "/react-player/static/js/runtime~main.6a4b327c.js",
     "runtime~main.js.map": "/react-player/static/js/runtime~main.6a4b327c.js.map",
     "static/css/2.9773bfdb.chunk.css": "/react-player/static/css/2.9773bfdb.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.ef10dc4c.chunk.js": "/react-player/static/js/3.ef10dc4c.chunk.js",
     "static/js/3.ef10dc4c.chunk.js.map": "/react-player/static/js/3.ef10dc4c.chunk.js.map",
     "index.html": "/react-player/index.html",
-    "precache-manifest.08961b82cfffb39906644523a778eb2c.js": "/react-player/precache-manifest.08961b82cfffb39906644523a778eb2c.js",
+    "precache-manifest.270a232412400e8063d3039352b68f87.js": "/react-player/precache-manifest.270a232412400e8063d3039352b68f87.js",
     "service-worker.js": "/react-player/service-worker.js",
     "static/css/2.9773bfdb.chunk.css.map": "/react-player/static/css/2.9773bfdb.chunk.css.map",
     "static/css/3.89aefe71.chunk.css.map": "/react-player/static/css/3.89aefe71.chunk.css.map",
