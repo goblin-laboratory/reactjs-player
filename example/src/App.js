@@ -21,7 +21,8 @@ const getSupportedList = ua => {
       {
         key: 'native',
         kernel: 'native',
-        src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+        src:
+          'https://api.opensight.cn/api/ivc/v1/projects/opensight_internal/record/events/mb_KaV1nRya6hDfKEnv4ZA/hls/record.m3u8?start=0&end=0&session_id=xKNnQ8BXSbKflbmjTC8d2g&jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsNllPVkdYSG9OcWxwUFotcTk1OCIsImlhdCI6MTU2NTY2MTI4MiwiYXVkIjoic3lzX21haW50YWluZXIiLCJleHAiOjE1NjgzMTg0MDB9.GjJB1-dW7Ku8_rs7duK9BZ5UH6YlLwlWDKxQmjZWrq8',
         type: 'application/x-mpegURL',
       },
       { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
@@ -164,7 +165,7 @@ const App = React.memo(({ form }) => {
           <Form.Item className="src">
             {form.getFieldDecorator('src', {
               initialValue:
-                'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+                'https://api.opensight.cn/api/ivc/v1/projects/opensight_internal/record/events/mb_KaV1nRya6hDfKEnv4ZA/hls/record.m3u8?start=0&end=0&session_id=xKNnQ8BXSbKflbmjTC8d2g&jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsNllPVkdYSG9OcWxwUFotcTk1OCIsImlhdCI6MTU2NTY2MTI4MiwiYXVkIjoic3lzX21haW50YWluZXIiLCJleHAiOjE1NjgzMTg0MDB9.GjJB1-dW7Ku8_rs7duK9BZ5UH6YlLwlWDKxQmjZWrq8',
             })(<Input />)}
           </Form.Item>
           <Form.Item className="submit">
