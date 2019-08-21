@@ -16,15 +16,22 @@ const getBufferedEnd = (currentTime, buffered) => {
   return 0;
 };
 
+const getEventXCoordinate = e => {
+  if (e.changedTouches && 1 <= e.changedTouches.length) {
+    return e.changedTouches[0].pageX;
+  }
+  return e.clientX || 0;
+};
+
 const getValue = (e, rect, duration) => {
-  const w = e.clientX - rect.left;
+  const w = getEventXCoordinate(e) - rect.left;
   if (0 >= w) {
     return 0;
   }
   if (w >= rect.width) {
     return duration;
   }
-  return Math.round((duration * (e.clientX - rect.left)) / rect.width);
+  return Math.round((duration * w) / rect.width);
 };
 
 const getBufferedScaleX = ({ buffered, currentTime, sliding, duration, live }) => {
@@ -137,9 +144,17 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
     if (sliding) {
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
+
+      document.addEventListener('touchmove', onMouseMove);
+      document.addEventListener('touchcancel', onMouseUp);
+      document.addEventListener('touchend', onMouseUp);
       return () => {
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
+
+        document.removeEventListener('touchmove', onMouseMove);
+        document.removeEventListener('touchcancel', onMouseUp);
+        document.removeEventListener('touchend', onMouseUp);
       };
     }
     return () => {};
@@ -157,15 +172,6 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
     },
     [live],
   );
-
-  // const onSliderMouseOut = React.useCallback(e => {
-  //   e.preventDefault();
-  //   // setVisible(false);
-  // }, []);
-
-  // const onSliderTouchEnd = React.useCallback(e => {
-  //   e.preventDefault();
-  // }, []);
 
   const onSliderMouseMove = React.useCallback(
     e => {
@@ -210,8 +216,6 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
       ref={sliderRef}
       onClick={onClick}
       onMouseOver={onSliderMouseOver}
-      // onMouseOut={onSliderMouseOut}
-      // onTouchEnd={onSliderTouchEnd}
       onMouseMove={onSliderMouseMove}
       aria-haspopup="true"
     >
@@ -220,7 +224,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
         <div className={styles.sliderTrack} style={{ transform: `translateX(${trackTranslateX}%)` }} />
       </div>
       <div className={styles.sliderHandleRail} style={{ transform: `translateX(${trackTranslateX}%)` }}>
-        <button type="button" className={styles.sliderHandle} onMouseDown={onMouseDown} />
+        <button type="button" className={styles.sliderHandle} onMouseDown={onMouseDown} onTouchStart={onMouseDown} />
       </div>
       <div className={styles.tooltip} style={{ transform: `translateX(${tooltipTranslateX}%)` }}>
         <div className={styles.tip}>{numeral(tooltip).format('00:00:00')}</div>
