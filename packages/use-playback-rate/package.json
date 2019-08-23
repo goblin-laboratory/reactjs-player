@@ -1,0 +1,33 @@
+{
+  "name": "@reactjs-player/use-playback-rate",
+  "version": "0.6.0",
+  "description": "> TODO: description",
+  "author": "xiaosong <kunkkaco@gmail.com>",
+  "homepage": "https://goblin-laboratory.github.io/react-player/tree/master/packages/use-playback-rate#readme",
+  "license": "ISC",
+  "main": "lib/use-playback-rate.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goblin-laboratory/react-player.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/goblin-laboratory/react-player/issues"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^9.1.3",
+    "@testing-library/react-hooks": "^2.0.1"
+  }
+}
