@@ -1,16 +1,23 @@
 {
   "packages": [
-    "./"
+    "packages/*"
   ],
-  "version": "0.6.0",
+  "version": "0.6.3",
   "npmClient": "yarn",
+  "useWorkspaces": true,
   "command": {
     "run": {
       "npmClient": "yarn"
     },
     "version": {
-      "allowBranch": "master",
+      "allowBranch": [
+        "master",
+        "lerna"
+      ],
       "message": "chore(release): publish %s"
+    },
+    "publish": {
+      "access": "public"
     }
   }
 }

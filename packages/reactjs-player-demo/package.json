@@ -1,0 +1,62 @@
+{
+  "name": "@reactjs-player/demo",
+  "private": true,
+  "version": "0.6.3",
+  "description": "> TODO: description",
+  "author": "xiaosong <kunkkaco@gmail.com>",
+  "homepage": "https://goblin-laboratory.github.io/react-player/tree/master/packages/reactjs-player-demo#readme",
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goblin-laboratory/react-player.git"
+  },
+  "scripts": {
+    "lint": "eslint --ext .js src",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
+  },
+  "bugs": {
+    "url": "https://github.com/goblin-laboratory/react-player/issues"
+  },
+  "dependencies": {
+    "antd": "^3.21.4",
+    "flv.js": "^1.5.0",
+    "hls.js": "^0.12.4",
+    "numeral": "^2.0.6",
+    "react": "^16.9.0",
+    "react-app-polyfill": "^1.0.2",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^16.9.0",
+    "react-scripts": "^3.1.0",
+    "react-swf": "^1.0.7",
+    "reactjs-player": "^0.6.3",
+    "ua-parser-js": "^0.7.20"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "last 1 ie version"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 ie version"
+    ]
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.12.0",
+    "customize-cra": "^0.5.0",
+    "gh-pages": "^2.1.1",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "react": "^16.9.0",
+    "react-app-rewired": "^2.1.3"
+  }
+}

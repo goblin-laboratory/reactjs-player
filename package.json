@@ -1,104 +1,39 @@
 {
-  "name": "reactjs-player",
-  "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
-  "version": "0.6.0",
-  "keywords": [
-    "react",
-    "media",
-    "player",
-    "video",
-    "hls.js",
-    "flv.js",
-    "react-hooks"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "homepage": "https://goblin-laboratory.github.io/react-player/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/goblin-laboratory/react-player.git"
-  },
-  "authors": [
-    "xiaosongxiaosong <kunkkaco@gmail.com> (https://github.com/xiaosongxiaosong)"
-  ],
-  "license": "MIT",
-  "bugs": "https://github.com/goblin-laboratory/react-player/issues",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
   "scripts": {
-    "start": "rollup -c ./scripts/rollup.config.dev.js -w",
-    "build": "rollup -c ./scripts/rollup.config.prod.js",
-    "lint": "eslint --ext .js src",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "cov": "jest --coverage --coverageReporters=text-lcov | coveralls",
-    "predeploy": "yarn run build && cd example && yarn run build",
-    "deploy": "gh-pages -d example/build",
+    "lint": "eslint --ext .js packages",
+    "test": "react-app-rewired test",
+    "test:coverage": "react-app-rewired test --coverage --watchAll=false",
+    "coveralls": "react-app-rewired test --coverage --watchAll=false --coverageReporters=text-lcov | coveralls",
+    "build": "lerna run build",
+    "predeploy": "lerna run build",
+    "deploy": "lerna run deploy",
     "changelog": "lerna version --conventional-commits"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.5.4",
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
-    "@svgr/rollup": "^4.3.0",
     "@testing-library/react": "^9.1.1",
     "@testing-library/react-hooks": "^1.1.0",
-    "antd": "^3.20.1",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
     "coveralls": "^3.0.4",
-    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-config-react-app": "^4.0.1",
-    "eslint-plugin-flowtype": "^3.10.3",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
-    "flv.js": "^1.5.0",
-    "gh-pages": "^2.0.1",
-    "hls.js": "^0.12.4",
     "husky": "^3.0.0",
-    "jest": "^24.8.0",
     "lerna": "^3.16.4",
-    "less": "^3.9.0",
-    "numeral": "^2.0.6",
     "prettier": "^1.18.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-swf": "^1.0.7",
-    "react-test-renderer": "^16.8.6",
-    "rollup": "^1.15.6",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-filesize": "^6.1.0",
-    "rollup-plugin-node-resolve": "^5.0.2",
-    "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-postcss": "^2.0.3",
-    "rollup-plugin-uglify": "^6.0.2",
-    "rollup-plugin-url": "^2.2.2"
-  },
-  "peerDependencies": {
-    "antd": "^3.19.3",
-    "flv.js": "^1.5.0",
-    "hls.js": "^0.12.4",
-    "numeral": "^2.0.6",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-swf": "^1.0.7"
+    "react-app-rewired": "^2.1.3",
+    "react-scripts": "^3.1.1",
+    "react-test-renderer": "^16.9.0"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "npm run lint",
-      "pre-push": "npm run test"
+      "pre-push": "yarn test --watchAll=false"
     }
   }
 }
