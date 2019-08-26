@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.3](https://github.com/goblin-laboratory/react-player/compare/v0.6.1-alpha.3...v0.6.3) (2019-08-26)
+
+**Note:** Version bump only for package @reactjs-player/use-native
+
+
+
+
+
 ## [0.6.1-alpha.3](https://github.com/goblin-laboratory/react-player/compare/v0.6.1-alpha.2...v0.6.1-alpha.3) (2019-08-26)
 
 **Note:** Version bump only for package @reactjs-player/use-native

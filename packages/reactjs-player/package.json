@@ -1,6 +1,6 @@
 {
   "name": "reactjs-player",
-  "version": "0.6.1-alpha.3",
+  "version": "0.6.3",
   "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
   "keywords": [
     "react",
@@ -72,14 +72,14 @@
     "react-swf": "^1.0.7"
   },
   "dependencies": {
-    "@reactjs-player/use-flvjs": "^0.6.1-alpha.3",
-    "@reactjs-player/use-fullscreen": "^0.6.1-alpha.3",
-    "@reactjs-player/use-hlsjs": "^0.6.1-alpha.3",
-    "@reactjs-player/use-native": "^0.6.1-alpha.3",
-    "@reactjs-player/use-pip": "^0.6.1-alpha.3",
-    "@reactjs-player/use-playback-rate": "^0.6.1-alpha.3",
-    "@reactjs-player/use-state": "^0.6.1-alpha.3",
-    "@reactjs-player/use-time": "^0.6.1-alpha.3",
-    "@reactjs-player/use-volume": "^0.6.1-alpha.3"
+    "@reactjs-player/use-flvjs": "^0.6.3",
+    "@reactjs-player/use-fullscreen": "^0.6.3",
+    "@reactjs-player/use-hlsjs": "^0.6.3",
+    "@reactjs-player/use-native": "^0.6.3",
+    "@reactjs-player/use-pip": "^0.6.3",
+    "@reactjs-player/use-playback-rate": "^0.6.3",
+    "@reactjs-player/use-state": "^0.6.3",
+    "@reactjs-player/use-time": "^0.6.3",
+    "@reactjs-player/use-volume": "^0.6.3"
   }
 }
