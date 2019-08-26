@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.6.3...v0.7.0) (2019-08-26)
+
+
+### Bug Fixes
+
+* 解决 demo 页面 css/js 文件加载失败问题 ([fec57f0](https://github.com/goblin-laboratory/reactjs-player/commit/fec57f0))
+
+
+### Features
+
+* react-player => reactjs-player ([7be8bdb](https://github.com/goblin-laboratory/reactjs-player/commit/7be8bdb))
+
+
+
+
+
 ## [0.6.3](https://github.com/goblin-laboratory/reactjs-player/compare/v0.6.1-alpha.3...v0.6.3) (2019-08-26)
 
 **Note:** Version bump only for package @reactjs-player/demo
