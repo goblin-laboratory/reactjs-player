@@ -4,12 +4,12 @@
   "version": "0.6.3",
   "description": "> TODO: description",
   "author": "xiaosong <kunkkaco@gmail.com>",
-  "homepage": "https://goblin-laboratory.github.io/react-player/tree/master/packages/reactjs-player-demo#readme",
+  "homepage": "https://goblin-laboratory.github.io/reactjs-player/tree/master/packages/reactjs-player-demo#readme",
   "license": "MIT",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goblin-laboratory/react-player.git"
+    "url": "git+https://github.com/goblin-laboratory/reactjs-player.git"
   },
   "scripts": {
     "lint": "eslint --ext .js src",
@@ -20,7 +20,7 @@
     "deploy": "gh-pages -d build"
   },
   "bugs": {
-    "url": "https://github.com/goblin-laboratory/react-player/issues"
+    "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
   },
   "dependencies": {
     "antd": "^3.21.4",

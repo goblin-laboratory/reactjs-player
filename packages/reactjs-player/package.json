@@ -12,14 +12,14 @@
     "react-hooks"
   ],
   "author": "xiaosong <kunkkaco@gmail.com>",
-  "homepage": "https://goblin-laboratory.github.io/react-player/tree/master/packages/reactjs-player#readme",
+  "homepage": "https://goblin-laboratory.github.io/reactjs-player/tree/master/packages/reactjs-player#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goblin-laboratory/react-player.git"
+    "url": "git+https://github.com/goblin-laboratory/reactjs-player.git"
   },
   "scripts": {
     "start": "rollup -c ./scripts/rollup.config.dev.js -w",

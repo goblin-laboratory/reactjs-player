@@ -4,8 +4,8 @@
 
 [![npm](https://img.shields.io/npm/v/reactjs-player.svg?color=blue&style=flat-square)](https://www.npmjs.com/package/reactjs-player)
 [![reactjs-player](https://img.shields.io/bundlephobia/minzip/reactjs-player.svg?style=flat-square)](https://www.npmjs.com/package/reactjs-player)
-[![Travis (.org)](https://img.shields.io/travis/goblin-laboratory/react-player.svg?style=flat-square)](https://travis-ci.org/goblin-laboratory/react-player)
-[![Coveralls github](https://img.shields.io/coveralls/github/goblin-laboratory/react-player.svg?style=flat-square)](https://coveralls.io/github/goblin-laboratory/react-player)
+[![Travis (.org)](https://img.shields.io/travis/goblin-laboratory/reactjs-player.svg?style=flat-square)](https://travis-ci.org/goblin-laboratory/reactjs-player)
+[![Coveralls github](https://img.shields.io/coveralls/github/goblin-laboratory/reactjs-player.svg?style=flat-square)](https://coveralls.io/github/goblin-laboratory/reactjs-player)
 
 基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。
 
@@ -22,15 +22,15 @@
 ## Getting started
 
 ```
-git clone https://github.com/goblin-laboratory/react-player.git
-cd react-player
+git clone https://github.com/goblin-laboratory/reactjs-player.git
+cd reactjs-player
 yarn install
 yarn start
 ```
 
 ## Usage
 
-Demo page: [Demo](https://goblin-laboratory.github.io/react-player/)
+Demo page: [Demo](https://goblin-laboratory.github.io/reactjs-player/)
 
 ```
 npm install reactjs-player --save

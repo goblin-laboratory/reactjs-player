@@ -181,7 +181,7 @@ const App = React.memo(({ form }) => {
             ref={ref}
             {...info}
             src={src}
-            poster="https://raw.githubusercontent.com/goblin-laboratory/react-player/master/logo128x128.png"
+            poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/logo128x128.png"
             x5playsinline={x5playsinline}
             onFullscreenChange={onFullscreenChange}
             videoProps={videoProps}
@@ -220,7 +220,7 @@ const App = React.memo(({ form }) => {
             </Tabs.TabPane>
           </Tabs>
           <div className="asideFooter">
-            <a href="https://github.com/goblin-laboratory/react-player">
+            <a href="https://github.com/goblin-laboratory/reactjs-player">
               <Icon type="github" />
               &nbsp; Github
             </a>
