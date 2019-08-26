@@ -16,7 +16,7 @@
       ],
       "message": "chore(release): publish %s"
     },
-    "publishConfig": {
+    "publish": {
       "access": "public"
     }
   }
