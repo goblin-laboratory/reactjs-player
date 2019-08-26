@@ -4,7 +4,7 @@
   "version": "0.6.3",
   "description": "> TODO: description",
   "author": "xiaosong <kunkkaco@gmail.com>",
-  "homepage": "https://goblin-laboratory.github.io/reactjs-player/tree/master/packages/reactjs-player-demo#readme",
+  "homepage": "https://goblin-laboratory.github.io/reactjs-player/",
   "license": "MIT",
   "main": "src/index.js",
   "repository": {
