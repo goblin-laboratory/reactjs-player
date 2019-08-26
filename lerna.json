@@ -1,7 +1,5 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "version": "0.6.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
@@ -10,7 +8,7 @@
       "npmClient": "yarn"
     },
     "version": {
-      "allowBranch": "master",
+      "allowBranch": ["master", "lerna"],
       "message": "chore(release): publish %s"
     }
   }
