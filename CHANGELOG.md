@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/goblin-laboratory/react-player/compare/v0.8.0...v0.8.1) (2019-08-27)
+
+
+### Bug Fixes
+
+* eslint warnings ([bc9266d](https://github.com/goblin-laboratory/react-player/commit/bc9266d))
+* 使用 淘宝源 重新生成 yarn.lock 文件 ([9a8af26](https://github.com/goblin-laboratory/react-player/commit/9a8af26))
+* 删除 hls.js/flv.js 依赖，按需加载 ([c8beeb1](https://github.com/goblin-laboratory/react-player/commit/c8beeb1))
+* 调整目录结构，支持自定义 hooks，解决拖动进度时控制栏隐藏问题 ([27f257f](https://github.com/goblin-laboratory/react-player/commit/27f257f))
+
+
+
+
+
 # [0.8.0](https://github.com/goblin-laboratory/react-player/compare/v0.6.3...v0.8.0) (2019-08-26)
 
 

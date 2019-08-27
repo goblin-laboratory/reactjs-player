@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.0...v0.8.1) (2019-08-27)
+
+
+### Bug Fixes
+
+* 删除 hls.js/flv.js 依赖，按需加载 ([c8beeb1](https://github.com/goblin-laboratory/reactjs-player/commit/c8beeb1))
+
+
+
+
+
 # [0.8.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.6.3...v0.8.0) (2019-08-26)
 
 

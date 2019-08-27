@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.0...v0.8.1) (2019-08-27)
+
+
+### Bug Fixes
+
+* eslint warnings ([bc9266d](https://github.com/goblin-laboratory/reactjs-player/commit/bc9266d))
+
+
+
+
+
 # [0.8.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.6.3...v0.8.0) (2019-08-26)
 
 
