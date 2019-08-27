@@ -129,10 +129,11 @@
           ✘ beforeunload @cancelled(19-08-13 15:59)
           ✘ useEffect @cancelled(19-08-13 15:59)
 
-0.7.x:
-  ☐ flv.js/hls.js 按需加载
-  ☐ 进度拖动时 controls 不要自动隐藏
-  ☐ 手机端 controls 不会自动隐藏
+0.8.x:
+  ✔ flv.js/hls.js 按需加载 @done(19-08-27 12:23)
+  ✔ 支持第三方扩展 hooks @done(19-08-27 14:30)
+  ✔ 进度拖动时 controls 不要自动隐藏 @done(19-08-27 14:42)
+  ☐ 手机端 controls 不会自动隐藏问题
   ☐ 手机端 controls 显示时 process 的 handel 强制显示
 
 单元测试:

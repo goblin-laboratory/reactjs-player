@@ -19,7 +19,7 @@ import styles from './index.module.less';
 
 const noop = () => {};
 
-const getRenderHooks = kernel => {
+const getHooks = (kernel, getCustomHooks) => {
   switch (kernel) {
     case 'native':
       return useNative;
@@ -28,6 +28,9 @@ const getRenderHooks = kernel => {
     case 'flvjs':
       return useFlvjs;
     default:
+      if (getCustomHooks) {
+        return getCustomHooks(kernel);
+      }
       console.error(`ReactPlayer: 暂不支持 kernel(${kernel})`);
       return noop;
   }
@@ -36,6 +39,8 @@ const getRenderHooks = kernel => {
 const ReactPlayer = (
   {
     kernel,
+    getCustomHooks = noop,
+
     live,
 
     config = null,
@@ -110,7 +115,7 @@ const ReactPlayer = (
   const piPProps = usePiP({ src }, getVideoElement);
   const fullscreenProps = useFullscreen({ x5playsinline, onFullscreenChange }, getVideoElement, getPlayerElement);
 
-  const kernelMsg = getRenderHooks(kernel)({ src, config, onKernelError }, getVideoElement);
+  const kernelMsg = getHooks(kernel, getCustomHooks)({ src, config, onKernelError }, getVideoElement);
 
   React.useImperativeHandle(ref, () => ({
     isPlaying: () => !!src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
@@ -136,12 +141,6 @@ const ReactPlayer = (
         ref={videoRef}
         controls={'controls' === controls}
         type={type}
-        // webkit-playsinline={props.playsInline}
-        // playsInline={props.playsInline}
-        // x5-playsinline={props.playsInline}
-        // x5-video-player-type="h5"
-        // x5-video-player-fullscreen="true"
-        // x5-video-orientation="landscape|portrait"
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...videoProps}
         // useVideoState
@@ -217,6 +216,7 @@ const ReactPlayer = (
 
 ReactPlayer.propTypes = {
   kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
+  getCustomHooks: PropTypes.func,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
   onKernelError: PropTypes.func,
@@ -266,6 +266,7 @@ ReactPlayer.propTypes = {
 ReactPlayer.defaultProps = {
   config: null,
   onKernelError: noop,
+  getCustomHooks: noop,
 
   src: '',
   controls: true,

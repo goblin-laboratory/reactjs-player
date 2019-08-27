@@ -7,7 +7,7 @@ language: node_js
 #   keep-history: true
 
 node_js:
-- 10
+  - 10
 
 cache: yarn
 

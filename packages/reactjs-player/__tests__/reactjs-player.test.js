@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import ReactPlayer from '../src/components/ReactPlayer';
+import ReactPlayer from '../src/ReactPlayer';
 
 jest.setTimeout(1000);
 

@@ -60,10 +60,9 @@ const getMouseTranslateX = ({ duration, tooltip, live }) => {
   return ((100 * tooltip) / duration).toFixed(1);
 };
 
-const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) => {
+const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sliding, setSliding }) => {
   const [value, setValue] = React.useState(currentTime);
-  const [sliding, setSliding] = React.useState(false);
-  // const [visible, setVisible] = React.useState(false);
+  // const [sliding, setSliding] = React.useState(false);
   const [tooltip, setTooltip] = React.useState(0);
 
   const sliderRef = React.useRef(null);
@@ -81,7 +80,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
       onChange(v);
       setSliding(false);
     },
-    [onChange, live, duration],
+    [onChange, live, duration, setSliding],
   );
 
   const onMouseDown = React.useCallback(
@@ -94,7 +93,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
       reactRef.current = { left: react.left, width: react.width };
       setSliding(true);
     },
-    [live],
+    [live, setSliding],
   );
 
   const update = React.useCallback(() => {
@@ -121,7 +120,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
       }
       setSliding(false);
     },
-    [onChange, duration, update],
+    [onChange, duration, update, setSliding],
   );
 
   const onMouseMove = React.useCallback(
@@ -169,7 +168,6 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange }) 
       }
       const react = sliderRef.current.getBoundingClientRect();
       reactRef.current = { left: react.left, width: react.width };
-      // setVisible(true);
     },
     [live],
   );
@@ -249,6 +247,8 @@ Slider.propTypes = {
   duration: PropTypes.number.isRequired,
   buffered: PropTypes.object,
   onChange: PropTypes.func,
+  sliding: PropTypes.bool.isRequired,
+  setSliding: PropTypes.func.isRequired,
 };
 
 Slider.defaultProps = {

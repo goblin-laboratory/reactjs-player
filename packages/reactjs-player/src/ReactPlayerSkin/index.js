@@ -146,6 +146,7 @@ const ReactPlayerSkin = React.memo(
             duration={duration}
             currentTime={currentTime}
             buffered={buffered}
+            sliding={sliding}
             setSliding={setSliding}
             onChange={changeCurrentTime}
           />

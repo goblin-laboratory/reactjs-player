@@ -1,7 +1,7 @@
-import ReactPlayer from './components/ReactPlayer';
-import GrindPlayer from './components/GrindPlayer';
-import ReactPlayerContext from './components/ReactPlayerContext';
-import ReactPlayerSkin from './components/ReactPlayerSkin';
+import ReactPlayer from './ReactPlayer';
+import GrindPlayer from './GrindPlayer';
+import ReactPlayerContext from './ReactPlayerContext';
+import ReactPlayerSkin from './ReactPlayerSkin';
 
 ReactPlayer.GrindPlayer = GrindPlayer;
 ReactPlayer.ReactPlayerContext = ReactPlayerContext;
