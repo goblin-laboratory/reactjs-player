@@ -1,5 +1,5 @@
 import React from 'react';
-import flvjs from 'flv.js';
+// import flvjs from 'flv.js';
 
 const getElement = (getEl, timeout = 3000) => {
   return new Promise(resolve => {
@@ -11,6 +11,17 @@ const getElement = (getEl, timeout = 3000) => {
     setTimeout(() => {
       resolve(getEl());
     }, timeout);
+  });
+};
+
+const getScript = src => {
+  return new Promise((resolve, reject) => {
+    const script = global.document.createElement('script');
+    global.document.body.appendChild(script);
+    script.onload = resolve;
+    script.onerror = reject;
+    script.async = true;
+    script.src = src;
   });
 };
 
@@ -47,7 +58,14 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
         debug('useFlvjs: 获取 video 元素失败');
         return;
       }
-      setFlvPlayer(flvjs.createPlayer({ isLive: true, type: 'flv', url: src }, { ...config }));
+      if (!global.flvjs) {
+        await getScript('https://unpkg.com/flv.js/dist/flv.min.js');
+        if (!global.flvjs) {
+          debug('useFlvjs: 加载 flv.js 失败');
+          return;
+        }
+      }
+      setFlvPlayer(global.flvjs.createPlayer({ isLive: true, type: 'flv', url: src }, { ...config }));
     };
 
     ref.current = src;
@@ -60,7 +78,7 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
     if (!flvPlayer || !el) {
       return () => {};
     }
-    flvPlayer.on(flvjs.Events.ERROR, onFlvError);
+    flvPlayer.on(global.flvjs.Events.ERROR, onFlvError);
     flvPlayer.attachMediaElement(el);
     flvPlayer.load();
     // TODO: autoPlay
@@ -70,7 +88,7 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
         return;
       }
       try {
-        flvPlayer.off(flvjs.Events.ERROR, onFlvError);
+        flvPlayer.off(global.flvjs.Events.ERROR, onFlvError);
       } catch (errMsg) {
         // debugger;
       }

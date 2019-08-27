@@ -1,5 +1,5 @@
 import React from 'react';
-import Hls from 'hls.js';
+// import Hls from 'hls.js';
 
 const getElement = (getEl, timeout = 3000) => {
   return new Promise(resolve => {
@@ -11,6 +11,17 @@ const getElement = (getEl, timeout = 3000) => {
     setTimeout(() => {
       resolve(getEl());
     }, timeout);
+  });
+};
+
+const getScript = src => {
+  return new Promise((resolve, reject) => {
+    const script = global.document.createElement('script');
+    global.document.body.appendChild(script);
+    script.onload = resolve;
+    script.onerror = reject;
+    script.async = true;
+    script.src = src;
   });
 };
 
@@ -31,7 +42,7 @@ const destroyHls = hls => {
 const load = (el, src, config, onHlsError, timeout = 3 * 1000) => {
   return new Promise((resolve, reject) => {
     // TODO: https://github.com/video-dev/hls.js/pull/2174
-    const hls = new Hls({ enableWorker: false, ...config });
+    const hls = new global.Hls({ enableWorker: false, ...config });
 
     hls.loadSource(src);
     hls.attachMedia(el);
@@ -43,9 +54,9 @@ const load = (el, src, config, onHlsError, timeout = 3 * 1000) => {
       }
       interval = 0;
       // eslint-disable-next-line no-use-before-define
-      hls.off(Hls.Events.MANIFEST_PARSED, onParsed);
+      hls.off(global.Hls.Events.MANIFEST_PARSED, onParsed);
       // eslint-disable-next-line no-use-before-define
-      hls.off(Hls.Events.ERROR, onError);
+      hls.off(global.Hls.Events.ERROR, onError);
     };
 
     const onParsed = () => {
@@ -70,8 +81,8 @@ const load = (el, src, config, onHlsError, timeout = 3 * 1000) => {
       reject({ hls, message: 'hls timeout' });
     };
 
-    hls.on(Hls.Events.MANIFEST_PARSED, onParsed);
-    hls.on(Hls.Events.ERROR, onError);
+    hls.on(global.Hls.Events.MANIFEST_PARSED, onParsed);
+    hls.on(global.Hls.Events.ERROR, onError);
     interval = setTimeout(onTimeout, timeout);
   }).catch(errMsg => {
     destroyHls(errMsg && errMsg.hls);
@@ -113,6 +124,15 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
         debug('useHlsjs: 获取 video 元素失败');
         return;
       }
+
+      if (!global.Hls) {
+        await getScript('https://unpkg.com/hls.js/dist/hls.min.js');
+        if (!global.Hls) {
+          debug('useHlsjs: 加载 hls.js 失败');
+          return;
+        }
+      }
+
       const hls = await load(el, src, config, onHlsError);
       if (ref.current !== src) {
         destroyHls(hls);
@@ -136,7 +156,7 @@ export default ({ src, config, onKernelError }, getVideoElement) => {
 
   React.useEffect(() => {
     if (hlsPlayer) {
-      hlsPlayer.on(Hls.Events.ERROR, onHlsError);
+      hlsPlayer.on(global.Hls.Events.ERROR, onHlsError);
     }
     return () => destroyHls(hlsPlayer);
   }, [hlsPlayer, onHlsError]);

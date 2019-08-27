@@ -24,7 +24,6 @@
     "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
   },
   "peerDependencies": {
-    "flv.js": "^1.5.0",
     "react": "^16.9.0"
   },
   "devDependencies": {

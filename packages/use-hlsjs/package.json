@@ -24,7 +24,6 @@
     "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
   },
   "peerDependencies": {
-    "hls.js": "^0.12.4",
     "react": "^16.9.0"
   },
   "devDependencies": {

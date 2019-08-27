@@ -27,6 +27,10 @@ const getSupportedList = ua => {
       { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
     ];
   }
+
+  global.Hls = Hls;
+  global.flvjs = flvjs;
+
   const list = [];
   if (Hls.isSupported()) {
     list.push({
@@ -181,7 +185,7 @@ const App = React.memo(({ form }) => {
             ref={ref}
             {...info}
             src={src}
-            poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/logo128x128.png"
+            poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/docs/logo128x128.png"
             x5playsinline={x5playsinline}
             onFullscreenChange={onFullscreenChange}
             videoProps={videoProps}
