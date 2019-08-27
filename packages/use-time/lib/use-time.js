@@ -34,9 +34,11 @@ export default (props, getVideoElement) => {
       global.requestAnimationFrame(update);
       return;
     }
+    // eslint-disable-next-line no-undefined
     if (updateRef.current && undefined !== updateRef.current.currentTime) {
       setCurrentTime(updateRef.current.currentTime);
     }
+    // eslint-disable-next-line no-undefined
     if (updateRef.current && undefined !== updateRef.current.buffered) {
       setBuffered(updateRef.current.buffered);
     }

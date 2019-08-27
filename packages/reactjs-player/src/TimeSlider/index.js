@@ -100,9 +100,11 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sl
     if (!updateRef || !updateRef.current) {
       return;
     }
+    // eslint-disable-next-line no-undefined
     if (undefined !== updateRef.current.value) {
       setValue(updateRef.current.value);
     }
+    // eslint-disable-next-line no-undefined
     if (undefined !== updateRef.current.tooltip) {
       setTooltip(updateRef.current.tooltip);
     }

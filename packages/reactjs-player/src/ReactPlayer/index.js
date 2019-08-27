@@ -31,6 +31,7 @@ const getHooks = (kernel, getCustomHooks) => {
       if (getCustomHooks) {
         return getCustomHooks(kernel);
       }
+      // eslint-disable-next-line no-console
       console.error(`ReactPlayer: 暂不支持 kernel(${kernel})`);
       return noop;
   }
