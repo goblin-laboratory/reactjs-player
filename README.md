@@ -1,4 +1,4 @@
-![ReactPlayer](./logo128x128.png)
+![ReactPlayer](./docs/logo128x128.png)
 
 # ReactPlayer
 
@@ -30,7 +30,7 @@ yarn start
 
 ## Usage
 
-Demo page: [Demo](https://goblin-laboratory.github.io/reactjs-player/)
+Demo page: https://goblin-laboratory.github.io/reactjs-player/
 
 ```
 npm install reactjs-player --save
@@ -179,14 +179,14 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `isPlaying`       | `Bool`      |             |
 | `getDuration`     | `Number`    |             |
 | `getCurrentTime`  | `Number`    |             |
-| `setCurrentTime`  | ``          |             |
+| `setCurrentTime`  | ``          |
 | `getBuffered`     | `Object`    |             |
 | `getVolume`       | `Number`    |             |
-| `setVolume`       | ``          |             |
+| `setVolume`       | ``          |
 | `isMuted`         | `Number`    |             |
-| `toggleMute`      | ``          |             |
+| `toggleMute`      | ``          |
 | `getPlaybackRate` | `Number`    |             |
-| `setPlaybackRate` | ``          |             |
+| `setPlaybackRate` | ``          |
 | `isPiP`           | `Bool`      |             |
 | `isFullscreen`    | `Object`    |             |
 

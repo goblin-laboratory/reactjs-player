@@ -32,7 +32,4 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'react/jsx-filename-extension': 0,
   },
-  // settings: {
-  //   version: require('./package.json').peerDependencies.react,
-  // },
 };

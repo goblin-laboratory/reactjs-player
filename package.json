@@ -35,5 +35,11 @@
       "pre-commit": "npm run lint",
       "pre-push": "yarn test --watchAll=false"
     }
-  }
+  },
+  "eslintIgnore": [
+    "build",
+    "dist",
+    "node_modules"
+  ],
+  "config-overrides-path": "scripts/config-overrides.js"
 }

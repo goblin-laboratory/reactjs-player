@@ -3,7 +3,7 @@
   "version": "0.8.0",
   "description": "> TODO: description",
   "author": "xiaosong <kunkkaco@gmail.com>",
-  "homepage": "https://goblin-laboratory.github.io/reactjs-player/tree/master/packages/use-time#readme",
+  "homepage": "https://github.com/goblin-laboratory/reactjs-player/blob/master/packages/use-time/README.md",
   "license": "ISC",
   "main": "lib/use-time.js",
   "directories": {
