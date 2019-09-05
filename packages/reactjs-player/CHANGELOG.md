@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.1...v0.8.2) (2019-09-05)
+
+
+### Bug Fixes
+
+* 修复直播时可以选择倍速播放问题 ([84e127a](https://github.com/goblin-laboratory/reactjs-player/commit/84e127a))
+* 修复直播时鼠标 tooltip 会显示问题 ([1e850b0](https://github.com/goblin-laboratory/reactjs-player/commit/1e850b0))
+* 解决拖动时移出进度条鼠标 tooltip 不显示问题 ([3b88d57](https://github.com/goblin-laboratory/reactjs-player/commit/3b88d57))
+
+
+
+
+
 ## [0.8.1](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.0...v0.8.1) (2019-08-27)
 
 

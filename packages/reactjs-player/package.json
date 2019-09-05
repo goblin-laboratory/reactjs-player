@@ -1,6 +1,6 @@
 {
   "name": "reactjs-player",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
   "keywords": [
     "react",
@@ -64,7 +64,7 @@
     "@reactjs-player/use-pip": "^0.8.1",
     "@reactjs-player/use-playback-rate": "^0.8.1",
     "@reactjs-player/use-state": "^0.8.1",
-    "@reactjs-player/use-time": "^0.8.1",
+    "@reactjs-player/use-time": "^0.8.2",
     "@reactjs-player/use-volume": "^0.8.1"
   }
 }

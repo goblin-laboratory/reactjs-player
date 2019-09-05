@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.1...v0.8.2) (2019-09-05)
+
+
+### Bug Fixes
+
+* 校验 duration/currentTime 是否是合法值 ([63d247d](https://github.com/goblin-laboratory/reactjs-player/commit/63d247d))
+
+
+
+
+
 ## [0.8.1](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.0...v0.8.1) (2019-08-27)
 
 
