@@ -11,7 +11,8 @@
     "build": "lerna run build",
     "predeploy": "lerna run build",
     "deploy": "lerna run deploy",
-    "release": "lerna publish --conventional-commits"
+    "version": "lerna version --conventional-commits",
+    "release": "lerna publish from-git"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
