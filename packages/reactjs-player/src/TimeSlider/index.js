@@ -53,16 +53,29 @@ const getTrackTranslateX = ({ duration, currentTime, live }) => {
   return ((100 * currentTime) / duration - 100).toFixed(1);
 };
 
-const getMouseTranslateX = ({ duration, tooltip, live }) => {
-  if (live || 0 >= duration) {
+const getMouseTranslateX = ({ duration, tooltip }) => {
+  if (0 >= duration) {
     return 0;
   }
   return ((100 * tooltip) / duration).toFixed(1);
 };
 
+const MouseTooltip = React.memo(({ duration, tooltip }) => {
+  const translateX = getMouseTranslateX({ duration, tooltip });
+  return (
+    <div className={styles.tooltip} style={{ transform: `translateX(${translateX}%)` }}>
+      <div className={styles.tip}>{numeral(tooltip).format('00:00:00')}</div>
+    </div>
+  );
+});
+
+MouseTooltip.propTypes = {
+  duration: PropTypes.number.isRequired,
+  tooltip: PropTypes.number.isRequired,
+};
+
 const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sliding, setSliding }) => {
   const [value, setValue] = React.useState(currentTime);
-  // const [sliding, setSliding] = React.useState(false);
   const [tooltip, setTooltip] = React.useState(0);
 
   const sliderRef = React.useRef(null);
@@ -209,7 +222,6 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sl
 
   const bufferedScaleX = getBufferedScaleX({ buffered, currentTime, sliding, duration, live });
   const trackTranslateX = getTrackTranslateX({ duration, currentTime: sliding ? value : currentTime, live });
-  const tooltipTranslateX = getMouseTranslateX({ duration, tooltip: sliding ? value : tooltip, live });
 
   return (
     <div
@@ -236,9 +248,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sl
           onFocus={() => {}}
         />
       </div>
-      <div className={styles.tooltip} style={{ transform: `translateX(${tooltipTranslateX}%)` }}>
-        <div className={styles.tip}>{numeral(tooltip).format('00:00:00')}</div>
-      </div>
+      {!live && <MouseTooltip duration={duration} tooltip={sliding ? value : tooltip} />}
     </div>
   );
 });
