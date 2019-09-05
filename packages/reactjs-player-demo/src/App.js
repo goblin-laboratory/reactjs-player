@@ -14,6 +14,11 @@ import './App.css';
 const Interface = React.lazy(() => import('./components/Interface'));
 const GrindPlayer = ReactPlayer.GrindPlayer;
 
+const delay = timeout =>
+  new Promise(resolve => {
+    global.setTimeout(resolve, timeout);
+  });
+
 const getSupportedList = ua => {
   if (ua.device.type) {
     // 非 PC 浏览器
@@ -69,6 +74,13 @@ const getSupportedList = ua => {
       src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
       type: 'application/x-mpegURL',
     },
+    {
+      key: 'native',
+      kernel: 'native',
+      live: false,
+      src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+      type: 'video/mp4',
+    },
   );
   return list;
 };
@@ -108,7 +120,9 @@ const App = React.memo(({ form }) => {
   );
 
   const onSubmit = React.useCallback(
-    values => {
+    async values => {
+      setSrc('');
+      await delay(50);
       const item = list.find(it => it.key === values.type);
       setInfo(item);
       setSrc(values.src);
