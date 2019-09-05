@@ -193,12 +193,6 @@ const ReactPlayerSkin = React.memo(
                   ` / ${numeral(duration).format('00:00:00')}`
                 )}
               </span>
-              {/* {live && (
-                <span className={styles.controlText}>
-                  <span className={styles.liveDot} />
-                  直播
-                </span>
-              )} */}
             </div>
             {pictureInPictureEnabled && (
               <button
@@ -209,7 +203,7 @@ const ReactPlayerSkin = React.memo(
                 画中画
               </button>
             )}
-            {0 <= duration && (
+            {!live && (
               <Dropdown
                 visible={visible}
                 overlay={
