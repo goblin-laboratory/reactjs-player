@@ -20,7 +20,9 @@ export default (props, getVideoElement) => {
 
   const onVideoDurationChange = React.useCallback(
     e => {
-      setDuration(e.target.duration);
+      if (!Number.isNaN(e.target.duration)) {
+        setDuration(e.target.duration);
+      }
       onDurationChange(e);
     },
     [onDurationChange],
@@ -47,8 +49,7 @@ export default (props, getVideoElement) => {
 
   const onVideoTimeUpdate = React.useCallback(
     e => {
-      if (updateRef) {
-        // debugger;
+      if (updateRef && !Number.isNaN(e.target.currentTime)) {
         if (updateRef.current) {
           updateRef.current.currentTime = e.target.currentTime;
         } else {
@@ -69,10 +70,8 @@ export default (props, getVideoElement) => {
         } else {
           updateRef.current = { buffered: e.target.buffered, timestamp: performance.now() };
           global.requestAnimationFrame(update);
-          // global.requestIdleCallback(update, { timeout: 200 });
         }
       }
-      // setBuffered(e.target.buffered);
       onProgress(e);
     },
     [onProgress, update],
