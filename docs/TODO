@@ -133,8 +133,8 @@
   ✔ flv.js/hls.js 按需加载 @done(19-08-27 12:23)
   ✔ 支持第三方扩展 hooks @done(19-08-27 14:30)
   ✔ 进度拖动时 controls 不要自动隐藏 @done(19-08-27 14:42)
-  ☐ controls bar 隐藏动画时点击不要 seek
-  ☐ 倍速切换时强制显示 controls bar
+  ✔ controls bar 隐藏动画时点击不要 seek @done(19-09-06 15:28)
+  ✔ 倍速切换时强制显示 controls bar @done(19-09-06 15:28)
   ☐ 手机端 controls 不会自动隐藏问题
   ☐ 手机端 controls 显示时 process 的 handel 强制显示
 

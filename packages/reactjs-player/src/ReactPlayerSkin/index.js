@@ -46,65 +46,12 @@ const ReactPlayerSkin = React.memo(
     exitFullscreen,
     kernelMsg,
   }) => {
-    const [hiding, setHiding] = React.useState(false);
     const [hovering, setHovering] = React.useState(false);
     const [sliding, setSliding] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
-
-    const autoHideRef = React.useRef(0);
-
-    const autoHide = React.useCallback(timestamp => {
-      if (!autoHideRef || !autoHideRef.current) {
-        return;
-      }
-      if (3000 > timestamp - autoHideRef.current) {
-        global.requestAnimationFrame(autoHide);
-        return;
-      }
-      autoHideRef.current = 0;
-      setHiding(true);
-    }, []);
-
-    const onMouseMove = React.useCallback(() => {
-      if (!autoHideRef) {
-        return;
-      }
-      if (!autoHideRef.current) {
-        setHiding(false);
-      }
-      autoHideRef.current = global.performance.now();
-    }, []);
-
-    React.useEffect(() => {
-      setHiding(false);
-    }, [src]);
-
-    const hidden = React.useMemo(() => hiding && !hovering && !sliding, [hiding, hovering, sliding]);
-
-    React.useEffect(() => {
-      if (!autoHideRef) {
-        return;
-      }
-      if (hidden) {
-        autoHideRef.current = 0;
-        return;
-      }
-      autoHideRef.current = global.performance.now();
-      global.requestAnimationFrame(autoHide);
-    }, [hidden, autoHide]);
-
-    React.useEffect(() => {
-      if (hiding) {
-        setVisible(false);
-      }
-    }, [hiding]);
+    const [hiding, setHiding] = React.useState(false);
 
     const onBodyClick = React.useCallback(() => setVisible(false), []);
-    React.useEffect(() => {
-      document.body.addEventListener('click', onBodyClick);
-      return () => document.body.removeEventListener('click', onBodyClick);
-    }, [onBodyClick]);
-
     const onMenuClick = React.useCallback(
       e => {
         changePlaybackRate(parseFloat(e.key, 10));
@@ -112,18 +59,41 @@ const ReactPlayerSkin = React.memo(
       },
       [changePlaybackRate],
     );
+    React.useEffect(() => {
+      document.body.addEventListener('click', onBodyClick);
+      return () => document.body.removeEventListener('click', onBodyClick);
+    }, [onBodyClick]);
+
+    React.useEffect(() => {
+      setVisible(false);
+      setHiding(false);
+    }, [src]);
+
+    React.useEffect(() => {
+      if (hovering || sliding || visible) {
+        setHiding(false);
+      }
+    }, [hovering, sliding, visible]);
+
+    React.useEffect(() => {
+      if (hiding || hovering || sliding || visible) {
+        return () => {};
+      }
+      const id = global.setTimeout(() => setHiding(true), 3000);
+      return () => global.clearTimeout(id);
+    }, [hiding, hovering, sliding, visible]);
 
     return (
       <div className={styles.reactPlayerSkin}>
         <div
-          className={hidden ? styles.hiddenControlsBg : styles.controlsBg}
+          className={hiding ? styles.hiddenControlsBg : styles.controlsBg}
           style={{ backgroundImage: `url(${bgImg})` }}
         />
         <button
           type="button"
           className={src ? styles.hiddenVideoMask : styles.videoMask}
-          onMouseMove={onMouseMove}
-          onClick={onMouseMove}
+          onMouseMove={() => setHiding(false)}
+          onClick={() => setHiding(false)}
         />
         {poster && (!src || loading) && <img className={styles.poster} src={poster} alt="" />}
         {(waiting || seeking) && !loading && (
@@ -137,7 +107,7 @@ const ReactPlayerSkin = React.memo(
           </button>
         )}
         <div
-          className={hidden ? styles.hiddenControls : styles.controls}
+          className={hiding ? styles.hiddenControls : styles.controls}
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
         >
