@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.3](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.2...v0.8.3) (2019-09-06)
+
+
+### Bug Fixes
+
+* 修复 control bar 自动隐藏相关问题 ([737fcf2](https://github.com/goblin-laboratory/reactjs-player/commit/737fcf2))
+* 手机端 control bar 显示时进度条 handel 强制显示 ([c6b07a6](https://github.com/goblin-laboratory/reactjs-player/commit/c6b07a6))
+
+
+
+
+
 ## [0.8.2](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.1...v0.8.2) (2019-09-05)
 
 
