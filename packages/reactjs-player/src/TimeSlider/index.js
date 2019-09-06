@@ -74,7 +74,7 @@ MouseTooltip.propTypes = {
   tooltip: PropTypes.number.isRequired,
 };
 
-const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sliding, setSliding }) => {
+const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, onChange, sliding, setSliding }) => {
   const [value, setValue] = React.useState(currentTime);
   const [tooltip, setTooltip] = React.useState(0);
 
@@ -245,6 +245,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sl
           className={styles.sliderHandle}
           onMouseDown={onMouseDown}
           onTouchStart={onMouseDown}
+          disabled={disabled}
           onFocus={() => {}}
         />
       </div>
@@ -255,6 +256,7 @@ const Slider = React.memo(({ live, currentTime, duration, buffered, onChange, sl
 
 Slider.propTypes = {
   live: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   buffered: PropTypes.object,

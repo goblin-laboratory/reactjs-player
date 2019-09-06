@@ -113,6 +113,7 @@ const ReactPlayerSkin = React.memo(
         >
           <TimeSlider
             live={live}
+            disabled={hiding}
             duration={duration}
             currentTime={currentTime}
             buffered={buffered}

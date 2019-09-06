@@ -55,7 +55,7 @@
   height: 12px;
   cursor: pointer;
   border-radius: 50%;
-  box-shadow: 0;
+  box-shadow: none;
   opacity: 0;
   pointer-events: none;
   background: #ff0000;
@@ -125,6 +125,17 @@
   .slider:active {
     .tooltip {
       opacity: 0;
+    }
+  }
+
+  .sliderHandle {
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
+    &:disabled{
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: none;
     }
   }
 }
