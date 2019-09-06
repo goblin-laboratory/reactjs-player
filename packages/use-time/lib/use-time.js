@@ -20,8 +20,9 @@ export default (props, getVideoElement) => {
 
   const onVideoDurationChange = React.useCallback(
     e => {
-      if (!Number.isNaN(e.target.duration)) {
-        setDuration(e.target.duration);
+      const v = e.target.duration;
+      if (!Number.isNaN(v) && global.Infinity > v) {
+        setDuration(v);
       }
       onDurationChange(e);
     },
