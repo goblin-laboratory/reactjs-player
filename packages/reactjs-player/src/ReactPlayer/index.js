@@ -215,6 +215,7 @@ const ReactPlayer = (
   );
 };
 
+// FIXME: index.js:1437 Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?
 ReactPlayer.propTypes = {
   kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
   getCustomHooks: PropTypes.func,

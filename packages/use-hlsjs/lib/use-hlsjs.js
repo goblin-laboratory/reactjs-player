@@ -1,165 +1,104 @@
 import React from 'react';
-// import Hls from 'hls.js';
 
-const getElement = (getEl, timeout = 3000) => {
-  return new Promise(resolve => {
-    const el = getEl();
-    if (el) {
-      resolve(el);
+const getHls = src =>
+  new Promise(resolve => {
+    if (global.Hls) {
+      resolve(global.Hls);
       return;
     }
-    setTimeout(() => {
-      resolve(getEl());
-    }, timeout);
-  });
-};
-
-const getScript = src => {
-  return new Promise((resolve, reject) => {
     const script = global.document.createElement('script');
     global.document.body.appendChild(script);
-    script.onload = resolve;
-    script.onerror = reject;
+    script.onload = () => resolve(global.Hls);
+    script.onerror = () => resolve(global.Hls);
     script.async = true;
     script.src = src;
   });
-};
 
 // eslint-disable-next-line no-console
 const debug = console.error;
 
-const destroyHls = hls => {
-  if (!hls) {
-    return;
-  }
-  try {
-    hls.destroy();
-  } catch (err) {
-    // debugger;
+// FIXME: Uncaught DOMException: Failed to read the 'buffered' property from 'SourceBuffer': This SourceBuffer has been removed from the parent media source.
+const destroyPlayer = player => {
+  if (!player) {
+    try {
+      player.destroy();
+    } catch (errMsg) {}
   }
 };
 
-const load = (el, src, config, onHlsError, timeout = 3 * 1000) => {
-  return new Promise((resolve, reject) => {
-    // TODO: https://github.com/video-dev/hls.js/pull/2174
-    const hls = new global.Hls({ enableWorker: false, ...config });
-
-    hls.loadSource(src);
-    hls.attachMedia(el);
-
-    let interval = 0;
-    const off = () => {
-      if (interval) {
-        clearTimeout(interval);
-      }
-      interval = 0;
-      // eslint-disable-next-line no-use-before-define
-      hls.off(global.Hls.Events.MANIFEST_PARSED, onParsed);
-      // eslint-disable-next-line no-use-before-define
-      hls.off(global.Hls.Events.ERROR, onError);
-    };
-
-    const onParsed = () => {
-      off();
-      el.play();
-      resolve(hls);
-    };
-
-    const onError = (e, info) => {
-      onHlsError(e, info);
-      if (info && info.fatal) {
-        off();
-        // eslint-disable-next-line prefer-promise-reject-errors
-        reject({ hls, message: 'hls error' });
-      }
-    };
-
-    const onTimeout = () => {
-      interval = 0;
-      off();
-      // eslint-disable-next-line prefer-promise-reject-errors
-      reject({ hls, message: 'hls timeout' });
-    };
-
-    hls.on(global.Hls.Events.MANIFEST_PARSED, onParsed);
-    hls.on(global.Hls.Events.ERROR, onError);
-    interval = setTimeout(onTimeout, timeout);
-  }).catch(errMsg => {
-    destroyHls(errMsg && errMsg.hls);
-    return null;
-  });
-};
-
-export default ({ src, config, onKernelError }, getVideoElement) => {
-  const [hlsPlayer, setHlsPlayer] = React.useState(null);
+export default ({ src, config, onKernelError }, getVideoEl) => {
+  const [player, setPlayer] = React.useState(null);
   const [kernelMsg, setKernelMsg] = React.useState(null);
 
   const ref = React.useRef('');
+  const configRef = React.useRef(null);
+  const onKernelErrorRef = React.useRef(null);
+  const getVideoElRef = React.useRef(null);
 
-  const onHlsError = React.useCallback(
-    (e, info) => {
-      if (info && info.fatal) {
-        const msg = { type: info.type, detail: info.details };
-        setKernelMsg(msg);
-        onKernelError(msg);
-      }
-    },
-    [onKernelError],
-  );
+  React.useEffect(() => {
+    // TODO: 使用 React.useReducer
+    ref.current = src;
+    configRef.current = config;
+    onKernelErrorRef.current = onKernelError;
+    getVideoElRef.current = getVideoEl;
+  }, [src, config, onKernelError, getVideoEl]);
 
   React.useEffect(() => {
     const play = async () => {
-      if (!src) {
-        setHlsPlayer(null);
+      await getHls('https://unpkg.com/hls.js/dist/hls.min.js');
+      if (!global.Hls || ref.current !== src) {
+        debug('useHlsjs: 加载 hls.js 失败或者 src 已经变更');
         return;
       }
-      const el = await getElement(getVideoElement);
-      if (ref.current !== src) {
-        return;
-      }
-      if (!el) {
-        ref.current = '';
-        setHlsPlayer(null);
-        // TODO: 提示用户
-        debug('useHlsjs: 获取 video 元素失败');
-        return;
-      }
-
-      if (!global.Hls) {
-        await getScript('https://unpkg.com/hls.js/dist/hls.min.js');
-        if (!global.Hls) {
-          debug('useHlsjs: 加载 hls.js 失败');
-          return;
-        }
-      }
-
-      const hls = await load(el, src, config, onHlsError);
-      if (ref.current !== src) {
-        destroyHls(hls);
-        return;
-      }
-      if (!hls) {
-        ref.current = '';
-        setHlsPlayer(null);
-        return;
-      }
-      setHlsPlayer(hls);
+      setPlayer(new global.Hls({ enableWorker: false, ...configRef.current }));
     };
 
-    ref.current = src;
-    play();
-  }, [getVideoElement, src, config, onHlsError]);
+    setPlayer(null);
+    if (src) {
+      play();
+    }
+  }, [src]);
 
   React.useEffect(() => {
     return () => setKernelMsg(null);
   }, [src]);
 
   React.useEffect(() => {
-    if (hlsPlayer) {
-      hlsPlayer.on(global.Hls.Events.ERROR, onHlsError);
+    if (!player) {
+      return;
     }
-    return () => destroyHls(hlsPlayer);
-  }, [hlsPlayer, onHlsError]);
+    const el = getVideoElRef.current();
+    if (!el) {
+      return;
+    }
+    const currentSrc = ref.current;
+    player.attachMedia(el);
+    player.on(global.Hls.Events.MEDIA_ATTACHED, () => {
+      if (ref && ref.current && currentSrc === ref.current) {
+        player.loadSource(ref.current);
+      }
+    });
+    player.on(global.Hls.Events.MANIFEST_PARSED, () => {
+      if (ref && ref.current && currentSrc === ref.current) {
+        el.play();
+      }
+    });
+    player.on(global.Hls.Events.ERROR, (e, info) => {
+      if (info && info.fatal) {
+        const msg = { type: info.type, detail: info.details };
+        setKernelMsg(msg);
+        if (onKernelErrorRef && onKernelErrorRef.current) {
+          onKernelErrorRef.current(msg);
+        }
+      }
+    });
+  }, [player]);
+
+  React.useEffect(() => {
+    return () => {
+      destroyPlayer(player);
+    };
+  }, [player]);
 
   return kernelMsg;
 };

@@ -31,5 +31,6 @@ module.exports = {
     'react/destructuring-assignment': 1,
     'react/forbid-prop-types': 0,
     'react/jsx-filename-extension': 0,
+    'no-empty': ['error', { allowEmptyCatch: true }],
   },
 };

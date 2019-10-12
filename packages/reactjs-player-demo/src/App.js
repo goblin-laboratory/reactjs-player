@@ -49,7 +49,20 @@ const getSupportedList = ua => {
   if (flvjs.isSupported()) {
     const featureList = flvjs.getFeatureList();
     if (featureList.networkStreamIO) {
-      list.push({ key: 'flvjs', kernel: 'flvjs', live: true, src: '', type: 'video/x-flv' });
+      list.push({
+        key: 'flvjs',
+        kernel: 'flvjs',
+        live: true,
+        src: '',
+        type: 'video/x-flv',
+        config: {
+          isLive: true,
+          enableStashBuffer: false,
+          autoCleanupSourceBuffer: true,
+          stashInitialSize: 16 * 1024,
+          fixAudioTimestampGap: false,
+        },
+      });
     }
   }
   // mac OS 没有测试环境，暂且认为没有问题
@@ -197,7 +210,11 @@ const App = React.memo(({ form }) => {
         {'flash' !== info.kernel && (
           <ReactPlayer
             ref={ref}
-            {...info}
+            live={info.live}
+            kernel={info.kernel}
+            type={info.type}
+            config={info.config || {}}
+            // {...info}
             src={src}
             poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/docs/logo128x128.png"
             x5playsinline={x5playsinline}

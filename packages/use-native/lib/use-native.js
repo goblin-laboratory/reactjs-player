@@ -12,9 +12,7 @@ export default ({ src }, getVideoElement) => {
     el.src = src;
     try {
       el.load();
-    } catch (errMsg) {
-      // debugger;
-    }
+    } catch (errMsg) {}
     if (src) {
       el.play();
     }
@@ -53,9 +51,7 @@ export default ({ src }, getVideoElement) => {
     el.src = '';
     try {
       el.load();
-    } catch (errMsg) {
-      // debugger;
-    }
+    } catch (errMsg) {}
   }, [getVideoElement]);
 
   React.useEffect(() => {
