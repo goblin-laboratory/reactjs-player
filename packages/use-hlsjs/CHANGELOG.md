@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.3...v0.9.0) (2019-10-12)
+
+
+### Bug Fixes
+
+* 修复 destroyPlayer 时判断条件错误导致 hls 未正常销毁问题 ([7fa4f81](https://github.com/goblin-laboratory/reactjs-player/commit/7fa4f81))
+
+
+### Features
+
+* 只有 src 变化时才重新播放，避免 useEffect 需要比较太多数据，解决 flv 与 hls 相互切换时播放异常 ([e291ea2](https://github.com/goblin-laboratory/reactjs-player/commit/e291ea2))
+
+
+
+
+
 ## [0.8.1](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.0...v0.8.1) (2019-08-27)
 
 
