@@ -17,9 +17,8 @@ const getHls = src =>
 // eslint-disable-next-line no-console
 const debug = console.error;
 
-// FIXME: Uncaught DOMException: Failed to read the 'buffered' property from 'SourceBuffer': This SourceBuffer has been removed from the parent media source.
 const destroyPlayer = player => {
-  if (!player) {
+  if (player) {
     try {
       player.destroy();
     } catch (errMsg) {}
@@ -73,12 +72,12 @@ export default ({ src, config, onKernelError }, getVideoEl) => {
     }
     const currentSrc = ref.current;
     player.attachMedia(el);
-    player.on(global.Hls.Events.MEDIA_ATTACHED, () => {
+    player.once(global.Hls.Events.MEDIA_ATTACHED, () => {
       if (ref && ref.current && currentSrc === ref.current) {
         player.loadSource(ref.current);
       }
     });
-    player.on(global.Hls.Events.MANIFEST_PARSED, () => {
+    player.once(global.Hls.Events.MANIFEST_PARSED, () => {
       if (ref && ref.current && currentSrc === ref.current) {
         el.play();
       }
