@@ -154,14 +154,14 @@ const ReactPlayerSkin = React.memo(
                 </span>
               </span>
               <span className={styles.controlText}>
-                {numeral(currentTime).format('00:00:00')}
+                {numeral(Math.round(currentTime)).format('00:00:00')}
                 {live ? (
                   <span className={styles.controlText}>
                     <span className={styles.liveDot} />
                     直播
                   </span>
                 ) : (
-                  ` / ${numeral(duration).format('00:00:00')}`
+                  ` / ${numeral(Math.round(duration)).format('00:00:00')}`
                 )}
               </span>
             </div>
