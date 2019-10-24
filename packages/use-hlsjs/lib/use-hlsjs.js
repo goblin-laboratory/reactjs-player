@@ -25,22 +25,20 @@ const destroyPlayer = player => {
   }
 };
 
-export default ({ src, config, onKernelError }, getVideoEl) => {
+export default ({ getVideoElement, src, config, onMsgChange }) => {
   const [player, setPlayer] = React.useState(null);
-  const [kernelMsg, setKernelMsg] = React.useState(null);
-
+  const getVideo = React.useRef(getVideoElement);
   const ref = React.useRef('');
   const configRef = React.useRef(null);
-  const onKernelErrorRef = React.useRef(null);
-  const getVideoElRef = React.useRef(null);
+  const onMsgChangeRef = React.useRef(onMsgChange);
 
   React.useEffect(() => {
-    // TODO: 使用 React.useReducer
     ref.current = src;
     configRef.current = config;
-    onKernelErrorRef.current = onKernelError;
-    getVideoElRef.current = getVideoEl;
-  }, [src, config, onKernelError, getVideoEl]);
+    return () => {
+      ref.current = '';
+    };
+  }, [src, config]);
 
   React.useEffect(() => {
     const play = async () => {
@@ -53,51 +51,40 @@ export default ({ src, config, onKernelError }, getVideoEl) => {
     };
 
     setPlayer(null);
+    onMsgChangeRef.current(null);
     if (src) {
       play();
     }
   }, [src]);
 
   React.useEffect(() => {
-    return () => setKernelMsg(null);
-  }, [src]);
-
-  React.useEffect(() => {
-    if (!player) {
-      return;
-    }
-    const el = getVideoElRef.current();
-    if (!el) {
-      return;
+    const cleanup = () => destroyPlayer(player);
+    if (!player || !ref.current) {
+      return cleanup;
     }
     const currentSrc = ref.current;
+    const el = getVideo.current();
+    if (!el) {
+      return cleanup;
+    }
     player.attachMedia(el);
     player.once(global.Hls.Events.MEDIA_ATTACHED, () => {
-      if (ref && ref.current && currentSrc === ref.current) {
+      if (currentSrc === ref.current) {
         player.loadSource(ref.current);
       }
     });
     player.once(global.Hls.Events.MANIFEST_PARSED, () => {
-      if (ref && ref.current && currentSrc === ref.current) {
+      if (currentSrc === ref.current) {
         el.play();
       }
     });
     player.on(global.Hls.Events.ERROR, (e, info) => {
-      if (info && info.fatal) {
-        const msg = { type: info.type, detail: info.details };
-        setKernelMsg(msg);
-        if (onKernelErrorRef && onKernelErrorRef.current) {
-          onKernelErrorRef.current(msg);
-        }
+      if (onMsgChangeRef && onMsgChangeRef.current && info && info.fatal) {
+        onMsgChangeRef.current({ type: info.type, detail: info.details });
       }
     });
+    return cleanup;
   }, [player]);
 
-  React.useEffect(() => {
-    return () => {
-      destroyPlayer(player);
-    };
-  }, [player]);
-
-  return kernelMsg;
+  return null;
 };

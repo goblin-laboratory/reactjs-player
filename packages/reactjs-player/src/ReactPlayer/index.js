@@ -9,38 +9,23 @@ import usePlaybackRate from '@reactjs-player/use-playback-rate';
 import usePiP from '@reactjs-player/use-pip';
 import useFullscreen from '@reactjs-player/use-fullscreen';
 
-import useHlsjs from '@reactjs-player/use-hlsjs';
-import useFlvjs from '@reactjs-player/use-flvjs';
-import useNative from '@reactjs-player/use-native';
+// import useHlsjs from '@reactjs-player/use-hlsjs';
+// import useFlvjs from '@reactjs-player/use-flvjs';
+// import useNative from '@reactjs-player/use-native';
 
+import Flvjs from '../Flvjs';
+import Hlsjs from '../Hlsjs';
+import Native from '../Native';
 import ReactPlayerSkinWapper from '../ReactPlayerSkinWapper';
 import ReactPlayerContext from '../ReactPlayerContext';
 import styles from './index.module.less';
 
 const noop = () => {};
 
-const getHooks = (kernel, getCustomHooks) => {
-  switch (kernel) {
-    case 'native':
-      return useNative;
-    case 'hlsjs':
-      return useHlsjs;
-    case 'flvjs':
-      return useFlvjs;
-    default:
-      if (getCustomHooks) {
-        return getCustomHooks(kernel);
-      }
-      // eslint-disable-next-line no-console
-      console.error(`ReactPlayer: 暂不支持 kernel(${kernel})`);
-      return noop;
-  }
-};
-
 const ReactPlayer = (
   {
     kernel,
-    getCustomHooks = noop,
+    // getCustomHooks = noop,
 
     live,
 
@@ -89,11 +74,19 @@ const ReactPlayer = (
   },
   ref,
 ) => {
+  const [kernelMsg, setKernelMsg] = React.useState(null);
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
 
   const getVideoElement = React.useCallback(() => videoRef && videoRef.current, []);
   const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
+  const onMsgChange = React.useCallback(
+    msg => {
+      setKernelMsg(msg);
+      onKernelError(msg);
+    },
+    [onKernelError],
+  );
 
   const stateProps = useVideoState(
     {
@@ -116,8 +109,6 @@ const ReactPlayer = (
   const piPProps = usePiP({ src }, getVideoElement);
   const fullscreenProps = useFullscreen({ x5playsinline, onFullscreenChange }, getVideoElement, getPlayerElement);
 
-  const kernelMsg = getHooks(kernel, getCustomHooks)({ src, config, onKernelError }, getVideoElement);
-
   React.useImperativeHandle(ref, () => ({
     isPlaying: () => !!src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
     getDuration: () => timeProps.duration,
@@ -137,6 +128,13 @@ const ReactPlayer = (
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div className={`${styles.reactPlayer} ${className}`} ref={playerRef} {...playerProps}>
+      {'flvjs' === kernel && (
+        <Flvjs getVideoElement={getVideoElement} src={src} config={config} onMsgChange={onMsgChange} />
+      )}
+      {'hlsjs' === kernel && (
+        <Hlsjs getVideoElement={getVideoElement} src={src} config={config} onMsgChange={onMsgChange} />
+      )}
+      {'native' === kernel && <Native getVideoElement={getVideoElement} src={src} onMsgChange={onMsgChange} />}
       <video
         className={styles.video}
         ref={videoRef}
@@ -218,7 +216,7 @@ const ReactPlayer = (
 // FIXME: index.js:1437 Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?
 ReactPlayer.propTypes = {
   kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
-  getCustomHooks: PropTypes.func,
+  // getCustomHooks: PropTypes.func,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
   onKernelError: PropTypes.func,
@@ -268,7 +266,7 @@ ReactPlayer.propTypes = {
 ReactPlayer.defaultProps = {
   config: null,
   onKernelError: noop,
-  getCustomHooks: noop,
+  // getCustomHooks: noop,
 
   src: '',
   controls: true,

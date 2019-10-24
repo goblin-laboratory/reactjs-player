@@ -1,25 +1,36 @@
 import React from 'react';
 
-export default ({ src }, getVideoElement) => {
+export default ({ getVideoElement, src, onMsgChange }) => {
   const [loaded, setLoaded] = React.useState(false);
+  const getVideo = React.useRef(getVideoElement);
+  const ref = React.useRef('');
+  const onMsgChangeRef = React.useRef(onMsgChange);
 
   React.useEffect(() => {
-    const el = getVideoElement();
-    if (!el) {
-      return;
-    }
-    el.pause();
-    el.src = src;
-    try {
-      el.load();
-    } catch (errMsg) {}
-    if (src) {
-      el.play();
-    }
+    ref.current = src;
+    return () => {
+      ref.current = '';
+    };
   }, [getVideoElement, src]);
 
+  React.useEffect(() => {
+    onMsgChangeRef.current(null);
+    const el = getVideo.current();
+    if (el) {
+      el.pause();
+      el.src = src;
+      try {
+        el.load();
+      } catch (errMsg) {}
+      if (src) {
+        el.play();
+      }
+    }
+  }, [src]);
+
+  // 手机端自动播放
   const onDocumentClick = React.useCallback(() => {
-    const el = getVideoElement();
+    const el = getVideo.current();
     if (!el) {
       setLoaded(false);
       return;
@@ -27,7 +38,7 @@ export default ({ src }, getVideoElement) => {
     el.src = '';
     el.load();
     setLoaded(true);
-  }, [getVideoElement]);
+  }, []);
 
   React.useEffect(() => {
     document.addEventListener('click', onDocumentClick);
@@ -42,8 +53,9 @@ export default ({ src }, getVideoElement) => {
     }
   }, [loaded, onDocumentClick]);
 
+  // 页面切换时强制停止播放
   const onUnload = React.useCallback(() => {
-    const el = getVideoElement();
+    const el = getVideo.current();
     if (!el) {
       return;
     }
@@ -52,7 +64,7 @@ export default ({ src }, getVideoElement) => {
     try {
       el.load();
     } catch (errMsg) {}
-  }, [getVideoElement]);
+  }, []);
 
   React.useEffect(() => {
     global.addEventListener('beforeunload', onUnload);

@@ -35,22 +35,21 @@ const destroyPlayer = player => {
   } catch (errMsg) {}
 };
 
-export default ({ src, config, onKernelError }, getVideoEl) => {
+export default ({ getVideoElement, src, config, onMsgChange }) => {
   const [player, setPlayer] = React.useState(null);
-  const [kernelMsg, setKernelMsg] = React.useState(null);
 
-  const ref = React.useRef('');
-  const configRef = React.useRef(null);
-  const onKernelErrorRef = React.useRef(null);
-  const getVideoElRef = React.useRef(null);
+  const getVideo = React.useRef(getVideoElement);
+  const ref = React.useRef(src);
+  const configRef = React.useRef(config);
+  const onMsgChangeRef = React.useRef(onMsgChange);
 
   React.useEffect(() => {
-    // TODO: 使用 React.useReducer
     ref.current = src;
     configRef.current = config;
-    onKernelErrorRef.current = onKernelError;
-    getVideoElRef.current = getVideoEl;
-  }, [src, config, onKernelError, getVideoEl]);
+    return () => {
+      ref.current = '';
+    };
+  }, [src, config]);
 
   React.useEffect(() => {
     const play = async () => {
@@ -62,42 +61,31 @@ export default ({ src, config, onKernelError }, getVideoEl) => {
       setPlayer(global.flvjs.createPlayer({ isLive: true, type: 'flv', url: src }, configRef.current));
     };
     setPlayer(null);
+    onMsgChangeRef.current(null);
     if (src) {
       play();
     }
   }, [src]);
 
   React.useEffect(() => {
-    return () => setKernelMsg(null);
-  }, [src]);
-
-  React.useEffect(() => {
+    const cleanup = () => destroyPlayer(player);
     if (!player) {
-      return;
+      return cleanup;
     }
-    const el = getVideoElRef.current();
+    const el = getVideo.current();
     if (!el) {
-      return;
+      return cleanup;
     }
     player.attachMediaElement(el);
     player.load();
     player.play();
     player.on(global.flvjs.Events.ERROR, (type, detail) => {
-      if (onKernelErrorRef && onKernelErrorRef.current) {
-        const msg = { type, detail };
-        setKernelMsg(msg);
-        if (onKernelErrorRef && onKernelErrorRef.current) {
-          onKernelErrorRef.current(msg);
-        }
+      if (onMsgChangeRef && onMsgChangeRef.current) {
+        onMsgChangeRef.current({ type, detail });
       }
     });
+    return cleanup;
   }, [player]);
 
-  React.useEffect(() => {
-    return () => {
-      destroyPlayer(player);
-    };
-  }, [player]);
-
-  return kernelMsg;
+  return null;
 };
