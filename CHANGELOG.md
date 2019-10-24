@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/goblin-laboratory/react-player/compare/v0.9.0...v0.9.1) (2019-10-24)
+
+
+### Bug Fixes
+
+* 修复 ReactjsPlayer 无法正常切换 kennel 问题 ([2eeca58](https://github.com/goblin-laboratory/react-player/commit/2eeca58))
+* 修复停止播放后仍然存在更新 state 的问题 ([eddb684](https://github.com/goblin-laboratory/react-player/commit/eddb684))
+* 修复时间显示为 5:59:60 的问题 ([772c898](https://github.com/goblin-laboratory/react-player/commit/772c898))
+
+
+
+
+
 # [0.9.0](https://github.com/goblin-laboratory/react-player/compare/v0.8.3...v0.9.0) (2019-10-12)
 
 
