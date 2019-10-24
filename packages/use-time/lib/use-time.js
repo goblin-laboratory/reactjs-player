@@ -12,10 +12,10 @@ export default (props, getVideoElement) => {
     setDuration(0);
     setCurrentTime(0);
     setBuffered(null);
-
-    if (updateRef && updateRef.current) {
+    updateRef.current = null;
+    return () => {
       updateRef.current = null;
-    }
+    };
   }, [src]);
 
   const onVideoDurationChange = React.useCallback(
