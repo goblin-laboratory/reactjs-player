@@ -11,15 +11,7 @@ module.exports = {
   },
   rules: {
     // 这里填入你的项目需要的个性化配置
-    'prettier/prettier': [
-      'error',
-      {
-        printWidth: 120,
-        tabWidth: 2,
-        singleQuote: true,
-        trailingComma: 'all',
-      },
-    ],
+    'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
     yoda: [2, 'always'],
