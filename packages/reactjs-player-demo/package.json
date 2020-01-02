@@ -34,7 +34,8 @@
     "react-scripts": "^3.1.0",
     "react-swf": "^1.0.7",
     "reactjs-player": "^0.9.1",
-    "ua-parser-js": "^0.7.20"
+    "ua-parser-js": "^0.7.20",
+    "vconsole": "^3.3.4"
   },
   "browserslist": {
     "production": [
