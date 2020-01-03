@@ -102,8 +102,6 @@ const App = React.memo(({ form }) => {
   const [list, setList] = React.useState(null);
   const [info, setInfo] = React.useState(null);
   const [src, setSrc] = React.useState('');
-  const [x5playsinline, setX5playsinline] = React.useState(false);
-  const [fullscreen, setFullscreen] = React.useState({ x5videofullscreen: false, fullscreen: false });
   const [videoProps, setVideoProps] = React.useState(null);
 
   React.useEffect(() => {
@@ -112,13 +110,10 @@ const App = React.memo(({ form }) => {
       setVideoProps({
         playsInline: true,
         'webkit-playsinline': 'true',
-        'x5-playsinline': 'true',
-        'x5-video-player-type': 'h5',
-        'x5-video-player-fullscreen': 'true',
+        'x5-video-player-type': 'h5-page',
         'x5-video-orientation': 'landscape|portrait',
       });
     }
-    setX5playsinline('Android' === ua.os.name && 'WeChat' === ua.browser.name);
     const supportedList = getSupportedList(ua);
     setList(supportedList);
     setInfo(supportedList[0]);
@@ -143,10 +138,6 @@ const App = React.memo(({ form }) => {
     [list],
   );
 
-  const onFullscreenChange = React.useCallback(v => {
-    setFullscreen(v);
-  }, []);
-
   // 接口测试
   const ref = React.useRef(null);
   const getPlayer = React.useCallback(() => ref && ref.current, []);
@@ -155,16 +146,8 @@ const App = React.memo(({ form }) => {
     return null;
   }
 
-  const bodyClassNames = ['container'];
-  if (x5playsinline && fullscreen.x5videofullscreen) {
-    bodyClassNames.push('x5videofullscreen');
-    if (fullscreen.fullscreen) {
-      bodyClassNames.push('fullscreen');
-    }
-  }
-
   return (
-    <div className={bodyClassNames.join(' ')}>
+    <div className="container">
       <header className="header">
         <Form
           className="form"
@@ -217,8 +200,6 @@ const App = React.memo(({ form }) => {
             // {...info}
             src={src}
             poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/docs/logo128x128.png"
-            x5playsinline={x5playsinline}
-            onFullscreenChange={onFullscreenChange}
             videoProps={videoProps}
           />
         )}

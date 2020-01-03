@@ -57,7 +57,7 @@
   width: 100%;
 }
 
-.x5videofullscreen .header {
+/* .x5videofullscreen .header {
   position: absolute;
   top: 0;
   left: 0;
@@ -82,7 +82,7 @@
 }
 .fullscreen .main video {
   object-position: center center;
-}
+} */
 
 .src {
   white-space: nowrap;

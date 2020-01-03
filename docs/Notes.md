@@ -25,6 +25,7 @@
 
 - https://x5.tencent.com/tbs/guide/video.html
 - https://x5.tencent.com/tbs/guide/web/x5-video.html
+- https://docs.qq.com/doc/DTUxGdWZic0RLR29B
 
 ## Media Event
 

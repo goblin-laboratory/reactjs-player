@@ -39,9 +39,7 @@ const ReactPlayerSkin = React.memo(
     pip,
     requestPictureInPicture,
     exitPictureInPicture,
-    x5playsinline,
     fullscreen,
-    x5videofullscreen,
     requestFullscreen,
     exitFullscreen,
     kernelMsg,
@@ -207,11 +205,6 @@ const ReactPlayerSkin = React.memo(
             )}
           </div>
         </div>
-        {x5playsinline && !x5videofullscreen && src && !loading && !waiting && !seeking && !ended && !kernelMsg && (
-          <button type="button" className={styles.blocked} onClick={onPlayClick}>
-            <Icon type="play-circle" />
-          </button>
-        )}
         {loading && !kernelMsg && (
           <div className={styles.loading}>
             <Icon type="loading" />
@@ -259,8 +252,6 @@ ReactPlayerSkin.propTypes = {
   requestPictureInPicture: PropTypes.func.isRequired,
   exitPictureInPicture: PropTypes.func.isRequired,
   // fullscreen
-  x5playsinline: PropTypes.bool.isRequired,
-  x5videofullscreen: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   requestFullscreen: PropTypes.func.isRequired,
   exitFullscreen: PropTypes.func.isRequired,

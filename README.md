@@ -161,8 +161,6 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `className`     | `String` | `''`    |                   |
 | `playerProps`   | `Object` | `null`  |                   |
 | `videoProps`    | `Object` | `null`  |                   |
-| --              | --       | --      | --                |
-| `x5playsinline` | `Bool`   | `false` |                   |
 
 **kernel**
 

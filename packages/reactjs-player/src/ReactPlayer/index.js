@@ -67,7 +67,6 @@ const ReactPlayer = (
     onWaiting = noop,
     onAbort = noop,
 
-    x5playsinline = false,
     onFullscreenChange = noop,
 
     children = null,
@@ -107,7 +106,7 @@ const ReactPlayer = (
   const volumeProps = useVolume({ muted, onVolumeChange }, getVideoElement);
   const playbackRateProps = usePlaybackRate({ live, onRateChange }, getVideoElement);
   const piPProps = usePiP({ src }, getVideoElement);
-  const fullscreenProps = useFullscreen({ x5playsinline, onFullscreenChange }, getVideoElement, getPlayerElement);
+  const fullscreenProps = useFullscreen({ onFullscreenChange }, getVideoElement, getPlayerElement);
 
   React.useImperativeHandle(ref, () => ({
     isPlaying: () => !!src && !(stateProps.loading || stateProps.waiting || stateProps.ended || stateProps.paused),
@@ -201,7 +200,6 @@ const ReactPlayer = (
           playbackRate: playbackRateProps.playbackRate,
           changePlaybackRate: playbackRateProps.changePlaybackRate,
           ...piPProps,
-          x5playsinline,
           ...fullscreenProps,
           kernelMsg,
         }}
@@ -257,7 +255,6 @@ ReactPlayer.propTypes = {
   onWaiting: PropTypes.func,
   onAbort: PropTypes.func,
 
-  x5playsinline: PropTypes.bool,
   onFullscreenChange: PropTypes.func,
 
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
@@ -302,7 +299,6 @@ ReactPlayer.defaultProps = {
   onWaiting: noop,
   onAbort: noop,
 
-  x5playsinline: false,
   onFullscreenChange: noop,
 
   children: null,
