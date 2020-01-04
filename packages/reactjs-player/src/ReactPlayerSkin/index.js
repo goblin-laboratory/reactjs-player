@@ -50,6 +50,7 @@ const ReactPlayerSkin = React.memo(
     const [hiding, setHiding] = React.useState(false);
 
     const onBodyClick = React.useCallback(() => setVisible(false), []);
+
     const onMenuClick = React.useCallback(
       e => {
         changePlaybackRate(parseFloat(e.key, 10));
@@ -57,6 +58,17 @@ const ReactPlayerSkin = React.memo(
       },
       [changePlaybackRate],
     );
+
+    const onMouseEnter = React.useCallback(() => {
+      if (global.matchMedia) {
+        const matched = global.matchMedia('(hover: none), (pointer: coarse)');
+        if (matched && matched.matches) {
+          return;
+        }
+      }
+      setHovering(true);
+    }, []);
+
     React.useEffect(() => {
       document.body.addEventListener('click', onBodyClick);
       return () => document.body.removeEventListener('click', onBodyClick);
@@ -106,12 +118,12 @@ const ReactPlayerSkin = React.memo(
         )}
         <div
           className={hiding ? styles.hiddenControls : styles.controls}
-          onMouseEnter={() => setHovering(true)}
+          onMouseEnter={() => onMouseEnter}
           onMouseLeave={() => setHovering(false)}
         >
           <TimeSlider
             live={live}
-            disabled={hiding}
+            hiding={hiding}
             duration={duration}
             currentTime={currentTime}
             buffered={buffered}

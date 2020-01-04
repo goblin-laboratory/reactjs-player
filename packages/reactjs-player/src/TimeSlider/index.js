@@ -74,7 +74,7 @@ MouseTooltip.propTypes = {
   tooltip: PropTypes.number.isRequired,
 };
 
-const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, onChange, sliding, setSliding }) => {
+const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onChange, sliding, setSliding }) => {
   const [value, setValue] = React.useState(currentTime);
   const [tooltip, setTooltip] = React.useState(0);
 
@@ -85,13 +85,13 @@ const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, on
   const onClick = React.useCallback(
     e => {
       e.preventDefault();
+      setSliding(false);
       if (live) {
         return;
       }
       const rect = e.currentTarget.getBoundingClientRect();
       const v = getValue(e, rect, duration);
       onChange(v);
-      setSliding(false);
     },
     [onChange, live, duration, setSliding],
   );
@@ -127,13 +127,13 @@ const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, on
   const onMouseUp = React.useCallback(
     e => {
       e.preventDefault();
+      setSliding(false);
       if (reactRef && reactRef.current && updateRef) {
         const v = getValue(e, reactRef.current, duration);
         updateRef.current = { value: v };
         update();
         onChange(v);
       }
-      setSliding(false);
     },
     [onChange, duration, update, setSliding],
   );
@@ -235,6 +235,13 @@ const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, on
       onMouseMove={onSliderMouseMove}
       onFocus={() => {}}
     >
+      {!live && (
+        <button type="button" className={styles.sliderButton} onTouchStart={onMouseDown}>
+          <span className={styles.slidingTip} style={{ opacity: sliding ? 1 : 0 }}>
+            快进到：{numeral(value).format('00:00:00')}
+          </span>
+        </button>
+      )}
       <div className={styles.sliderRail}>
         <div className={styles.sliderBuffered} style={{ transform: `scaleX(${bufferedScaleX})` }} />
         <div className={styles.sliderTrack} style={{ transform: `translateX(${trackTranslateX}%)` }} />
@@ -242,11 +249,9 @@ const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, on
       <div className={styles.sliderHandleRail} style={{ transform: `translateX(${trackTranslateX}%)` }}>
         <button
           type="button"
-          className={styles.sliderHandle}
+          className={`${styles.sliderHandle} ${hiding ? styles.hidingsliderHandle : ''}`}
           onMouseDown={onMouseDown}
           onTouchStart={onMouseDown}
-          disabled={disabled}
-          onFocus={() => {}}
         />
       </div>
       {!live && <MouseTooltip duration={duration} tooltip={sliding ? value : tooltip} />}
@@ -256,7 +261,7 @@ const Slider = React.memo(({ live, disabled, currentTime, duration, buffered, on
 
 Slider.propTypes = {
   live: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  hiding: PropTypes.bool.isRequired,
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   buffered: PropTypes.object,

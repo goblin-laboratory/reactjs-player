@@ -1,11 +1,36 @@
 .slider,
 .slidingSlider {
+  user-select: none;
   position: relative;
   height: 16px;
   cursor: pointer;
   &:focus {
     outline: 0 transparent none;
   }
+}
+
+.sliderButton {
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  top: -48px;
+  height: 64px;
+  width: 100%;
+  padding: 0;
+  border: 0 transparent none;
+  margin: 0;
+  background: transparent;
+}
+
+.slidingTip {
+  pointer-events: none;
+  user-select: none;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
 }
 
 .sliderRail {
@@ -90,6 +115,7 @@
   width: 100%;
   opacity: 0;
 }
+
 .tip {
   display: inline-block;
   padding: 0.4em 0.8em;
@@ -122,20 +148,38 @@
 // 手机或者平板不显示 tooltip
 @media (hover: none), (pointer: coarse) {
   .slider:hover,
-  .slider:active {
+  .slider:active,
+  .slidingSlider,
+  .slidingSlider:hover,
+  .slidingSlider:active {
     .tooltip {
       opacity: 0;
     }
+  }
+
+  .sliderButton {
+    opacity: 1;
+    pointer-events: auto;
+    position: absolute;
   }
 
   .sliderHandle {
     opacity: 1;
     pointer-events: auto;
     box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
-    &:disabled{
-      opacity: 0;
-      pointer-events: none;
-      box-shadow: none;
-    }
+    // &:disabled {
+    //   opacity: 0;
+    //   pointer-events: none;
+    //   box-shadow: none;
+    // }
+  }
+  .slider:hover .hidingsliderHandle,
+  .hidingsliderHandle,
+  .hidingsliderHandle:hover,
+  .hidingsliderHandle:focus,
+  .hidingsliderHandle:active {
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: none;
   }
 }
