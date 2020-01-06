@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/goblin-laboratory/react-player/compare/v0.9.1...v1.0.0) (2020-01-06)
+
+
+### Features
+
+* demo 增加 vconsole，方便手机上查看 log ([a3eca25](https://github.com/goblin-laboratory/react-player/commit/a3eca25))
+* demo 增加 vconsole，方便手机上查看 log ([cb744aa](https://github.com/goblin-laboratory/react-player/commit/cb744aa))
+* 使用 x5 最新的同层播放 h5-page 代替 x5-playsinline ([2359029](https://github.com/goblin-laboratory/react-player/commit/2359029))
+* 增大进度条拖动操作区域 ([2047017](https://github.com/goblin-laboratory/react-player/commit/2047017))
+
+
+### BREAKING CHANGES
+
+* 安卓上微信浏览器使用页面内播放代替同层播放
+- 删除 x5playsinline 属性
+- 删除 x5videofullscreen 状态
+
+
+
+
+
 ## [0.9.1](https://github.com/goblin-laboratory/react-player/compare/v0.9.0...v0.9.1) (2019-10-24)
 
 

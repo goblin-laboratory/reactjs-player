@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.9.1...v1.0.0) (2020-01-06)
+
+
+### Features
+
+* 使用 x5 最新的同层播放 h5-page 代替 x5-playsinline ([2359029](https://github.com/goblin-laboratory/reactjs-player/commit/2359029))
+
+
+### BREAKING CHANGES
+
+* 安卓上微信浏览器使用页面内播放代替同层播放
+- 删除 x5playsinline 属性
+- 删除 x5videofullscreen 状态
+
+
+
+
+
 # [0.9.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.8.3...v0.9.0) (2019-10-12)
 
 **Note:** Version bump only for package @reactjs-player/use-fullscreen

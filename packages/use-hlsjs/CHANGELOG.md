@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/goblin-laboratory/reactjs-player/compare/v0.9.1...v1.0.0) (2020-01-06)
+
+**Note:** Version bump only for package @reactjs-player/use-hlsjs
+
+
+
+
+
 ## [0.9.1](https://github.com/goblin-laboratory/reactjs-player/compare/v0.9.0...v0.9.1) (2019-10-24)
 
 
