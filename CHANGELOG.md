@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/goblin-laboratory/react-player/compare/v1.0.0...v1.0.1) (2020-01-09)
+
+
+### Bug Fixes
+
+* 增加 prevented 状态 ([8640aba](https://github.com/goblin-laboratory/react-player/commit/8640aba))
+* 增加 prevented 状态 ([15e6456](https://github.com/goblin-laboratory/react-player/commit/15e6456))
+* 解决 publish faild 问题 ([c25a1a9](https://github.com/goblin-laboratory/react-player/commit/c25a1a9))
+
+
+
+
+
 # [1.0.0](https://github.com/goblin-laboratory/react-player/compare/v0.9.1...v1.0.0) (2020-01-06)
 
 
