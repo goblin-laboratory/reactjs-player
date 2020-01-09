@@ -18,6 +18,7 @@ const ReactPlayerSkin = React.memo(
     live,
     src,
     poster,
+    prevented,
     loading,
     paused,
     ended,
@@ -111,7 +112,7 @@ const ReactPlayerSkin = React.memo(
             <Icon type="loading" />
           </div>
         )}
-        {ended && (
+        {(prevented || paused || ended) && (
           <button type="button" className={styles.ended} onClick={onPlayClick}>
             <Icon type="play-circle" />
           </button>
@@ -217,7 +218,7 @@ const ReactPlayerSkin = React.memo(
             )}
           </div>
         </div>
-        {loading && !kernelMsg && (
+        {(loading || (src && 0 === duration)) && !kernelMsg && (
           <div className={styles.loading}>
             <Icon type="loading" />
           </div>
@@ -236,6 +237,7 @@ ReactPlayerSkin.propTypes = {
   live: PropTypes.bool,
   src: PropTypes.string,
   poster: PropTypes.string,
+  prevented: PropTypes.bool.isRequired,
   // controls: PropTypes.bool.isRequired,
   // state
   loading: PropTypes.bool.isRequired,

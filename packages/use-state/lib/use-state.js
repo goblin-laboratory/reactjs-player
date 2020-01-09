@@ -16,10 +16,13 @@ export default (
   getVideoElement,
 ) => {
   const [loading, setLoading] = React.useState(false);
+  const [prevented, setPrevented] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
   const [ended, setEnded] = React.useState(false);
   const [seeking, setSeeking] = React.useState(false);
   const [waiting, setWaiting] = React.useState(false);
+
+  const ref = React.useRef({ getVideoElement, loading, prevented, ended });
 
   React.useEffect(() => {
     setLoading(!!src);
@@ -29,13 +32,46 @@ export default (
     setWaiting(false);
   }, [src]);
 
+  React.useEffect(() => {
+    ref.current.loading = loading;
+    ref.current.prevented = prevented;
+    ref.current.ended = ended;
+  }, [loading, prevented, ended]);
+
+  const onPlayClick = React.useCallback(() => {
+    const el = ref.current.getVideoElement();
+    if (el) {
+      if (ref.current.ended) {
+        el.currentTime = 0;
+      }
+      el.play()
+        .then(() => setPrevented(false))
+        .catch(() => setPrevented(true));
+    }
+    setPaused(false);
+  }, []);
+
+  const onPauseClick = React.useCallback(() => {
+    const el = ref.current.getVideoElement();
+    if (el) {
+      el.pause();
+    }
+    setPaused(true);
+  }, []);
+
   const onVideoCanPlay = React.useCallback(
     e => {
+      if (ref.current.loading) {
+        setLoading(false);
+        onPlayClick();
+      } else {
+        setWaiting(false);
+      }
       setLoading(false);
-      setWaiting(false);
+      onPlayClick(true);
       onCanPlay(e);
     },
-    [onCanPlay],
+    [onCanPlay, onPlayClick],
   );
 
   const onVideoPause = React.useCallback(
@@ -104,28 +140,9 @@ export default (
     [onWaiting],
   );
 
-  const onPauseClick = React.useCallback(() => {
-    const el = getVideoElement();
-    if (el) {
-      el.pause();
-    }
-    setPaused(true);
-  }, [getVideoElement]);
-
-  const onPlayClick = React.useCallback(() => {
-    const el = getVideoElement();
-    if (el) {
-      if (ended) {
-        el.currentTime = 0;
-        // setEnded(false);
-      }
-      el.play();
-    }
-    setPaused(false);
-  }, [getVideoElement, ended]);
-
   return {
     loading,
+    prevented,
     paused,
     ended,
     seeking,

@@ -2,30 +2,35 @@ import React from 'react';
 
 export default ({ getVideoElement, src, onMsgChange }) => {
   const [loaded, setLoaded] = React.useState(false);
+  // const [prevented, setPrevented] = React.useState(false);
   const getVideo = React.useRef(getVideoElement);
   const ref = React.useRef('');
   const onMsgChangeRef = React.useRef(onMsgChange);
 
   React.useEffect(() => {
     ref.current = src;
-    return () => {
-      ref.current = '';
-    };
   }, [getVideoElement, src]);
 
   React.useEffect(() => {
     onMsgChangeRef.current(null);
     const el = getVideo.current();
-    if (el) {
-      el.pause();
-      el.src = src;
-      try {
-        el.load();
-      } catch (errMsg) {}
-      if (src) {
-        el.play();
-      }
+    if (!el) {
+      return;
     }
+    el.pause();
+    el.src = src;
+    try {
+      el.load();
+    } catch (errMsg) {}
+    // if (src) {
+    //   el.play()
+    //     .then(() => setPrevented(false))
+    //     .catch(() => setPrevented(true));
+    // } else {
+    //   try {
+    //     el.load();
+    //   } catch (errMsg) {}
+    // }
   }, [src]);
 
   // 手机端自动播放
@@ -42,9 +47,7 @@ export default ({ getVideoElement, src, onMsgChange }) => {
 
   React.useEffect(() => {
     document.addEventListener('click', onDocumentClick);
-    return () => {
-      document.removeEventListener('click', onDocumentClick);
-    };
+    return () => document.removeEventListener('click', onDocumentClick);
   }, [onDocumentClick]);
 
   React.useEffect(() => {

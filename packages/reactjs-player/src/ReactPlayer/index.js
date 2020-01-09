@@ -25,7 +25,6 @@ const noop = () => {};
 const ReactPlayer = (
   {
     kernel,
-    // getCustomHooks = noop,
 
     live,
 
@@ -124,22 +123,18 @@ const ReactPlayer = (
     isFullscreen: () => fullscreenProps.fullscreen,
   }));
 
+  const kernelProps = { getVideoElement, src, config, onMsgChange };
+
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <div className={`${styles.reactPlayer} ${className}`} ref={playerRef} {...playerProps}>
-      {'flvjs' === kernel && (
-        <Flvjs getVideoElement={getVideoElement} src={src} config={config} onMsgChange={onMsgChange} />
-      )}
-      {'hlsjs' === kernel && (
-        <Hlsjs getVideoElement={getVideoElement} src={src} config={config} onMsgChange={onMsgChange} />
-      )}
-      {'native' === kernel && <Native getVideoElement={getVideoElement} src={src} onMsgChange={onMsgChange} />}
+      {'flvjs' === kernel && <Flvjs {...kernelProps} />}
+      {'hlsjs' === kernel && <Hlsjs {...kernelProps} />}
+      {'native' === kernel && <Native {...kernelProps} />}
       <video
         className={styles.video}
         ref={videoRef}
         controls={'controls' === controls}
         type={type}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...videoProps}
         // useVideoState
         onCanPlay={stateProps.onCanPlay}
@@ -180,6 +175,7 @@ const ReactPlayer = (
           poster,
           // useVideoState
           loading: stateProps.loading,
+          prevented: stateProps.prevented,
           paused: stateProps.paused,
           ended: stateProps.ended,
           seeking: stateProps.seeking,
@@ -214,7 +210,6 @@ const ReactPlayer = (
 // FIXME: index.js:1437 Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?
 ReactPlayer.propTypes = {
   kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
-  // getCustomHooks: PropTypes.func,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
   onKernelError: PropTypes.func,
@@ -224,7 +219,6 @@ ReactPlayer.propTypes = {
   controls: PropTypes.oneOf([false, true, 'controls']),
   poster: PropTypes.string,
   muted: PropTypes.bool,
-  // volume: PropTypes.number,
   // autoPlay: PropTypes.bool,
 
   className: PropTypes.string,
@@ -263,6 +257,7 @@ ReactPlayer.propTypes = {
 ReactPlayer.defaultProps = {
   config: null,
   onKernelError: noop,
+  // onPlayPrevented: noop,
   // getCustomHooks: noop,
 
   src: '',

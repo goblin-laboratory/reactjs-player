@@ -78,7 +78,7 @@ export default ({ getVideoElement, src, config, onMsgChange }) => {
     }
     player.attachMediaElement(el);
     player.load();
-    player.play();
+    // player.play();
     player.on(global.flvjs.Events.ERROR, (type, detail) => {
       if (onMsgChangeRef && onMsgChangeRef.current) {
         onMsgChangeRef.current({ type, detail });

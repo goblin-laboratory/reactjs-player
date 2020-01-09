@@ -138,6 +138,14 @@ const App = React.memo(({ form }) => {
     [list],
   );
 
+  const onVideoEvent = React.useCallback(e => {
+    const log = console.log;
+    log(`e.type: ${e.type}`);
+    if ('durationchange' === e.type) {
+      log(`durationchange: ${e.target.duration}`);
+    }
+  }, []);
+
   // 接口测试
   const ref = React.useRef(null);
   const getPlayer = React.useCallback(() => ref && ref.current, []);
@@ -201,6 +209,27 @@ const App = React.memo(({ form }) => {
             src={src}
             poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/docs/logo128x128.png"
             videoProps={videoProps}
+            onCanPlay={onVideoEvent}
+            onDurationChange={onVideoEvent}
+            onPause={onVideoEvent}
+            onPlay={onVideoEvent}
+            onPlaying={onVideoEvent}
+            onEnded={onVideoEvent}
+            onSeeked={onVideoEvent}
+            onSeeking={onVideoEvent}
+            onCanPlayThrough={onVideoEvent}
+            onEmptied={onVideoEvent}
+            onEncrypted={onVideoEvent}
+            onError={onVideoEvent}
+            onLoadedData={onVideoEvent}
+            onLoadedMetadata={onVideoEvent}
+            onLoadStart={onVideoEvent}
+            onRateChange={onVideoEvent}
+            onStalled={onVideoEvent}
+            onSuspend={onVideoEvent}
+            onVolumeChange={onVideoEvent}
+            onWaiting={onVideoEvent}
+            onAbort={onVideoEvent}
           />
         )}
         {'flash' === info.kernel && (
