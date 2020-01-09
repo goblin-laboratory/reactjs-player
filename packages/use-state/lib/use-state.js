@@ -64,11 +64,8 @@ export default (
       if (ref.current.loading) {
         setLoading(false);
         onPlayClick();
-      } else {
-        setWaiting(false);
       }
-      setLoading(false);
-      onPlayClick(true);
+      setWaiting(false);
       onCanPlay(e);
     },
     [onCanPlay, onPlayClick],

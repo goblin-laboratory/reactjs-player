@@ -9,6 +9,7 @@ describe('useState:', () => {
     const { result } = renderHook(() => useState({ src: '' }, () => {}, () => {}));
 
     expect(result.current.loading).toBe(false);
+    expect(result.current.prevented).toBe(false);
     expect(result.current.paused).toBe(false);
     expect(result.current.ended).toBe(false);
     expect(result.current.seeking).toBe(false);
@@ -66,7 +67,11 @@ describe('useState:', () => {
     videoEl.play = () => {
       videoEl.dispatchEvent(new Event('play'));
       videoEl.dispatchEvent(new Event('waiting'));
+      return new Promise(resolve => {
+        resolve();
+      });
     };
+
     videoEl.pause = () => {
       videoEl.dispatchEvent(new Event('pause'));
     };
