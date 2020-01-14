@@ -199,28 +199,30 @@ const App = React.memo(({ form }) => {
             type={info.type}
             config={info.config || {}}
             src={src}
-            videoProps={videoProps}
-            onCanPlay={onVideoEvent}
-            onDurationChange={onVideoEvent}
-            onPause={onVideoEvent}
-            onPlay={onVideoEvent}
-            onPlaying={onVideoEvent}
-            onEnded={onVideoEvent}
-            onSeeked={onVideoEvent}
-            onSeeking={onVideoEvent}
-            onCanPlayThrough={onVideoEvent}
-            onEmptied={onVideoEvent}
-            onEncrypted={onVideoEvent}
-            onError={onVideoEvent}
-            onLoadedData={onVideoEvent}
-            onLoadedMetadata={onVideoEvent}
-            onLoadStart={onVideoEvent}
-            onRateChange={onVideoEvent}
-            onStalled={onVideoEvent}
-            onSuspend={onVideoEvent}
-            onVolumeChange={onVideoEvent}
-            onWaiting={onVideoEvent}
-            onAbort={onVideoEvent}
+            videoProps={{
+              ...videoProps,
+              onCanPlay: onVideoEvent,
+              onDurationChange: onVideoEvent,
+              onPause: onVideoEvent,
+              onPlay: onVideoEvent,
+              onPlaying: onVideoEvent,
+              onEnded: onVideoEvent,
+              onSeeked: onVideoEvent,
+              onSeeking: onVideoEvent,
+              onCanPlayThrough: onVideoEvent,
+              onEmptied: onVideoEvent,
+              onEncrypted: onVideoEvent,
+              onError: onVideoEvent,
+              onLoadedData: onVideoEvent,
+              onLoadedMetadata: onVideoEvent,
+              onLoadStart: onVideoEvent,
+              onRateChange: onVideoEvent,
+              onStalled: onVideoEvent,
+              onSuspend: onVideoEvent,
+              onVolumeChange: onVideoEvent,
+              onWaiting: onVideoEvent,
+              onAbort: onVideoEvent,
+            }}
           />
         )}
         {'flash' === info.kernel && (
