@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^9.1.3",
-    "@testing-library/react-hooks": "^2.0.1"
+    "@testing-library/react-hooks": "^3.2.1"
   },
   "private": false,
   "publishConfig": {
