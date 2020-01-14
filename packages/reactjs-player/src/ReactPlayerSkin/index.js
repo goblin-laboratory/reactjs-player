@@ -17,7 +17,6 @@ const ReactPlayerSkin = React.memo(
   ({
     live,
     src,
-    poster,
     prevented,
     loading,
     paused,
@@ -94,6 +93,10 @@ const ReactPlayerSkin = React.memo(
       return () => global.clearTimeout(id);
     }, [hiding, hovering, sliding, visible]);
 
+    const l = src && (loading || 0 === duration);
+
+    const playing = !prevented && !paused && !ended;
+
     return (
       <div className={styles.reactPlayerSkin}>
         <div
@@ -106,13 +109,12 @@ const ReactPlayerSkin = React.memo(
           onMouseMove={() => setHiding(false)}
           onClick={() => setHiding(false)}
         />
-        {poster && (!src || loading) && <img className={styles.poster} src={poster} alt="" />}
-        {(waiting || seeking) && !loading && (
+        {(waiting || seeking) && src && !loading && 0 !== duration && (
           <div className={styles.waiting}>
             <Icon type="loading" />
           </div>
         )}
-        {(prevented || paused || ended) && (
+        {src && !l && (prevented || paused || ended) && (
           <button type="button" className={styles.ended} onClick={onPlayClick}>
             <Icon type="play-circle" />
           </button>
@@ -134,21 +136,9 @@ const ReactPlayerSkin = React.memo(
           />
           <div className={styles.bar}>
             <div className={styles.flexItem}>
-              {ended && (
-                <button type="button" onClick={onPlayClick}>
-                  <Icon type="caret-right" />
-                </button>
-              )}
-              {paused && !ended && (
-                <button type="button" onClick={onPlayClick}>
-                  <Icon type="caret-right" />
-                </button>
-              )}
-              {!paused && !ended && (
-                <button type="button" onClick={onPauseClick}>
-                  <Icon type="pause" />
-                </button>
-              )}
+              <button type="button" onClick={playing ? onPauseClick : onPlayClick}>
+                <Icon type={playing ? 'pause' : 'caret-right'} />
+              </button>
               <span className={styles.volume}>
                 {(muted || 0 === volume) && (
                   <button type="button" onClick={onMutedClick}>
@@ -218,7 +208,7 @@ const ReactPlayerSkin = React.memo(
             )}
           </div>
         </div>
-        {(loading || (src && 0 === duration)) && !kernelMsg && (
+        {l && !kernelMsg && (
           <div className={styles.loading}>
             <Icon type="loading" />
           </div>
@@ -236,7 +226,6 @@ const ReactPlayerSkin = React.memo(
 ReactPlayerSkin.propTypes = {
   live: PropTypes.bool,
   src: PropTypes.string,
-  poster: PropTypes.string,
   prevented: PropTypes.bool.isRequired,
   // controls: PropTypes.bool.isRequired,
   // state
@@ -276,7 +265,6 @@ ReactPlayerSkin.propTypes = {
 ReactPlayerSkin.defaultProps = {
   live: false,
   src: '',
-  poster: '',
   buffered: null,
   kernelMsg: null,
 };

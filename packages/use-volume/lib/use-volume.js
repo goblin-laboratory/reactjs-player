@@ -1,48 +1,49 @@
 import React from 'react';
 
-export default (props, getVideoElement) => {
-  const { muted: mutedProp, onVolumeChange } = props;
-
-  const [muted, setMuted] = React.useState(mutedProp);
+export default (getVideoElement, m = false) => {
+  const [muted, setMuted] = React.useState(m);
   const [volume, setVolume] = React.useState(1);
 
-  const onVideoVolumeChange = React.useCallback(
-    e => {
-      const v = e.target.volume;
-      const m = 0 === v ? true : e.target.muted;
-      setVolume(v);
-      setMuted(m);
-      onVolumeChange(e);
-    },
-    [onVolumeChange],
-  );
+  const ref = React.useRef({ getVideoElement, muted, volume });
+
+  React.useEffect(() => {
+    ref.current.muted = muted;
+    ref.current.volume = volume;
+  }, [muted, volume]);
+
+  const onVolumeChange = React.useCallback(e => {
+    const v = e.target.volume;
+    setVolume(v);
+    setMuted(0 === v ? true : e.target.muted);
+  }, []);
 
   const onMutedClick = React.useCallback(() => {
-    const el = getVideoElement();
+    const el = ref.current.getVideoElement();
     if (el) {
-      el.muted = !muted;
-      if (0 === volume && muted) {
+      el.muted = !ref.current.muted;
+      if (0 === ref.current.volume && ref.current.muted) {
         el.volume = 1;
       }
     }
-  }, [getVideoElement, muted, volume]);
+  }, []);
 
-  const changeVolume = React.useCallback(
-    v => {
-      const el = getVideoElement();
-      if (el) {
-        el.volume = v;
-      }
-    },
-    [getVideoElement],
-  );
+  const changeVolume = React.useCallback(v => {
+    const el = ref.current.getVideoElement();
+    if (el) {
+      el.volume = v;
+    }
+  }, []);
 
-  return {
-    muted,
-    volume,
-    onMutedClick,
-    changeVolume,
-    // 媒体事件
-    onVolumeChange: onVideoVolumeChange,
-  };
+  React.useEffect(() => {
+    const el = ref.current.getVideoElement();
+    if (!el) {
+      return () => {};
+    }
+    el.addEventListener('volumechange', onVolumeChange);
+    return () => {
+      el.removeEventListener('volumechange', onVolumeChange);
+    };
+  }, [onVolumeChange]);
+
+  return { muted, volume, onMutedClick, changeVolume };
 };

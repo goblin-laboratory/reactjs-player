@@ -57,6 +57,7 @@
     "react-swf": "^1.0.7"
   },
   "dependencies": {
+    "@reactjs-player/use-autoplay": "^1.0.1",
     "@reactjs-player/use-flvjs": "^1.0.1",
     "@reactjs-player/use-fullscreen": "^1.0.0",
     "@reactjs-player/use-hlsjs": "^1.0.1",

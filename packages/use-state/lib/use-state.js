@@ -1,20 +1,6 @@
 import React from 'react';
 
-export default (
-  {
-    src,
-    onCanPlay = () => {},
-    onPause = () => {},
-    onPlay = () => {},
-    onPlaying = () => {},
-    onEnded = () => {},
-    onSeeked = () => {},
-    onSeeking = () => {},
-    onCanPlayThrough = () => {},
-    onWaiting = () => {},
-  },
-  getVideoElement,
-) => {
+export default (src, getVideoElement) => {
   const [loading, setLoading] = React.useState(false);
   const [prevented, setPrevented] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
@@ -46,7 +32,11 @@ export default (
       }
       el.play()
         .then(() => setPrevented(false))
-        .catch(() => setPrevented(true));
+        .catch(errMsg => {
+          const debug = global.console.error;
+          debug(`onPlayClick: ${errMsg}`);
+          setPrevented(true);
+        });
     }
     setPaused(false);
   }, []);
@@ -59,102 +49,74 @@ export default (
     setPaused(true);
   }, []);
 
-  const onVideoCanPlay = React.useCallback(
-    e => {
-      if (ref.current.loading) {
-        setLoading(false);
-        onPlayClick();
-      }
-      setWaiting(false);
-      onCanPlay(e);
-    },
-    [onCanPlay, onPlayClick],
-  );
+  const onCanPlay = React.useCallback(() => {
+    if (ref.current.loading) {
+      setLoading(false);
+      onPlayClick();
+    }
+    setWaiting(false);
+  }, [onPlayClick]);
 
-  const onVideoPause = React.useCallback(
-    e => {
-      setPaused(true);
-      onPause(e);
-    },
-    [onPause],
-  );
+  const onPause = React.useCallback(() => {
+    setPaused(true);
+  }, []);
 
-  const onVideoPlay = React.useCallback(
-    e => {
-      setPaused(false);
-      setEnded(false);
-      onPlay(e);
-    },
-    [onPlay],
-  );
+  const onPlay = React.useCallback(() => {
+    setPaused(false);
+    setEnded(false);
+  }, []);
 
-  const onVideoPlaying = React.useCallback(
-    e => {
-      setPaused(false);
-      setEnded(false);
-      onPlaying(e);
-    },
-    [onPlaying],
-  );
+  const onPlaying = React.useCallback(() => {
+    setPaused(false);
+    setEnded(false);
+  }, []);
 
-  const onVideoEnded = React.useCallback(
-    e => {
-      setEnded(true);
-      onEnded(e);
-    },
-    [onEnded],
-  );
+  const onEnded = React.useCallback(() => {
+    setEnded(true);
+  }, []);
 
-  const onVideoSeeked = React.useCallback(
-    e => {
-      setSeeking(false);
-      onSeeked(e);
-    },
-    [onSeeked],
-  );
+  const onSeeked = React.useCallback(() => {
+    setSeeking(false);
+  }, []);
 
-  const onVideoSeeking = React.useCallback(
-    e => {
-      setSeeking(true);
-      onSeeking(e);
-    },
-    [onSeeking],
-  );
+  const onSeeking = React.useCallback(() => {
+    setSeeking(true);
+  }, []);
 
-  const onVideoCanPlayThrough = React.useCallback(
-    e => {
-      setWaiting(false);
-      onCanPlayThrough(e);
-    },
-    [onCanPlayThrough],
-  );
+  const onCanPlayThrough = React.useCallback(() => {
+    setWaiting(false);
+  }, []);
 
-  const onVideoWaiting = React.useCallback(
-    e => {
-      setWaiting(true);
-      onWaiting(e);
-    },
-    [onWaiting],
-  );
+  const onWaiting = React.useCallback(() => {
+    setWaiting(true);
+  }, []);
 
-  return {
-    loading,
-    prevented,
-    paused,
-    ended,
-    seeking,
-    waiting,
-    onPauseClick,
-    onPlayClick,
-    // 媒体事件
-    onCanPlay: onVideoCanPlay,
-    onPause: onVideoPause,
-    onPlay: onVideoPlay,
-    onPlaying: onVideoPlaying,
-    onEnded: onVideoEnded,
-    onSeeked: onVideoSeeked,
-    onSeeking: onVideoSeeking,
-    onCanPlayThrough: onVideoCanPlayThrough,
-    onWaiting: onVideoWaiting,
-  };
+  React.useEffect(() => {
+    const el = ref.current.getVideoElement();
+    if (!el) {
+      return () => {};
+    }
+    el.addEventListener('canplay', onCanPlay);
+    el.addEventListener('pause', onPause);
+    el.addEventListener('play', onPlay);
+    el.addEventListener('playing', onPlaying);
+    el.addEventListener('ended', onEnded);
+    el.addEventListener('seeked', onSeeked);
+    el.addEventListener('seeking', onSeeking);
+    el.addEventListener('canplaythrough', onCanPlayThrough);
+    el.addEventListener('waiting', onWaiting);
+    return () => {
+      el.removeEventListener('canplay', onCanPlay);
+      el.removeEventListener('pause', onPause);
+      el.removeEventListener('play', onPlay);
+      el.removeEventListener('playing', onPlaying);
+      el.removeEventListener('ended', onEnded);
+      el.removeEventListener('seeked', onSeeked);
+      el.removeEventListener('seeking', onSeeking);
+      el.removeEventListener('canplaythrough', onCanPlayThrough);
+      el.removeEventListener('waiting', onWaiting);
+    };
+  }, [onCanPlay, onPause, onPlay, onPlaying, onEnded, onSeeked, onSeeking, onCanPlayThrough, onWaiting]);
+
+  return { loading, prevented, paused, ended, seeking, waiting, onPauseClick, onPlayClick };
 };

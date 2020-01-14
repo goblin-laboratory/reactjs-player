@@ -1,21 +1,25 @@
 import React from 'react';
 
-const noop = () => {};
-
-export default ({ src }, getVideoElement) => {
-  const [enabled, setEnabled] = React.useState(false);
+export default (src, getVideoElement) => {
+  const [enabled] = React.useState(!!document.pictureInPictureEnabled);
   const [pip, setPiP] = React.useState(false);
 
+  const ref = React.useRef({ src, getVideoElement });
+
+  // React.useEffect(() => {
+  //   setEnabled(!!document.pictureInPictureEnabled);
+  // }, []);
+
   React.useEffect(() => {
-    setEnabled(!!document.pictureInPictureEnabled);
-  }, []);
+    ref.current.src = src;
+  }, [src]);
 
   const requestPictureInPicture = React.useCallback(() => {
-    const el = getVideoElement();
-    if (el && el.requestPictureInPicture) {
+    const el = ref.current.getVideoElement();
+    if (el && el.requestPictureInPicture && ref.current.src) {
       el.requestPictureInPicture();
     }
-  }, [getVideoElement]);
+  }, []);
 
   const exitPictureInPicture = React.useCallback(() => {
     if (document.exitPictureInPicture) {
@@ -29,31 +33,26 @@ export default ({ src }, getVideoElement) => {
     }
   }, [src, pip, exitPictureInPicture]);
 
-  const onenterpictureinpicture = React.useCallback(() => {
+  const onEnterPictureInPicture = React.useCallback(() => {
     setPiP(true);
   }, []);
 
-  const onleavepictureinpicture = React.useCallback(() => {
+  const onLeavePictureInPicture = React.useCallback(() => {
     setPiP(false);
   }, []);
 
   React.useEffect(() => {
-    const el = getVideoElement();
+    const el = ref.current.getVideoElement();
     if (!el) {
-      return noop;
+      return () => {};
     }
-    el.addEventListener('enterpictureinpicture', onenterpictureinpicture);
-    el.addEventListener('leavepictureinpicture', onleavepictureinpicture);
+    el.addEventListener('enterpictureinpicture', onEnterPictureInPicture);
+    el.addEventListener('leavepictureinpicture', onLeavePictureInPicture);
     return () => {
-      el.removeEventListener('enterpictureinpicture', onenterpictureinpicture);
-      el.removeEventListener('leavepictureinpicture', onleavepictureinpicture);
+      el.removeEventListener('enterpictureinpicture', onEnterPictureInPicture);
+      el.removeEventListener('leavepictureinpicture', onLeavePictureInPicture);
     };
-  }, [getVideoElement, onenterpictureinpicture, onleavepictureinpicture]);
+  }, [onEnterPictureInPicture, onLeavePictureInPicture]);
 
-  return {
-    pictureInPictureEnabled: enabled,
-    pip,
-    requestPictureInPicture,
-    exitPictureInPicture,
-  };
+  return { pictureInPictureEnabled: enabled, pip, requestPictureInPicture, exitPictureInPicture };
 };

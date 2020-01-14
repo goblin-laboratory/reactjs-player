@@ -14,7 +14,6 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | --              | --       | --      | --                |
 | `src`           | `String` | `''`    |                   |
 | `type`          | `String` |         |                   |
-| `poster`        | `String` | `''`    |                   |
 | `controls`      | `Enum`   | `true`  |                   |
 | `muted`         | `Bool`   | `false` |                   |
 | `autoPlay`      | `Bool`   | `true`  | Not supported yet |
@@ -46,9 +45,10 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | Prop                 | Description                                          |
 | -------------------- | ---------------------------------------------------- |
 | `onKernelError`      | fire when flv.js / hls.js error                      |
-| `onFullscreenChange` | fire when `fullscreen` or `x5videofullscreen` change |
 | --                   | --                                                   |
-| `onCanPlay`          |                                                      |
+
+
+<!-- | `onCanPlay`          |                                                      |
 | `onDurationChange`   |                                                      |
 | `onTimeUpdate`       |                                                      |
 | `onPause`            |                                                      |
@@ -70,8 +70,9 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `onSuspend`          |                                                      |
 | `onVolumeChange`     |                                                      |
 | `onWaiting`          |                                                      |
-| `onAbort`            |                                                      |
+| `onAbort`            |                                                      | -->
 
+<!--
 ## Methods
 
 | Method            | Return Type | Description |
@@ -88,7 +89,7 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `getPlaybackRate` | `Number`    |             |
 | `setPlaybackRate` | ``          |
 | `isPiP`           | `Bool`      |             |
-| `isFullscreen`    | `Object`    |             |
+| `isFullscreen`    | `Object`    |             | -->
 
 > Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component
 
