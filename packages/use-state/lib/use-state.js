@@ -33,7 +33,7 @@ export default (src, getVideoElement) => {
       el.play()
         .then(() => setPrevented(false))
         .catch(errMsg => {
-          const debug = global.console.error;
+          const debug = console.error;
           debug(`onPlayClick: ${errMsg}`);
           setPrevented(true);
         });

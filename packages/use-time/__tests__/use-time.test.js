@@ -8,32 +8,14 @@ import {
 import useTime from '../lib/use-time';
 
 describe('useTime:', () => {
-  it('类型与默认值检查：回放', () => {
-    const { result } = renderHook(() => useTime({ src: '', live: false }, () => {}));
+  it('类型与默认值检查', () => {
+    const { result } = renderHook(() => useTime('', () => {}));
 
     expect(result.current.duration).toBe(0);
     expect(result.current.currentTime).toBe(0);
     expect(result.current.buffered).toBe(null);
 
     expect(typeof result.current.changeCurrentTime).toBe('function');
-
-    expect(typeof result.current.onDurationChange).toBe('function');
-    expect(typeof result.current.onTimeUpdate).toBe('function');
-    expect(typeof result.current.onProgress).toBe('function');
-  });
-
-  it('类型与默认值检查：直播', () => {
-    const { result } = renderHook(() => useTime({ src: '', live: true }, () => {}));
-
-    expect(result.current.duration).toBe(0);
-    expect(result.current.currentTime).toBe(0);
-    expect(result.current.buffered).toBe(null);
-
-    expect(typeof result.current.changeCurrentTime).toBe('function');
-
-    expect(typeof result.current.onDurationChange).toBe('function');
-    expect(typeof result.current.onTimeUpdate).toBe('function');
-    expect(typeof result.current.onProgress).toBe('function');
   });
 
   // it('时间：回放', () => {
@@ -51,29 +33,23 @@ describe('useTime:', () => {
   //     ),
   //   );
 
-  //   render(
-  //     <video
-  //       onDurationChange={result.current.onDurationChange}
-  //       onTimeUpdate={result.current.onTimeUpdate}
-  //       onProgress={result.current.onProgress}
-  //     />,
-  //   );
+  //   // eslint-disable-next-line jsx-a11y/media-has-caption
+  //   render(<video />);
   //   videoEl = document.querySelector('video');
 
   //   // TypeError: Cannot set property duration of [object HTMLMediaElement] which has only a getter
-  //   // const duration = 10 * 60 * 1000;
+  //   const duration = 10 * 60 * 1000;
   //   act(() => {
-  //     // videoEl.duration = duration;
+  //     videoEl.duration = duration;
   //     const e = new Event('durationchange', { target: videoEl });
   //     videoEl.dispatchEvent(e);
   //   });
-  //   // expect(result.current.duration).toBe(duration);
-  //   expect(result.current.duration).toBe(0);
+  //   expect(result.current.duration).toBe(duration);
+  //   // expect(result.current.duration).toBe(0);
 
-  //   // TypeError: Cannot set property buffered of [object HTMLMediaElement] which has only a getter
-  //   // const buffered = { length: 1, start: () => 0, end: () => 10 * 1000 };
+  //   const buffered = { length: 1, start: () => 0, end: () => 10 * 1000 };
   //   act(() => {
-  //     // videoEl.buffered = buffered;
+  //     videoEl.buffered = buffered;
   //     const e = new Event('progress', { target: videoEl });
   //     videoEl.dispatchEvent(e);
   //   });
