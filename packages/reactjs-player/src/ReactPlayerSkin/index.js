@@ -3,16 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Slider, Dropdown, Menu } from 'antd';
-import Icon from '@ant-design/icons';
-// import {
-//   Icon,
-//   LoadingOutlined,
-//   PlayCircleOutlined,
-//   CaretRightOutlined,
-//   PauseOutlined,
-//   FullscreenExitOutlined,
-//   FullscreenOutlined,
-// } from '@ant-design/icons';
+import Icon, {
+  LoadingOutlined,
+  PlayCircleOutlined,
+  CaretRightOutlined,
+  PauseOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
+} from '@ant-design/icons';
+
 import TimeSlider from '../TimeSlider';
 import 'antd/lib/tooltip/style/index.css';
 import 'antd/lib/slider/style/index.css';
@@ -22,15 +21,6 @@ import styles from './index.module.less';
 import { ReactComponent as MutedSvg } from './muted.svg';
 import { ReactComponent as UnmutedSvg } from './unmuted.svg';
 import bgImg from './bg.png';
-
-const {
-  LoadingOutlined,
-  PlayCircleOutlined,
-  CaretRightOutlined,
-  PauseOutlined,
-  FullscreenExitOutlined,
-  FullscreenOutlined,
-} = Icon;
 
 const ReactPlayerSkin = React.memo(
   ({
@@ -157,6 +147,7 @@ const ReactPlayerSkin = React.memo(
             <div className={styles.flexItem}>
               <button type="button" onClick={playing ? onPauseClick : onPlayClick}>
                 {playing ? <PauseOutlined /> : <CaretRightOutlined />}
+                {/* <CaretRightOutlined /> */}
               </button>
               <span className={styles.volume}>
                 {(muted || 0 === volume) && (

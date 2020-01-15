@@ -5,13 +5,13 @@ import flvjs from 'flv.js';
 import { Form, Select, Input, Button, Tabs, Descriptions } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
-import ReactPlayer from 'reactjs-player';
+import ReactjsPlayer from 'reactjs-player';
 import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
 import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
 import blank16x9 from './blank16x9.png';
 import './App.css';
 
-const GrindPlayer = ReactPlayer.GrindPlayer;
+const GrindPlayer = ReactjsPlayer.GrindPlayer;
 
 const delay = timeout =>
   new Promise(resolve => {
@@ -103,7 +103,7 @@ const App = React.memo(() => {
   const [src, setSrc] = React.useState('');
   const [videoProps, setVideoProps] = React.useState(null);
 
-  const form = Form.useForm();
+  const [form] = Form.useForm();
 
   React.useEffect(() => {
     const ua = UAParser(global.navigator.userAgent);
@@ -157,25 +157,14 @@ const App = React.memo(() => {
         <Form
           className="form"
           layout="inline"
+          form={form}
           onFinish={onSubmit}
-          initialValue={{
-            type: info.key,
-            src:
-              'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+          initialValues={{
+            type: list[0].key,
+            src: list[0].src,
           }}
         >
-          <Form.Item className="type">
-            {/* {form.getFieldDecorator('type', {
-              initialValue: info.key,
-            })(
-              <Select onChange={onChange}>
-                {list.map(it => (
-                  <Select.Option key={it.key} value={it.key}>
-                    {it.key}
-                  </Select.Option>
-                ))}
-              </Select>,
-            )} */}
+          <Form.Item className="type" name="type">
             <Select onChange={onChange}>
               {list.map(it => (
                 <Select.Option key={it.key} value={it.key}>
@@ -184,11 +173,7 @@ const App = React.memo(() => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item className="src">
-            {/* {form.getFieldDecorator('src', {
-              initialValue:
-                'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-            })(<Input />)} */}
+          <Form.Item className="src" name="src">
             <Input />
           </Form.Item>
           <Form.Item className="submit">
@@ -201,7 +186,7 @@ const App = React.memo(() => {
       <main className="main">
         <img className="blankImg" src={blank16x9} alt="" />
         {'flash' !== info.kernel && (
-          <ReactPlayer
+          <ReactjsPlayer
             live={info.live}
             kernel={info.kernel}
             type={info.type}
