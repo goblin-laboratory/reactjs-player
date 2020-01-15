@@ -13,7 +13,8 @@
     "deploy": "lerna run deploy",
     "version": "lerna version --conventional-commits",
     "release": "lerna publish --conventional-commits",
-    "release-from-git": "lerna publish from-git"
+    "release-from-git": "lerna publish from-git",
+    "nrm": "nrm use taobao"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",

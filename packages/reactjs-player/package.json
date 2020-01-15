@@ -31,11 +31,11 @@
     "@svgr/rollup": "^4.3.0",
     "@testing-library/react": "^9.1.1",
     "@testing-library/react-hooks": "^1.1.0",
-    "antd": "^3.20.1",
+    "antd": "^4.0.0-rc.0",
     "less": "^3.9.0",
     "numeral": "^2.0.6",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-swf": "^1.0.7",
     "react-test-renderer": "^16.8.6",
     "rollup": "^1.15.6",
@@ -49,11 +49,12 @@
     "rollup-plugin-url": "^2.2.2"
   },
   "peerDependencies": {
-    "antd": "^3.19.3",
+    "@ant-design/icons": "^4.0.0-alpha.19",
+    "antd": "^4.0.0-rc.0",
     "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-swf": "^1.0.7"
   },
   "dependencies": {

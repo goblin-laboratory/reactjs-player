@@ -2,7 +2,8 @@ import React from 'react';
 import UAParser from 'ua-parser-js';
 import Hls from 'hls.js';
 import flvjs from 'flv.js';
-import { Form, Select, Input, Button, Tabs, Descriptions, Icon } from 'antd';
+import { Form, Select, Input, Button, Tabs, Descriptions } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactPlayer from 'reactjs-player';
 import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
@@ -98,11 +99,13 @@ const getSupportedList = ua => {
   return list;
 };
 
-const App = React.memo(({ form }) => {
+const App = React.memo(() => {
   const [list, setList] = React.useState(null);
   const [info, setInfo] = React.useState(null);
   const [src, setSrc] = React.useState('');
   const [videoProps, setVideoProps] = React.useState(null);
+
+  const form = Form.useForm();
 
   React.useEffect(() => {
     const ua = UAParser(global.navigator.userAgent);
@@ -152,18 +155,15 @@ const App = React.memo(({ form }) => {
         <Form
           className="form"
           layout="inline"
-          onSubmit={e => {
-            e.preventDefault();
-            form.validateFieldsAndScroll((errors, values) => {
-              if (errors) {
-                return;
-              }
-              onSubmit(values);
-            });
+          onFinish={onSubmit}
+          initialValue={{
+            type: info.key,
+            src:
+              'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
           }}
         >
           <Form.Item className="type">
-            {form.getFieldDecorator('type', {
+            {/* {form.getFieldDecorator('type', {
               initialValue: info.key,
             })(
               <Select onChange={onChange}>
@@ -173,13 +173,21 @@ const App = React.memo(({ form }) => {
                   </Select.Option>
                 ))}
               </Select>,
-            )}
+            )} */}
+            <Select onChange={onChange}>
+              {list.map(it => (
+                <Select.Option key={it.key} value={it.key}>
+                  {it.key}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item className="src">
-            {form.getFieldDecorator('src', {
+            {/* {form.getFieldDecorator('src', {
               initialValue:
                 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-            })(<Input />)}
+            })(<Input />)} */}
+            <Input />
           </Form.Item>
           <Form.Item className="submit">
             <Button type="primary" htmlType="submit">
@@ -237,7 +245,7 @@ const App = React.memo(({ form }) => {
           </Tabs>
           <div className="asideFooter">
             <a href="https://github.com/goblin-laboratory/reactjs-player">
-              <Icon type="github" />
+              <GithubOutlined />
               &nbsp; Github
             </a>
           </div>
@@ -248,4 +256,4 @@ const App = React.memo(({ form }) => {
   );
 });
 
-export default Form.create()(App);
+export default App;

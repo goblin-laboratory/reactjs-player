@@ -2,7 +2,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import { Icon, Slider, Dropdown, Menu } from 'antd';
+import { Slider, Dropdown, Menu } from 'antd';
+import Icon from '@ant-design/icons';
+// import {
+//   Icon,
+//   LoadingOutlined,
+//   PlayCircleOutlined,
+//   CaretRightOutlined,
+//   PauseOutlined,
+//   FullscreenExitOutlined,
+//   FullscreenOutlined,
+// } from '@ant-design/icons';
 import TimeSlider from '../TimeSlider';
 import 'antd/lib/tooltip/style/index.css';
 import 'antd/lib/slider/style/index.css';
@@ -12,6 +22,15 @@ import styles from './index.module.less';
 import { ReactComponent as MutedSvg } from './muted.svg';
 import { ReactComponent as UnmutedSvg } from './unmuted.svg';
 import bgImg from './bg.png';
+
+const {
+  LoadingOutlined,
+  PlayCircleOutlined,
+  CaretRightOutlined,
+  PauseOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
+} = Icon;
 
 const ReactPlayerSkin = React.memo(
   ({
@@ -108,12 +127,12 @@ const ReactPlayerSkin = React.memo(
         {poster && (!src || loading) && <img className={styles.poster} src={poster} alt="" />}
         {(waiting || seeking) && !loading && (
           <div className={styles.waiting}>
-            <Icon type="loading" />
+            <LoadingOutlined />
           </div>
         )}
         {ended && (
           <button type="button" className={styles.ended} onClick={onPlayClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </button>
         )}
         <div
@@ -135,17 +154,17 @@ const ReactPlayerSkin = React.memo(
             <div className={styles.flexItem}>
               {ended && (
                 <button type="button" onClick={onPlayClick}>
-                  <Icon type="caret-right" />
+                  <CaretRightOutlined />
                 </button>
               )}
               {paused && !ended && (
                 <button type="button" onClick={onPlayClick}>
-                  <Icon type="caret-right" />
+                  <CaretRightOutlined />
                 </button>
               )}
               {!paused && !ended && (
                 <button type="button" onClick={onPauseClick}>
-                  <Icon type="pause" />
+                  <PauseOutlined />
                 </button>
               )}
               <span className={styles.volume}>
@@ -207,19 +226,19 @@ const ReactPlayerSkin = React.memo(
             )}
             {fullscreen && (
               <button type="button" onClick={exitFullscreen}>
-                <Icon type="fullscreen-exit" />
+                <FullscreenExitOutlined />
               </button>
             )}
             {!fullscreen && (
               <button type="button" onClick={requestFullscreen}>
-                <Icon type="fullscreen" />
+                <FullscreenOutlined />
               </button>
             )}
           </div>
         </div>
         {loading && !kernelMsg && (
           <div className={styles.loading}>
-            <Icon type="loading" />
+            <LoadingOutlined />
           </div>
         )}
         {kernelMsg && (
