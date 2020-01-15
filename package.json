@@ -11,8 +11,8 @@
     "build": "lerna run build",
     "predeploy": "lerna run build",
     "deploy": "lerna run deploy",
-    "version": "lerna version --conventional-commits",
-    "release": "lerna publish --conventional-commits",
+    "ver": "lerna version --conventional-commits",
+    "pub": "lerna publish --conventional-commits",
     "release-from-git": "lerna publish from-git",
     "nrm": "nrm use taobao"
   },

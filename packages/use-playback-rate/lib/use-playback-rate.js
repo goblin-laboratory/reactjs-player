@@ -1,17 +1,11 @@
 import React from 'react';
 
-export default (props, getVideoElement) => {
-  const { live, onRateChange } = props;
-
+export default (live, getVideoElement) => {
   const [playbackRate, setPlaybackRate] = React.useState(1);
 
-  const onVideoRateChange = React.useCallback(
-    e => {
-      setPlaybackRate(e.target.playbackRate);
-      onRateChange(e);
-    },
-    [onRateChange],
-  );
+  const onRateChange = React.useCallback(e => {
+    setPlaybackRate(e.target.playbackRate);
+  }, []);
 
   const changePlaybackRate = React.useCallback(
     r => {
@@ -31,10 +25,16 @@ export default (props, getVideoElement) => {
     }
   }, [live, changePlaybackRate]);
 
-  return {
-    playbackRate,
-    changePlaybackRate,
-    // 媒体事件
-    onRateChange: onVideoRateChange,
-  };
+  React.useEffect(() => {
+    const el = getVideoElement();
+    if (!el) {
+      return () => {};
+    }
+    el.addEventListener('ratechange', onRateChange);
+    return () => {
+      el.removeEventListener('ratechange', onRateChange);
+    };
+  }, [getVideoElement, onRateChange]);
+
+  return { playbackRate, changePlaybackRate };
 };

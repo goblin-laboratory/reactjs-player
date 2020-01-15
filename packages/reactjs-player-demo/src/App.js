@@ -11,8 +11,6 @@ import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
 import blank16x9 from './blank16x9.png';
 import './App.css';
 
-// import Interface from './components/Interface';
-const Interface = React.lazy(() => import('./components/Interface'));
 const GrindPlayer = ReactPlayer.GrindPlayer;
 
 const delay = timeout =>
@@ -92,7 +90,7 @@ const getSupportedList = ua => {
       key: 'native',
       kernel: 'native',
       live: false,
-      src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+      src: 'http://cdn.tencent.neigou.com/Public/Home/mobileAsset/images/tencent2018/video5.mp4',
       type: 'video/mp4',
     },
   );
@@ -141,9 +139,13 @@ const App = React.memo(() => {
     [list],
   );
 
-  // 接口测试
-  const ref = React.useRef(null);
-  const getPlayer = React.useCallback(() => ref && ref.current, []);
+  const onVideoEvent = React.useCallback(e => {
+    const log = console.log;
+    log(`e.type: ${e.type}`);
+    // if ('durationchange' === e.type) {
+    //   log(`durationchange: ${e.target.duration}`);
+    // }
+  }, []);
 
   if (!list || 0 === list.length) {
     return null;
@@ -200,15 +202,35 @@ const App = React.memo(() => {
         <img className="blankImg" src={blank16x9} alt="" />
         {'flash' !== info.kernel && (
           <ReactPlayer
-            ref={ref}
             live={info.live}
             kernel={info.kernel}
             type={info.type}
             config={info.config || {}}
-            // {...info}
             src={src}
-            poster="https://raw.githubusercontent.com/goblin-laboratory/reactjs-player/master/docs/logo128x128.png"
-            videoProps={videoProps}
+            videoProps={{
+              ...videoProps,
+              onCanPlay: onVideoEvent,
+              onDurationChange: onVideoEvent,
+              onPause: onVideoEvent,
+              onPlay: onVideoEvent,
+              onPlaying: onVideoEvent,
+              onEnded: onVideoEvent,
+              onSeeked: onVideoEvent,
+              onSeeking: onVideoEvent,
+              onCanPlayThrough: onVideoEvent,
+              onEmptied: onVideoEvent,
+              onEncrypted: onVideoEvent,
+              onError: onVideoEvent,
+              onLoadedData: onVideoEvent,
+              onLoadedMetadata: onVideoEvent,
+              onLoadStart: onVideoEvent,
+              onRateChange: onVideoEvent,
+              onStalled: onVideoEvent,
+              onSuspend: onVideoEvent,
+              onVolumeChange: onVideoEvent,
+              onWaiting: onVideoEvent,
+              onAbort: onVideoEvent,
+            }}
           />
         )}
         {'flash' === info.kernel && (
@@ -234,12 +256,7 @@ const App = React.memo(() => {
             </Tabs.TabPane>
             <Tabs.TabPane tab="接口测试" key="interface">
               <Scrollbars>
-                <div className="infoTabPane">
-                  {/* <Interface getPlayer={getPlayer} src={src} /> */}
-                  <React.Suspense fallback={null}>
-                    <Interface getPlayer={getPlayer} src={src} />
-                  </React.Suspense>
-                </div>
+                <div className="infoTabPane">暂时删除接口测试功能</div>
               </Scrollbars>
             </Tabs.TabPane>
           </Tabs>

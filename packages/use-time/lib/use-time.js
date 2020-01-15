@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default (props, getVideoElement) => {
-  const { src, onDurationChange, onTimeUpdate, onProgress } = props;
-
+export default (src, getVideoElement) => {
   const [duration, setDuration] = React.useState(0);
   const [currentTime, setCurrentTime] = React.useState(0);
   const [buffered, setBuffered] = React.useState(null);
+  const ref = React.useRef({ src, getVideoElement });
   const updateRef = React.useRef(null);
 
   React.useEffect(() => {
+    ref.current.src = src;
     setDuration(0);
     setCurrentTime(0);
     setBuffered(null);
@@ -18,16 +18,10 @@ export default (props, getVideoElement) => {
     };
   }, [src]);
 
-  const onVideoDurationChange = React.useCallback(
-    e => {
-      const v = e.target.duration;
-      if (!Number.isNaN(v) && global.Infinity > v) {
-        setDuration(v);
-      }
-      onDurationChange(e);
-    },
-    [onDurationChange],
-  );
+  const onDurationChange = React.useCallback(e => {
+    const v = e.target.duration;
+    setDuration(Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0);
+  }, []);
 
   const update = React.useCallback(timestamp => {
     if (!updateRef || !updateRef.current) {
@@ -48,7 +42,7 @@ export default (props, getVideoElement) => {
     updateRef.current = null;
   }, []);
 
-  const onVideoTimeUpdate = React.useCallback(
+  const onTimeUpdate = React.useCallback(
     e => {
       if (updateRef && !Number.isNaN(e.target.currentTime)) {
         if (updateRef.current) {
@@ -58,50 +52,49 @@ export default (props, getVideoElement) => {
           global.requestAnimationFrame(update);
         }
       }
-      onTimeUpdate(e);
     },
-    [onTimeUpdate, update],
+    [update],
   );
 
-  const onVideoProgress = React.useCallback(
+  const onProgress = React.useCallback(
     e => {
-      if (updateRef) {
-        if (updateRef.current) {
-          updateRef.current.buffered = e.target.buffered;
-        } else {
-          updateRef.current = { buffered: e.target.buffered, timestamp: performance.now() };
-          global.requestAnimationFrame(update);
-        }
+      if (updateRef.current) {
+        updateRef.current.buffered = e.target.buffered;
+      } else {
+        updateRef.current = { buffered: e.target.buffered, timestamp: performance.now() };
+        global.requestAnimationFrame(update);
       }
-      onProgress(e);
     },
-    [onProgress, update],
+    [update],
   );
 
-  const changeCurrentTime = React.useCallback(
-    t => {
-      const v = parseFloat(t);
-      if (Number.isNaN(v)) {
-        return;
-      }
-      const el = getVideoElement();
-      if (el) {
-        el.currentTime = v;
-      }
-      updateRef.current = null;
-      setCurrentTime(v);
-    },
-    [getVideoElement],
-  );
+  const changeCurrentTime = React.useCallback(t => {
+    const v = parseFloat(t);
+    if (Number.isNaN(v)) {
+      return;
+    }
+    const el = ref.current.getVideoElement();
+    if (el) {
+      el.currentTime = v;
+    }
+    updateRef.current = null;
+    setCurrentTime(v);
+  }, []);
 
-  return {
-    duration,
-    currentTime,
-    buffered,
-    changeCurrentTime,
-    // 媒体事件
-    onDurationChange: onVideoDurationChange,
-    onTimeUpdate: onVideoTimeUpdate,
-    onProgress: onVideoProgress,
-  };
+  React.useEffect(() => {
+    const el = ref.current.getVideoElement();
+    if (!el) {
+      return () => {};
+    }
+    el.addEventListener('durationchange', onDurationChange);
+    el.addEventListener('timeupdate', onTimeUpdate);
+    el.addEventListener('progress', onProgress);
+    return () => {
+      el.removeEventListener('canplay', onDurationChange);
+      el.removeEventListener('pause', onTimeUpdate);
+      el.removeEventListener('progress', onProgress);
+    };
+  }, [onDurationChange, onTimeUpdate, onProgress]);
+
+  return { duration, currentTime, buffered, changeCurrentTime };
 };

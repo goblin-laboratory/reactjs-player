@@ -1,11 +1,11 @@
 {
-  "name": "@reactjs-player/use-state",
+  "name": "@reactjs-player/use-autoplay",
   "version": "1.0.2",
   "description": "> TODO: description",
   "author": "xiaosong <kunkkaco@gmail.com>",
-  "homepage": "https://github.com/goblin-laboratory/reactjs-player/blob/master/packages/use-state/README.md",
+  "homepage": "https://github.com/goblin-laboratory/react-player#readme",
   "license": "ISC",
-  "main": "lib/use-state.js",
+  "main": "lib/use-autoplay.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -15,16 +15,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goblin-laboratory/reactjs-player.git"
+    "url": "git+https://github.com/goblin-laboratory/react-player.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
-    "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
+    "url": "https://github.com/goblin-laboratory/react-player/issues"
   },
   "peerDependencies": {
-    "react": "^16.12.0"
+    "react": "^16.9.0"
   },
   "devDependencies": {
     "@testing-library/react": "^9.1.3",

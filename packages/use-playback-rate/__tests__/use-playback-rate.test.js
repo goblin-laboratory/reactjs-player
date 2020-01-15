@@ -6,18 +6,16 @@ import usePlaybackRate from '../lib/use-playback-rate';
 
 describe('usePlaybackRate:', () => {
   it('类型与默认值检查', () => {
-    const { result } = renderHook(() => usePlaybackRate({ live: true, onRateChange: () => {} }, () => {}));
+    const { result } = renderHook(() => usePlaybackRate(true, () => {}));
 
     expect(result.current.playbackRate).toBe(1);
 
     expect(typeof result.current.changePlaybackRate).toBe('function');
-
-    expect(typeof result.current.onRateChange).toBe('function');
   });
 
   it('changePlaybackRate', () => {
     let videoEl = null;
-    const { result } = renderHook(() => usePlaybackRate({ live: false, onRateChange: () => {} }, () => videoEl));
+    const { result } = renderHook(() => usePlaybackRate(false, () => videoEl));
     // eslint-disable-next-line jsx-a11y/media-has-caption
     render(<video onRateChange={result.current.onRateChange} />);
     videoEl = document.querySelector('video');

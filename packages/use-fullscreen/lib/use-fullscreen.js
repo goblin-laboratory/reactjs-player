@@ -3,9 +3,8 @@ import React from 'react';
 // eslint-disable-next-line no-console
 const debug = console.error;
 
-export default ({ onFullscreenChange = () => {} }, getVideoElement, getPlayerElement) => {
+export default (getVideoElement, getPlayerElement) => {
   const [fullscreen, setFullscreen] = React.useState(false);
-  // const [x5videofullscreen, setX5videofullscreen] = React.useState(false);
 
   const requestFullscreen = React.useCallback(() => {
     const el = getPlayerElement();
@@ -55,34 +54,14 @@ export default ({ onFullscreenChange = () => {} }, getVideoElement, getPlayerEle
 
   React.useEffect(() => {
     document.addEventListener('fullscreenchange', onChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', onChange);
-    };
-  }, [onChange]);
-
-  React.useEffect(() => {
     document.addEventListener('webkitfullscreenchange', onChange);
-    return () => {
-      document.removeEventListener('webkitfullscreenchange', onChange);
-    };
-  }, [onChange]);
-
-  React.useEffect(() => {
     document.onmsfullscreenchange = onChange;
     return () => {
+      document.removeEventListener('fullscreenchange', onChange);
+      document.removeEventListener('webkitfullscreenchange', onChange);
       document.onmsfullscreenchange = null;
     };
   }, [onChange]);
 
-  // fullscreen 状态变化通知
-  React.useEffect(() => {
-    onFullscreenChange({ fullscreen });
-    return () => {};
-  }, [fullscreen, onFullscreenChange]);
-
-  return {
-    fullscreen,
-    requestFullscreen,
-    exitFullscreen,
-  };
+  return { fullscreen, requestFullscreen, exitFullscreen };
 };

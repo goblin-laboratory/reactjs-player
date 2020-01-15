@@ -73,11 +73,11 @@ export default ({ getVideoElement, src, config, onMsgChange }) => {
         player.loadSource(ref.current);
       }
     });
-    player.once(global.Hls.Events.MANIFEST_PARSED, () => {
-      if (currentSrc === ref.current) {
-        el.play();
-      }
-    });
+    // player.once(global.Hls.Events.MANIFEST_PARSED, () => {
+    //   if (currentSrc === ref.current) {
+    //     el.play();
+    //   }
+    // });
     player.on(global.Hls.Events.ERROR, (e, info) => {
       if (onMsgChangeRef && onMsgChangeRef.current && info && info.fatal) {
         onMsgChangeRef.current({ type: info.type, detail: info.details });
