@@ -12,7 +12,7 @@
     "version": {
       "allowBranch": [
         "master",
-        "lerna"
+        "develop"
       ],
       "message": "chore(release): publish %s"
     },
