@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2...v1.0.3) (2020-01-19)
+
+
+### Bug Fixes
+
+* 暂时删除未通过的单元测试测试项 ([cb45ef8](https://github.com/goblin-laboratory/reactjs-player/commit/cb45ef8))
+
+
+
+
+
 ## [1.0.2](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2-alpha.0...v1.0.2) (2020-01-15)
 
 **Note:** Version bump only for package @reactjs-player/use-volume
