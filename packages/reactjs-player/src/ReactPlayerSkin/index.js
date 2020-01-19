@@ -93,7 +93,7 @@ const ReactPlayerSkin = React.memo(
       return () => global.clearTimeout(id);
     }, [hiding, hovering, sliding, visible]);
 
-    const l = src && (loading || 0 === duration);
+    const l = loading || (src && 0 === duration && 0 === currentTime);
 
     const playing = !prevented && !paused && !ended;
 
@@ -109,7 +109,7 @@ const ReactPlayerSkin = React.memo(
           onMouseMove={() => setHiding(false)}
           onClick={() => setHiding(false)}
         />
-        {(waiting || seeking) && src && !loading && 0 !== duration && (
+        {src && (waiting || seeking) && !l && (
           <div className={styles.waiting}>
             <Icon type="loading" />
           </div>
