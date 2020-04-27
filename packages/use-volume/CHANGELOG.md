@@ -10,6 +10,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * 升级依赖 ([eab8611](https://github.com/goblin-laboratory/reactjs-player/commit/eab8611))
 * 同步 master 修改 ([3460a2f](https://github.com/goblin-laboratory/reactjs-player/commit/3460a2f))
+## [1.0.3](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2...v1.0.3) (2020-01-19)
+
+
+### Bug Fixes
+
+* 暂时删除未通过的单元测试测试项 ([cb45ef8](https://github.com/goblin-laboratory/reactjs-player/commit/cb45ef8))
 
 
 

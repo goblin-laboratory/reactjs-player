@@ -20,8 +20,12 @@ export default (src, getVideoElement) => {
     ref.current.loaded = true;
     if (ref.current.src) {
       console.log(`onDocumentClick: ${ref.current.src}`);
-      el.src = ref.current.src;
-      el.load();
+      if (0 === el.currentTime) {
+        el.src = ref.current.src;
+        el.play();
+      }
+      // el.src = ref.current.src;
+      // el.load();
     } else {
       console.log(`onDocumentClick: play empty src`);
       el.src = '';

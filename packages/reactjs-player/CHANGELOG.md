@@ -10,6 +10,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * 升级依赖 ([eab8611](https://github.com/goblin-laboratory/reactjs-player/commit/eab8611))
 * 同步 master 修改 ([3460a2f](https://github.com/goblin-laboratory/reactjs-player/commit/3460a2f))
+## [1.0.4](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.3...v1.0.4) (2020-02-17)
+
+**Note:** Version bump only for package reactjs-player
+
+
+
+
+
+## [1.0.3](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2...v1.0.3) (2020-01-19)
+
+
+### Bug Fixes
+
+* 解决直播时一直显示 loading 问题 ([e22805a](https://github.com/goblin-laboratory/reactjs-player/commit/e22805a))
 
 
 
