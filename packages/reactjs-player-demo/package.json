@@ -23,8 +23,8 @@
     "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.0-rc.0",
-    "antd": "^4.0.0-rc.1",
+    "@ant-design/icons": "^4.0.6",
+    "antd": "^4.1.5",
     "flv.js": "^1.5.0",
     "hls.js": "^0.13.1",
     "numeral": "^2.0.6",
