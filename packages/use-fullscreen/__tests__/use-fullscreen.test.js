@@ -6,7 +6,13 @@ import useFullscreen from '../lib/use-fullscreen';
 
 describe('useFullscreen:', () => {
   it('类型与默认值检查', () => {
-    const { result } = renderHook(() => useFullscreen({ onFullscreenChange: () => {} }, () => {}, () => {}));
+    const { result } = renderHook(() =>
+      useFullscreen(
+        { onFullscreenChange: () => {} },
+        () => {},
+        () => {},
+      ),
+    );
 
     expect(result.current.fullscreen).toBe(false);
     expect(typeof result.current.requestFullscreen).toBe('function');
@@ -29,7 +35,13 @@ describe('useFullscreen:', () => {
     expect(!!videoEl.requestFullscreen).toBe(true);
     expect(!!document.exitFullscreen).toBe(true);
 
-    const { result } = renderHook(() => useFullscreen({ onFullscreenChange: () => {} }, () => videoEl, () => videoEl));
+    const { result } = renderHook(() =>
+      useFullscreen(
+        { onFullscreenChange: () => {} },
+        () => videoEl,
+        () => videoEl,
+      ),
+    );
 
     act(() => {
       result.current.requestFullscreen();
@@ -43,7 +55,13 @@ describe('useFullscreen:', () => {
   });
 
   it('unmounted', () => {
-    const { result } = renderHook(() => useFullscreen({ onFullscreenChange: () => {} }, () => {}, () => {}));
+    const { result } = renderHook(() =>
+      useFullscreen(
+        { onFullscreenChange: () => {} },
+        () => {},
+        () => {},
+      ),
+    );
 
     act(() => {
       result.current.requestFullscreen();
