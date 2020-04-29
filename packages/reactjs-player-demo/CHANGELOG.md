@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.1](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.4...v1.1.0-alpha.1) (2020-04-29)
+
+
+### Features
+
+* GrindPlayer 状态处理 ([8629c89](https://github.com/goblin-laboratory/reactjs-player/commit/8629c89c14f18417d7c331d13004a866080631c2))
+* 升级依赖 ([dd08aea](https://github.com/goblin-laboratory/reactjs-player/commit/dd08aeaa91c3c979ff3c37939e1745a83d2a6a57))
+
+
+
+# [1.1.0-alpha.0](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2...v1.1.0-alpha.0) (2020-01-16)
+
+
+### Features
+
+* 升级依赖 ([eab8611](https://github.com/goblin-laboratory/reactjs-player/commit/eab861132ef762f2e9e326cabe7a8e8f70446a11))
+* 同步 master 修改 ([3460a2f](https://github.com/goblin-laboratory/reactjs-player/commit/3460a2f9df46741e32c3e4fb17169a1d2db20065))
+
+
+
+
+
 # [1.1.0-alpha.0](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2...v1.1.0-alpha.0) (2020-01-16)
 
 

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.1](https://github.com/goblin-laboratory/react-player/compare/v1.0.4...v1.1.0-alpha.1) (2020-04-29)
+
+
+### Features
+
+* 升级依赖 ([dd08aea](https://github.com/goblin-laboratory/react-player/commit/dd08aeaa91c3c979ff3c37939e1745a83d2a6a57))
+
+
+
+# [1.1.0-alpha.0](https://github.com/goblin-laboratory/react-player/compare/v1.0.2...v1.1.0-alpha.0) (2020-01-16)
+
+
+### Features
+
+* 同步 master 修改 ([3460a2f](https://github.com/goblin-laboratory/react-player/commit/3460a2f9df46741e32c3e4fb17169a1d2db20065))
+
+
+
+
+
 # [1.1.0-alpha.0](https://github.com/goblin-laboratory/react-player/compare/v1.0.2...v1.1.0-alpha.0) (2020-01-16)
 
 
