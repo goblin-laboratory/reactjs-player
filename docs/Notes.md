@@ -45,7 +45,7 @@
 ## 预发布版本
 
 ```bash
-lerna publish --conventional-commits --preid=alpha --tag=next
+lerna publish --conventional-commits --preid alpha --dist-tag next
 ```
 
 ### 版本号
@@ -54,4 +54,4 @@ lerna publish --conventional-commits --preid=alpha --tag=next
 
 ### 指定分支
 
-增加 `--tag=next` 参数
+增加 `--dist-tag next` 参数
