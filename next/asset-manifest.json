@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/reactjs-player/static/css/main.e5ef45ea.chunk.css",
+    "main.js": "/reactjs-player/static/js/main.d9847602.chunk.js",
+    "main.js.map": "/reactjs-player/static/js/main.d9847602.chunk.js.map",
+    "runtime-main.js": "/reactjs-player/static/js/runtime-main.5a095fa8.js",
+    "runtime-main.js.map": "/reactjs-player/static/js/runtime-main.5a095fa8.js.map",
+    "static/css/2.5736315d.chunk.css": "/reactjs-player/static/css/2.5736315d.chunk.css",
+    "static/js/2.ae994e37.chunk.js": "/reactjs-player/static/js/2.ae994e37.chunk.js",
+    "static/js/2.ae994e37.chunk.js.map": "/reactjs-player/static/js/2.ae994e37.chunk.js.map",
+    "index.html": "/reactjs-player/index.html",
+    "precache-manifest.0f5bb215664689faacd31384a4ba5f14.js": "/reactjs-player/precache-manifest.0f5bb215664689faacd31384a4ba5f14.js",
+    "service-worker.js": "/reactjs-player/service-worker.js",
+    "static/css/2.5736315d.chunk.css.map": "/reactjs-player/static/css/2.5736315d.chunk.css.map",
+    "static/css/main.e5ef45ea.chunk.css.map": "/reactjs-player/static/css/main.e5ef45ea.chunk.css.map",
+    "static/js/2.ae994e37.chunk.js.LICENSE": "/reactjs-player/static/js/2.ae994e37.chunk.js.LICENSE",
+    "static/media/GrindPlayer.swf": "/reactjs-player/static/media/GrindPlayer.4a087377.swf",
+    "static/media/flashlsOSMF.swf": "/reactjs-player/static/media/flashlsOSMF.f801e174.swf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5a095fa8.js",
+    "static/css/2.5736315d.chunk.css",
+    "static/js/2.ae994e37.chunk.js",
+    "static/css/main.e5ef45ea.chunk.css",
+    "static/js/main.d9847602.chunk.js"
+  ]
+}
