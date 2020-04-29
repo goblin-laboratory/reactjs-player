@@ -12,6 +12,7 @@ import blank16x9 from './blank16x9.png';
 import './App.css';
 
 const GrindPlayer = ReactjsPlayer.GrindPlayer;
+// const ReactPlayerContext = ReactjsPlayer.ReactPlayerContext;
 
 const delay = timeout =>
   new Promise(resolve => {

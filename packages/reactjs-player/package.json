@@ -51,6 +51,7 @@
   "peerDependencies": {
     "@ant-design/icons": "^4.0.6",
     "antd": "^4.1.5",
+    "fbemitter": "^2.1.1",
     "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
