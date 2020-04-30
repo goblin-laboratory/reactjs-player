@@ -47,52 +47,6 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 | `onKernelError`      | fire when flv.js / hls.js error                      |
 | --                   | --                                                   |
 
-
-<!-- | `onCanPlay`          |                                                      |
-| `onDurationChange`   |                                                      |
-| `onTimeUpdate`       |                                                      |
-| `onPause`            |                                                      |
-| `onPlay`             |                                                      |
-| `onPlaying`          |                                                      |
-| `onEnded`            |                                                      |
-| `onSeeked`           |                                                      |
-| `onSeeking`          |                                                      |
-| `onCanPlayThrough`   |                                                      |
-| `onEmptied`          |                                                      |
-| `onEncrypted`        |                                                      |
-| `onError`            |                                                      |
-| `onLoadedData`       |                                                      |
-| `onLoadedMetadata`   |                                                      |
-| `onLoadStart`        |                                                      |
-| `onProgress`         |                                                      |
-| `onRateChange`       |                                                      |
-| `onStalled`          |                                                      |
-| `onSuspend`          |                                                      |
-| `onVolumeChange`     |                                                      |
-| `onWaiting`          |                                                      |
-| `onAbort`            |                                                      | -->
-
-<!--
-## Methods
-
-| Method            | Return Type | Description |
-| ----------------- | ----------- | ----------- |
-| `isPlaying`       | `Bool`      |             |
-| `getDuration`     | `Number`    |             |
-| `getCurrentTime`  | `Number`    |             |
-| `setCurrentTime`  | ``          |
-| `getBuffered`     | `Object`    |             |
-| `getVolume`       | `Number`    |             |
-| `setVolume`       | ``          |
-| `isMuted`         | `Number`    |             |
-| `toggleMute`      | ``          |
-| `getPlaybackRate` | `Number`    |             |
-| `setPlaybackRate` | ``          |
-| `isPiP`           | `Bool`      |             |
-| `isFullscreen`    | `Object`    |             | -->
-
-> Warning: forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component
-
 ## GrindPlayer
 
 | Prop             | Type     | Default                                                   | Description |

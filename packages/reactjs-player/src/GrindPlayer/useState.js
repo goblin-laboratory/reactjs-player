@@ -8,45 +8,45 @@ export default ({ ref, dispatch }) => {
       }
       ref.current.player.invoker('play2');
     }
-    dispatch({ type: 'save', payload: { paused: false } });
+    dispatch({ type: 'update', payload: { paused: false } });
   }, [ref, dispatch]);
 
   const onPauseClick = React.useCallback(() => {
     if (ref.current.player) {
       ref.current.player.invoker('pause');
     }
-    dispatch({ type: 'save', payload: { paused: true } });
+    dispatch({ type: 'update', payload: { paused: true } });
   }, [ref, dispatch]);
 
   const onCanPlayThrough = React.useCallback(() => {
     if (ref.current.loading) {
-      dispatch({ type: 'save', payload: { loading: false } });
+      dispatch({ type: 'update', payload: { loading: false } });
     }
-    dispatch({ type: 'save', payload: { waiting: false } });
+    dispatch({ type: 'update', payload: { waiting: false } });
   }, [ref, dispatch]);
 
   const onPause = React.useCallback(() => {
-    dispatch({ type: 'save', payload: { paused: true } });
+    dispatch({ type: 'update', payload: { paused: true } });
   }, [dispatch]);
 
   const onPlaying = React.useCallback(() => {
-    dispatch({ type: 'save', payload: { paused: false, ended: false } });
+    dispatch({ type: 'update', payload: { paused: false, ended: false } });
   }, [dispatch]);
 
   const onEnded = React.useCallback(() => {
-    dispatch({ type: 'save', payload: { ended: true } });
+    dispatch({ type: 'update', payload: { ended: true } });
   }, [dispatch]);
 
   const onSeeked = React.useCallback(() => {
-    dispatch({ type: 'save', payload: { seeking: false } });
+    dispatch({ type: 'update', payload: { seeking: false } });
   }, [dispatch]);
 
   const onSeeking = React.useCallback(() => {
-    dispatch({ type: 'save', payload: { seeking: true } });
+    dispatch({ type: 'update', payload: { seeking: true } });
   }, [dispatch]);
 
   const onWaiting = React.useCallback(() => {
-    dispatch({ type: 'save', payload: { waiting: true } });
+    dispatch({ type: 'update', payload: { waiting: true } });
   }, [dispatch]);
 
   React.useEffect(() => {
