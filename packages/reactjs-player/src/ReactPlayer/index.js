@@ -54,7 +54,7 @@ const ReactjsPlayer = ({
   const playbackRateProps = usePlaybackRate(live, getVideoElement);
   const piPProps = usePiP(src, getVideoElement);
   const fullscreenProps = useFullscreen(getVideoElement, getPlayerElement);
-  useAutoplay(src, getVideoElement);
+  useAutoplay(src, getVideoElement, stateProps.prevented);
 
   const kernelProps = { getVideoElement, src, config, onMsgChange };
 
