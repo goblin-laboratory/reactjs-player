@@ -5,7 +5,7 @@ let index = 0;
 
 class GrindPlayer {
   /**
-   * 创建 RTC 实例
+   * 创建 GrindPlayer 实例
    */
   constructor(id) {
     this.id = id;
@@ -105,7 +105,7 @@ const onJSBridge = (playerId, event, data) => {
   if (!emitter) {
     emitter = new EventEmitter();
   }
-  console.error(`${event}: ${JSON.stringify(data)}`);
+  console.log(`${event}: ${JSON.stringify(data)}`);
   emitter.emit(`${playerId}.${event}`, data);
 };
 
