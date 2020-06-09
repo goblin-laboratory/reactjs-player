@@ -49,7 +49,7 @@ export default (src, getVideoElement) => {
       return;
     }
     const { timestamp: t, ...payload } = ref.current.temp;
-    if (200 > timestamp - t) {
+    if (250 > timestamp - t) {
       global.requestAnimationFrame(update);
       return;
     }
@@ -80,7 +80,7 @@ export default (src, getVideoElement) => {
       if (ref.current.temp) {
         ref.current.temp.buffered = e.target.buffered;
       } else {
-        ref.current.temp = { currentTime: e.target.buffered, timestamp: performance.now() };
+        ref.current.temp = { buffered: e.target.buffered, timestamp: performance.now() };
         global.requestAnimationFrame(update);
       }
     },
