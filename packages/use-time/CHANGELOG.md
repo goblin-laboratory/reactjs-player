@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/goblin-laboratory/reactjs-player/compare/v1.1.0-alpha.1...v1.1.0) (2020-06-09)
+
+
+### Bug Fixes
+
+* 修复异常更新 currentTime 问题 ([1a5eebf](https://github.com/goblin-laboratory/reactjs-player/commit/1a5eebf512ced7cd0591da2ae3ec9e379abd4ffc))
+
+
+
+
+
 # [1.1.0-alpha.1](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.4...v1.1.0-alpha.1) (2020-04-29)
 
 

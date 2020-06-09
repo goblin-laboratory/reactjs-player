@@ -1,6 +1,6 @@
 {
   "name": "@reactjs-player/use-volume",
-  "version": "1.1.0-alpha.1",
+  "version": "1.1.0",
   "description": "> TODO: description",
   "author": "xiaosong <kunkkaco@gmail.com>",
   "homepage": "https://github.com/goblin-laboratory/reactjs-player/blob/master/packages/use-volume/README.md",

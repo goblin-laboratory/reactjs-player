@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/goblin-laboratory/reactjs-player/compare/v1.1.0-alpha.1...v1.1.0) (2020-06-09)
+
+
+### Bug Fixes
+
+* 修复录像播放完成后点击播放按钮式异常问题 ([c92b91b](https://github.com/goblin-laboratory/reactjs-player/commit/c92b91b969d8a15ebd4860819c6f8c7960821a6b))
+* 降低 GrindPlayer 日志等级 ([70aba4f](https://github.com/goblin-laboratory/reactjs-player/commit/70aba4f1b4dcbe940fd4a14df1e848685cd43d6e))
+
+
+
+
+
 # [1.1.0-alpha.1](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.4...v1.1.0-alpha.1) (2020-04-29)
 
 
