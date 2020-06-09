@@ -4,7 +4,7 @@
   "version": "1.1.0-alpha.1",
   "description": "> TODO: description",
   "author": "xiaosong <kunkkaco@gmail.com>",
-  "homepage": "https://goblin-laboratory.github.io/reactjs-player/next/",
+  "homepage": "https://goblin-laboratory.github.io/reactjs-player/",
   "license": "MIT",
   "main": "src/index.js",
   "repository": {
@@ -17,7 +17,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build -e next"
+    "deploy": "gh-pages -d build"
   },
   "bugs": {
     "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
