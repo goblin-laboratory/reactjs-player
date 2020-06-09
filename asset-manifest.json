@@ -1,19 +1,27 @@
 {
   "files": {
     "main.css": "/reactjs-player/static/css/main.e5ef45ea.chunk.css",
-    "main.js": "/reactjs-player/static/js/main.87605cb9.chunk.js",
-    "main.js.map": "/reactjs-player/static/js/main.87605cb9.chunk.js.map",
-    "runtime~main.js": "/reactjs-player/static/js/runtime~main.efa1a5aa.js",
-    "runtime~main.js.map": "/reactjs-player/static/js/runtime~main.efa1a5aa.js.map",
-    "static/css/2.a5da9b6a.chunk.css": "/reactjs-player/static/css/2.a5da9b6a.chunk.css",
-    "static/js/2.03c94794.chunk.js": "/reactjs-player/static/js/2.03c94794.chunk.js",
-    "static/js/2.03c94794.chunk.js.map": "/reactjs-player/static/js/2.03c94794.chunk.js.map",
+    "main.js": "/reactjs-player/static/js/main.12a26ca5.chunk.js",
+    "main.js.map": "/reactjs-player/static/js/main.12a26ca5.chunk.js.map",
+    "runtime-main.js": "/reactjs-player/static/js/runtime-main.51b92072.js",
+    "runtime-main.js.map": "/reactjs-player/static/js/runtime-main.51b92072.js.map",
+    "static/css/2.9bf4c232.chunk.css": "/reactjs-player/static/css/2.9bf4c232.chunk.css",
+    "static/js/2.1ad0cb67.chunk.js": "/reactjs-player/static/js/2.1ad0cb67.chunk.js",
+    "static/js/2.1ad0cb67.chunk.js.map": "/reactjs-player/static/js/2.1ad0cb67.chunk.js.map",
     "index.html": "/reactjs-player/index.html",
-    "precache-manifest.18714b2da4dc956c0b7bf667e64981bc.js": "/reactjs-player/precache-manifest.18714b2da4dc956c0b7bf667e64981bc.js",
+    "precache-manifest.cd0aae20007e893234eda4418a0be87f.js": "/reactjs-player/precache-manifest.cd0aae20007e893234eda4418a0be87f.js",
     "service-worker.js": "/reactjs-player/service-worker.js",
-    "static/css/2.a5da9b6a.chunk.css.map": "/reactjs-player/static/css/2.a5da9b6a.chunk.css.map",
+    "static/css/2.9bf4c232.chunk.css.map": "/reactjs-player/static/css/2.9bf4c232.chunk.css.map",
     "static/css/main.e5ef45ea.chunk.css.map": "/reactjs-player/static/css/main.e5ef45ea.chunk.css.map",
+    "static/js/2.1ad0cb67.chunk.js.LICENSE.txt": "/reactjs-player/static/js/2.1ad0cb67.chunk.js.LICENSE.txt",
     "static/media/GrindPlayer.swf": "/reactjs-player/static/media/GrindPlayer.4a087377.swf",
     "static/media/flashlsOSMF.swf": "/reactjs-player/static/media/flashlsOSMF.f801e174.swf"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.51b92072.js",
+    "static/css/2.9bf4c232.chunk.css",
+    "static/js/2.1ad0cb67.chunk.js",
+    "static/css/main.e5ef45ea.chunk.css",
+    "static/js/main.12a26ca5.chunk.js"
+  ]
 }
