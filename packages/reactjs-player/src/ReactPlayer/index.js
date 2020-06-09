@@ -17,7 +17,7 @@ import ReactPlayerSkinWapper from '../ReactPlayerSkinWapper';
 import ReactPlayerContext from '../ReactPlayerContext';
 import styles from './index.module.less';
 
-const ReactPlayer = ({
+const ReactjsPlayer = ({
   kernel,
   live,
   config = null,
@@ -54,7 +54,7 @@ const ReactPlayer = ({
   const playbackRateProps = usePlaybackRate(live, getVideoElement);
   const piPProps = usePiP(src, getVideoElement);
   const fullscreenProps = useFullscreen(getVideoElement, getPlayerElement);
-  useAutoplay(src, getVideoElement);
+  useAutoplay(src, getVideoElement, stateProps.prevented);
 
   const kernelProps = { getVideoElement, src, config, onMsgChange };
 
@@ -86,7 +86,7 @@ const ReactPlayer = ({
   );
 };
 
-ReactPlayer.propTypes = {
+ReactjsPlayer.propTypes = {
   kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
@@ -105,7 +105,7 @@ ReactPlayer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
-ReactPlayer.defaultProps = {
+ReactjsPlayer.defaultProps = {
   config: null,
   onKernelError: () => {},
 
@@ -121,4 +121,4 @@ ReactPlayer.defaultProps = {
   children: null,
 };
 
-export default React.memo(ReactPlayer);
+export default React.memo(ReactjsPlayer);

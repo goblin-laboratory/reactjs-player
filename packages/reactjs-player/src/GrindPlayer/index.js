@@ -3,32 +3,51 @@ import PropTypes from 'prop-types';
 import ReactSWF from 'react-swf';
 import './GrindPlayer.swf';
 import './flashlsOSMF.swf';
+import ReactPlayerContext from '../ReactPlayerContext';
+import useGrindPlayer from './useGrindPlayer';
+import useState from './useState';
+import useTime from './useTime';
+import useVolume from './useVolume';
 import styles from './index.module.less';
 
 const GrindPlayer = ({ live, src, type, grindPlayerSwf, flashlsOSMFSwf }) => {
-  if (!src) {
-    return <div className={styles.grindPlayer} />;
-  }
-  const flashVars = {
-    src,
-    autoPlay: true,
-    bufferTime: 0.5,
-    streamType: live ? 'live' : 'recorded',
-  };
-  if ('application/x-mpegURL' === type) {
-    flashVars.plugin_hls = flashlsOSMFSwf;
-  }
+  const { ref, dispatch, id, javascriptCallbackFunction, ...state } = useGrindPlayer({ src });
+
+  const stateProps = useState({ ref, dispatch });
+  const timeProps = useTime({ ref, dispatch });
+  const volumeProps = useVolume({ ref, dispatch });
+
   return (
     <div className={styles.grindPlayer}>
-      <ReactSWF
-        src={grindPlayerSwf}
-        width="100%"
-        height="100%"
-        wmode="opaque"
-        allowFullScreen
-        allowScriptAccess="always"
-        bgcolor="#000000"
-        flashVars={flashVars}
+      {src && (
+        <ReactSWF
+          id={id}
+          src={grindPlayerSwf}
+          width="100%"
+          height="100%"
+          wmode="opaque"
+          allowFullScreen
+          allowScriptAccess="always"
+          bgcolor="#000000"
+          flashVars={{
+            src,
+            autoPlay: true,
+            bufferTime: 0.5,
+            streamType: live ? 'live' : 'recorded',
+            plugin_hls: 'application/x-mpegURL' === type ? flashlsOSMFSwf : undefined,
+            javascriptCallbackFunction,
+          }}
+        />
+      )}
+      <ReactPlayerContext.Provider
+        value={{
+          live,
+          src,
+          ...state,
+          ...stateProps,
+          ...timeProps,
+          ...volumeProps,
+        }}
       />
     </div>
   );
@@ -48,4 +67,4 @@ GrindPlayer.defaultProps = {
   flashlsOSMFSwf: 'http://unpkg.com/reactjs-player/dist/flashlsOSMF.swf',
 };
 
-export default GrindPlayer;
+export default React.memo(GrindPlayer);

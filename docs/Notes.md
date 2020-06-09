@@ -9,6 +9,7 @@
 - TCPlayerLite : https://cloud.tencent.com/document/product/454/7503
 
 ## 测试源
+
 - https://bitmovin.com/mpeg-dash-hls-examples-sample-streams/
 
 ## 参考资料
@@ -33,10 +34,24 @@
 
 - 当音频/视频处于加载过程中时，会依次发生以下事件：
 
->- loadstart
->- durationchange
->- loadedmetadata
->- loadeddata
->- progress
->- canplay
->- canplaythrough
+> - loadstart
+> - durationchange
+> - loadedmetadata
+> - loadeddata
+> - progress
+> - canplay
+> - canplaythrough
+
+## 预发布版本
+
+```bash
+lerna publish --conventional-commits --preid alpha --dist-tag next
+```
+
+### 版本号
+
+增加 `--preid alpha` 或 `--preid beta` 参数
+
+### 指定分支
+
+增加 `--dist-tag next` 参数

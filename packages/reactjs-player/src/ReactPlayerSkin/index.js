@@ -1,8 +1,16 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import { Icon, Slider, Dropdown, Menu } from 'antd';
+import { Slider, Dropdown, Menu } from 'antd';
+import Icon, {
+  LoadingOutlined,
+  PlayCircleOutlined,
+  CaretRightOutlined,
+  PauseOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
+} from '@ant-design/icons';
+
 import TimeSlider from '../TimeSlider';
 import 'antd/lib/tooltip/style/index.css';
 import 'antd/lib/slider/style/index.css';
@@ -111,12 +119,12 @@ const ReactPlayerSkin = React.memo(
         />
         {src && (waiting || seeking) && !l && (
           <div className={styles.waiting}>
-            <Icon type="loading" />
+            <LoadingOutlined />
           </div>
         )}
         {src && !l && (prevented || paused || ended) && (
           <button type="button" className={styles.ended} onClick={onPlayClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </button>
         )}
         <div
@@ -137,7 +145,8 @@ const ReactPlayerSkin = React.memo(
           <div className={styles.bar}>
             <div className={styles.flexItem}>
               <button type="button" onClick={playing ? onPauseClick : onPlayClick}>
-                <Icon type={playing ? 'pause' : 'caret-right'} />
+                {playing ? <PauseOutlined /> : <CaretRightOutlined />}
+                {/* <CaretRightOutlined /> */}
               </button>
               <span className={styles.volume}>
                 {(muted || 0 === volume) && (
@@ -198,19 +207,19 @@ const ReactPlayerSkin = React.memo(
             )}
             {fullscreen && (
               <button type="button" onClick={exitFullscreen}>
-                <Icon type="fullscreen-exit" />
+                <FullscreenExitOutlined />
               </button>
             )}
             {!fullscreen && (
               <button type="button" onClick={requestFullscreen}>
-                <Icon type="fullscreen" />
+                <FullscreenOutlined />
               </button>
             )}
           </div>
         </div>
         {l && !kernelMsg && (
           <div className={styles.loading}>
-            <Icon type="loading" />
+            <LoadingOutlined />
           </div>
         )}
         {kernelMsg && (

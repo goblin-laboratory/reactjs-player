@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import { PlayCircleOutlined } from '@ant-design/icons';
 import './index.css';
 
 const Interface = React.memo(({ getPlayer, src }) => {
@@ -192,91 +192,91 @@ const Interface = React.memo(({ getPlayer, src }) => {
         <tr>
           <td>isPlaying</td>
           <td className="testAction" onClick={onIsPlayingClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{isPlayingResult}</td>
         </tr>
         <tr>
           <td>getDuration</td>
           <td className="testAction" onClick={onGetDurationClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{getDurationResult}</td>
         </tr>
         <tr>
           <td>getCurrentTime</td>
           <td className="testAction" onClick={onGetCurrentTimeClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{getCurrentTimeResult}</td>
         </tr>
         <tr>
           <td>setCurrentTime</td>
           <td className="testAction" onClick={onSetCurrentTimeClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{setCurrentTimeResult}</td>
         </tr>
         <tr>
           <td>getBuffered</td>
           <td className="testAction" onClick={onGetBufferedClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{getBufferedResult}</td>
         </tr>
         <tr>
           <td>getVolume</td>
           <td className="testAction" onClick={onGetVolumeClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{getVolumeResult}</td>
         </tr>
         <tr>
           <td>setVolume</td>
           <td className="testAction" onClick={onSetVolumeClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{setVolumeResult}</td>
         </tr>
         <tr>
           <td>isMuted</td>
           <td className="testAction" onClick={onIsMutedClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{isMutedResult}</td>
         </tr>
         <tr>
           <td>toggleMute</td>
           <td className="testAction" onClick={onToggleMuteClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{toggleMuteResult}</td>
         </tr>
         <tr>
           <td>getPlaybackRate</td>
           <td className="testAction" onClick={onGetPlaybackRateClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{getPlaybackRateResult}</td>
         </tr>
         <tr>
           <td>setPlaybackRate</td>
           <td className="testAction" onClick={onSetPlaybackRateClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{setPlaybackRateResult}</td>
         </tr>
         <tr>
           <td>isPiP</td>
           <td className="testAction" onClick={onIsPiPClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{isPiPResult}</td>
         </tr>
         <tr>
           <td>isFullscreen</td>
           <td className="testAction" onClick={onIsFullscreenClick}>
-            <Icon type="play-circle" />
+            <PlayCircleOutlined />
           </td>
           <td>{isFullscreenResult}</td>
         </tr>

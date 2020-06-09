@@ -24,6 +24,7 @@ export default (getVideoElement, m = false) => {
       if (0 === ref.current.volume && ref.current.muted) {
         el.volume = 1;
       }
+      // setMuted(el.muted);
     }
   }, []);
 
