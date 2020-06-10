@@ -30,11 +30,15 @@ export default (src, getVideoElement) => {
       if (ref.current.ended) {
         el.currentTime = 0;
       }
-      el.play()
+      const promise = el.play();
+      if (!promise || !promise.then) {
+        return;
+      }
+      promise
         .then(() => setPrevented(false))
         .catch(errMsg => {
           const debug = console.error;
-          debug(`onPlayClick: ${errMsg}`);
+          debug(`播放被阻止: ${errMsg}`);
           setPrevented(true);
         });
     }
