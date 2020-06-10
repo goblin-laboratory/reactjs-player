@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/goblin-laboratory/react-player/compare/v1.1.2...v1.1.3) (2020-06-10)
+
+
+### Bug Fixes
+
+* 修复 IE11 脚本错误 ([0128951](https://github.com/goblin-laboratory/react-player/commit/0128951ac34a319233430d6398fbaa6d44cd5856))
+
+
+
+
+
 ## [1.1.2](https://github.com/goblin-laboratory/react-player/compare/v1.1.1...v1.1.2) (2020-06-10)
 
 **Note:** Version bump only for package reactjs-player-next
