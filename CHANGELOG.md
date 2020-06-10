@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/goblin-laboratory/react-player/compare/v1.1.0...v1.1.1) (2020-06-10)
+
+
+### Bug Fixes
+
+* 修复 onPlayClick 触发时控制台报错问题 ([6b50627](https://github.com/goblin-laboratory/react-player/commit/6b5062770df9cd9c07aba0061c95d178105094ba))
+
+
+
+
+
 # [1.1.0](https://github.com/goblin-laboratory/react-player/compare/v1.1.0-alpha.1...v1.1.0) (2020-06-09)
 
 
