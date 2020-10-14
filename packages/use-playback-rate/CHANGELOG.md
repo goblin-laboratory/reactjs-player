@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.4...v1.0.5) (2020-10-14)
+
+
+### Bug Fixes
+
+* 删除不通过的用例 ([1730ec7](https://github.com/goblin-laboratory/reactjs-player/commit/1730ec7))
+
+
+
+
+
 ## [1.0.2](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.2-alpha.0...v1.0.2) (2020-01-15)
 
 **Note:** Version bump only for package @reactjs-player/use-playback-rate
