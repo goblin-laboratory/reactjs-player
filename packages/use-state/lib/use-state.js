@@ -67,6 +67,7 @@ export default (src, getVideoElement) => {
   }, []);
 
   const onPlaying = React.useCallback(() => {
+    setPrevented(false);
     setPaused(false);
     setEnded(false);
   }, []);

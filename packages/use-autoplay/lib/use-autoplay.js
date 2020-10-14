@@ -1,11 +1,12 @@
 import React from 'react';
 
-export default (src, getVideoElement) => {
+export default (src, getVideoElement, prevented) => {
   const ref = React.useRef({ src, getVideoElement, loaded: false });
 
   React.useEffect(() => {
     ref.current.src = src;
-  }, [src]);
+    ref.current.prevented = prevented;
+  }, [src, prevented]);
 
   // 手机端自动播放
   const onDocumentClick = React.useCallback(() => {
@@ -14,22 +15,20 @@ export default (src, getVideoElement) => {
       return;
     }
     document.removeEventListener('click', onDocumentClick);
+    if (ref.current.prevented) {
+      el.play();
+      ref.current.loaded = true;
+      return;
+    }
     if (ref.current.loaded) {
       return;
     }
     ref.current.loaded = true;
-    if (ref.current.src) {
-      console.log(`onDocumentClick: ${ref.current.src}`);
-      if (0 === el.currentTime) {
-        el.src = ref.current.src;
-        el.play();
-      }
-      // el.src = ref.current.src;
-      // el.load();
-    } else {
-      console.log(`onDocumentClick: play empty src`);
+    if (!ref.current.src) {
       el.src = '';
-      el.play().catch(() => {});
+      try {
+        el.play();
+      } catch (e) {}
       el.pause();
     }
   }, []);
