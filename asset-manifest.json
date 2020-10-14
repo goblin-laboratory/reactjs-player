@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/reactjs-player/static/css/main.e5ef45ea.chunk.css",
-    "main.js": "/reactjs-player/static/js/main.5797e82a.chunk.js",
-    "main.js.map": "/reactjs-player/static/js/main.5797e82a.chunk.js.map",
+    "main.js": "/reactjs-player/static/js/main.ddc612bb.chunk.js",
+    "main.js.map": "/reactjs-player/static/js/main.ddc612bb.chunk.js.map",
     "runtime-main.js": "/reactjs-player/static/js/runtime-main.51b92072.js",
     "runtime-main.js.map": "/reactjs-player/static/js/runtime-main.51b92072.js.map",
-    "static/css/2.9bf4c232.chunk.css": "/reactjs-player/static/css/2.9bf4c232.chunk.css",
-    "static/js/2.1ad0cb67.chunk.js": "/reactjs-player/static/js/2.1ad0cb67.chunk.js",
-    "static/js/2.1ad0cb67.chunk.js.map": "/reactjs-player/static/js/2.1ad0cb67.chunk.js.map",
+    "static/css/2.8840cf9d.chunk.css": "/reactjs-player/static/css/2.8840cf9d.chunk.css",
+    "static/js/2.7343085c.chunk.js": "/reactjs-player/static/js/2.7343085c.chunk.js",
+    "static/js/2.7343085c.chunk.js.map": "/reactjs-player/static/js/2.7343085c.chunk.js.map",
     "index.html": "/reactjs-player/index.html",
-    "precache-manifest.51d153cadd8e2d46e759fbddeaa0ab1a.js": "/reactjs-player/precache-manifest.51d153cadd8e2d46e759fbddeaa0ab1a.js",
+    "precache-manifest.41360994e21b9e61bf34a704c67d6032.js": "/reactjs-player/precache-manifest.41360994e21b9e61bf34a704c67d6032.js",
     "service-worker.js": "/reactjs-player/service-worker.js",
-    "static/css/2.9bf4c232.chunk.css.map": "/reactjs-player/static/css/2.9bf4c232.chunk.css.map",
+    "static/css/2.8840cf9d.chunk.css.map": "/reactjs-player/static/css/2.8840cf9d.chunk.css.map",
     "static/css/main.e5ef45ea.chunk.css.map": "/reactjs-player/static/css/main.e5ef45ea.chunk.css.map",
-    "static/js/2.1ad0cb67.chunk.js.LICENSE.txt": "/reactjs-player/static/js/2.1ad0cb67.chunk.js.LICENSE.txt",
+    "static/js/2.7343085c.chunk.js.LICENSE.txt": "/reactjs-player/static/js/2.7343085c.chunk.js.LICENSE.txt",
     "static/media/GrindPlayer.swf": "/reactjs-player/static/media/GrindPlayer.4a087377.swf",
     "static/media/flashlsOSMF.swf": "/reactjs-player/static/media/flashlsOSMF.f801e174.swf"
   },
   "entrypoints": [
     "static/js/runtime-main.51b92072.js",
-    "static/css/2.9bf4c232.chunk.css",
-    "static/js/2.1ad0cb67.chunk.js",
+    "static/css/2.8840cf9d.chunk.css",
+    "static/js/2.7343085c.chunk.js",
     "static/css/main.e5ef45ea.chunk.css",
-    "static/js/main.5797e82a.chunk.js"
+    "static/js/main.ddc612bb.chunk.js"
   ]
 }
