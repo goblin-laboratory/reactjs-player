@@ -93,12 +93,14 @@ const ReactPlayerSkin = React.memo(
       return () => global.clearTimeout(id);
     }, [hiding, hovering, sliding, visible]);
 
-    const l = loading || (src && 0 === duration && 0 === currentTime);
+    // const l = loading || (src && 0 === duration && 0 === currentTime);
+    const l = loading || (src && 0 === duration && 0 === currentTime && !prevented);
 
     const playing = !prevented && !paused && !ended;
 
     return (
       <div className={styles.reactPlayerSkin}>
+        {src && prevented && <div className={styles.preventedTip}>视频播放被阻止</div>}
         <div
           className={hiding ? styles.hiddenControlsBg : styles.controlsBg}
           style={{ backgroundImage: `url(${bgImg})` }}

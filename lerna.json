@@ -12,7 +12,8 @@
     "version": {
       "allowBranch": [
         "master",
-        "lerna"
+        "lerna",
+        "feat/autoplay"
       ],
       "message": "chore(release): publish %s"
     },
