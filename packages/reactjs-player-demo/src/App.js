@@ -37,15 +37,6 @@ const getSupportedList = ua => {
   global.flvjs = flvjs;
 
   const list = [];
-  if (Hls.isSupported()) {
-    list.push({
-      key: 'hlsjs',
-      kernel: 'hlsjs',
-      live: false,
-      src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-      type: 'application/x-mpegURL',
-    });
-  }
   if (flvjs.isSupported()) {
     const featureList = flvjs.getFeatureList();
     if (featureList.networkStreamIO) {
@@ -53,7 +44,7 @@ const getSupportedList = ua => {
         key: 'flvjs',
         kernel: 'flvjs',
         live: true,
-        src: '',
+        src: 'http://192.168.0.221/flv_srs/quick/OAyEgozBSTqNC4Ou8SZk_A.flv',
         type: 'video/x-flv',
         config: {
           isLive: true,
@@ -65,6 +56,16 @@ const getSupportedList = ua => {
       });
     }
   }
+  if (Hls.isSupported()) {
+    list.push({
+      key: 'hlsjs',
+      kernel: 'hlsjs',
+      live: false,
+      src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+      type: 'application/x-mpegURL',
+    });
+  }
+
   // mac OS 没有测试环境，暂且认为没有问题
   if ('Mac OS' === ua.os.name) {
     list.push(
@@ -103,8 +104,30 @@ const App = React.memo(() => {
   const [info, setInfo] = React.useState(null);
   const [src, setSrc] = React.useState('');
   const [videoProps, setVideoProps] = React.useState(null);
+  const ref = React.useRef(list);
 
   const [form] = Form.useForm();
+
+  const onChange = React.useCallback(
+    v => {
+      const item = list.find(it => it.key === v);
+      form.setFieldsValue({ src: item.src });
+    },
+    [form, list],
+  );
+
+  const onSubmit = React.useCallback(async values => {
+    // debugger;
+    setSrc('');
+    await delay(50);
+    const item = ref.current.find(it => it.key === values.type);
+    setInfo(item);
+    setSrc(values.src);
+  }, []);
+
+  React.useEffect(() => {
+    ref.current = list;
+  }, [list]);
 
   React.useEffect(() => {
     const ua = UAParser(global.navigator.userAgent);
@@ -119,26 +142,9 @@ const App = React.memo(() => {
     const supportedList = getSupportedList(ua);
     setList(supportedList);
     setInfo(supportedList[0]);
-  }, []);
-
-  const onChange = React.useCallback(
-    v => {
-      const item = list.find(it => it.key === v);
-      form.setFieldsValue({ src: item.src });
-    },
-    [form, list],
-  );
-
-  const onSubmit = React.useCallback(
-    async values => {
-      setSrc('');
-      await delay(50);
-      const item = list.find(it => it.key === values.type);
-      setInfo(item);
-      setSrc(values.src);
-    },
-    [list],
-  );
+    // debugger;
+    onSubmit({ type: supportedList[0].key, src: supportedList[0].src });
+  }, [onSubmit]);
 
   const onVideoEvent = React.useCallback(e => {
     const log = console.log;

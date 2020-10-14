@@ -34,6 +34,7 @@ export default (src, getVideoElement) => {
       if (!promise || !promise.then) {
         return;
       }
+      // debugger;
       promise
         .then(() => setPrevented(false))
         .catch(errMsg => {
