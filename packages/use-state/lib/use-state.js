@@ -31,15 +31,16 @@ export default (src, getVideoElement) => {
         el.currentTime = 0;
       }
       const promise = el.play();
-      if (promise && promise.then) {
-        promise
-          .then(() => setPrevented(false))
-          .catch(errMsg => {
-            const debug = console.error;
-            debug(`onPlayClick: ${errMsg}`);
-            setPrevented(true);
-          });
+      if (!promise || !promise.then || !promise.catch) {
+        return;
       }
+      promise
+        .then(() => setPrevented(false))
+        .catch(errMsg => {
+          const debug = console.error;
+          debug(`onPlayClick: ${errMsg}`);
+          setPrevented(true);
+        });
       // el.play()
       //   .then(() => setPrevented(false))
       //   .catch(errMsg => {
