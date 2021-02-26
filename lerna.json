@@ -13,6 +13,7 @@
       "allowBranch": [
         "master",
         "lerna",
+        "stable",
         "feat/autoplay"
       ],
       "message": "chore(release): publish %s"
