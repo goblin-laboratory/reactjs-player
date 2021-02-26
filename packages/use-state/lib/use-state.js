@@ -30,13 +30,23 @@ export default (src, getVideoElement) => {
       if (ref.current.ended) {
         el.currentTime = 0;
       }
-      el.play()
-        .then(() => setPrevented(false))
-        .catch(errMsg => {
-          const debug = console.error;
-          debug(`onPlayClick: ${errMsg}`);
-          setPrevented(true);
-        });
+      const promise = el.play();
+      if (promise && promise.then) {
+        promise
+          .then(() => setPrevented(false))
+          .catch(errMsg => {
+            const debug = console.error;
+            debug(`onPlayClick: ${errMsg}`);
+            setPrevented(true);
+          });
+      }
+      // el.play()
+      //   .then(() => setPrevented(false))
+      //   .catch(errMsg => {
+      //     const debug = console.error;
+      //     debug(`onPlayClick: ${errMsg}`);
+      //     setPrevented(true);
+      //   });
     }
     setPaused(false);
   }, []);
