@@ -1,0 +1,185 @@
+.slider,
+.slidingSlider {
+  user-select: none;
+  position: relative;
+  height: 16px;
+  cursor: pointer;
+  &:focus {
+    outline: 0 transparent none;
+  }
+}
+
+.sliderButton {
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  top: -48px;
+  height: 64px;
+  width: 100%;
+  padding: 0;
+  border: 0 transparent none;
+  margin: 0;
+  background: transparent;
+}
+
+.slidingTip {
+  pointer-events: none;
+  user-select: none;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.sliderRail {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 100%;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.sliderBuffered {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scaleX(0);
+  transform-origin: center left;
+}
+
+.sliderTrack {
+  position: absolute;
+  background: #ff0000;
+  width: 100%;
+  height: 100%;
+  transform: translate(-100%, 0);
+}
+
+.sliderHandleRail {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 100%;
+  height: 12px;
+  transform: translate(-100%, 0);
+}
+
+.sliderHandle {
+  margin: 0;
+  border: transparent 0 none;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+  background: #ff0000;
+  outline: 0 transparent none;
+  &:focus {
+    outline: 0 transparent none;
+  }
+  &:hover,
+  &:active {
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
+  }
+}
+
+.slidingSlider {
+  .sliderHandle {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.slider:hover {
+  .sliderHandle {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+}
+
+.tip {
+  display: inline-block;
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+  background: #333;
+  color: #fff;
+  transform: translateX(-50%);
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
+}
+
+.slider:hover,
+.slider:active,
+.slidingSlider,
+.slidingSlider:hover,
+.slidingSlider:active {
+  .tooltip {
+    opacity: 1;
+  }
+}
+
+// 手机或者平板不显示 tooltip
+@media (hover: none), (pointer: coarse) {
+  .slider:hover,
+  .slider:active,
+  .slidingSlider,
+  .slidingSlider:hover,
+  .slidingSlider:active {
+    .tooltip {
+      opacity: 0;
+    }
+  }
+
+  .sliderButton {
+    opacity: 1;
+    pointer-events: auto;
+    position: absolute;
+  }
+
+  .sliderHandle {
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.2);
+    // &:disabled {
+    //   opacity: 0;
+    //   pointer-events: none;
+    //   box-shadow: none;
+    // }
+  }
+  .slider:hover .hidingsliderHandle,
+  .hidingsliderHandle,
+  .hidingsliderHandle:hover,
+  .hidingsliderHandle:focus,
+  .hidingsliderHandle:active {
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: none;
+  }
+}
