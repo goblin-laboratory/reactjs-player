@@ -17,7 +17,7 @@ const getBufferedEnd = (currentTime, buffered) => {
   return 0;
 };
 
-const getEventXCoordinate = e => {
+const getEventXCoordinate = (e) => {
   if (e.changedTouches && 1 <= e.changedTouches.length) {
     return e.changedTouches[0].pageX;
   }
@@ -83,7 +83,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
   const updateRef = React.useRef(null);
 
   const onClick = React.useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       setSliding(false);
       if (live) {
@@ -97,7 +97,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
   );
 
   const onMouseDown = React.useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (!sliderRef || !sliderRef.current || !reactRef || live) {
         return;
@@ -125,7 +125,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
   }, []);
 
   const onMouseUp = React.useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       setSliding(false);
       if (reactRef && reactRef.current && updateRef) {
@@ -139,7 +139,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
   );
 
   const onMouseMove = React.useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (!reactRef || !reactRef.current || !updateRef) {
         return;
@@ -176,7 +176,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
   }, [sliding, onMouseMove, onMouseUp]);
 
   const onSliderMouseOver = React.useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (live) {
         return;
@@ -188,7 +188,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
   );
 
   const onSliderMouseMove = React.useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (!reactRef || !reactRef.current || !updateRef) {
         return;
@@ -204,7 +204,7 @@ const Slider = React.memo(({ live, hiding, currentTime, duration, buffered, onCh
     [duration, update],
   );
 
-  const onResize = React.useCallback(e => {
+  const onResize = React.useCallback((e) => {
     e.preventDefault();
     if (!sliderRef || !sliderRef.current) {
       return;

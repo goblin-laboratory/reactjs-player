@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({ ref, dispatch }) => {
-  const onVolumeChange = React.useCallback(e => dispatch({ type: 'update', payload: e }), [dispatch]);
+  const onVolumeChange = React.useCallback((e) => dispatch({ type: 'update', payload: e }), [dispatch]);
 
   const onMutedClick = React.useCallback(() => {
     if (!ref.current || !ref.current.player) {
@@ -15,7 +15,7 @@ export default ({ ref, dispatch }) => {
   }, [ref]);
 
   const changeVolume = React.useCallback(
-    v => {
+    (v) => {
       if (ref.current && ref.current.player) {
         ref.current.player.invoker('setVolume', v);
       }

@@ -27,7 +27,7 @@ class GrindPlayer {
         this.el = document.getElementById(this.id);
         // this.el.addEventListener('mediaError', () => );
       }),
-      emitter.addListener(`${this.id}.mediaSize`, data => {
+      emitter.addListener(`${this.id}.mediaSize`, (data) => {
         if (0 === data.videoHeight && 0 === data.videoWidth) {
           this.emitter.emit('canplay');
         } else {
@@ -41,11 +41,11 @@ class GrindPlayer {
       emitter.addListener(`${this.id}.complete`, () => this.emitter.emit('ended')),
       emitter.addListener(`${this.id}.buffering`, () => this.emitter.emit('waiting')),
 
-      emitter.addListener(`${this.id}.durationChange`, e => this.emitter.emit('durationchange', e)),
-      emitter.addListener(`${this.id}.timeChange`, e => this.emitter.emit('timeupdate', e)),
-      emitter.addListener(`${this.id}.progress`, e => this.emitter.emit('progress', e)),
+      emitter.addListener(`${this.id}.durationChange`, (e) => this.emitter.emit('durationchange', e)),
+      emitter.addListener(`${this.id}.timeChange`, (e) => this.emitter.emit('timeupdate', e)),
+      emitter.addListener(`${this.id}.progress`, (e) => this.emitter.emit('progress', e)),
 
-      emitter.addListener(`${this.id}.volumeChange`, e => this.emitter.emit('volumechange', e)),
+      emitter.addListener(`${this.id}.volumeChange`, (e) => this.emitter.emit('volumechange', e)),
     ];
   }
 
@@ -68,7 +68,7 @@ class GrindPlayer {
     if (!this.eventMap) {
       return;
     }
-    this.eventMap = this.eventMap.filter(it => {
+    this.eventMap = this.eventMap.filter((it) => {
       if (it.event !== event) {
         return true;
       }
@@ -82,12 +82,12 @@ class GrindPlayer {
 
   destroy() {
     if (this.eventMap) {
-      this.eventMap.map(it => it.token.remove());
+      this.eventMap.map((it) => it.token.remove());
       delete this.eventMap;
     }
 
     if (this.tokenList) {
-      this.tokenList.map(it => it.remove());
+      this.tokenList.map((it) => it.remove());
       delete this.tokenList;
     }
 

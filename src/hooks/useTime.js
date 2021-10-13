@@ -38,13 +38,13 @@ export default (src, getVideoElement) => {
     };
   }, [src]);
 
-  const onDurationChange = React.useCallback(e => {
+  const onDurationChange = React.useCallback((e) => {
     const v = e.target.duration;
     dispatch({ type: 'update', payload: { duration: Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0 } });
     // setDuration(Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0);
   }, []);
 
-  const update = React.useCallback(timestamp => {
+  const update = React.useCallback((timestamp) => {
     if (!ref || !ref.current || !ref.current.temp) {
       return;
     }
@@ -58,7 +58,7 @@ export default (src, getVideoElement) => {
   }, []);
 
   const onTimeUpdate = React.useCallback(
-    e => {
+    (e) => {
       if (!ref || !ref.current || Number.isNaN(e.target.currentTime)) {
         return;
       }
@@ -73,7 +73,7 @@ export default (src, getVideoElement) => {
   );
 
   const onProgress = React.useCallback(
-    e => {
+    (e) => {
       if (!ref || !ref.current) {
         return;
       }
@@ -87,7 +87,7 @@ export default (src, getVideoElement) => {
     [update],
   );
 
-  const changeCurrentTime = React.useCallback(t => {
+  const changeCurrentTime = React.useCallback((t) => {
     const v = parseFloat(t);
     if (Number.isNaN(v)) {
       return;

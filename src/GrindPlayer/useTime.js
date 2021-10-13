@@ -2,7 +2,7 @@ import React from 'react';
 
 export default ({ ref, dispatch }) => {
   const onDurationChange = React.useCallback(
-    e => {
+    (e) => {
       const v = e.duration;
       dispatch({ type: 'update', payload: { duration: Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0 } });
     },
@@ -10,7 +10,7 @@ export default ({ ref, dispatch }) => {
   );
 
   const onTimeUpdate = React.useCallback(
-    e => {
+    (e) => {
       if (Number.isNaN(e.currentTime)) {
         return;
       }
@@ -19,12 +19,13 @@ export default ({ ref, dispatch }) => {
     [dispatch],
   );
 
-  const onProgress = React.useCallback(e => dispatch({ type: 'update', payload: { buffered: e.buffered } }), [
-    dispatch,
-  ]);
+  const onProgress = React.useCallback(
+    (e) => dispatch({ type: 'update', payload: { buffered: e.buffered } }),
+    [dispatch],
+  );
 
   const changeCurrentTime = React.useCallback(
-    t => {
+    (t) => {
       const v = parseFloat(t);
       if (Number.isNaN(v) || !ref.current || !ref.current.player) {
         return;

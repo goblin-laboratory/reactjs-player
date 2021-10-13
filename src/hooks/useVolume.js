@@ -11,7 +11,7 @@ export default (getVideoElement, m = false) => {
     ref.current.volume = volume;
   }, [muted, volume]);
 
-  const onVolumeChange = React.useCallback(e => {
+  const onVolumeChange = React.useCallback((e) => {
     const v = e.target.volume;
     setVolume(v);
     setMuted(0 === v ? true : e.target.muted);
@@ -28,7 +28,7 @@ export default (getVideoElement, m = false) => {
     }
   }, []);
 
-  const changeVolume = React.useCallback(v => {
+  const changeVolume = React.useCallback((v) => {
     const el = ref.current.getVideoElement();
     if (el) {
       el.volume = v;

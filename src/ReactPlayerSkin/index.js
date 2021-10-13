@@ -60,7 +60,7 @@ const ReactPlayerSkin = React.memo(
     const onBodyClick = React.useCallback(() => setVisible(false), []);
 
     const onMenuClick = React.useCallback(
-      e => {
+      (e) => {
         changePlaybackRate(parseFloat(e.key, 10));
         setVisible(false);
       },
@@ -161,7 +161,7 @@ const ReactPlayerSkin = React.memo(
                   </button>
                 )}
                 <span className={styles.volumeSlider}>
-                  <Slider value={volume * 100} onChange={v => changeVolume(v / 100)} max={100} />
+                  <Slider value={volume * 100} onChange={(v) => changeVolume(v / 100)} max={100} />
                 </span>
               </span>
               <span className={styles.controlText}>

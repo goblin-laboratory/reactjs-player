@@ -3,12 +3,12 @@ import React from 'react';
 export default (live, getVideoElement) => {
   const [playbackRate, setPlaybackRate] = React.useState(1);
 
-  const onRateChange = React.useCallback(e => {
+  const onRateChange = React.useCallback((e) => {
     setPlaybackRate(e.target.playbackRate);
   }, []);
 
   const changePlaybackRate = React.useCallback(
-    r => {
+    (r) => {
       const el = getVideoElement();
       if (el) {
         el.playbackRate = r;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const getFlvjs = src =>
-  new Promise(resolve => {
+const getFlvjs = (src) =>
+  new Promise((resolve) => {
     if (global.flvjs) {
       resolve(global.flvjs);
       return;
@@ -17,7 +17,7 @@ const getFlvjs = src =>
 // eslint-disable-next-line no-console
 const debug = console.error;
 
-const destroyPlayer = player => {
+const destroyPlayer = (player) => {
   if (!player) {
     return;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const getHls = src =>
-  new Promise(resolve => {
+const getHls = (src) =>
+  new Promise((resolve) => {
     if (global.Hls) {
       resolve(global.Hls);
       return;
@@ -17,7 +17,7 @@ const getHls = src =>
 // eslint-disable-next-line no-console
 const debug = console.error;
 
-const destroyPlayer = player => {
+const destroyPlayer = (player) => {
   if (player) {
     try {
       player.destroy();

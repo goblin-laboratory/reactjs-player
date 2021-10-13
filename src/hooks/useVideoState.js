@@ -37,7 +37,7 @@ export default (src, getVideoElement) => {
       // debugger;
       promise
         .then(() => setPrevented(false))
-        .catch(errMsg => {
+        .catch((errMsg) => {
           const debug = console.error;
           debug(`播放被阻止: ${errMsg}`);
           setPrevented(true);
