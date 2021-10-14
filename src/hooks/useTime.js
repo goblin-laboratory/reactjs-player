@@ -1,71 +1,44 @@
 import React from 'react';
 
-const initialState = { duration: 0, currentTime: 0, buffered: null };
-
-const reducer = (state, action) => {
-  if ('reset' === action.type) {
-    return { duration: 0, currentTime: 0, buffered: null };
-  }
-  return { ...state, ...action.payload };
-  // switch (action.type) {
-  //   case 'update':
-  //     return { ...state, ...action.payload };
-  //   case 'reset':
-  //     return { duration: 0, currentTime: 0, buffered: null };
-  //   default:
-  //     throw new Error();
-  // }
-};
-
-export default (src, getVideoElement) => {
-  const [{ duration, currentTime, buffered }, dispatch] = React.useReducer(reducer, initialState);
-  // const [duration, setDuration] = React.useState(0);
-  // const [currentTime, setCurrentTime] = React.useState(0);
-  // const [buffered, setBuffered] = React.useState(null);
-  const ref = React.useRef({ src, getVideoElement, temp: null });
+export default ({ src, updateState, getVideoElement }) => {
+  const ref = React.useRef({ src, getVideoElement, timestamp: 0, payload: null });
   // const updateRef = React.useRef(null);
 
-  React.useEffect(() => {
-    ref.current.src = src;
-    ref.current.temp = null;
-    dispatch({ type: 'reset' });
-    // setDuration(0);
-    // setCurrentTime(0);
-    // setBuffered(null);
-    // updateRef.current = null;
-    return () => {
-      ref.current = { getVideoElement: ref.current.getVideoElement, temp: null };
-    };
-  }, [src]);
+  const onDurationChange = React.useCallback(
+    (e) => {
+      const v = e.target.duration;
+      // TODO: 同步更新
+      updateState({ duration: Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0 });
+    },
+    [updateState],
+  );
 
-  const onDurationChange = React.useCallback((e) => {
-    const v = e.target.duration;
-    dispatch({ type: 'update', payload: { duration: Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0 } });
-    // setDuration(Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0);
-  }, []);
-
-  const update = React.useCallback((timestamp) => {
-    if (!ref || !ref.current || !ref.current.temp) {
-      return;
-    }
-    const { timestamp: t, ...payload } = ref.current.temp;
-    if (250 > timestamp - t) {
-      global.requestAnimationFrame(update);
-      return;
-    }
-    dispatch({ type: 'update', payload });
-    ref.current.temp = null;
-  }, []);
+  const update = React.useCallback(
+    (timestamp) => {
+      if (!ref.current.payload) {
+        return;
+      }
+      // TODO: ref.current.timestamp isNaN
+      if (200 > timestamp - ref.current.timestamp) {
+        global.requestAnimationFrame(update);
+        return;
+      }
+      updateState(ref.current.payload);
+      ref.current.timestamp = timestamp;
+      ref.current.payload = null;
+    },
+    [updateState],
+  );
 
   const onTimeUpdate = React.useCallback(
     (e) => {
-      if (!ref || !ref.current || Number.isNaN(e.target.currentTime)) {
+      if (!ref.current || Number.isNaN(e.target.currentTime)) {
         return;
       }
-      if (ref.current.temp) {
-        ref.current.temp.currentTime = e.target.currentTime;
+      if (ref.current.payload) {
+        ref.current.payload.currentTime = e.target.currentTime;
       } else {
-        ref.current.temp = { currentTime: e.target.currentTime, timestamp: performance.now() };
+        ref.current.payload = { currentTime: e.target.currentTime };
         global.requestAnimationFrame(update);
       }
     },
@@ -74,32 +47,40 @@ export default (src, getVideoElement) => {
 
   const onProgress = React.useCallback(
     (e) => {
-      if (!ref || !ref.current) {
+      if (!ref.current || !(e.target.buffered instanceof TimeRanges)) {
         return;
       }
-      if (ref.current.temp) {
-        ref.current.temp.buffered = e.target.buffered;
+      if (ref.current.payload) {
+        ref.current.payload.buffered = e.target.buffered;
       } else {
-        ref.current.temp = { buffered: e.target.buffered, timestamp: performance.now() };
+        ref.current.payload = { buffered: e.target.buffered };
         global.requestAnimationFrame(update);
       }
     },
     [update],
   );
 
-  const changeCurrentTime = React.useCallback((t) => {
-    const v = parseFloat(t);
-    if (Number.isNaN(v)) {
-      return;
-    }
-    const el = ref.current.getVideoElement();
-    if (el) {
-      el.currentTime = v;
-    }
-    ref.current.temp = null;
-    dispatch({ type: 'update', payload: { currentTime: v } });
-    // setCurrentTime(v);
-  }, []);
+  const changeCurrentTime = React.useCallback(
+    (t) => {
+      const v = parseFloat(t);
+      if (Number.isNaN(v)) {
+        return;
+      }
+      const el = ref.current.getVideoElement();
+      if (el) {
+        el.currentTime = v;
+      }
+      ref.current.payload = null;
+      updateState({ currentTime: v });
+    },
+    [updateState],
+  );
+
+  React.useEffect(() => {
+    ref.current.src = src;
+    ref.current.timestamp = 0;
+    ref.current.payload = null;
+  }, [src]);
 
   React.useEffect(() => {
     const el = ref.current.getVideoElement();
@@ -116,5 +97,5 @@ export default (src, getVideoElement) => {
     };
   }, [onDurationChange, onTimeUpdate, onProgress]);
 
-  return { duration, currentTime, buffered, changeCurrentTime };
+  return { changeCurrentTime };
 };

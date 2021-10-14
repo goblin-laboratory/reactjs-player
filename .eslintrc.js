@@ -31,5 +31,5 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'no-empty': ['error', { allowEmptyCatch: true }],
   },
-  ignorePatterns: ['build', 'dist', 'node_modules'],
+  ignorePatterns: ['build', 'dist', 'node_modules', '___*'],
 };

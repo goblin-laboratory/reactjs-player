@@ -1,39 +1,45 @@
 import React from 'react';
 
-export default (getVideoElement, m = false) => {
-  const [muted, setMuted] = React.useState(m);
-  const [volume, setVolume] = React.useState(1);
+export default ({ muted, volume, updateState, getVideoElement }) => {
+  const ref = React.useRef({ muted, volume, getVideoElement });
 
-  const ref = React.useRef({ getVideoElement, muted, volume });
-
-  React.useEffect(() => {
-    ref.current.muted = muted;
-    ref.current.volume = volume;
-  }, [muted, volume]);
-
-  const onVolumeChange = React.useCallback((e) => {
-    const v = e.target.volume;
-    setVolume(v);
-    setMuted(0 === v ? true : e.target.muted);
-  }, []);
+  const onVolumeChange = React.useCallback(
+    (e) => {
+      const v = e.target.volume;
+      // setVolume(v);
+      // setMuted(0 === v ? true : e.target.muted);
+      updateState({ volume: v, muted: 0 === v ? true : e.target.muted });
+    },
+    [updateState],
+  );
 
   const onMutedClick = React.useCallback(() => {
     const el = ref.current.getVideoElement();
     if (el) {
-      el.muted = !ref.current.muted;
+      const payload = { muted: !ref.current.muted };
+      el.muted = payload.muted;
       if (0 === ref.current.volume && ref.current.muted) {
-        el.volume = 1;
+        payload.volume = 1;
+        el.volume = payload.volume;
       }
-      // setMuted(el.muted);
+      updateState(payload, true);
     }
-  }, []);
+  }, [updateState]);
 
-  const changeVolume = React.useCallback((v) => {
-    const el = ref.current.getVideoElement();
-    if (el) {
-      el.volume = v;
-    }
-  }, []);
+  const changeVolume = React.useCallback(
+    (v) => {
+      const el = ref.current.getVideoElement();
+      const payload = { volume: v };
+      if (el) {
+        el.volume = v;
+      }
+      if (0 !== v && ref.current.muted) {
+        payload.muted = false;
+      }
+      updateState(payload, true);
+    },
+    [updateState],
+  );
 
   React.useEffect(() => {
     const el = ref.current.getVideoElement();
@@ -46,5 +52,10 @@ export default (getVideoElement, m = false) => {
     };
   }, [onVolumeChange]);
 
-  return { muted, volume, onMutedClick, changeVolume };
+  React.useEffect(() => {
+    ref.current.muted = muted;
+    ref.current.volume = volume;
+  }, [muted, volume]);
+
+  return { onMutedClick, changeVolume };
 };

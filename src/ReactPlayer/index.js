@@ -1,14 +1,7 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import useVideoState from '../hooks/useVideoState';
-import useTime from '../hooks/useTime';
-import useVolume from '../hooks/useVolume';
-import usePlaybackRate from '../hooks/usePlaybackRate';
-import usePiP from '../hooks/usePiP';
-import useFullscreen from '../hooks/useFullscreen';
-import useAutoplay from '../hooks/useAutoplay';
+import useReactPlayer from './useReactPlayer';
 
 import Flvjs from '../Flvjs';
 import Hlsjs from '../Hlsjs';
@@ -20,41 +13,48 @@ import styles from './index.module.less';
 const ReactjsPlayer = ({
   kernel,
   live,
-  config = null,
+  config,
   onKernelError,
-
-  src = '',
+  src,
   type,
-  controls = true,
-  muted = false,
-  // autoPlay = true,
-
-  className = '',
-  videoProps = null,
-  playerProps = null,
-  children = null,
+  controls,
+  className,
+  videoProps,
+  playerProps,
+  children,
 }) => {
-  const [kernelMsg, setKernelMsg] = React.useState(null);
-  const videoRef = React.useRef(null);
-  const playerRef = React.useRef(null);
-
-  const getVideoElement = React.useCallback(() => videoRef && videoRef.current, []);
-  const getPlayerElement = React.useCallback(() => playerRef && playerRef.current, []);
-  const onMsgChange = React.useCallback(
-    (msg) => {
-      setKernelMsg(msg);
-      onKernelError(msg);
-    },
-    [onKernelError],
-  );
-
-  const stateProps = useVideoState(src, getVideoElement);
-  const timeProps = useTime(src, getVideoElement);
-  const volumeProps = useVolume(getVideoElement, muted);
-  const playbackRateProps = usePlaybackRate(live, getVideoElement);
-  const piPProps = usePiP(src, getVideoElement);
-  const fullscreenProps = useFullscreen(getVideoElement, getPlayerElement);
-  useAutoplay(src, getVideoElement, stateProps.prevented);
+  const {
+    videoRef,
+    playerRef,
+    loading,
+    prevented,
+    paused,
+    ended,
+    seeking,
+    waiting,
+    duration,
+    currentTime,
+    buffered,
+    muted,
+    volume,
+    playbackRate,
+    pictureInPictureEnabled,
+    pip,
+    fullscreen,
+    kernelMsg,
+    getVideoElement,
+    onPauseClick,
+    onPlayClick,
+    changeCurrentTime,
+    onMutedClick,
+    changeVolume,
+    changePlaybackRate,
+    requestPictureInPicture,
+    exitPictureInPicture,
+    requestFullscreen,
+    exitFullscreen,
+    onMsgChange,
+  } = useReactPlayer({ src, live, onKernelError });
 
   const kernelProps = { getVideoElement, src, config, onMsgChange };
 
@@ -63,20 +63,40 @@ const ReactjsPlayer = ({
       {'flvjs' === kernel && <Flvjs {...kernelProps} />}
       {'hlsjs' === kernel && <Hlsjs {...kernelProps} />}
       {'native' === kernel && <Native {...kernelProps} />}
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video className={styles.video} ref={videoRef} controls={'controls' === controls} type={type} {...videoProps} />
       <ReactPlayerContext.Provider
         value={{
-          getVideoElement,
           live,
           src,
-          controls,
-          ...stateProps,
-          ...timeProps,
-          ...volumeProps,
-          ...playbackRateProps,
-          ...piPProps,
-          ...fullscreenProps,
+          // controls,
+          loading,
+          prevented,
+          paused,
+          ended,
+          seeking,
+          waiting,
+          duration,
+          currentTime,
+          buffered,
+          muted,
+          volume,
+          playbackRate,
+          pictureInPictureEnabled,
+          pip,
+          fullscreen,
           kernelMsg,
+          getVideoElement,
+          onPauseClick,
+          onPlayClick,
+          changeCurrentTime,
+          onMutedClick,
+          changeVolume,
+          changePlaybackRate,
+          requestPictureInPicture,
+          exitPictureInPicture,
+          requestFullscreen,
+          exitFullscreen,
         }}
       >
         {true === controls && <ReactPlayerSkinWapper />}
@@ -95,8 +115,6 @@ ReactjsPlayer.propTypes = {
   src: PropTypes.string,
   type: PropTypes.string.isRequired,
   controls: PropTypes.oneOf([false, true, 'controls']),
-  muted: PropTypes.bool,
-  // autoPlay: PropTypes.bool,
 
   className: PropTypes.string,
   videoProps: PropTypes.object,
@@ -107,12 +125,10 @@ ReactjsPlayer.propTypes = {
 
 ReactjsPlayer.defaultProps = {
   config: null,
-  onKernelError: () => {},
+  onKernelError: null,
 
   src: '',
   controls: true,
-  muted: false,
-  // autoPlay: true,
 
   className: '',
   videoProps: null,
@@ -121,4 +137,18 @@ ReactjsPlayer.defaultProps = {
   children: null,
 };
 
-export default React.memo(ReactjsPlayer);
+export default React.memo(
+  ReactjsPlayer,
+  (p, n) =>
+    p.kernel === n.kernel &&
+    p.live === n.live &&
+    p.config === n.config &&
+    p.onKernelError === n.onKernelError &&
+    p.src === n.src &&
+    p.type === n.type &&
+    p.controls === n.controls &&
+    p.className === n.className &&
+    p.videoProps === n.videoProps &&
+    p.playerProps === n.playerProps &&
+    p.children === n.children,
+);

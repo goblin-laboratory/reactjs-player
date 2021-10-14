@@ -1,26 +1,37 @@
 import React from 'react';
 
-export default (live, getVideoElement) => {
-  const [playbackRate, setPlaybackRate] = React.useState(1);
+export default ({ live, updateState, getVideoElement }) => {
+  const ref = React.useRef({ live, getVideoElement });
 
-  const onRateChange = React.useCallback((e) => {
-    setPlaybackRate(e.target.playbackRate);
-  }, []);
+  const onRateChange = React.useCallback(
+    (e) => {
+      if (Number.isNaN(e.target.playbackRate)) {
+        return;
+      }
+      updateState({ playbackRate: e.target.playbackRate });
+    },
+    [updateState],
+  );
 
   const changePlaybackRate = React.useCallback(
     (r) => {
-      const el = getVideoElement();
-      if (el) {
-        el.playbackRate = r;
-        setPlaybackRate(r);
+      if (Number.isNaN(r)) {
+        return;
       }
+      const v = ref.current.live ? 1 : r;
+      const el = ref.current.getVideoElement();
+      if (!el) {
+        return;
+      }
+      el.playbackRate = v;
+      updateState({ playbackRate: v }, true);
     },
-    [getVideoElement],
+    [updateState],
   );
 
   React.useEffect(() => {
+    ref.current.live = live;
     if (live) {
-      setPlaybackRate(1);
       changePlaybackRate(1);
     }
   }, [live, changePlaybackRate]);
@@ -36,5 +47,5 @@ export default (live, getVideoElement) => {
     };
   }, [getVideoElement, onRateChange]);
 
-  return { playbackRate, changePlaybackRate };
+  return { changePlaybackRate };
 };

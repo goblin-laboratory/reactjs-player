@@ -1,15 +1,10 @@
 import React from 'react';
 
-// eslint-disable-next-line no-console
-const debug = console.error;
-
-export default (getVideoElement, getPlayerElement) => {
-  const [fullscreen, setFullscreen] = React.useState(false);
-
+export default ({ updateState, getVideoElement, getPlayerElement }) => {
   const requestFullscreen = React.useCallback(() => {
     const el = getPlayerElement();
     if (!el) {
-      debug('useVideoFullscreen: 全屏异常，unmounted');
+      // debug('useVideoFullscreen: 全屏异常，unmounted');
       return;
     }
     if (el.requestFullscreen) {
@@ -27,7 +22,7 @@ export default (getVideoElement, getPlayerElement) => {
         videoEl.webkitEnterFullScreen();
       } else {
         // 异常分支，不应该进入
-        debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
+        // debug('useVideoFullscreen: 全屏异常，浏览器不支持 requestFullscreen');
       }
     }
   }, [getVideoElement, getPlayerElement]);
@@ -41,7 +36,7 @@ export default (getVideoElement, getPlayerElement) => {
       document.webkitExitFullscreen();
     } else {
       // 异常分支，不应该进入
-      debug('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
+      // debug('useVideoFullscreen: 退出全屏异常，浏览器不支持 exitFullscreen');
     }
   }, []);
 
@@ -49,8 +44,8 @@ export default (getVideoElement, getPlayerElement) => {
     const el = getPlayerElement();
     const fullscreenElement =
       document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-    setFullscreen(!!el && fullscreenElement === el);
-  }, [getPlayerElement]);
+    updateState({ fullscreen: !!el && fullscreenElement === el });
+  }, [updateState, getPlayerElement]);
 
   React.useEffect(() => {
     document.addEventListener('fullscreenchange', onChange);
@@ -63,5 +58,5 @@ export default (getVideoElement, getPlayerElement) => {
     };
   }, [onChange]);
 
-  return { fullscreen, requestFullscreen, exitFullscreen };
+  return { requestFullscreen, exitFullscreen };
 };

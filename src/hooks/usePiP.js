@@ -1,18 +1,7 @@
 import React from 'react';
 
-export default (src, getVideoElement) => {
-  const [enabled] = React.useState(!!document.pictureInPictureEnabled);
-  const [pip, setPiP] = React.useState(false);
-
+export default ({ src, pip, updateState, getVideoElement }) => {
   const ref = React.useRef({ src, getVideoElement });
-
-  // React.useEffect(() => {
-  //   setEnabled(!!document.pictureInPictureEnabled);
-  // }, []);
-
-  React.useEffect(() => {
-    ref.current.src = src;
-  }, [src]);
 
   const requestPictureInPicture = React.useCallback(() => {
     const el = ref.current.getVideoElement();
@@ -27,19 +16,15 @@ export default (src, getVideoElement) => {
     }
   }, []);
 
-  React.useEffect(() => {
-    if (pip && !src) {
-      exitPictureInPicture();
-    }
-  }, [src, pip, exitPictureInPicture]);
-
   const onEnterPictureInPicture = React.useCallback(() => {
-    setPiP(true);
-  }, []);
+    // setPiP(true);
+    updateState({ pip: true });
+  }, [updateState]);
 
   const onLeavePictureInPicture = React.useCallback(() => {
-    setPiP(false);
-  }, []);
+    // setPiP(false);
+    updateState({ pip: false });
+  }, [updateState]);
 
   React.useEffect(() => {
     const el = ref.current.getVideoElement();
@@ -54,5 +39,12 @@ export default (src, getVideoElement) => {
     };
   }, [onEnterPictureInPicture, onLeavePictureInPicture]);
 
-  return { pictureInPictureEnabled: enabled, pip, requestPictureInPicture, exitPictureInPicture };
+  React.useEffect(() => {
+    ref.current.src = src;
+    if (pip && !src) {
+      exitPictureInPicture();
+    }
+  }, [src, pip, exitPictureInPicture]);
+
+  return { requestPictureInPicture, exitPictureInPicture };
 };
