@@ -1,7 +1,20 @@
-# Change Log
+# Changelog
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.0.0-alpha.1](https://github.com/goblin-laboratory/reactjs-player/compare/v1.2.1...v2.0.0-alpha.1) (2021-10-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* 调整代码结构，删除已有代码
+
+### Features
+
+* 优化工具栏自动隐藏逻辑，防止用户操作被中断 ([c4c035e](https://github.com/goblin-laboratory/reactjs-player/commit/c4c035e6f2b6ab9e6f5da06ed56a9dea7fa354c8))
+
+
+* 调整代码结构，删除已有代码 ([07c2a34](https://github.com/goblin-laboratory/reactjs-player/commit/07c2a34f3664684f14f4313fccda10ece1f205e0))
 
 ## [1.2.1](https://github.com/goblin-laboratory/react-player/compare/v1.2.0...v1.2.1) (2020-10-14)
 
