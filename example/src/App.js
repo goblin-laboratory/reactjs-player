@@ -44,7 +44,7 @@ const getSupportedList = ua => {
         key: 'flvjs',
         kernel: 'flvjs',
         live: true,
-        src: 'http://192.168.0.221/flv_srs/quick/OAyEgozBSTqNC4Ou8SZk_A.flv',
+        src: 'http://192.168.0.221/flv_srs/quick/A6sq0Q9DR320aHkEAoiygQ.flv',
         type: 'video/x-flv',
         config: {
           isLive: true,
@@ -92,7 +92,7 @@ const getSupportedList = ua => {
       key: 'native',
       kernel: 'native',
       live: false,
-      src: 'http://cdn.tencent.neigou.com/Public/Home/mobileAsset/images/tencent2018/video5.mp4',
+      src: 'https://www.w3schools.com/html/mov_bbb.mp4',
       type: 'video/mp4',
     },
   );

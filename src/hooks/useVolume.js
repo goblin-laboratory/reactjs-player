@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ muted, volume, updateState, getVideoElement }) => {
+export default ({ src, muted, volume, updateState, getVideoElement }) => {
   const ref = React.useRef({ muted, volume, getVideoElement });
 
   const onVolumeChange = React.useCallback(
@@ -56,6 +56,14 @@ export default ({ muted, volume, updateState, getVideoElement }) => {
     ref.current.muted = muted;
     ref.current.volume = volume;
   }, [muted, volume]);
+
+  React.useEffect(() => {
+    const el = ref.current.getVideoElement();
+    if (el) {
+      el.muted = false;
+      el.volume = 1;
+    }
+  }, [src]);
 
   return { onMutedClick, changeVolume };
 };

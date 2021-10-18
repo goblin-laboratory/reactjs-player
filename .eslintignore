@@ -1,0 +1,11 @@
+# build/*
+# dist/*
+# node_modules/*
+
+build
+dist
+node_modules
+___*
+# packages/*/node_modules/*
+# packages/*/build/*
+# packages/*/dist/*

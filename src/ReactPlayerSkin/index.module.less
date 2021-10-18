@@ -45,26 +45,14 @@
   outline: 0 none transparent;
 }
 
-.controlsBg {
-  .absolute;
-  top: auto;
-  bottom: 0;
-  height: 98px;
-  background-repeat: repeat-x;
-  background-position: bottom;
-}
-.hiddenControlsBg {
-  .controlsBg;
-  opacity: 0;
-}
-
 .controls {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: auto;
-  padding: 0 16px;
+  padding: 36px 16px 0;
+  background: transparent url(./bg.png) repeat-x left bottom;
   transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);
 }
 

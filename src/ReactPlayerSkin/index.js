@@ -1,25 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import numeral from 'numeral';
-import { Slider, Dropdown, Menu } from 'antd';
-import Icon, {
-  LoadingOutlined,
-  PlayCircleOutlined,
-  CaretRightOutlined,
-  PauseOutlined,
-  FullscreenExitOutlined,
-  FullscreenOutlined,
-} from '@ant-design/icons';
+// import numeral from 'numeral';
+// import { Slider, Dropdown, Menu } from 'antd';
+// import Icon, {
+//   LoadingOutlined,
+//   PlayCircleOutlined,
+//   CaretRightOutlined,
+//   PauseOutlined,
+//   FullscreenExitOutlined,
+//   FullscreenOutlined,
+// } from '@ant-design/icons';
 
 import TimeSlider from '../TimeSlider';
+import PlayButton from './PlayButton';
+import Volume from './Volume';
+import Time from './Time';
+import FullscreenButton from './FullscreenButton';
+import PlayRate from './PlayRate';
+import PlayState from './PlayState';
+import TopState from './TopState';
+
+import useAutoHide from './useAutoHide';
 import 'antd/lib/tooltip/style/index.css';
 import 'antd/lib/slider/style/index.css';
 import 'antd/lib/dropdown/style/index.css';
 import styles from './index.module.less';
 
-import { ReactComponent as MutedSvg } from './muted.svg';
-import { ReactComponent as UnmutedSvg } from './unmuted.svg';
-import bgImg from './bg.png';
+// import bgImg from './bg.png';
 
 const ReactPlayerSkin = ({
   live,
@@ -51,91 +58,52 @@ const ReactPlayerSkin = ({
   exitFullscreen,
   kernelMsg,
 }) => {
-  const [hovering, setHovering] = React.useState(false);
   const [sliding, setSliding] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
-  const [hiding, setHiding] = React.useState(false);
 
-  const onBodyClick = React.useCallback(() => setVisible(false), []);
-
-  const onMenuClick = React.useCallback(
-    (e) => {
-      changePlaybackRate(parseFloat(e.key, 10));
-      setVisible(false);
-    },
-    [changePlaybackRate],
-  );
-
-  const onMouseEnter = React.useCallback(() => {
-    if (global.matchMedia) {
-      const matched = global.matchMedia('(hover: none), (pointer: coarse)');
-      if (matched && matched.matches) {
-        return;
-      }
-    }
-    setHovering(true);
-  }, []);
-
-  React.useEffect(() => {
-    document.body.addEventListener('click', onBodyClick);
-    return () => document.body.removeEventListener('click', onBodyClick);
-  }, [onBodyClick]);
-
-  React.useEffect(() => {
-    setVisible(false);
-    setHiding(false);
-  }, [src]);
-
-  React.useEffect(() => {
-    if (hovering || sliding || visible) {
-      setHiding(false);
-    }
-  }, [hovering, sliding, visible]);
-
-  React.useEffect(() => {
-    if (hiding || hovering || sliding || visible) {
-      return () => {};
-    }
-    const id = global.setTimeout(() => setHiding(true), 3000);
-    return () => global.clearTimeout(id);
-  }, [hiding, hovering, sliding, visible]);
-
-  const l = loading || (src && 0 === duration && 0 === currentTime && !prevented);
-
-  const playing = !prevented && !paused && !ended;
+  const { onMouseEnter, onMouseLeave, show, hiding } = useAutoHide({
+    src,
+    loading,
+    prevented,
+    paused,
+    ended,
+    waiting,
+    seeking,
+    sliding,
+    visible,
+    kernelMsg,
+  });
 
   return (
     <div className={styles.reactPlayerSkin}>
       {src && prevented && <div className={styles.preventedTip}>视频播放被阻止</div>}
-      <div
-        className={hiding ? styles.hiddenControlsBg : styles.controlsBg}
-        style={{ backgroundImage: `url(${bgImg})` }}
-      />
       <button
         type="button"
         className={src ? styles.hiddenVideoMask : styles.videoMask}
-        onMouseMove={() => setHiding(false)}
-        onClick={() => setHiding(false)}
+        onMouseMove={show}
+        onClick={show}
       />
-      {src && (waiting || seeking) && !l && (
-        <div className={styles.waiting}>
-          <LoadingOutlined />
-        </div>
-      )}
-      {src && !l && (prevented || paused || ended) && (
-        <button type="button" className={styles.ended} onClick={onPlayClick}>
-          <PlayCircleOutlined />
-        </button>
-      )}
+      <PlayState
+        src={src}
+        loading={loading}
+        prevented={prevented}
+        paused={paused}
+        ended={ended}
+        waiting={waiting}
+        seeking={seeking}
+        currentTime={currentTime}
+        duration={duration}
+        kernelMsg={kernelMsg}
+        onPlayClick={onPlayClick}
+      />
       <div
-        className={hiding ? styles.hiddenControls : styles.controls}
-        onMouseEnter={() => onMouseEnter}
-        onMouseLeave={() => setHovering(false)}
+        className={styles.controls}
+        style={hiding ? { transform: `translate(0, 48px)` } : {}}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
-        {!live && (
+        {false === live && (
           <TimeSlider
-            live={live}
-            hiding={hiding}
             duration={duration}
             currentTime={currentTime}
             buffered={buffered}
@@ -146,36 +114,15 @@ const ReactPlayerSkin = ({
         )}
         <div className={styles.bar}>
           <div className={styles.flexItem}>
-            <button type="button" onClick={playing ? onPauseClick : onPlayClick}>
-              {playing ? <PauseOutlined /> : <CaretRightOutlined />}
-              {/* <CaretRightOutlined /> */}
-            </button>
-            <span className={styles.volume}>
-              {(muted || 0 === volume) && (
-                <button type="button" onClick={onMutedClick}>
-                  <Icon component={MutedSvg} />
-                </button>
-              )}
-              {!muted && 0 !== volume && (
-                <button type="button" onClick={onMutedClick}>
-                  <Icon component={UnmutedSvg} />
-                </button>
-              )}
-              <span className={styles.volumeSlider}>
-                <Slider value={volume * 100} onChange={(v) => changeVolume(v / 100)} max={100} />
-              </span>
-            </span>
-            <span className={styles.controlText}>
-              {numeral(Math.round(currentTime)).format('00:00:00')}
-              {live ? (
-                <span className={styles.controlText}>
-                  <span className={styles.liveDot} />
-                  直播
-                </span>
-              ) : (
-                ` / ${numeral(Math.round(duration)).format('00:00:00')}`
-              )}
-            </span>
+            <PlayButton
+              prevented={prevented}
+              paused={paused}
+              ended={ended}
+              onPauseClick={onPauseClick}
+              onPlayClick={onPlayClick}
+            />
+            <Volume muted={muted} volume={volume} onMutedClick={onMutedClick} changeVolume={changeVolume} />
+            <Time live={live} currentTime={currentTime} duration={duration} />
           </div>
           {pictureInPictureEnabled && (
             <button
@@ -186,49 +133,22 @@ const ReactPlayerSkin = ({
               画中画
             </button>
           )}
-          {!live && (
-            <Dropdown
+          {false === live && (
+            <PlayRate
+              playbackRate={playbackRate}
+              changePlaybackRate={changePlaybackRate}
               visible={visible}
-              overlay={
-                <Menu selectedKeys={[playbackRate.toString()]} onClick={onMenuClick}>
-                  <Menu.Item key="0.25">&nbsp;&nbsp;0.25 倍速&nbsp;&nbsp;</Menu.Item>
-                  <Menu.Item key="0.5">&nbsp;&nbsp;0.5 倍速&nbsp;&nbsp;</Menu.Item>
-                  <Menu.Item key="1">&nbsp;&nbsp;1 倍速&nbsp;&nbsp;</Menu.Item>
-                  <Menu.Item key="1.25">&nbsp;&nbsp;1.25 倍速&nbsp;&nbsp;</Menu.Item>
-                  <Menu.Item key="1.5">&nbsp;&nbsp;1.5 倍速&nbsp;&nbsp;</Menu.Item>
-                  <Menu.Item key="2">&nbsp;&nbsp;2 倍速&nbsp;&nbsp;</Menu.Item>
-                </Menu>
-              }
-              placement="topRight"
-              trigger={['click']}
-            >
-              <button type="button" className={styles.textBtn} onClick={() => setVisible(true)}>
-                倍速
-              </button>
-            </Dropdown>
+              setVisible={setVisible}
+            />
           )}
-          {fullscreen && (
-            <button type="button" onClick={exitFullscreen}>
-              <FullscreenExitOutlined />
-            </button>
-          )}
-          {!fullscreen && (
-            <button type="button" onClick={requestFullscreen}>
-              <FullscreenOutlined />
-            </button>
-          )}
+          <FullscreenButton
+            fullscreen={fullscreen}
+            requestFullscreen={requestFullscreen}
+            exitFullscreen={exitFullscreen}
+          />
         </div>
       </div>
-      {l && !kernelMsg && (
-        <div className={styles.loading}>
-          <LoadingOutlined />
-        </div>
-      )}
-      {kernelMsg && (
-        <div className={styles.kernelMsg}>
-          {kernelMsg.type}: {kernelMsg.detail}
-        </div>
-      )}
+      <TopState src={src} loading={loading} currentTime={currentTime} duration={duration} kernelMsg={kernelMsg} />
     </div>
   );
 };

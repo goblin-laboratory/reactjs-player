@@ -58,7 +58,7 @@ export default ({ src, live, onKernelError }) => {
   });
 
   const { changeCurrentTime } = useTime({ src, duration, currentTime, buffered, updateState, getVideoElement });
-  const { onMutedClick, changeVolume } = useVolume({ muted, volume, updateState, getVideoElement });
+  const { onMutedClick, changeVolume } = useVolume({ src, muted, volume, updateState, getVideoElement });
   const { changePlaybackRate } = usePlaybackRate({ src, live, playbackRate, updateState, getVideoElement });
   const { requestPictureInPicture, exitPictureInPicture } = usePiP({ src, pip, updateState, getVideoElement });
   const { requestFullscreen, exitFullscreen } = useFullscreen({ updateState, getVideoElement, getPlayerElement });

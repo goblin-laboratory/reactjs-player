@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ live, updateState, getVideoElement }) => {
+export default ({ src, live, updateState, getVideoElement }) => {
   const ref = React.useRef({ live, getVideoElement });
 
   const onRateChange = React.useCallback(
@@ -46,6 +46,13 @@ export default ({ live, updateState, getVideoElement }) => {
       el.removeEventListener('ratechange', onRateChange);
     };
   }, [getVideoElement, onRateChange]);
+
+  React.useEffect(() => {
+    const el = ref.current.getVideoElement();
+    if (el) {
+      el.playbackRate = 1;
+    }
+  }, [src]);
 
   return { changePlaybackRate };
 };
