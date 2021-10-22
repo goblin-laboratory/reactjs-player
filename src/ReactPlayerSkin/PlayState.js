@@ -48,8 +48,12 @@ PlayState.propTypes = {
   waiting: PropTypes.bool.isRequired,
   duration: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
-  kernelMsg: PropTypes.object.isRequired,
+  kernelMsg: PropTypes.object,
   onPlayClick: PropTypes.func.isRequired,
+};
+
+PlayState.defaultProps = {
+  kernelMsg: null,
 };
 
 export default React.memo(

@@ -31,7 +31,11 @@ TopState.propTypes = {
   loading: PropTypes.bool.isRequired,
   duration: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
-  kernelMsg: PropTypes.object.isRequired,
+  kernelMsg: PropTypes.object,
+};
+
+TopState.defaultProps = {
+  kernelMsg: null,
 };
 
 export default React.memo(
