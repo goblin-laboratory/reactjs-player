@@ -26,7 +26,7 @@ import 'antd/lib/slider/style/index.css';
 import 'antd/lib/dropdown/style/index.css';
 import styles from './index.module.less';
 
-// import bgImg from './bg.png';
+import bgImg from './bg.png';
 
 const ReactPlayerSkin = ({
   live,
@@ -98,7 +98,7 @@ const ReactPlayerSkin = ({
       />
       <div
         className={styles.controls}
-        style={hiding ? { transform: `translate(0, 48px)` } : {}}
+        style={{ backgroundImage: `url(${bgImg})`, transform: hiding ? 'translate(0, 48px)' : 'translate(0, 0)' }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -113,6 +113,7 @@ const ReactPlayerSkin = ({
           />
         )}
         <div className={styles.bar}>
+          {/* <img src=""> */}
           <div className={styles.flexItem}>
             <PlayButton
               prevented={prevented}

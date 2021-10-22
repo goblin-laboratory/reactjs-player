@@ -5,6 +5,7 @@ import { babel } from '@rollup/plugin-babel';
 import external from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import url from '@rollup/plugin-url';
+// import image from '@rollup/plugin-image';
 import svgr from '@svgr/rollup';
 import filesize from 'rollup-plugin-filesize';
 
@@ -41,6 +42,7 @@ export default {
       emitFiles: true,
       fileName: '[name][extname]',
     }),
+    // image(),
     svgr(),
     babel({
       babelrc: false,
