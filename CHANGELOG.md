@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.2](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2021-10-22)
+
+
+### Bug Fixes
+
+* 修复工具栏背景图片加载失败问题 ([4d075ee](https://github.com/goblin-laboratory/reactjs-player/commit/4d075ee2d9838aa14fa0ae799a9219661d8d5a04))
+* 修复开发 kernelMsg propTypes 检查警告 ([75067a5](https://github.com/goblin-laboratory/reactjs-player/commit/75067a5bfc0facace61e688734f319871cf1f86f))
+
 ## [2.0.0-alpha.1](https://github.com/goblin-laboratory/reactjs-player/compare/v1.2.1...v2.0.0-alpha.1) (2021-10-18)
 
 
