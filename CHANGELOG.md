@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.4](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.2...v2.0.0-alpha.4) (2021-10-25)
+
+
+### Bug Fixes
+
+* 修复直播时工具栏高度不够导致蒙版显示异常问题 ([74ac35e](https://github.com/goblin-laboratory/reactjs-player/commit/74ac35e71ddf2c531f29032d37802d6bf384ffe5))
+
 ## [2.0.0-alpha.2](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2021-10-22)
 
 
