@@ -113,7 +113,6 @@ const ReactPlayerSkin = ({
           />
         )}
         <div className={styles.bar}>
-          {/* <img src=""> */}
           <div className={styles.flexItem}>
             <PlayButton
               prevented={prevented}

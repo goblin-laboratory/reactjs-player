@@ -1,6 +1,6 @@
 {
   "name": "reactjs-player",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
   "keywords": [
     "react",
@@ -25,6 +25,8 @@
     "build": "rollup -c ./scripts/rollup.config.prod.js",
     "predeploy": "yarn build && cd example && yarn build",
     "deploy": "gh-pages -d example/build",
+    "release:alpha": "standard-version -- --prerelease alpha",
+    "publish:next": "nrm use npm && npm publish --tag next && nrm use taobao",
     "nrm": "nrm use taobao"
   },
   "devDependencies": {
