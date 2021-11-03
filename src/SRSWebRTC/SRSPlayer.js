@@ -9,13 +9,15 @@ export default class SRSPlayer {
     return true;
   }
 
-  constructor({ url = '', protocol = global.location.protocol, pathname = '/rtc/v1/play/' }) {
+  constructor(url, config) {
     // webrtc://192.168.0.225/quick/ClpheNxgRBy_XDhXXDq_CQ?vc=ivWxqY
     const matched = url.match(/^webrtc:\/\/([^/]+)(\/.*)?$/);
     if (!matched) {
       return null;
     }
     this.url = url;
+    const protocol = 'string' === typeof config.protocol ? config.protocol : global.location.protocol;
+    const pathname = 'string' === typeof config.pathname ? config.pathname : '/rtc/v1/play/';
     this.api = `${protocol}//${matched[1]}${pathname}`;
     this.stream = new MediaStream();
     this.trackList = [];
@@ -23,6 +25,9 @@ export default class SRSPlayer {
   }
 
   subscribe() {
+    if (!this.url) {
+      return null;
+    }
     this.unsubscribe();
     this.createRTCPeerConnection();
     this.connectPeerConnection();
@@ -94,15 +99,17 @@ export default class SRSPlayer {
   }
 
   closeRTCPeerConnection() {
-    this.trackList.forEach((track) => {
-      try {
-        this.stream.removeTrack(track);
-      } catch (errMsg) {}
-      try {
-        track.stop();
-      } catch (errMsg) {}
-    });
-    this.trackList = [];
+    if (this.trackList) {
+      this.trackList.forEach((track) => {
+        try {
+          this.stream.removeTrack(track);
+        } catch (errMsg) {}
+        try {
+          track.stop();
+        } catch (errMsg) {}
+      });
+      this.trackList = [];
+    }
 
     if (!this.pc) {
       return;

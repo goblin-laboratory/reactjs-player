@@ -16,7 +16,7 @@ export default ({ getVideoElement, src, config, onMsgChange }) => {
     if (!src || !el) {
       return () => {};
     }
-    const player = new SRSPlayer({ url: src, ...ref.current });
+    const player = new SRSPlayer(src, { ...ref.current });
     const stream = player.subscribe();
     el.pause();
     el.srcObject = stream;
