@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.6](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2021-11-03)
+
+
+### Bug Fixes
+
+* 增加 url 不合法异常处理 ([324a4d1](https://github.com/goblin-laboratory/reactjs-player/commit/324a4d18072fd62a9e532fea891156743e3712ad))
+
 ## [2.0.0-alpha.5](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2021-11-03)
 
 
