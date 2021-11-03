@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.5](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2021-11-03)
+
+
+### Features
+
+* 支持 SRS WebRTC 播放 ([f8858e7](https://github.com/goblin-laboratory/reactjs-player/commit/f8858e7b0c54b6d2addd0c6a571e9393ba510cd5))
+
 ## [2.0.0-alpha.4](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.2...v2.0.0-alpha.4) (2021-10-25)
 
 
