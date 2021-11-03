@@ -1,10 +1,10 @@
-import ReactPlayer from './ReactPlayer';
+import ReactjsPlayer from './ReactjsPlayer';
 import GrindPlayer from './GrindPlayer';
-import ReactPlayerContext from './ReactPlayerContext';
-import ReactPlayerSkin from './ReactPlayerSkin';
+import PlayerContext from './PlayerContext';
+import PlayerSkin from './PlayerSkin';
 
-ReactPlayer.GrindPlayer = GrindPlayer;
-ReactPlayer.ReactPlayerContext = ReactPlayerContext;
-ReactPlayer.ReactPlayerSkin = ReactPlayerSkin;
+ReactjsPlayer.GrindPlayer = GrindPlayer;
+ReactjsPlayer.PlayerContext = PlayerContext;
+ReactjsPlayer.PlayerSkin = PlayerSkin;
 
-export default ReactPlayer;
+export default ReactjsPlayer;

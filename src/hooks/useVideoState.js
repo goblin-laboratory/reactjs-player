@@ -15,7 +15,9 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
       }
       // debugger;
       // TODO: src 改变了
-      promise.then(() => updateState({ prevented: false })).catch(() => updateState({ prevented: true }));
+      promise
+        .then(() => updateState({ prevented: false, loading: false }))
+        .catch(() => updateState({ prevented: true, loading: false }));
     }
     updateState({ paused: false }, true);
   }, [updateState]);

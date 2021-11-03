@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactSWF from 'react-swf';
 import './GrindPlayer.swf';
 import './flashlsOSMF.swf';
-import ReactPlayerContext from '../ReactPlayerContext';
+import PlayerContext from '../PlayerContext';
 import useGrindPlayer from './useGrindPlayer';
 import useState from './useState';
 import useTime from './useTime';
@@ -39,7 +39,7 @@ const GrindPlayer = ({ live, src, type, grindPlayerSwf, flashlsOSMFSwf }) => {
           }}
         />
       )}
-      <ReactPlayerContext.Provider
+      <PlayerContext.Provider
         value={{
           live,
           src,

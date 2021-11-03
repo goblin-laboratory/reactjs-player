@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useHlsjs from './useHlsjs';
+import useSRSWebRTC from './useSRSWebRTC';
 
-const Hlsjs = (props) => {
-  useHlsjs(props);
+const SRSWebRTC = (props) => {
+  useSRSWebRTC(props);
   return null;
 };
 
-Hlsjs.propTypes = {
+SRSWebRTC.propTypes = {
   getVideoElement: PropTypes.func.isRequired,
   src: PropTypes.string,
   config: PropTypes.object,
   onMsgChange: PropTypes.func.isRequired,
 };
 
-Hlsjs.defaultProps = {
+SRSWebRTC.defaultProps = {
   src: '',
   config: null,
 };
 
 export default React.memo(
-  Hlsjs,
+  SRSWebRTC,
   (p, n) =>
     p.getVideoElement === n.getVideoElement &&
     p.src === n.src &&

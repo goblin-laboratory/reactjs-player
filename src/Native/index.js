@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useNative from '../hooks/useNative';
+import useNative from './useNative';
 
 const Native = (props) => {
   useNative(props);
@@ -17,4 +17,7 @@ Native.defaultProps = {
   src: '',
 };
 
-export default React.memo(Native);
+export default React.memo(
+  Native,
+  (p, n) => p.getVideoElement === n.getVideoElement && p.src === n.src && p.onMsgChange === n.onMsgChange,
+);

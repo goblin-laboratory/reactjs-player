@@ -14,12 +14,12 @@ import './App.css';
 const GrindPlayer = ReactjsPlayer.GrindPlayer;
 // const ReactPlayerContext = ReactjsPlayer.ReactPlayerContext;
 
-const delay = timeout =>
-  new Promise(resolve => {
+const delay = (timeout) =>
+  new Promise((resolve) => {
     global.setTimeout(resolve, timeout);
   });
 
-const getSupportedList = ua => {
+const getSupportedList = (ua) => {
   if (ua.device.type) {
     // 非 PC 浏览器
     return [
@@ -30,6 +30,13 @@ const getSupportedList = ua => {
         type: 'application/x-mpegURL',
       },
       { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
+      {
+        key: 'srswebrtc',
+        kernel: 'srswebrtc',
+        live: true,
+        src: 'webrtc://192.168.0.225/quick/ClpheNxgRBy_XDhXXDq_CQ?vc=ivWxqY',
+        type: '',
+      },
     ];
   }
 
@@ -44,7 +51,7 @@ const getSupportedList = ua => {
         key: 'flvjs',
         kernel: 'flvjs',
         live: true,
-        src: 'http://192.168.0.221/flv_srs/quick/A6sq0Q9DR320aHkEAoiygQ.flv',
+        src: 'http://192.168.0.225/flv_srs/quick/ClpheNxgRBy_XDhXXDq_CQ.flv',
         type: 'video/x-flv',
         config: {
           isLive: true,
@@ -95,6 +102,13 @@ const getSupportedList = ua => {
       src: 'https://www.w3schools.com/html/mov_bbb.mp4',
       type: 'video/mp4',
     },
+    {
+      key: 'srswebrtc',
+      kernel: 'srswebrtc',
+      live: true,
+      src: 'webrtc://192.168.0.225/quick/ClpheNxgRBy_XDhXXDq_CQ?vc=ivWxqY',
+      type: '',
+    },
   );
   return list;
 };
@@ -109,17 +123,17 @@ const App = React.memo(() => {
   const [form] = Form.useForm();
 
   const onChange = React.useCallback(
-    v => {
-      const item = list.find(it => it.key === v);
+    (v) => {
+      const item = list.find((it) => it.key === v);
       form.setFieldsValue({ src: item.src });
     },
     [form, list],
   );
 
-  const onSubmit = React.useCallback(async values => {
+  const onSubmit = React.useCallback(async (values) => {
     setSrc('');
     await delay(50);
-    const item = ref.current.find(it => it.key === values.type);
+    const item = ref.current.find((it) => it.key === values.type);
     setInfo(item);
     setSrc(values.src);
   }, []);
@@ -146,7 +160,7 @@ const App = React.memo(() => {
     onSubmit({ type: supportedList[0].key, src: supportedList[0].src });
   }, [onSubmit]);
 
-  const onVideoEvent = React.useCallback(e => {
+  const onVideoEvent = React.useCallback((e) => {
     const log = console.log;
     log(`e.type: ${e.type}`);
     // if ('durationchange' === e.type) {
@@ -173,7 +187,7 @@ const App = React.memo(() => {
         >
           <Form.Item className="type" name="type">
             <Select onChange={onChange}>
-              {list.map(it => (
+              {list.map((it) => (
                 <Select.Option key={it.key} value={it.key}>
                   {it.key}
                 </Select.Option>
@@ -191,76 +205,77 @@ const App = React.memo(() => {
         </Form>
       </header>
       <main className="main">
-        <img className="blankImg" src={blank16x9} alt="" />
-        {'flash' !== info.kernel && (
-          <ReactjsPlayer
-            live={info.live}
-            kernel={info.kernel}
-            type={info.type}
-            config={info.config || {}}
-            src={src}
-            videoProps={{
-              ...videoProps,
-              onCanPlay: onVideoEvent,
-              onDurationChange: onVideoEvent,
-              onPause: onVideoEvent,
-              onPlay: onVideoEvent,
-              onPlaying: onVideoEvent,
-              onEnded: onVideoEvent,
-              onSeeked: onVideoEvent,
-              onSeeking: onVideoEvent,
-              onCanPlayThrough: onVideoEvent,
-              onEmptied: onVideoEvent,
-              onEncrypted: onVideoEvent,
-              onError: onVideoEvent,
-              onLoadedData: onVideoEvent,
-              onLoadedMetadata: onVideoEvent,
-              onLoadStart: onVideoEvent,
-              onRateChange: onVideoEvent,
-              onStalled: onVideoEvent,
-              onSuspend: onVideoEvent,
-              onVolumeChange: onVideoEvent,
-              onWaiting: onVideoEvent,
-              onAbort: onVideoEvent,
-            }}
-          />
-        )}
-        {'flash' === info.kernel && (
-          <GrindPlayer {...info} src={src} grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
-        )}
-      </main>
-      <aside className="aside">
-        <div className="asideContainer">
-          <Tabs className="asideTabs" defaultActiveKey="info">
-            <Tabs.TabPane tab="信息" key="info">
-              <Scrollbars>
-                <div className="infoTabPane">
-                  <Descriptions title="参数" column={1} size="small">
-                    <Descriptions.Item label="kernel">{info.kernel}</Descriptions.Item>
-                    <Descriptions.Item label="live">{info.live ? '是' : '否'}</Descriptions.Item>
-                    <Descriptions.Item label="src">
-                      <span className="srcValue">{src}</span>
-                    </Descriptions.Item>
-                    <Descriptions.Item label="type">{info.type}</Descriptions.Item>
-                  </Descriptions>
-                </div>
-              </Scrollbars>
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="接口测试" key="interface">
-              <Scrollbars>
-                <div className="infoTabPane">暂时删除接口测试功能</div>
-              </Scrollbars>
-            </Tabs.TabPane>
-          </Tabs>
-          <div className="asideFooter">
-            <a href="https://github.com/goblin-laboratory/reactjs-player">
-              <GithubOutlined />
-              &nbsp; Github
-            </a>
-          </div>
+        <div className="player">
+          <img className="blankImg" src={blank16x9} alt="" />
+          {'flash' !== info.kernel && (
+            <ReactjsPlayer
+              live={info.live}
+              kernel={info.kernel}
+              type={info.type}
+              config={info.config || {}}
+              src={src}
+              videoProps={{
+                ...videoProps,
+                onCanPlay: onVideoEvent,
+                onDurationChange: onVideoEvent,
+                onPause: onVideoEvent,
+                onPlay: onVideoEvent,
+                onPlaying: onVideoEvent,
+                onEnded: onVideoEvent,
+                onSeeked: onVideoEvent,
+                onSeeking: onVideoEvent,
+                onCanPlayThrough: onVideoEvent,
+                onEmptied: onVideoEvent,
+                onEncrypted: onVideoEvent,
+                onError: onVideoEvent,
+                onLoadedData: onVideoEvent,
+                onLoadedMetadata: onVideoEvent,
+                onLoadStart: onVideoEvent,
+                onRateChange: onVideoEvent,
+                onStalled: onVideoEvent,
+                onSuspend: onVideoEvent,
+                onVolumeChange: onVideoEvent,
+                onWaiting: onVideoEvent,
+                onAbort: onVideoEvent,
+              }}
+            />
+          )}
+          {'flash' === info.kernel && (
+            <GrindPlayer {...info} src={src} grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
+          )}
         </div>
-      </aside>
-      <footer className="footer">手机观看</footer>
+        <aside className="aside">
+          <div className="asideContainer">
+            <Tabs className="asideTabs" defaultActiveKey="info">
+              <Tabs.TabPane tab="信息" key="info">
+                <Scrollbars>
+                  <div className="infoTabPane">
+                    <Descriptions title="参数" column={1} size="small">
+                      <Descriptions.Item label="kernel">{info.kernel}</Descriptions.Item>
+                      <Descriptions.Item label="live">{info.live ? '是' : '否'}</Descriptions.Item>
+                      <Descriptions.Item label="src">
+                        <span className="srcValue">{src}</span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="type">{info.type}</Descriptions.Item>
+                    </Descriptions>
+                  </div>
+                </Scrollbars>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="接口测试" key="interface">
+                <Scrollbars>
+                  <div className="infoTabPane">暂时删除接口测试功能</div>
+                </Scrollbars>
+              </Tabs.TabPane>
+            </Tabs>
+            <div className="asideFooter">
+              <a href="https://github.com/goblin-laboratory/reactjs-player">
+                <GithubOutlined />
+                &nbsp; Github
+              </a>
+            </div>
+          </div>
+        </aside>
+      </main>
     </div>
   );
 });

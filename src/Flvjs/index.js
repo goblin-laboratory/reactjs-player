@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useFlvjs from '../hooks/useFlvjs';
+import useFlvjs from './useFlvjs';
 
 const Flvjs = (props) => {
+  // console.log(`Flvjs`);
   useFlvjs(props);
   return null;
 };
@@ -19,4 +20,11 @@ Flvjs.defaultProps = {
   config: null,
 };
 
-export default React.memo(Flvjs);
+export default React.memo(
+  Flvjs,
+  (p, n) =>
+    p.getVideoElement === n.getVideoElement &&
+    p.src === n.src &&
+    p.config === n.config &&
+    p.onMsgChange === n.onMsgChange,
+);

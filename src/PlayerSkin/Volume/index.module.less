@@ -1,0 +1,62 @@
+.volumeSlider {
+  display: inline-block;
+
+  width: 120px;
+  height: 32px;
+  padding: 0 8px;
+  padding-right: 12px;
+  padding-left: 4px;
+
+  vertical-align: bottom;
+
+  font-size: 14px;
+  line-height: 32px;
+
+  :global(.ant-slider) {
+    margin-top: 10px;
+  }
+  :global(.ant-slider-rail) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  :global(.ant-slider-rail) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  :global(.ant-slider-track) {
+    background: rgba(255, 255, 255, 0.85);
+  }
+  :global(.ant-slider-handle) {
+    border: none 0 transparent;
+    background: rgba(255, 255, 255, 0.85);
+  }
+  :global(.ant-slider-handle):focus {
+    border: none 0 transparent;
+    box-shadow: none;
+  }
+  :global(.ant-slider):hover {
+    :global(.ant-slider-rail) {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    :global(.ant-slider-track) {
+      background: rgba(255, 255, 255, 0.85);
+    }
+    :global(.ant-slider-handle) {
+      border: none 0 transparent;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: none;
+    }
+    :global(.ant-slider-handle):not(:global(.ant-tooltip-open)) {
+      border: none 0 transparent;
+      box-shadow: none;
+    }
+    :global(.ant-slider-handle):focus {
+      border: none 0 transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .volume {
+    display: none;
+  }
+}
