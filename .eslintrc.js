@@ -1,17 +1,20 @@
 module.exports = {
-  parser: 'babel-eslint',
-  extends: ['react-app', 'airbnb', 'prettier', 'prettier/react'],
-  plugins: ['prettier'],
-  globals: {
-    // 这里填入你的项目需要的全局变量
-    // 这里值为 false 表示这个全局变量不允许被重新赋值，比如：
-    //
-    // React: false,
-    // ReactDOM: false
+  env: {
+    browser: true,
+    es2021: true,
   },
+  extends: ['plugin:react/recommended', 'react-app', 'airbnb', 'plugin:prettier/recommended'],
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2021,
+    sourceType: 'module',
+  },
+  plugins: ['react', 'prettier'],
   rules: {
     // 这里填入你的项目需要的个性化配置
-    'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
     yoda: [2, 'always'],
@@ -28,4 +31,5 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'no-empty': ['error', { allowEmptyCatch: true }],
   },
+  ignorePatterns: ['build', 'dist', 'node_modules', '___*'],
 };

@@ -1,48 +1,81 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
+  "name": "reactjs-player",
+  "version": "2.0.0-alpha.6",
+  "description": "基于 react hooks 的 video 播放组件，结构简单，代码简洁，扩展方便。",
+  "keywords": [
+    "react",
+    "media",
+    "player",
+    "video",
+    "hls.js",
+    "flv.js",
+    "react-hooks"
   ],
+  "author": "xiaosong <kunkkaco@gmail.com>",
+  "homepage": "https://github.com/goblin-laboratory/reactjs-player/blob/master/packages/reactjs-player/README.md",
+  "license": "MIT",
+  "browser": "dist/index.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goblin-laboratory/reactjs-player.git"
+  },
   "scripts": {
-    "lint": "eslint --ext .js packages",
-    "test": "react-app-rewired test",
-    "test:coverage": "react-app-rewired test --coverage --watchAll=false",
-    "coveralls": "react-app-rewired test --coverage --watchAll=false --coverageReporters=text-lcov | coveralls",
-    "build": "lerna run build",
-    "predeploy": "lerna run build",
-    "deploy": "lerna run deploy",
-    "ver": "lerna version --conventional-commits",
-    "pub": "lerna publish --conventional-commits --dist-tag latest",
-    "release-from-git": "lerna publish from-git --dist-tag latest",
+    "lint": "eslint .",
+    "start": "rollup -c ./scripts/rollup.config.dev.js -w",
+    "build": "rollup -c ./scripts/rollup.config.prod.js",
+    "predeploy": "yarn build && cd example && yarn build",
+    "deploy": "gh-pages -d example/build",
+    "release:alpha": "standard-version -- --prerelease alpha",
+    "publish:next": "nrm use npm && npm publish --tag next && nrm use taobao",
     "nrm": "nrm use taobao"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.0.0",
-    "@commitlint/config-conventional": "^8.0.0",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/react-hooks": "^3.2.1",
-    "coveralls": "^3.0.4",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.0",
-    "lerna": "^3.16.4",
-    "prettier": "^1.18.2",
-    "react-app-rewired": "^2.1.5",
-    "react-scripts": "^3.3.0",
-    "react-test-renderer": "^16.12.0"
+    "@ant-design/icons": "^4.7.0",
+    "@babel/core": "^7.15.8",
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "@rollup/plugin-url": "^6.1.0",
+    "@svgr/rollup": "^5.5.0",
+    "antd": "^4.16.13",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^6.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "fbemitter": "^3.0.0",
+    "gh-pages": "^3.2.3",
+    "husky": "^7.0.2",
+    "less": "^4.1.2",
+    "numeral": "^2.0.6",
+    "postcss": "^8.3.9",
+    "prettier": "^2.4.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-swf": "^1.0.7",
+    "rollup": "^2.58.0",
+    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
+    "standard-version": "^9.3.1"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run lint",
-      "pre-push": "yarn test --watchAll=false"
-    }
-  },
-  "eslintIgnore": [
-    "build",
-    "dist",
-    "node_modules"
-  ],
-  "config-overrides-path": "scripts/config-overrides.js"
+  "peerDependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.16.13",
+    "fbemitter": "^3.0.0",
+    "numeral": "^2.0.6",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-swf": "^1.0.7"
+  }
 }
