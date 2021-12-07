@@ -14,6 +14,8 @@
   "author": "xiaosong <kunkkaco@gmail.com>",
   "homepage": "https://github.com/goblin-laboratory/reactjs-player/blob/master/packages/reactjs-player/README.md",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "browser": "dist/index.umd.js",
   "repository": {
     "type": "git",

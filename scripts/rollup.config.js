@@ -29,7 +29,37 @@ export default {
         fbemitter: 'fbemitter',
       },
     },
+    {
+      file: pkg.main,
+      name: pkg.name,
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: pkg.module,
+      name: pkg.name,
+      format: 'es',
+      sourcemap: true,
+    },
   ],
+  // output: [
+  //   {
+  //     file: pkg.browser,
+  //     name: pkg.name,
+  //     format: 'umd',
+  //     sourcemap: true,
+  //     globals: {
+  //       react: 'React',
+  //       'prop-types': 'PropTypes',
+  //       numeral: 'numeral',
+  //       antd: 'antd',
+  //       '@ant-design/icons': '@ant-design/icons',
+  //       'react-swf': 'ReactSWF',
+  //       fbemitter: 'fbemitter',
+  //     },
+  //   },
+  // ],
+  external: ['react', 'prop-types', 'antd', '@ant-design/icons', 'numeral', 'react-swf', 'fbemitter'],
   plugins: [
     external(),
     postcss({
