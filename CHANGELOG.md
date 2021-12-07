@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/goblin-laboratory/reactjs-player/compare/v1.2.1...v2.0.0) (2021-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* 调整代码结构，删除已有代码
+
+### Features
+
+* 优化工具栏自动隐藏逻辑，防止用户操作被中断 ([c4c035e](https://github.com/goblin-laboratory/reactjs-player/commit/c4c035e6f2b6ab9e6f5da06ed56a9dea7fa354c8))
+* 支持 SRS WebRTC 播放 ([f8858e7](https://github.com/goblin-laboratory/reactjs-player/commit/f8858e7b0c54b6d2addd0c6a571e9393ba510cd5))
+
+
+### Bug Fixes
+
+* 修复工具栏背景图片加载失败问题 ([4d075ee](https://github.com/goblin-laboratory/reactjs-player/commit/4d075ee2d9838aa14fa0ae799a9219661d8d5a04))
+* 修复开发 kernelMsg propTypes 检查警告 ([75067a5](https://github.com/goblin-laboratory/reactjs-player/commit/75067a5bfc0facace61e688734f319871cf1f86f))
+* 修复直播时工具栏高度不够导致蒙版显示异常问题 ([74ac35e](https://github.com/goblin-laboratory/reactjs-player/commit/74ac35e71ddf2c531f29032d37802d6bf384ffe5))
+* 增加 url 不合法异常处理 ([324a4d1](https://github.com/goblin-laboratory/reactjs-player/commit/324a4d18072fd62a9e532fea891156743e3712ad))
+
+
+* 调整代码结构，删除已有代码 ([07c2a34](https://github.com/goblin-laboratory/reactjs-player/commit/07c2a34f3664684f14f4313fccda10ece1f205e0))
+
 ## [2.0.0-alpha.6](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2021-11-03)
 
 
