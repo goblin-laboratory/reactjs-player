@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2-alpha.0](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0...v2.0.2-alpha.0) (2021-12-07)
+
+
+### Bug Fixes
+
+* 修复 npm publish 问题 ([7436acc](https://github.com/goblin-laboratory/reactjs-player/commit/7436accbdc2b1f5a595f4d40c7005de7753d5e41))
+
 ### [2.0.1](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.0...v2.0.1) (2021-12-07)
 
 
