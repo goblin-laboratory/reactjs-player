@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2-alpha.5](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.2-alpha.4...v2.0.2-alpha.5) (2021-12-07)
+
 ### [2.0.2-alpha.4](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.2-alpha.3...v2.0.2-alpha.4) (2021-12-07)
 
 ### [2.0.2-alpha.3](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.2-alpha.2...v2.0.2-alpha.3) (2021-12-07)
