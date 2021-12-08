@@ -1,6 +1,6 @@
 # API
 
-## ReactPlayer
+## ReactjsPlayer
 
 ### props
 
@@ -24,17 +24,18 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 
 **kernel**
 
-| Value      | Description                                       |
-| ---------- | ------------------------------------------------- |
-| `'hlsjs'`  | use [hls.js](https://github.com/video-dev/hls.js) |
-| `'flvjs'`  | use [flv.js](https://github.com/bilibili/flv.js)  |
-| `'native'` | use native video                                  |
+| Value          | Description                                       |
+| -------------- | ------------------------------------------------- |
+| `'srswebrtc'`  | 代码库内置，后续独立成单独的 npm 包                  |
+| `'hlsjs'`      | use [hls.js](https://github.com/video-dev/hls.js) |
+| `'flvjs'`      | use [flv.js](https://github.com/bilibili/flv.js)  |
+| `'native'`     | use native video                                  |
 
 **controls**
 
 | Value        | Description           |
 | ------------ | --------------------- |
-| `true`       | ReactPlayerSkin       |
+| `true`       | ReactjsPlayerSkin       |
 | `false`      | without controls      |
 | `'controls'` | video native controls |
 
@@ -59,17 +60,17 @@ props 参考 video 属性： https://developer.mozilla.org/zh-CN/docs/Web/HTML/E
 
 > 注意：使用 Flash 时需要在根目录存放 crossdomain.xml 文件
 
-## ReactPlayerContext
+## ReactjsPlayerContext
 
-订阅 ReactPlayer 的 Context，必须在 ReactPlayer 的子组件中使用
+订阅 ReactjsPlayer 的 Context，必须在 ReactjsPlayer 的子组件中使用
 
 ```jsx
 import React from 'react';
-import ReactPlayer from 'reactjs-player';
+import ReactjsPlayer from 'reactjs-player';
 
-const ReactPlayerContext = ReactPlayer.ReactPlayerContext;
+const ReactjsPlayerContext = ReactjsPlayer.ReactjsPlayerContext;
 
-const ReactPlayerChild = () => {
+const ReactjsPlayerChild = () => {
   const {
     src,
     loading,
@@ -96,16 +97,16 @@ const ReactPlayerChild = () => {
     changePlaybackRate,
 
     playerMsg,
-  } = React.useContext(ReactPlayerContext);
+  } = React.useContext(ReactjsPlayerContext);
 
   return <>{loading && <div>loading</div>}</>;
 };
 
 const App = () => {
   return (
-    <ReactPlayer kernel="hlsjs" src="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8">
-      <ReactPlayerChild />
-    </ReactPlayer>
+    <ReactjsPlayer kernel="hlsjs" src="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8">
+      <ReactjsPlayerChild />
+    </ReactjsPlayer>
   );
 };
 ```
