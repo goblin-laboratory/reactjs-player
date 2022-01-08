@@ -8,6 +8,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import ReactjsPlayer from 'reactjs-player';
 import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
 import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
+import PlaybackRate from './PlaybackRate';
+import FouceLive from './FouceLive';
 import blank16x9 from './blank16x9.png';
 import './App.css';
 
@@ -238,7 +240,10 @@ const App = React.memo(() => {
                 onWaiting: onVideoEvent,
                 onAbort: onVideoEvent,
               }}
-            />
+            >
+              <PlaybackRate></PlaybackRate>
+              {'flvjs' === info.kernel && info.live && <FouceLive></FouceLive>}
+            </ReactjsPlayer>
           )}
           {'flash' === info.kernel && (
             <GrindPlayer {...info} src={src} grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
