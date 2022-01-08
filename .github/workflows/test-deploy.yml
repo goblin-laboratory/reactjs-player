@@ -1,9 +1,10 @@
 name: Test deployment
 
 on:
+  push:
+    branches: [master]
   pull_request:
     branches: [master]
-    # paths: [website/**]
 
 jobs:
   test-deploy:
@@ -20,7 +21,7 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
       - name: Test build example
-        working-directory: website
         run: |
+          cd example
           yarn install --frozen-lockfile
           yarn build

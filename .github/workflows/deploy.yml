@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
-    paths: [example/**]
+    paths: [example/**, src/**]
 
 jobs:
   deploy:
@@ -20,8 +20,8 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
       - name: Build example
-        working-directory: website
         run: |
+          cd example
           yarn install --frozen-lockfile
           yarn build
 
