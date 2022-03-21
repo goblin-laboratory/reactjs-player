@@ -5,6 +5,9 @@ export default ({ src, live, updateState, getVideoElement }) => {
 
   const onRateChange = React.useCallback(
     (e) => {
+      if (!ref.current) {
+        return;
+      }
       if (Number.isNaN(e.target.playbackRate)) {
         return;
       }
@@ -15,6 +18,9 @@ export default ({ src, live, updateState, getVideoElement }) => {
 
   const changePlaybackRate = React.useCallback(
     (r) => {
+      if (!ref.current) {
+        return;
+      }
       if (Number.isNaN(r)) {
         return;
       }
@@ -30,6 +36,15 @@ export default ({ src, live, updateState, getVideoElement }) => {
   );
 
   React.useEffect(() => {
+    return () => {
+      ref.current = null;
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     ref.current.live = live;
     if (live) {
       changePlaybackRate(1);
@@ -37,6 +52,9 @@ export default ({ src, live, updateState, getVideoElement }) => {
   }, [live, changePlaybackRate]);
 
   React.useEffect(() => {
+    if (!ref.current) {
+      return () => {};
+    }
     const el = getVideoElement();
     if (!el) {
       return () => {};
@@ -48,6 +66,9 @@ export default ({ src, live, updateState, getVideoElement }) => {
   }, [getVideoElement, onRateChange]);
 
   React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     const el = ref.current.getVideoElement();
     if (el) {
       el.playbackRate = 1;

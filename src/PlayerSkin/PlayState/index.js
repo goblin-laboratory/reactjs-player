@@ -4,7 +4,7 @@ import { LoadingOutlined, PlayCircleOutlined } from '@ant-design/icons';
 
 import styles from './index.module.less';
 
-const PlayState = ({ src, prevented, loading, paused, ended, seeking, waiting, kernelMsg, onPlayClick }) => {
+const PlayState = ({ src, loading, paused, ended, seeking, waiting, kernelMsg, onPlayClick }) => {
   if (!src || loading || kernelMsg) {
     return null;
   }
@@ -16,7 +16,7 @@ const PlayState = ({ src, prevented, loading, paused, ended, seeking, waiting, k
       </div>
     );
   }
-  if (prevented || paused || ended) {
+  if (paused || ended) {
     return (
       <button type="button" className={styles.play} onClick={onPlayClick}>
         <PlayCircleOutlined />
@@ -29,7 +29,6 @@ const PlayState = ({ src, prevented, loading, paused, ended, seeking, waiting, k
 PlayState.propTypes = {
   src: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
-  prevented: PropTypes.bool.isRequired,
   paused: PropTypes.bool.isRequired,
   ended: PropTypes.bool.isRequired,
   seeking: PropTypes.bool.isRequired,
@@ -47,7 +46,6 @@ export default React.memo(
   (p, n) =>
     p.src === n.src &&
     p.loading === n.loading &&
-    p.prevented === n.prevented &&
     p.paused === n.paused &&
     p.ended === n.ended &&
     p.seeking === n.seeking &&

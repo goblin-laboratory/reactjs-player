@@ -5,6 +5,9 @@ const FouceLive = () => {
   const { getVideoElement, changeCurrentTime } = React.useContext(ReactjsPlayer.PlayerContext);
   React.useEffect(() => {
     const id = global.setInterval(() => {
+      if (!getVideoElement) {
+        return;
+      }
       const el = getVideoElement();
       if (!el || el.paused || !el.buffered) {
         return;

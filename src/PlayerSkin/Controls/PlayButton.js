@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 // import styles from './index.module.less';
 
-const PlayButton = ({ prevented, paused, ended, onPlayClick, onPauseClick }) => {
-  return prevented || paused || ended ? (
+const PlayButton = ({ paused, ended, onPlayClick, onPauseClick }) => {
+  return paused || ended ? (
     <button type="button" onClick={onPlayClick}>
       <CaretRightOutlined />
     </button>
@@ -16,7 +16,6 @@ const PlayButton = ({ prevented, paused, ended, onPlayClick, onPauseClick }) => 
 };
 
 PlayButton.propTypes = {
-  prevented: PropTypes.bool.isRequired,
   paused: PropTypes.bool.isRequired,
   ended: PropTypes.bool.isRequired,
   onPlayClick: PropTypes.func.isRequired,
@@ -26,7 +25,6 @@ PlayButton.propTypes = {
 export default React.memo(
   PlayButton,
   (p, n) =>
-    p.prevented === n.prevented &&
     p.paused === n.paused &&
     p.ended === n.ended &&
     p.onPlayClick === n.onPlayClick &&

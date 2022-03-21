@@ -72,12 +72,10 @@ const PlayerSkin = ({
 
   return (
     <div className={styles.playerSkin}>
-      <PreventedTip src={src} prevented={prevented} />
       <VideoMask src={src} showControls={show} />
       <PlayState
         src={src}
         loading={loading}
-        prevented={prevented}
         paused={paused}
         ended={ended}
         waiting={waiting}
@@ -122,17 +120,12 @@ const PlayerSkin = ({
             </>
           }
         >
-          <PlayButton
-            prevented={prevented}
-            paused={paused}
-            ended={ended}
-            onPauseClick={onPauseClick}
-            onPlayClick={onPlayClick}
-          />
+          <PlayButton paused={paused} ended={ended} onPauseClick={onPauseClick} onPlayClick={onPlayClick} />
           <Volume muted={muted} volume={volume} onMutedClick={onMutedClick} changeVolume={changeVolume} />
           <PlayTime live={live} currentTime={currentTime} duration={duration} />
         </ControlBar>
       </Controls>
+      <PreventedTip src={src} prevented={prevented} />
       <TopState src={src} loading={loading} kernelMsg={kernelMsg} />
     </div>
   );

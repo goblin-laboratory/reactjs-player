@@ -4,6 +4,9 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
   const ref = React.useRef({ getVideoElement, loading, prevented, ended });
 
   const onPlayClick = React.useCallback(() => {
+    if (!ref.current) {
+      return;
+    }
     const el = ref.current.getVideoElement();
     if (el) {
       if (ref.current.ended) {
@@ -13,16 +16,26 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
       if (!promise || !promise.then) {
         return;
       }
-      // debugger;
-      // TODO: src 改变了
       promise
-        .then(() => updateState({ prevented: false, loading: false }))
-        .catch(() => updateState({ prevented: true, loading: false }));
+        // .then(() => updateState({ loading: false }))
+        .catch((e) => {
+          if (!ref.current) {
+            return;
+          }
+          if ('NotAllowedError' === e.name) {
+            updateState({ prevented: true });
+            el.muted = true;
+            el.play();
+          }
+        });
     }
     updateState({ paused: false }, true);
   }, [updateState]);
 
   const onPauseClick = React.useCallback(() => {
+    if (!ref.current) {
+      return;
+    }
     const el = ref.current.getVideoElement();
     if (el) {
       el.pause();
@@ -31,89 +44,120 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
   }, [updateState]);
 
   const onCanPlay = React.useCallback(() => {
+    if (!ref.current) {
+      return;
+    }
+    updateState({ loading: false, waiting: false });
     if (ref.current.loading) {
-      updateState({ loading: false });
       onPlayClick();
     }
-    updateState({ waiting: false });
-    // setWaiting(false);
   }, [updateState, onPlayClick]);
 
   const onPause = React.useCallback(() => {
-    // setPaused(true);
+    if (!ref.current) {
+      return;
+    }
     updateState({ paused: true });
   }, [updateState]);
 
   const onPlay = React.useCallback(() => {
-    // setPaused(false);
-    // setEnded(false);
+    if (!ref.current) {
+      return;
+    }
     updateState({ paused: false, ended: false });
   }, [updateState]);
 
   const onPlaying = React.useCallback(() => {
-    // setPaused(false);
-    // setEnded(false);
+    if (!ref.current) {
+      return;
+    }
     updateState({ paused: false, ended: false });
   }, [updateState]);
 
   const onEnded = React.useCallback(() => {
-    // setEnded(true);
+    if (!ref.current) {
+      return;
+    }
     updateState({ ended: true });
   }, [updateState]);
 
   const onSeeked = React.useCallback(() => {
-    // setSeeking(false);
+    if (!ref.current) {
+      return;
+    }
     updateState({ seeking: false });
   }, [updateState]);
 
   const onSeeking = React.useCallback(() => {
-    // setSeeking(true);
+    if (!ref.current) {
+      return;
+    }
     updateState({ seeking: true });
   }, [updateState]);
 
   const onCanPlayThrough = React.useCallback(() => {
-    // setWaiting(false);
+    if (!ref.current) {
+      return;
+    }
     updateState({ waiting: false });
   }, [updateState]);
 
   const onWaiting = React.useCallback(() => {
-    // setWaiting(true);
+    if (!ref.current) {
+      return;
+    }
     updateState({ waiting: true });
   }, [updateState]);
 
   const onDocumentClick = React.useCallback(() => {
+    if (!ref.current) {
+      return;
+    }
     const el = ref.current.getVideoElement();
     if (!el) {
       return;
     }
+    // NOTE: addEventListener 使用了 once ，理论上是不需要 remove 的，这里做个保护
     document.removeEventListener('click', onDocumentClick);
+    // NOTE: 自动播放已被阻止的情况下将静音取消
     if (ref.current.prevented) {
-      el.play();
-      ref.current.loaded = true;
+      if (el.muted) {
+        el.muted = false;
+      }
       return;
     }
-    if (ref.current.loaded) {
+    // NOTE: 未出现播放阻止的两种情况，一是已经在正常播放了，此时不要处理了，二是页面还未调用播放
+    if (ref.current.src) {
+      // NOTE: 未出现播放
       return;
     }
-    ref.current.loaded = true;
-    if (!ref.current.src) {
-      el.src = '';
-      try {
-        el.play();
-      } catch (e) {}
-      el.pause();
+    // NOTE: 页面发生点击的时候调用一下 video play，后续的自动播放可以成功
+    el.src = '';
+    try {
+      const p = el.play();
+      if (p) {
+        p.catch((e) => {
+          // eslint-disable-next-line no-console
+          console.log('useAutoplay[onDocumentClick]: load empty src for autoPlay, %o', e);
+        });
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('useAutoplay[onDocumentClick]: load empty src for autoPlay, %o', e);
     }
+    // el.pause();
   }, []);
 
-  // DONE: src 改变后 reset
-  // React.useEffect(() => {
-  //   setLoading(!!src);
-  //   setPaused(false);
-  //   setEnded(false);
-  //   setSeeking(false);
-  //   setWaiting(false);
-  // }, [src]);
   React.useEffect(() => {
+    return () => {
+      ref.current = null;
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     ref.current.src = src;
     if (src) {
       updateState({ loading: true }, true);
@@ -121,12 +165,18 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
   }, [src, updateState]);
 
   React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     ref.current.loading = loading;
     ref.current.prevented = prevented;
     ref.current.ended = ended;
   }, [loading, prevented, ended]);
 
   React.useEffect(() => {
+    if (!ref.current) {
+      return () => {};
+    }
     const el = ref.current.getVideoElement();
     if (!el) {
       return () => {};
@@ -140,7 +190,7 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
     el.addEventListener('seeking', onSeeking);
     el.addEventListener('canplaythrough', onCanPlayThrough);
     el.addEventListener('waiting', onWaiting);
-    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('click', onDocumentClick, { once: true });
     return () => {
       el.removeEventListener('canplay', onCanPlay);
       el.removeEventListener('pause', onPause);

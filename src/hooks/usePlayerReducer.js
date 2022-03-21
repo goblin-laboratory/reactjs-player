@@ -52,24 +52,29 @@ export default ({ src }) => {
   const ref = React.useRef({ src });
 
   const clearUpdateTimeout = React.useCallback(() => {
-    if (ref.current.timeout) {
+    if (ref.current && ref.current.timeout) {
       global.clearTimeout(ref.current.timeout);
+      delete ref.current.timeout;
     }
-    delete ref.current.timeout;
-    delete ref.current.payload;
   }, []);
 
   const timeoutCallback = React.useCallback(() => {
-    const { payload } = ref.current;
-    clearUpdateTimeout();
-    // debugger;
-    if (payload) {
-      dispatch({ type: 'update', payload });
+    if (!ref.current) {
+      return;
     }
-  }, [dispatch, clearUpdateTimeout]);
+    delete ref.current.timeout;
+    if (!ref.current.payload) {
+      return;
+    }
+    dispatch({ type: 'update', payload: ref.current.payload });
+    delete ref.current.payload;
+  }, [dispatch]);
 
   const updateState = React.useCallback(
     (payload, sync = false) => {
+      if (!ref.current) {
+        return;
+      }
       ref.current.payload = { ...ref.current.payload, ...payload };
       if (sync) {
         timeoutCallback();
@@ -85,17 +90,14 @@ export default ({ src }) => {
 
   React.useEffect(() => {
     return () => {
-      if (ref.current.timeout) {
-        global.clearTimeout(ref.current.timeout);
-      }
-      ref.current = {};
+      clearUpdateTimeout();
+      ref.current = null;
     };
-  }, []);
+  }, [clearUpdateTimeout]);
 
   React.useEffect(() => {
     clearUpdateTimeout();
     dispatch({ type: 'reset' });
-    // ref.current.src = src;
   }, [src, clearUpdateTimeout]);
 
   return {

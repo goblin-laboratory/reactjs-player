@@ -6,6 +6,9 @@ export default ({ src, updateState, getVideoElement }) => {
 
   const onDurationChange = React.useCallback(
     (e) => {
+      if (!ref.current) {
+        return;
+      }
       const v = e.target.duration;
       // TODO: 同步更新
       updateState({ duration: Number.isNaN(v) || Number.isFinite(v) || !v ? v : 0 });
@@ -15,17 +18,16 @@ export default ({ src, updateState, getVideoElement }) => {
 
   const update = React.useCallback(
     (timestamp) => {
-      if (!ref.current.payload) {
+      if (!ref.current || !ref.current.payload) {
         return;
       }
-      // TODO: ref.current.timestamp isNaN
-      if (200 > timestamp - ref.current.timestamp) {
+      if (ref.current.timestamp && !Number.isNaN(ref.current.timestamp) && 200 > timestamp - ref.current.timestamp) {
         global.requestAnimationFrame(update);
         return;
       }
       updateState(ref.current.payload);
       ref.current.timestamp = timestamp;
-      ref.current.payload = null;
+      delete ref.current.payload;
     },
     [updateState],
   );
@@ -62,6 +64,9 @@ export default ({ src, updateState, getVideoElement }) => {
 
   const changeCurrentTime = React.useCallback(
     (t) => {
+      if (!ref.current) {
+        return;
+      }
       const v = parseFloat(t);
       if (Number.isNaN(v)) {
         return;
@@ -70,19 +75,31 @@ export default ({ src, updateState, getVideoElement }) => {
       if (el) {
         el.currentTime = v;
       }
-      ref.current.payload = null;
+      delete ref.current.payload;
       updateState({ currentTime: v });
     },
     [updateState],
   );
 
   React.useEffect(() => {
+    return () => {
+      ref.current = null;
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     ref.current.src = src;
     ref.current.timestamp = 0;
     ref.current.payload = null;
   }, [src]);
 
   React.useEffect(() => {
+    if (!ref.current) {
+      return () => {};
+    }
     const el = ref.current.getVideoElement();
     if (!el) {
       return () => {};
