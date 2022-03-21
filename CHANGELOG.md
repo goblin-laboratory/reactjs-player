@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.3-alpha.0...v2.1.0) (2022-03-21)
+
+
+### Features
+
+* mute video and resume play after autoplay prevented ([8be794a](https://github.com/goblin-laboratory/reactjs-player/commit/8be794a988d4290d51914aa40636e078caa4c4cc))
+
 ### [2.0.3-alpha.0](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.2...v2.0.3-alpha.0) (2021-12-07)
 
 ### [2.0.2](https://github.com/goblin-laboratory/reactjs-player/compare/v2.0.2-alpha.5...v2.0.2) (2021-12-07)
