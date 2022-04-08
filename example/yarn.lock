@@ -5625,10 +5625,10 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.npm.taobao.org/hex-color-regex/download/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha1-TAb8y0YC/iYCs8k9+C1+fb8aio4=
 
-hls.js@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.npmmirror.com/hls.js/download/hls.js-1.0.11.tgz#8bc4adf7a80aaaa0378e5e3ad417bb9bb9bea3eb"
-  integrity sha1-i8St96gKqqA3jl461Be7m7m+o+s=
+hls.js@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.npmmirror.com/hls.js/-/hls.js-1.1.5.tgz#923a8a8cfdf09542578696d47c8ae435da981ffd"
+  integrity sha512-mQX5TSNtJEzGo5HPpvcQgCu+BWoKDQM6YYtg/KbgWkmVAcqOCvSTi0SuqG2ZJLXxIzdnFcKU2z7Mrw/YQWhPOA==
 
 hmac-drbg@^1.0.1:
   version "1.0.1"

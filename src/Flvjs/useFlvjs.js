@@ -17,75 +17,87 @@ const getFlvjs = (src) =>
 // eslint-disable-next-line no-console
 const debug = console.error;
 
-const destroyPlayer = (player) => {
-  if (!player) {
-    return;
-  }
-  try {
-    player.pause();
-  } catch (errMsg) {}
-  try {
-    player.unload();
-  } catch (errMsg) {}
-  try {
-    player.detachMediaElement();
-  } catch (errMsg) {}
-  try {
-    player.destroy();
-  } catch (errMsg) {}
-};
-
 export default ({ getVideoElement, src, config, onMsgChange }) => {
-  const [player, setPlayer] = React.useState(null);
+  const ref = React.useRef({});
 
-  const getVideo = React.useRef(getVideoElement);
-  const ref = React.useRef(src);
-  const configRef = React.useRef(config);
-  const onMsgChangeRef = React.useRef(onMsgChange);
-
-  React.useEffect(() => {
-    ref.current = src;
-    configRef.current = config;
-    return () => {
-      ref.current = '';
-    };
-  }, [src, config]);
-
-  React.useEffect(() => {
-    const play = async () => {
-      await getFlvjs('https://unpkg.com/flv.js/dist/flv.min.js');
-      if (!global.flvjs || ref.current !== src) {
-        debug('useFlvjs: 加载 flv.js 失败或者 src 已经变更');
-        return;
-      }
-      setPlayer(global.flvjs.createPlayer({ isLive: true, type: 'flv', url: src }, configRef.current));
-    };
-    setPlayer(null);
-    onMsgChangeRef.current(null);
-    if (src) {
-      play();
+  const cleanup = React.useCallback(() => {
+    if (!ref.current) {
+      return;
     }
-  }, [src]);
-
-  React.useEffect(() => {
-    const cleanup = () => destroyPlayer(player);
-    if (!player) {
-      return cleanup;
+    if (ref.current.player) {
+      try {
+        ref.current.player.pause();
+      } catch (errMsg) {}
+      try {
+        ref.current.player.unload();
+      } catch (errMsg) {}
+      try {
+        ref.current.player.detachMediaElement();
+      } catch (errMsg) {}
+      try {
+        ref.current.player.destroy();
+      } catch (errMsg) {}
+      ref.current.player = null;
     }
-    const el = getVideo.current();
+  }, []);
+
+  const loadSource = React.useCallback(async () => {
+    if (!ref.current || !ref.current.src) {
+      return;
+    }
+    const target = ref.current.src;
+    await getFlvjs('https://unpkg.com/flv.js/dist/flv.min.js');
+    if (!global.flvjs || !ref.current || ref.current.src !== target) {
+      debug('useFlvjs: 加载 hls.js 失败或者 src 已经变更');
+      return;
+    }
+    const el = ref.current.getVideoElement();
     if (!el) {
-      return cleanup;
+      debug('useFlvjs: video 元素不存在');
+      // TOOD: 显示错误
+      return;
     }
+    const player = global.flvjs.createPlayer({ isLive: true, type: 'flv', url: target }, { ...ref.current.config });
+    if (!player) {
+      return;
+    }
+    ref.current.player = player;
     player.attachMediaElement(el);
     player.load();
-    // player.play();
     player.on(global.flvjs.Events.ERROR, (type, detail) => {
-      if (onMsgChangeRef && onMsgChangeRef.current) {
-        onMsgChangeRef.current({ type, detail });
+      if (ref.current && ref.current.onMsgChange) {
+        ref.current.onMsgChange({ type, detail });
       }
     });
-    return cleanup;
-  }, [player]);
+  }, []);
+
+  React.useEffect(() => {
+    return () => {
+      cleanup();
+      ref.current = null;
+    };
+  }, [cleanup]);
+
+  React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    ref.current.getVideoElement = getVideoElement;
+    ref.current.config = config;
+    ref.current.onMsgChange = onMsgChange;
+  }, [getVideoElement, config, onMsgChange]);
+
+  React.useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    cleanup();
+    ref.current.onMsgChange(null);
+    ref.current.src = src;
+    if (src) {
+      loadSource();
+    }
+  }, [loadSource, cleanup, src]);
 
   return null;
 };

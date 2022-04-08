@@ -10,7 +10,7 @@
     "antd": "link:../node_modules/antd",
     "fbemitter": "link:../node_modules/antd",
     "flv.js": "^1.6.2",
-    "hls.js": "^1.0.11",
+    "hls.js": "^1.1.5",
     "loglevel": "^1.8.0",
     "numeral": "link:../node_modules/antd",
     "prop-types": "link:../node_modules/prop-types",
