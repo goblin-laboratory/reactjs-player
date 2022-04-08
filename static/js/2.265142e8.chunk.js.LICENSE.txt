@@ -1,0 +1,1037 @@
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+/*!
+           * @overview es6-promise - a tiny implementation of Promises/A+.
+           * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
+           * @license   Licensed under MIT license
+           *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
+           * @version   v4.2.8+1e68dce6
+           */
+
+/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+/*! ../config.js */
+
+/*! ../controller/level-helper */
+
+/*! ../core/media-info.js */
+
+/*! ../core/media-segment-info.js */
+
+/*! ../core/mse-controller.js */
+
+/*! ../core/mse-events.js */
+
+/*! ../core/transmuxer.js */
+
+/*! ../core/transmuxing-events.js */
+
+/*! ../crypt/decrypter */
+
+/*! ../demux/aacdemuxer */
+
+/*! ../demux/chunk-cache */
+
+/*! ../demux/demux-errors.js */
+
+/*! ../demux/flv-demuxer.js */
+
+/*! ../demux/id3 */
+
+/*! ../demux/mp3demuxer */
+
+/*! ../demux/mp4demuxer */
+
+/*! ../demux/transmuxer */
+
+/*! ../demux/transmuxer-interface */
+
+/*! ../demux/transmuxer-worker.ts */
+
+/*! ../demux/tsdemuxer */
+
+/*! ../errors */
+
+/*! ../events */
+
+/*! ../io/io-controller.js */
+
+/*! ../io/loader.js */
+
+/*! ../is-supported */
+
+/*! ../loader/fragment */
+
+/*! ../loader/fragment-loader */
+
+/*! ../loader/load-stats */
+
+/*! ../remux/mp4-remuxer */
+
+/*! ../remux/mp4-remuxer.js */
+
+/*! ../remux/passthrough-remuxer */
+
+/*! ../task-loop */
+
+/*! ../types/cmcd */
+
+/*! ../types/level */
+
+/*! ../types/loader */
+
+/*! ../types/transmuxer */
+
+/*! ../utils/attr-list */
+
+/*! ../utils/binary-search */
+
+/*! ../utils/browser.js */
+
+/*! ../utils/buffer-helper */
+
+/*! ../utils/cea-608-parser */
+
+/*! ../utils/codecs */
+
+/*! ../utils/discontinuities */
+
+/*! ../utils/ewma */
+
+/*! ../utils/ewma-bandwidth-estimator */
+
+/*! ../utils/exception.js */
+
+/*! ../utils/imsc1-ttml-parser */
+
+/*! ../utils/logger */
+
+/*! ../utils/logger.js */
+
+/*! ../utils/logging-control.js */
+
+/*! ../utils/mediakeys-helper */
+
+/*! ../utils/mediasource-helper */
+
+/*! ../utils/mp4-tools */
+
+/*! ../utils/output-filter */
+
+/*! ../utils/polyfill.js */
+
+/*! ../utils/texttrack-utils */
+
+/*! ../utils/time-ranges */
+
+/*! ../utils/timescale-conversion */
+
+/*! ../utils/typed-array */
+
+/*! ../utils/utf8-conv.js */
+
+/*! ../utils/webvtt-parser */
+
+/*! ./aac-helper */
+
+/*! ./aac-silent.js */
+
+/*! ./adts */
+
+/*! ./aes-crypto */
+
+/*! ./aes-decryptor */
+
+/*! ./amf-parser.js */
+
+/*! ./base-audio-demuxer */
+
+/*! ./base-playlist-controller */
+
+/*! ./base-stream-controller */
+
+/*! ./buffer-operation-queue */
+
+/*! ./chunk-cache */
+
+/*! ./config */
+
+/*! ./controller/abr-controller */
+
+/*! ./controller/audio-stream-controller */
+
+/*! ./controller/audio-track-controller */
+
+/*! ./controller/buffer-controller */
+
+/*! ./controller/cap-level-controller */
+
+/*! ./controller/cmcd-controller */
+
+/*! ./controller/eme-controller */
+
+/*! ./controller/fps-controller */
+
+/*! ./controller/fragment-tracker */
+
+/*! ./controller/id3-track-controller */
+
+/*! ./controller/latency-controller */
+
+/*! ./controller/level-controller */
+
+/*! ./controller/stream-controller */
+
+/*! ./controller/subtitle-stream-controller */
+
+/*! ./controller/subtitle-track-controller */
+
+/*! ./controller/timeline-controller */
+
+/*! ./core/features.js */
+
+/*! ./demux-errors.js */
+
+/*! ./dummy-demuxed-track */
+
+/*! ./errors */
+
+/*! ./events */
+
+/*! ./exp-golomb */
+
+/*! ./exp-golomb.js */
+
+/*! ./fast-aes-key */
+
+/*! ./fetch-stream-loader.js */
+
+/*! ./flv.js */
+
+/*! ./fragment */
+
+/*! ./fragment-finders */
+
+/*! ./fragment-tracker */
+
+/*! ./gap-controller */
+
+/*! ./id3 */
+
+/*! ./io/loader.js */
+
+/*! ./is-supported */
+
+/*! ./level-details */
+
+/*! ./level-helper */
+
+/*! ./level-key */
+
+/*! ./load-stats */
+
+/*! ./loader.js */
+
+/*! ./loader/key-loader */
+
+/*! ./loader/playlist-loader */
+
+/*! ./logger */
+
+/*! ./logger.js */
+
+/*! ./m3u8-parser */
+
+/*! ./media-info.js */
+
+/*! ./media-segment-info.js */
+
+/*! ./mp4-generator */
+
+/*! ./mp4-generator.js */
+
+/*! ./mp4-tools */
+
+/*! ./mpegaudio */
+
+/*! ./mse-events.js */
+
+/*! ./param-seek-handler.js */
+
+/*! ./player-errors.js */
+
+/*! ./player-events.js */
+
+/*! ./player/flv-player.js */
+
+/*! ./player/native-player.js */
+
+/*! ./player/player-errors.js */
+
+/*! ./player/player-events.js */
+
+/*! ./range-seek-handler.js */
+
+/*! ./sample-aes */
+
+/*! ./speed-sampler.js */
+
+/*! ./sps-parser.js */
+
+/*! ./src/polyfills/number */
+
+/*! ./texttrack-utils */
+
+/*! ./timescale-conversion */
+
+/*! ./transmuxing-controller.js */
+
+/*! ./transmuxing-events.js */
+
+/*! ./transmuxing-worker */
+
+/*! ./tsdemuxer */
+
+/*! ./typed-array */
+
+/*! ./utils/cues */
+
+/*! ./utils/exception.js */
+
+/*! ./utils/fetch-loader */
+
+/*! ./utils/logger */
+
+/*! ./utils/logging-control.js */
+
+/*! ./utils/mediakeys-helper */
+
+/*! ./utils/mediasource-helper */
+
+/*! ./utils/polyfill.js */
+
+/*! ./utils/xhr-loader */
+
+/*! ./vttcue */
+
+/*! ./vttparser */
+
+/*! ./websocket-loader.js */
+
+/*! ./webvtt-parser */
+
+/*! ./xhr-moz-chunked-loader.js */
+
+/*! ./xhr-range-loader.js */
+
+/*! @preserve
+ * numeral.js
+ * version : 2.0.6
+ * author : Adam Draper
+ * license : MIT
+ * http://adamwdraper.github.com/Numeral-js/
+ */
+
+/*! es6-promise */
+
+/*! eventemitter3 */
+
+/*! events */
+
+/*! exports provided: AttrList */
+
+/*! exports provided: BufferHelper */
+
+/*! exports provided: CMCDVersion, CMCDObjectType, CMCDStreamingFormat, CMCDStreamType */
+
+/*! exports provided: ChunkMetadata */
+
+/*! exports provided: ElementaryStreamTypes, BaseSegment, Fragment, Part */
+
+/*! exports provided: ErrorTypes, ErrorDetails */
+
+/*! exports provided: Events */
+
+/*! exports provided: FragmentState, FragmentTracker */
+
+/*! exports provided: HlsSkip, getSkipValue, HlsUrlParameters, Level */
+
+/*! exports provided: IMSC1_CODEC, parseIMSC1 */
+
+/*! exports provided: KeySystems, requestMediaKeySystemAccess */
+
+/*! exports provided: LevelDetails */
+
+/*! exports provided: LevelKey */
+
+/*! exports provided: LoadStats */
+
+/*! exports provided: PlaylistContextType, PlaylistLevelType */
+
+/*! exports provided: Row, CaptionScreen, default */
+
+/*! exports provided: STALL_MINIMUM_DURATION_MS, MAX_START_GAP_JUMP, SKIP_BUFFER_HOLE_STEP_SECONDS, SKIP_BUFFER_RANGE_START, default */
+
+/*! exports provided: State, default */
+
+/*! exports provided: SubtitleStreamController */
+
+/*! exports provided: TimelineController */
+
+/*! exports provided: addGroupId, assignTrackIdsByGroup, updatePTS, updateFragPTSDTS, mergeDetails, mapPartIntersection, mapFragmentIntersection, adjustSliding, addSliding, computeReloadInterval, getFragmentWithSN, getPartWith */
+
+/*! exports provided: appendFrame, parseHeader, isHeaderPattern, isHeader, canParse, probe */
+
+/*! exports provided: bin2str, readUint16, readUint32, writeUint32, findBox, parseSegmentIndex, parseInitSegment, getStartDTS, getDuration, computeRawDurationFromSamples, offsetStartDTS, segmentValidRange, appendUint8Array */
+
+/*! exports provided: default */
+
+/*! exports provided: default, LoadError */
+
+/*! exports provided: default, isPromise, TransmuxConfig, TransmuxState */
+
+/*! exports provided: default, normalizePts */
+
+/*! exports provided: discardEPB, default */
+
+/*! exports provided: dummyTrack */
+
+/*! exports provided: enableLogs, logger */
+
+/*! exports provided: fetchSupported, default */
+
+/*! exports provided: findFirstFragWithCC, shouldAlignOnDiscontinuities, findDiscontinuousReferenceFrag, adjustSlidingStart, alignStream, alignPDT, alignFragmentByPDTDelta, alignMediaPlaylistByPDT */
+
+/*! exports provided: findFragmentByPDT, findFragmentByPTS, fragmentWithinToleranceTest, pdtWithinToleranceTest, findFragWithCC */
+
+/*! exports provided: generateCueId, parseWebVTT */
+
+/*! exports provided: getAudioConfig, isHeaderPattern, getHeaderLength, getFullFrameLength, canGetFrameLength, isHeader, canParse, probe, initTrackConfig, getFrameDuration, parseFrameHeader, appendFrame */
+
+/*! exports provided: getMediaSource */
+
+/*! exports provided: hlsDefaultConfig, mergeConfig, enableStreamingMode */
+
+/*! exports provided: initPTSFn, default */
+
+/*! exports provided: isCodecType, isCodecSupportedInMp4 */
+
+/*! exports provided: isFiniteNumber, MAX_SAFE_INTEGER */
+
+/*! exports provided: isHeader, isFooter, getID3Data, canParse, getTimeStamp, isTimeStampFrame, getID3Frames, decodeFrame, utf8ArrayToStr, testables */
+
+/*! exports provided: isSupported, changeTypeSupported */
+
+/*! exports provided: parseTimeStamp, fixLineBreaks, VTTParser */
+
+/*! exports provided: removePadding, default */
+
+/*! exports provided: sendAddTrackEvent, addCueToTrack, clearCurrentCues, removeCuesInRange, getCuesInRange */
+
+/*! exports provided: sliceUint8 */
+
+/*! exports provided: toTimescaleFromBase, toTimescaleFromScale, toMsFromMpegTsClock, toMpegTsClockFromTimescale */
+
+/*! no static exports found */
+
+/*! react-swf v1.0.7 | @syranide | MIT license */
+
+/*! url-toolkit */
+
+/*! webworkify-webpack */
+
+/*!********************!*\
+          !*** ./src/flv.js ***!
+          \********************/
+
+/*!********************!*\
+        !*** ./src/hls.ts ***!
+        \********************/
+
+/*!**********************!*\
+          !*** ./src/index.js ***!
+          \**********************/
+
+/*!***********************!*\
+          !*** ./src/config.js ***!
+          \***********************/
+
+/*!***********************!*\
+        !*** ./src/config.ts ***!
+        \***********************/
+
+/*!***********************!*\
+        !*** ./src/errors.ts ***!
+        \***********************/
+
+/*!***********************!*\
+        !*** ./src/events.ts ***!
+        \***********************/
+
+/*!**************************!*\
+          !*** ./src/io/loader.js ***!
+          \**************************/
+
+/*!**************************!*\
+        !*** ./src/demux/id3.ts ***!
+        \**************************/
+
+/*!**************************!*\
+        !*** ./src/task-loop.ts ***!
+        \**************************/
+
+/*!***************************!*\
+        !*** ./src/demux/adts.ts ***!
+        \***************************/
+
+/*!***************************!*\
+        !*** ./src/types/cmcd.ts ***!
+        \***************************/
+
+/*!***************************!*\
+        !*** ./src/utils/cues.ts ***!
+        \***************************/
+
+/*!***************************!*\
+        !*** ./src/utils/ewma.ts ***!
+        \***************************/
+
+/*!****************************!*\
+        !*** ./src/types/level.ts ***!
+        \****************************/
+
+/*!*****************************!*\
+          !*** ./src/utils/logger.js ***!
+          \*****************************/
+
+/*!*****************************!*\
+        !*** ./src/is-supported.ts ***!
+        \*****************************/
+
+/*!*****************************!*\
+        !*** ./src/types/loader.ts ***!
+        \*****************************/
+
+/*!*****************************!*\
+        !*** ./src/utils/codecs.ts ***!
+        \*****************************/
+
+/*!*****************************!*\
+        !*** ./src/utils/logger.ts ***!
+        \*****************************/
+
+/*!*****************************!*\
+        !*** ./src/utils/vttcue.ts ***!
+        \*****************************/
+
+/*!******************************!*\
+          !*** ./src/core/features.js ***!
+          \******************************/
+
+/*!******************************!*\
+          !*** ./src/utils/browser.js ***!
+          \******************************/
+
+/*!*******************************!*\
+          !*** ./src/utils/polyfill.js ***!
+          \*******************************/
+
+/*!********************************!*\
+          !*** ./src/core/media-info.js ***!
+          \********************************/
+
+/*!********************************!*\
+          !*** ./src/core/mse-events.js ***!
+          \********************************/
+
+/*!********************************!*\
+          !*** ./src/core/transmuxer.js ***!
+          \********************************/
+
+/*!********************************!*\
+          !*** ./src/utils/exception.js ***!
+          \********************************/
+
+/*!********************************!*\
+          !*** ./src/utils/utf8-conv.js ***!
+          \********************************/
+
+/*!********************************!*\
+        !*** ./src/crypt/decrypter.ts ***!
+        \********************************/
+
+/*!********************************!*\
+        !*** ./src/demux/mpegaudio.ts ***!
+        \********************************/
+
+/*!********************************!*\
+        !*** ./src/demux/tsdemuxer.ts ***!
+        \********************************/
+
+/*!********************************!*\
+        !*** ./src/loader/fragment.ts ***!
+        \********************************/
+
+/*!********************************!*\
+        !*** ./src/utils/attr-list.ts ***!
+        \********************************/
+
+/*!********************************!*\
+        !*** ./src/utils/mp4-tools.ts ***!
+        \********************************/
+
+/*!********************************!*\
+        !*** ./src/utils/vttparser.ts ***!
+        \********************************/
+
+/*!*********************************!*\
+          !*** ./src/demux/amf-parser.js ***!
+          \*********************************/
+
+/*!*********************************!*\
+          !*** ./src/demux/exp-golomb.js ***!
+          \*********************************/
+
+/*!*********************************!*\
+          !*** ./src/demux/sps-parser.js ***!
+          \*********************************/
+
+/*!*********************************!*\
+          !*** ./src/io/io-controller.js ***!
+          \*********************************/
+
+/*!*********************************!*\
+          !*** ./src/io/speed-sampler.js ***!
+          \*********************************/
+
+/*!*********************************!*\
+          !*** ./src/remux/aac-silent.js ***!
+          \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/crypt/aes-crypto.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/demux/aacdemuxer.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/demux/exp-golomb.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/demux/mp3demuxer.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/demux/mp4demuxer.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/demux/sample-aes.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/demux/transmuxer.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/loader/level-key.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/polyfills/number.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/remux/aac-helper.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/types/transmuxer.ts ***!
+        \*********************************/
+
+/*!*********************************!*\
+        !*** ./src/utils/xhr-loader.ts ***!
+        \*********************************/
+
+/*!**********************************!*\
+          !*** ./src/demux/flv-demuxer.js ***!
+          \**********************************/
+
+/*!**********************************!*\
+          !*** ./src/player/flv-player.js ***!
+          \**********************************/
+
+/*!**********************************!*\
+          !*** ./src/remux/mp4-remuxer.js ***!
+          \**********************************/
+
+/*!**********************************!*\
+        !*** ./src/demux/chunk-cache.ts ***!
+        \**********************************/
+
+/*!**********************************!*\
+        !*** ./src/loader/key-loader.ts ***!
+        \**********************************/
+
+/*!**********************************!*\
+        !*** ./src/loader/load-stats.ts ***!
+        \**********************************/
+
+/*!**********************************!*\
+        !*** ./src/remux/mp4-remuxer.ts ***!
+        \**********************************/
+
+/*!**********************************!*\
+        !*** ./src/utils/time-ranges.ts ***!
+        \**********************************/
+
+/*!**********************************!*\
+        !*** ./src/utils/typed-array.ts ***!
+        \**********************************/
+
+/*!***********************************!*\
+          !*** ./src/demux/demux-errors.js ***!
+          \***********************************/
+
+/*!***********************************!*\
+        !*** ./src/crypt/fast-aes-key.ts ***!
+        \***********************************/
+
+/*!***********************************!*\
+        !*** ./src/loader/m3u8-parser.ts ***!
+        \***********************************/
+
+/*!***********************************!*\
+        !*** ./src/utils/fetch-loader.ts ***!
+        \***********************************/
+
+/*!************************************!*\
+          !*** ./src/core/mse-controller.js ***!
+          \************************************/
+
+/*!************************************!*\
+          !*** ./src/io/websocket-loader.js ***!
+          \************************************/
+
+/*!************************************!*\
+          !*** ./src/io/xhr-range-loader.js ***!
+          \************************************/
+
+/*!************************************!*\
+          !*** ./src/remux/mp4-generator.js ***!
+          \************************************/
+
+/*!************************************!*\
+        !*** ./src/crypt/aes-decryptor.ts ***!
+        \************************************/
+
+/*!************************************!*\
+        !*** ./src/remux/mp4-generator.ts ***!
+        \************************************/
+
+/*!************************************!*\
+        !*** ./src/utils/binary-search.ts ***!
+        \************************************/
+
+/*!************************************!*\
+        !*** ./src/utils/buffer-helper.ts ***!
+        \************************************/
+
+/*!************************************!*\
+        !*** ./src/utils/output-filter.ts ***!
+        \************************************/
+
+/*!************************************!*\
+        !*** ./src/utils/webvtt-parser.ts ***!
+        \************************************/
+
+/*!*************************************!*\
+          !*** ./src/player/native-player.js ***!
+          \*************************************/
+
+/*!*************************************!*\
+          !*** ./src/player/player-errors.js ***!
+          \*************************************/
+
+/*!*************************************!*\
+          !*** ./src/player/player-events.js ***!
+          \*************************************/
+
+/*!*************************************!*\
+        !*** ./src/loader/level-details.ts ***!
+        \*************************************/
+
+/*!*************************************!*\
+        !*** ./src/utils/cea-608-parser.ts ***!
+        \*************************************/
+
+/*!**************************************!*\
+          !*** ./src/io/param-seek-handler.js ***!
+          \**************************************/
+
+/*!**************************************!*\
+          !*** ./src/io/range-seek-handler.js ***!
+          \**************************************/
+
+/*!**************************************!*\
+          !*** ./src/utils/logging-control.js ***!
+          \**************************************/
+
+/*!**************************************!*\
+        !*** ./src/utils/discontinuities.ts ***!
+        \**************************************/
+
+/*!**************************************!*\
+        !*** ./src/utils/texttrack-utils.ts ***!
+        \**************************************/
+
+/*!***************************************!*\
+          !*** ./node_modules/events/events.js ***!
+          \***************************************/
+
+/*!***************************************!*\
+          !*** ./src/io/fetch-stream-loader.js ***!
+          \***************************************/
+
+/*!***************************************!*\
+        !*** ./src/loader/fragment-loader.ts ***!
+        \***************************************/
+
+/*!***************************************!*\
+        !*** ./src/loader/playlist-loader.ts ***!
+        \***************************************/
+
+/*!***************************************!*\
+        !*** ./src/utils/mediakeys-helper.ts ***!
+        \***************************************/
+
+/*!****************************************!*\
+          !*** ./src/core/media-segment-info.js ***!
+          \****************************************/
+
+/*!****************************************!*\
+          !*** ./src/core/transmuxing-events.js ***!
+          \****************************************/
+
+/*!****************************************!*\
+          !*** ./src/core/transmuxing-worker.js ***!
+          \****************************************/
+
+/*!****************************************!*\
+        !*** ./src/controller/level-helper.ts ***!
+        \****************************************/
+
+/*!****************************************!*\
+        !*** ./src/demux/transmuxer-worker.ts ***!
+        \****************************************/
+
+/*!****************************************!*\
+        !*** ./src/utils/imsc1-ttml-parser.ts ***!
+        \****************************************/
+
+/*!*****************************************!*\
+        !*** ./src/demux/base-audio-demuxer.ts ***!
+        \*****************************************/
+
+/*!*****************************************!*\
+        !*** ./src/utils/mediasource-helper.ts ***!
+        \*****************************************/
+
+/*!******************************************!*\
+          !*** ./src/io/xhr-moz-chunked-loader.js ***!
+          \******************************************/
+
+/*!******************************************!*\
+        !*** ./src/controller/abr-controller.ts ***!
+        \******************************************/
+
+/*!******************************************!*\
+        !*** ./src/controller/eme-controller.ts ***!
+        \******************************************/
+
+/*!******************************************!*\
+        !*** ./src/controller/fps-controller.ts ***!
+        \******************************************/
+
+/*!******************************************!*\
+        !*** ./src/controller/gap-controller.ts ***!
+        \******************************************/
+
+/*!******************************************!*\
+        !*** ./src/demux/dummy-demuxed-track.ts ***!
+        \******************************************/
+
+/*!******************************************!*\
+        !*** ./src/remux/passthrough-remuxer.ts ***!
+        \******************************************/
+
+/*!*******************************************!*\
+        !*** ./src/controller/cmcd-controller.ts ***!
+        \*******************************************/
+
+/*!*******************************************!*\
+        !*** ./src/demux/transmuxer-interface.ts ***!
+        \*******************************************/
+
+/*!*******************************************!*\
+        !*** ./src/utils/timescale-conversion.ts ***!
+        \*******************************************/
+
+/*!********************************************!*\
+          !*** ./src/core/transmuxing-controller.js ***!
+          \********************************************/
+
+/*!********************************************!*\
+        !*** ./src/controller/fragment-finders.ts ***!
+        \********************************************/
+
+/*!********************************************!*\
+        !*** ./src/controller/fragment-tracker.ts ***!
+        \********************************************/
+
+/*!********************************************!*\
+        !*** ./src/controller/level-controller.ts ***!
+        \********************************************/
+
+/*!*********************************************!*\
+        !*** ./node_modules/eventemitter3/index.js ***!
+        \*********************************************/
+
+/*!*********************************************!*\
+        !*** ./src/controller/buffer-controller.ts ***!
+        \*********************************************/
+
+/*!*********************************************!*\
+        !*** ./src/controller/stream-controller.ts ***!
+        \*********************************************/
+
+/*!**********************************************!*\
+        !*** ./src/controller/latency-controller.ts ***!
+        \**********************************************/
+
+/*!***********************************************!*\
+        !*** ./src/controller/timeline-controller.ts ***!
+        \***********************************************/
+
+/*!***********************************************!*\
+        !*** ./src/utils/ewma-bandwidth-estimator.ts ***!
+        \***********************************************/
+
+/*!************************************************!*\
+        !*** ./src/controller/cap-level-controller.ts ***!
+        \************************************************/
+
+/*!************************************************!*\
+        !*** ./src/controller/id3-track-controller.ts ***!
+        \************************************************/
+
+/*!**************************************************!*\
+          !*** ./node_modules/webworkify-webpack/index.js ***!
+          \**************************************************/
+
+/*!**************************************************!*\
+        !*** ./node_modules/webworkify-webpack/index.js ***!
+        \**************************************************/
+
+/*!**************************************************!*\
+        !*** ./src/controller/audio-track-controller.ts ***!
+        \**************************************************/
+
+/*!**************************************************!*\
+        !*** ./src/controller/base-stream-controller.ts ***!
+        \**************************************************/
+
+/*!**************************************************!*\
+        !*** ./src/controller/buffer-operation-queue.ts ***!
+        \**************************************************/
+
+/*!***************************************************!*\
+        !*** ./src/controller/audio-stream-controller.ts ***!
+        \***************************************************/
+
+/*!****************************************************!*\
+        !*** ./src/controller/base-playlist-controller.ts ***!
+        \****************************************************/
+
+/*!*****************************************************!*\
+        !*** ./node_modules/url-toolkit/src/url-toolkit.js ***!
+        \*****************************************************/
+
+/*!*****************************************************!*\
+        !*** ./src/controller/subtitle-track-controller.ts ***!
+        \*****************************************************/
+
+/*!******************************************************!*\
+          !*** ./node_modules/es6-promise/dist/es6-promise.js ***!
+          \******************************************************/
+
+/*!******************************************************!*\
+        !*** ./src/controller/subtitle-stream-controller.ts ***!
+        \******************************************************/
+
+/*!@license
+ * UAParser.js v0.7.28
+ * Lightweight JavaScript-based User-Agent string parser
+ * https://github.com/faisalman/ua-parser-js
+ *
+ * Copyright © 2012-2021 Faisal Salman <f@faisalman.com>
+ * Licensed under MIT License
+ */
+
+/** @license React v0.20.2
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+//! moment.js
