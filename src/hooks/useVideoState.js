@@ -12,21 +12,28 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
       if (ref.current.ended) {
         el.currentTime = 0;
       }
-      const promise = el.play();
-      if (!promise || !promise.then) {
+      const p = el.play();
+      if (!p || !p.then) {
         return;
       }
-      promise
+      p
         // .then(() => updateState({ loading: false }))
         .catch((e) => {
-          if (!ref.current) {
-            return;
+          if (!ref.current || 'NotAllowedError' !== e.name) {
+            return Promise.resolve();
           }
-          if ('NotAllowedError' === e.name) {
-            updateState({ prevented: true });
-            el.muted = true;
-            el.play();
+          updateState({ prevented: true });
+          el.muted = true;
+          // NOTE: 桌面环境下静音可以播放，但是移动环境下静音不可以播放，需要分开处理
+          return el.play();
+        })
+        .catch((e) => {
+          if (!ref.current || 'NotAllowedError' !== e.name) {
+            return Promise.resolve();
           }
+          // NOTE: 恢复静音状态，用户点击调用播放就可以了
+          el.muted = false;
+          return Promise.resolve();
         });
     }
     updateState({ paused: false }, true);
@@ -119,11 +126,14 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
     }
     // NOTE: addEventListener 使用了 once ，理论上是不需要 remove 的，这里做个保护
     document.removeEventListener('click', onDocumentClick);
-    // NOTE: 自动播放已被阻止的情况下将静音取消
+    // NOTE: 自动播放已被阻止，桌面端取消静音就可以了，移动端需要再次调用 play
     if (ref.current.prevented) {
       if (el.muted) {
         el.muted = false;
+      } else {
+        el.play();
       }
+      updateState({ prevented: false });
       return;
     }
     // NOTE: 未出现播放阻止的两种情况，一是已经在正常播放了，此时不要处理了，二是页面还未调用播放
@@ -146,7 +156,7 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
       console.log('useAutoplay[onDocumentClick]: load empty src for autoPlay, %o', e);
     }
     // el.pause();
-  }, []);
+  }, [updateState]);
 
   React.useEffect(() => {
     return () => {
@@ -174,7 +184,7 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
   }, [loading, prevented, ended]);
 
   React.useEffect(() => {
-    if (!ref.current) {
+    if (!ref.current || !ref.current.getVideoElement) {
       return () => {};
     }
     const el = ref.current.getVideoElement();

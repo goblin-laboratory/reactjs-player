@@ -125,7 +125,7 @@ const PlayerSkin = ({
           <PlayTime live={live} currentTime={currentTime} duration={duration} />
         </ControlBar>
       </Controls>
-      <PreventedTip src={src} prevented={prevented} />
+      <PreventedTip src={src} prevented={prevented} muted={muted} />
       <TopState src={src} loading={loading} kernelMsg={kernelMsg} />
     </div>
   );

@@ -9,9 +9,9 @@ export default ({ src, prevented, muted, volume, updateState, getVideoElement })
         return;
       }
       const payload = { volume: e.target.volume, muted: e.target.muted };
-      if (false === payload.muted && ref.current.prevented) {
-        payload.prevented = false;
-      }
+      // if (false === payload.muted && ref.current.prevented) {
+      //   payload.prevented = false;
+      // }
       if (0 === payload.volume) {
         payload.muted = true;
       }
