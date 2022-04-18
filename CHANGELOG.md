@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.4](https://github.com/goblin-laboratory/reactjs-player/compare/v2.1.3...v2.1.4) (2022-04-18)
+
+
+### Bug Fixes
+
+* webrtc autoplay on iOS ([f5af09e](https://github.com/goblin-laboratory/reactjs-player/commit/f5af09e66f52fd7b7cb919709e886cbbd4dd773e))
+
 ### [2.1.3](https://github.com/goblin-laboratory/reactjs-player/compare/v2.1.2...v2.1.3) (2022-04-18)
 
 
