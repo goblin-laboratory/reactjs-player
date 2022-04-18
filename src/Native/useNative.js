@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ getVideoElement, src, onMsgChange }) => {
+export default ({ getVideoElement, src, onPlayClick, onMsgChange }) => {
   const ref = React.useRef({});
 
   const onError = React.useCallback((e) => {
@@ -37,11 +37,16 @@ export default ({ getVideoElement, src, onMsgChange }) => {
     }
     ref.current.el.pause();
     ref.current.el.src = ref.current.src;
-    ref.current.el.load();
     ref.current.el.addEventListener('error', onError);
-  }, [onError]);
+    ref.current.el.load();
+    // NOTE: iOS 微信浏览器中测试自动播放，与其他终端不一样，其他终端会加载数据并触发 canplay 事件，iOS 中并不会触发任何数据加载
+    onPlayClick();
+  }, [onPlayClick, onError]);
 
   React.useEffect(() => {
+    global.addEventListener('beforeunload', cleanup);
+    global.addEventListener('pagehide', cleanup);
+    global.addEventListener('unload', cleanup);
     return () => {
       cleanup();
       ref.current = null;
@@ -67,12 +72,6 @@ export default ({ getVideoElement, src, onMsgChange }) => {
       loadSource();
     }
   }, [loadSource, cleanup, src]);
-
-  React.useEffect(() => {
-    global.addEventListener('beforeunload', cleanup);
-    global.addEventListener('pagehide', cleanup);
-    global.addEventListener('unload', cleanup);
-  }, [cleanup]);
 
   return null;
 };

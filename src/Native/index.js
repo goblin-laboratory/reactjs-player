@@ -10,6 +10,7 @@ const Native = (props) => {
 Native.propTypes = {
   getVideoElement: PropTypes.func.isRequired,
   src: PropTypes.string,
+  onPlayClick: PropTypes.func.isRequired,
   onMsgChange: PropTypes.func.isRequired,
 };
 
@@ -19,5 +20,9 @@ Native.defaultProps = {
 
 export default React.memo(
   Native,
-  (p, n) => p.getVideoElement === n.getVideoElement && p.src === n.src && p.onMsgChange === n.onMsgChange,
+  (p, n) =>
+    p.getVideoElement === n.getVideoElement &&
+    p.src === n.src &&
+    p.onPlayClick === n.onPlayClick &&
+    p.onMsgChange === n.onMsgChange,
 );

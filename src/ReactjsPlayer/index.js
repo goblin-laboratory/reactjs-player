@@ -62,10 +62,18 @@ const ReactjsPlayer = ({
     <div className={`${styles.reactjsPlayer} ${className}`} ref={playerRef} {...playerProps}>
       {'flvjs' === kernel && <Flvjs {...kernelProps} />}
       {'hlsjs' === kernel && <Hlsjs {...kernelProps} />}
-      {'native' === kernel && <Native {...kernelProps} />}
+      {'native' === kernel && <Native {...kernelProps} onPlayClick={onPlayClick} />}
       {'srswebrtc' === kernel && <SRSWebRTC {...kernelProps} />}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <video className={styles.video} ref={videoRef} controls={'controls' === controls} type={type} {...videoProps} />
+      <video
+        className={styles.video}
+        ref={videoRef}
+        controls={'controls' === controls}
+        type={type}
+        autoPlay
+        preload="metadata"
+        {...videoProps}
+      />
       <PlayerContext.Provider
         value={{
           live,

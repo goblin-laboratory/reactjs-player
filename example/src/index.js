@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import VConsole from 'vconsole';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// eslint-disable-next-line no-unused-vars
+const vConsole = new VConsole();
 
 ReactDOM.render(
   <React.StrictMode>

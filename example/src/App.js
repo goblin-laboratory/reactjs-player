@@ -176,6 +176,7 @@ const App = React.memo(() => {
     ref.current = supportedList;
     setInfo(supportedList[0]);
     // NOTE: 测试自动播放的情况
+    console.log(`type: ${supportedList[0].key}`);
     onSubmit({ type: supportedList[0].key, src: supportedList[0].src });
   }, [onSubmit]);
 

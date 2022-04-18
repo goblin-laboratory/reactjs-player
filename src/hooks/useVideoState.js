@@ -56,6 +56,7 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
     }
     updateState({ loading: false, waiting: false });
     if (ref.current.loading) {
+      // NOTE: 电脑和安卓端自动播放处理，iOS 机制不一样单独调用了 onPlayClick
       onPlayClick();
     }
   }, [updateState, onPlayClick]);
@@ -191,6 +192,7 @@ export default ({ src, loading, prevented, ended, updateState, getVideoElement }
     if (!el) {
       return () => {};
     }
+
     el.addEventListener('canplay', onCanPlay);
     el.addEventListener('pause', onPause);
     el.addEventListener('play', onPlay);
