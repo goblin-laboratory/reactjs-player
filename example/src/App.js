@@ -26,12 +26,18 @@ const getSupportedList = (ua) => {
     // 非 PC 浏览器
     return [
       {
+        key: 'nativelive',
+        kernel: 'native',
+        live: true,
+        src: 'https://ivt.demo.qulubo.net/hls_srs/quick/IV9x5jjUSbycqi0PtSiqpw.m3u8',
+        type: 'application/x-mpegURL',
+      },
+      {
         key: 'native',
         kernel: 'native',
         src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
         type: 'application/x-mpegURL',
       },
-      { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
       {
         key: 'srswebrtc',
         kernel: 'srswebrtc',
@@ -46,6 +52,26 @@ const getSupportedList = (ua) => {
   global.flvjs = flvjs;
 
   const list = [];
+
+  if (Hls.isSupported()) {
+    list.push(
+      {
+        key: 'hlsjs-live',
+        kernel: 'hlsjs',
+        live: true,
+        src: 'http://192.168.0.222/hls_srs/quick/1VU0lHXqSva4TFvmJyqVqg.m3u8',
+        type: 'application/x-mpegURL',
+      },
+      {
+        key: 'hlsjs',
+        kernel: 'hlsjs',
+        live: false,
+        src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+        type: 'application/x-mpegURL',
+      },
+    );
+  }
+  // https://ivt.demo.qulubo.net/hls_srs/quick/IV9x5jjUSbycqi0PtSiqpw.m3u8
   if (flvjs.isSupported()) {
     const featureList = flvjs.getFeatureList();
     if (featureList.networkStreamIO) {
@@ -53,7 +79,7 @@ const getSupportedList = (ua) => {
         key: 'flvjs',
         kernel: 'flvjs',
         live: true,
-        src: 'http://192.168.0.225/flv_srs/quick/ClpheNxgRBy_XDhXXDq_CQ.flv',
+        src: 'http://192.168.0.222/flv_srs/quick/1VU0lHXqSva4TFvmJyqVqg.flv',
         type: 'video/x-flv',
         config: {
           isLive: true,
@@ -64,15 +90,6 @@ const getSupportedList = (ua) => {
         },
       });
     }
-  }
-  if (Hls.isSupported()) {
-    list.push({
-      key: 'hlsjs',
-      kernel: 'hlsjs',
-      live: false,
-      src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-      type: 'application/x-mpegURL',
-    });
   }
 
   // mac OS 没有测试环境，暂且认为没有问题
@@ -108,7 +125,7 @@ const getSupportedList = (ua) => {
       key: 'srswebrtc',
       kernel: 'srswebrtc',
       live: true,
-      src: 'webrtc://192.168.0.225/quick/ClpheNxgRBy_XDhXXDq_CQ?vc=ivWxqY',
+      src: 'webrtc://192.168.0.222/quick/1VU0lHXqSva4TFvmJyqVqg',
       type: '',
     },
   );
@@ -158,7 +175,7 @@ const App = React.memo(() => {
     setList(supportedList);
     ref.current = supportedList;
     setInfo(supportedList[0]);
-    // debugger;
+    // NOTE: 测试自动播放的情况
     onSubmit({ type: supportedList[0].key, src: supportedList[0].src });
   }, [onSubmit]);
 
