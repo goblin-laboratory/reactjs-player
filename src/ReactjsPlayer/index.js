@@ -63,7 +63,7 @@ const ReactjsPlayer = ({
       {'flvjs' === kernel && <Flvjs {...kernelProps} />}
       {'hlsjs' === kernel && <Hlsjs {...kernelProps} />}
       {'native' === kernel && <Native {...kernelProps} onPlayClick={onPlayClick} />}
-      {'srswebrtc' === kernel && <SRSWebRTC {...kernelProps} />}
+      {'srswebrtc' === kernel && <SRSWebRTC {...kernelProps} onPlayClick={onPlayClick} />}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
         className={styles.video}

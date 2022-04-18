@@ -11,6 +11,7 @@ SRSWebRTC.propTypes = {
   getVideoElement: PropTypes.func.isRequired,
   src: PropTypes.string,
   config: PropTypes.object,
+  onPlayClick: PropTypes.func.isRequired,
   onMsgChange: PropTypes.func.isRequired,
 };
 
@@ -25,5 +26,6 @@ export default React.memo(
     p.getVideoElement === n.getVideoElement &&
     p.src === n.src &&
     p.config === n.config &&
+    p.onPlayClick === n.onPlayClick &&
     p.onMsgChange === n.onMsgChange,
 );

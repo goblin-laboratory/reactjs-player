@@ -2,7 +2,7 @@ import React from 'react';
 import SRSPlayer from './SRSPlayer';
 // import SrsRtcPlayerAsync from './SrsRtcPlayerAsync';
 
-export default ({ getVideoElement, src, config, onMsgChange }) => {
+export default ({ getVideoElement, src, config, onPlayClick, onMsgChange }) => {
   const ref = React.useRef({});
 
   const cleanup = React.useCallback(() => {
@@ -41,7 +41,9 @@ export default ({ getVideoElement, src, config, onMsgChange }) => {
     el.pause();
     el.srcObject = stream;
     el.load();
-  }, []);
+    // NOTE: iOS 微信浏览器中测试自动播放，与其他终端不一样，其他终端会加载数据并触发 canplay 事件，iOS 中并不会触发任何数据加载
+    onPlayClick();
+  }, [onPlayClick]);
 
   React.useEffect(() => {
     return () => {
