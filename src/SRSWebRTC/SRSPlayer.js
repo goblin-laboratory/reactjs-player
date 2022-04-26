@@ -9,19 +9,45 @@ export default class SRSPlayer {
     return true;
   }
 
+  static getApiPath(url, config) {
+    const matched = url.match(/^webrtc:\/\/([^/:]+)(:([^/:]*))?(\/.*)?$/);
+    if (!matched) {
+      return '';
+    }
+    let { protocol, port, pathname } = config;
+    if ('undefined' === typeof protocol) {
+      protocol = global.location.protocol;
+    }
+    const hostname = matched[1];
+    if ('undefined' === typeof port) {
+      port = 'undefined' === typeof matched[3] ? global.location.port : matched[3];
+    }
+    if ('undefined' === typeof pathname) {
+      pathname = '/rtc/v1/play/';
+    }
+    const host = port ? `${hostname}:${port}` : hostname;
+    return `${protocol}//${host}${pathname}`;
+  }
+
   constructor(url, config) {
     // webrtc://192.168.0.225/quick/ClpheNxgRBy_XDhXXDq_CQ?vc=ivWxqY
-    const matched = url.match(/^webrtc:\/\/([^/]+)(\/.*)?$/);
-    if (!matched) {
-      return null;
+    this.api = SRSPlayer.getApiPath(url, config);
+    if (!this.api) {
+      return;
     }
     this.url = url;
-    const protocol = 'string' === typeof config.protocol ? config.protocol : global.location.protocol;
-    const pathname = 'string' === typeof config.pathname ? config.pathname : '/rtc/v1/play/';
-    this.api = `${protocol}//${matched[1]}${pathname}`;
+    // const matched = url.match(/^webrtc:\/\/([^/]+)(\/.*)?$/);
+    // if (!matched) {
+    //   return null;
+    // }
+    // this.url = url;
+    // const protocol = 'string' === typeof config.protocol ? config.protocol : global.location.protocol;
+    // const port = 'string' === typeof config.port ? config.port : global.location.port;
+    // const pathname = 'string' === typeof config.pathname ? config.pathname : '/rtc/v1/play/';
+    // this.api = `${protocol}//${matched[1]}${pathname}`;
     this.stream = new MediaStream();
     this.trackList = [];
-    return this;
+    // return this;
   }
 
   subscribe() {
@@ -30,7 +56,9 @@ export default class SRSPlayer {
     }
     this.unsubscribe();
     this.createRTCPeerConnection();
-    this.connectPeerConnection();
+    this.connectPeerConnection().catch(() => {
+      // TODO: 异常处理
+    });
     return this.stream;
   }
 
