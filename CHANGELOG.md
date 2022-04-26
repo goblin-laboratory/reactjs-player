@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/goblin-laboratory/reactjs-player/compare/v2.1.4...v2.2.0) (2022-04-26)
+
+
+### Features
+
+* 支持 srs webrtc api 端口非默认的情况 ([3a9931d](https://github.com/goblin-laboratory/reactjs-player/commit/3a9931dd30962bbd1ab42baebc2fc7f6016022b8))
+
 ### [2.1.4](https://github.com/goblin-laboratory/reactjs-player/compare/v2.1.3...v2.1.4) (2022-04-18)
 
 
