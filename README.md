@@ -64,6 +64,13 @@ const App = () => {
 
 常用场景见说明文档：[Usage.md](https://github.com/goblin-laboratory/reactjs-player/blob/master/docs/Usage.md)
 
+## TODO
+3.x 版本计划
+1. 使用 TypeScript 重构
+2. 使用 tsdx 负责打包
+3. Jest 自动化测试
+4. storybook
+
 ## API
 
 见 API 说明文档：[API.md](https://github.com/goblin-laboratory/reactjs-player/blob/master/docs/API.md)
