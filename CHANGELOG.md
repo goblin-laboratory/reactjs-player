@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/goblin-laboratory/reactjs-player/compare/v2.2.0...v2.3.0) (2023-06-17)
+
+
+### Features
+
+* 增加 ali rts 播放协议的支持 :new: ([44af055](https://github.com/goblin-laboratory/reactjs-player/commit/44af0558e6125612a2de8b96f672ccd8889315d4))
+
 ## [2.2.0](https://github.com/goblin-laboratory/reactjs-player/compare/v2.1.4...v2.2.0) (2022-04-26)
 
 
