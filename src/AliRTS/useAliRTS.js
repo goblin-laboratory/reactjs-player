@@ -71,7 +71,7 @@ export default ({ getVideoElement, src, config, onMsgChange }) => {
     const cleanup = () => destroyPlayer(player);
     const currentSrc = ref.current;
     const el = getVideo.current();
-    if (!el) {
+    if (!el || !player) {
       return cleanup;
     }
 

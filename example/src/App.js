@@ -6,7 +6,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import Hls from 'hls.js';
 import flvjs from 'flv.js';
-import { AliRTS } from 'aliyun-rts-sdk';
+import { AliRTS } from 'aliyun-rts-sdk/dist/aliyun-rts-sdk-without-adapter.js';
 import ReactjsPlayer from 'reactjs-player';
 // import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
 // import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
@@ -44,7 +44,7 @@ const getSupportedList = (ua) => {
       key: 'alirts',
       kernel: 'alirts',
       live: true,
-      src: 'rtmp://livetv.dhtv.cn:1935/live/news',
+      src: 'artc://a.lcdn.opensight.cn/alicdn/LULAyun4Q0ibCpSuj1vSrw?auth_key=1687020149-0-0-fc7129da8b191fb3c1c08805ca5fa3ee',
       type: '',
     },
     {
@@ -129,7 +129,6 @@ const App = React.memo(() => {
     ref.current = supportedList;
     setInfo(supportedList[0]);
     // NOTE: 测试自动播放的情况
-    console.log(`type: ${supportedList[0].key}`);
     onSubmit({ type: supportedList[0].key, src: supportedList[0].src });
   }, [onSubmit]);
 
@@ -153,10 +152,7 @@ const App = React.memo(() => {
           layout="inline"
           form={form}
           onFinish={onSubmit}
-          initialValues={{
-            type: list[0].key,
-            src: list[0].src,
-          }}
+          initialValues={{ type: info.key, src: info.src }}
         >
           <Form.Item className="type" name="type">
             <Select onChange={onChange}>

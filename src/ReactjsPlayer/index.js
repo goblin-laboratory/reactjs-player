@@ -117,7 +117,7 @@ const ReactjsPlayer = ({
 };
 
 ReactjsPlayer.propTypes = {
-  kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native', 'srswebrtc']).isRequired,
+  kernel: PropTypes.oneOf(['srswebrtc', 'alirts', 'flvjs', 'hlsjs', 'native']).isRequired,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
   onKernelError: PropTypes.func,
