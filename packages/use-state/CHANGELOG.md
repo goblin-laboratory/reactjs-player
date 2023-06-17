@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.8...v1.10.0) (2023-06-17)
+
+**Note:** Version bump only for package @reactjs-player/use-state
+
+
+
+
+
 ## [1.0.8](https://github.com/goblin-laboratory/reactjs-player/compare/v1.0.7...v1.0.8) (2021-02-26)
 
 
