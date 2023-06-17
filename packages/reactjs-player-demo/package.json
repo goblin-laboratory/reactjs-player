@@ -23,6 +23,7 @@
     "url": "https://github.com/goblin-laboratory/reactjs-player/issues"
   },
   "dependencies": {
+    "aliyun-rts-sdk": "^2.2.9",
     "antd": "^3.21.4",
     "flv.js": "^1.5.0",
     "hls.js": "^0.12.4",

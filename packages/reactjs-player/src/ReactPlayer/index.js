@@ -10,9 +10,12 @@ import usePiP from '@reactjs-player/use-pip';
 import useFullscreen from '@reactjs-player/use-fullscreen';
 import useAutoplay from '@reactjs-player/use-autoplay';
 
+import SRSWebRTC from '../SRSWebRTC';
+import AliRTS from '../AliRTS';
 import Flvjs from '../Flvjs';
 import Hlsjs from '../Hlsjs';
 import Native from '../Native';
+
 import ReactPlayerSkinWapper from '../ReactPlayerSkinWapper';
 import ReactPlayerContext from '../ReactPlayerContext';
 import styles from './index.module.less';
@@ -60,6 +63,8 @@ const ReactPlayer = ({
 
   return (
     <div className={`${styles.reactPlayer} ${className}`} ref={playerRef} {...playerProps}>
+      {'srswebrtc' === kernel && <SRSWebRTC {...kernelProps} onPlayClick={stateProps.onPlayClick} />}
+      {'alirts' === kernel && <AliRTS {...kernelProps} />}
       {'flvjs' === kernel && <Flvjs {...kernelProps} />}
       {'hlsjs' === kernel && <Hlsjs {...kernelProps} />}
       {'native' === kernel && <Native {...kernelProps} />}
@@ -87,7 +92,7 @@ const ReactPlayer = ({
 };
 
 ReactPlayer.propTypes = {
-  kernel: PropTypes.oneOf(['hlsjs', 'flvjs', 'native']).isRequired,
+  kernel: PropTypes.oneOf(['srswebrtc', 'alirts', 'flvjs', 'hlsjs', 'native']).isRequired,
   live: PropTypes.bool.isRequired,
   config: PropTypes.object,
   onKernelError: PropTypes.func,

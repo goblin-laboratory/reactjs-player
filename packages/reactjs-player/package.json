@@ -57,6 +57,7 @@
     "react-swf": "^1.0.7"
   },
   "dependencies": {
+    "@reactjs-player/use-ali-rts": "^1.20.0",
     "@reactjs-player/use-autoplay": "^1.0.6",
     "@reactjs-player/use-flvjs": "^1.0.2",
     "@reactjs-player/use-fullscreen": "^1.0.5",
@@ -64,6 +65,7 @@
     "@reactjs-player/use-native": "^1.0.2",
     "@reactjs-player/use-pip": "^1.0.5",
     "@reactjs-player/use-playback-rate": "^1.0.5",
+    "@reactjs-player/use-srs-webrtc": "^1.20.0",
     "@reactjs-player/use-state": "^1.0.8",
     "@reactjs-player/use-time": "^1.0.5",
     "@reactjs-player/use-volume": "^1.0.5"
