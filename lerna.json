@@ -14,6 +14,7 @@
         "master",
         "lerna",
         "stable",
+        "1.x",
         "feat/autoplay"
       ],
       "message": "chore(release): publish %s"
