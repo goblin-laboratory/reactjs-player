@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SRSWebRTC from '../SRSWebRTC';
+import AliRTS from '../AliRTS';
 import Flvjs from '../Flvjs';
 import Hlsjs from '../Hlsjs';
 import Native from '../Native';
-import SRSWebRTC from '../SRSWebRTC';
 import PlayerSkinWapper from '../PlayerSkinWapper';
 import PlayerContext from '../PlayerContext';
 import useReactjsPlayer from './useReactjsPlayer';
@@ -60,10 +61,11 @@ const ReactjsPlayer = ({
 
   return (
     <div className={`${styles.reactjsPlayer} ${className}`} ref={playerRef} {...playerProps}>
+      {'srswebrtc' === kernel && <SRSWebRTC {...kernelProps} onPlayClick={onPlayClick} />}
+      {'alirts' === kernel && <AliRTS {...kernelProps} />}
       {'flvjs' === kernel && <Flvjs {...kernelProps} />}
       {'hlsjs' === kernel && <Hlsjs {...kernelProps} />}
       {'native' === kernel && <Native {...kernelProps} onPlayClick={onPlayClick} />}
-      {'srswebrtc' === kernel && <SRSWebRTC {...kernelProps} onPlayClick={onPlayClick} />}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
         className={styles.video}

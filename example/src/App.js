@@ -1,20 +1,26 @@
 import React from 'react';
 import UAParser from 'ua-parser-js';
-import Hls from 'hls.js';
-import flvjs from 'flv.js';
 import { Form, Select, Input, Button, Tabs, Descriptions } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
+
+import Hls from 'hls.js';
+import flvjs from 'flv.js';
+import { AliRTS } from 'aliyun-rts-sdk';
 import ReactjsPlayer from 'reactjs-player';
-import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
-import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
+// import grindPlayerSwf from 'reactjs-player/dist/GrindPlayer.swf';
+// import flashlsOSMFSwf from 'reactjs-player/dist/flashlsOSMF.swf';
+
 import PlaybackRate from './PlaybackRate';
 import FouceLive from './FouceLive';
 import blank16x9 from './blank16x9.png';
 import './App.css';
 
-const GrindPlayer = ReactjsPlayer.GrindPlayer;
+// const GrindPlayer = ReactjsPlayer.GrindPlayer;
 // const ReactPlayerContext = ReactjsPlayer.ReactPlayerContext;
+global.Hls = Hls;
+global.flvjs = flvjs;
+global.AliRTS = AliRTS;
 
 const delay = (timeout) =>
   new Promise((resolve) => {
@@ -22,114 +28,61 @@ const delay = (timeout) =>
   });
 
 const getSupportedList = (ua) => {
-  if (ua.device.type) {
-    // 非 PC 浏览器
-    return [
-      {
-        key: 'nativelive',
-        kernel: 'native',
-        live: true,
-        src: 'https://ivt.demo.qulubo.net/hls_srs/quick/IV9x5jjUSbycqi0PtSiqpw.m3u8',
-        type: 'application/x-mpegURL',
-      },
-      {
-        key: 'native',
-        kernel: 'native',
-        src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-        type: 'application/x-mpegURL',
-      },
-      {
-        key: 'srswebrtc',
-        kernel: 'srswebrtc',
-        live: true,
-        src: 'webrtc://192.168.0.225/quick/ClpheNxgRBy_XDhXXDq_CQ?vc=ivWxqY',
-        type: '',
-      },
-    ];
-  }
-
-  global.Hls = Hls;
-  global.flvjs = flvjs;
-
-  const list = [];
-
-  if (Hls.isSupported()) {
-    list.push(
-      {
-        key: 'hlsjs-live',
-        kernel: 'hlsjs',
-        live: true,
-        src: 'http://192.168.0.222/hls_srs/quick/1VU0lHXqSva4TFvmJyqVqg.m3u8',
-        type: 'application/x-mpegURL',
-      },
-      {
-        key: 'hlsjs',
-        kernel: 'hlsjs',
-        live: false,
-        src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-        type: 'application/x-mpegURL',
-      },
-    );
-  }
-  // https://ivt.demo.qulubo.net/hls_srs/quick/IV9x5jjUSbycqi0PtSiqpw.m3u8
-  if (flvjs.isSupported()) {
-    const featureList = flvjs.getFeatureList();
-    if (featureList.networkStreamIO) {
-      list.push({
-        key: 'flvjs',
-        kernel: 'flvjs',
-        live: true,
-        src: 'http://192.168.0.222/flv_srs/quick/1VU0lHXqSva4TFvmJyqVqg.flv',
-        type: 'video/x-flv',
-        config: {
-          isLive: true,
-          enableStashBuffer: false,
-          autoCleanupSourceBuffer: true,
-          stashInitialSize: 16 * 1024,
-          fixAudioTimestampGap: false,
-        },
-      });
-    }
-  }
-
-  // mac OS 没有测试环境，暂且认为没有问题
-  if ('Mac OS' === ua.os.name) {
-    list.push(
-      {
-        key: 'native',
-        kernel: 'native',
-        live: false,
-        src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-        type: 'application/x-mpegURL',
-      },
-      { key: 'nativelive', kernel: 'native', live: true, src: '', type: 'application/x-mpegURL' },
-    );
-  }
-  list.push(
-    { key: 'rtmp', kernel: 'flash', live: true, src: 'rtmp://livetv.dhtv.cn:1935/live/news', type: 'video/rtmp' },
+  return [
     {
-      key: 'flashls',
-      kernel: 'flash',
+      key: 'srswebrtc',
+      kernel: 'srswebrtc',
+      live: true,
+      src: 'webrtc://219.138.162.218/quick/r6uh_z7RSY2ovBplSgZjEw',
+      type: '',
+      config: {
+        // api: '',
+        // hostname: '',
+      },
+    },
+    {
+      key: 'alirts',
+      kernel: 'alirts',
+      live: true,
+      src: 'rtmp://livetv.dhtv.cn:1935/live/news',
+      type: '',
+    },
+    {
+      key: 'flvjs',
+      kernel: 'flvjs',
+      live: true,
+      src: 'http://192.168.0.221/flv_srs/quick/OAyEgozBSTqNC4Ou8SZk_A.flv',
+      type: 'video/x-flv',
+      config: {
+        isLive: true,
+        enableStashBuffer: false,
+        autoCleanupSourceBuffer: true,
+        stashInitialSize: 16 * 1024,
+        fixAudioTimestampGap: false,
+      },
+    },
+    {
+      key: 'hlsjs',
+      kernel: 'hlsjs',
+      live: true,
+      src: 'http://192.168.0.222/hls_srs/quick/1VU0lHXqSva4TFvmJyqVqg.m3u8',
+      type: 'application/x-mpegURL',
+    },
+    {
+      key: 'hlsjs-playback',
+      kernel: 'hlsjs',
       live: false,
       src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
       type: 'application/x-mpegURL',
     },
     {
-      key: 'native',
+      key: 'native-playback',
       kernel: 'native',
       live: false,
-      src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-      type: 'video/mp4',
+      src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+      type: 'application/x-mpegURL',
     },
-    {
-      key: 'srswebrtc',
-      kernel: 'srswebrtc',
-      live: true,
-      src: 'webrtc://192.168.0.222/quick/1VU0lHXqSva4TFvmJyqVqg',
-      type: '',
-    },
-  );
-  return list;
+  ];
 };
 
 const App = React.memo(() => {
@@ -188,7 +141,7 @@ const App = React.memo(() => {
     // }
   }, []);
 
-  if (!list || 0 === list.length) {
+  if (!list || 0 === list.length || !info) {
     return null;
   }
 
@@ -262,9 +215,6 @@ const App = React.memo(() => {
               <PlaybackRate></PlaybackRate>
               {'flvjs' === info.kernel && info.live && <FouceLive></FouceLive>}
             </ReactjsPlayer>
-          )}
-          {'flash' === info.kernel && (
-            <GrindPlayer {...info} src={src} grindPlayerSwf={grindPlayerSwf} flashlsOSMFSwf={flashlsOSMFSwf} />
           )}
         </div>
         <aside className="aside">

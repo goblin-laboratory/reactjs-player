@@ -10,21 +10,19 @@ export default class SRSPlayer {
   }
 
   static getApiPath(url, config) {
+    if (config.api) {
+      return config.api;
+    }
     const matched = url.match(/^webrtc:\/\/([^/:]+)(:([^/:]*))?(\/.*)?$/);
     if (!matched) {
       return '';
     }
-    let { protocol, port, pathname } = config;
-    if ('undefined' === typeof protocol) {
-      protocol = global.location.protocol;
-    }
-    const hostname = matched[1];
-    if ('undefined' === typeof port) {
-      port = 'undefined' === typeof matched[3] ? global.location.port : matched[3];
-    }
-    if ('undefined' === typeof pathname) {
-      pathname = '/rtc/v1/play/';
-    }
+    const protocol = config.protocol || global.location.protocol;
+    const hostname = config.hostname || matched[1];
+    const defaultPort = hostname === global.location.hostname ? global.location.port : '80';
+    const port = config.port || matched[3] || defaultPort;
+    const pathname = config.pathname || '/rtc/v1/play/';
+
     const host = port ? `${hostname}:${port}` : hostname;
     return `${protocol}//${host}${pathname}`;
   }
