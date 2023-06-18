@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.2](https://github.com/goblin-laboratory/reactjs-player/compare/v2.3.1...v2.3.2) (2023-06-18)
+
+
+### Bug Fixes
+
+* 修复 srs api 地址解析错误问题 :bug: ([631cc42](https://github.com/goblin-laboratory/reactjs-player/commit/631cc424e711d07fba59e8b45858c069c851c949))
+
 ### [2.3.1](https://github.com/goblin-laboratory/reactjs-player/compare/v2.3.0...v2.3.1) (2023-06-18)
 
 
