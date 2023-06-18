@@ -13,17 +13,14 @@ export default class SRSPlayer {
     if (config.api) {
       return config.api;
     }
-    const matched = url.match(/^webrtc:\/\/([^/:]+)(:([^/:]*))?(\/.*)?$/);
+    const matched = url.match(/^webrtc:\/\/([^/]+)(\/.*)?$/);
     if (!matched) {
       return '';
     }
     const protocol = config.protocol || global.location.protocol;
-    const hostname = config.hostname || matched[1];
-    const defaultPort = hostname === global.location.hostname ? global.location.port : '80';
-    const port = config.port || matched[3] || defaultPort;
+    const host = config.host || matched[1];
     const pathname = config.pathname || '/rtc/v1/play/';
 
-    const host = port ? `${hostname}:${port}` : hostname;
     return `${protocol}//${host}${pathname}`;
   }
 
