@@ -1,5 +1,5 @@
-import config from './rollup.config';
+const config = require('./rollup.config');
 
 process.env.NODE_ENV = 'production';
 
-export default config;
+module.exports = config;

@@ -1,77 +1,28 @@
-// import resolve from '@rollup/plugin-node-resolve';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import { babel } from '@rollup/plugin-babel';
-import external from 'rollup-plugin-peer-deps-external';
-import postcss from 'rollup-plugin-postcss';
-import url from '@rollup/plugin-url';
-// import image from '@rollup/plugin-image';
-import svgr from '@svgr/rollup';
-import filesize from 'rollup-plugin-filesize';
+const resolve = require('@rollup/plugin-node-resolve'); // 解析 node_modules 中的模块
+const commonjs = require('@rollup/plugin-commonjs'); // 将 CommonJS 模块转换为 ES6 模块
+const babel = require('@rollup/plugin-babel'); // 使用 Babel 转换 JavaScript
+const terser = require('@rollup/plugin-terser'); // 压缩 JavaScript
+const typescript = require('@rollup/plugin-typescript'); // 支持 TypeScript
+const filesize = require('rollup-plugin-filesize'); // 计算打包后文件大小
+const pkg = require('../package.json');
 
-import pkg from '../package.json';
-
-export default {
-  input: 'src/index.js',
+module.exports = {
+  input: 'src/index.ts',
   output: [
-    {
-      file: pkg.browser,
-      name: pkg.name,
-      format: 'umd',
-      sourcemap: true,
-      globals: {
-        react: 'React',
-        'prop-types': 'PropTypes',
-        numeral: 'numeral',
-        antd: 'antd',
-        '@ant-design/icons': '@ant-design/icons',
-        'react-swf': 'ReactSWF',
-        fbemitter: 'fbemitter',
-      },
-    },
-    {
-      file: pkg.main,
-      format: 'cjs',
-      sourcemap: true,
-      exports: 'default',
-    },
-    {
-      file: pkg.module,
-      format: 'es',
-      sourcemap: true,
-    },
+    { file: pkg.browser, name: pkg.name, format: 'umd', sourcemap: true },
+    { file: pkg.module, format: 'es', sourcemap: true },
   ],
-  external: ['react', 'prop-types', 'antd', '@ant-design/icons', 'numeral', 'react-swf', 'fbemitter'],
+  external: ['react', 'antd', '@ant-design/icons', 'numeral'],
   plugins: [
-    external(),
-    postcss({
-      modules: true,
-    }),
-    url(),
-    url({
-      limit: 0,
-      include: ['**/*.swf'],
-      emitFiles: true,
-      fileName: '[name][extname]',
-    }),
-    // image(),
-    svgr(),
+    resolve(), // 解析外部依赖项
+    commonjs(), // 将 CommonJS 模块转换为 ES6 模块
+    typescript(), // 支持 TypeScript
     babel({
-      babelrc: false,
-      exclude: 'node_modules/**',
-      babelHelpers: 'bundled',
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false,
-          },
-        ],
-        '@babel/preset-react',
-      ],
+      // 使用 Babel 转换 JavaScript
+      exclude: 'node_modules/**', // 忽略 node_modules 目录
+      babelHelpers: 'runtime', // 指定 Babel 辅助函数的使用方式
     }),
-    nodeResolve(),
-    commonjs(),
+    terser(), // 压缩 JavaScript
     filesize(),
   ],
 };
