@@ -30,18 +30,31 @@
 ```
 git clone https://github.com/goblin-laboratory/reactjs-player.git
 cd reactjs-player
-yarn install
+pnpm install
 ```
 
 ```
 cd packages/reactjs-player/
-yarn start
+pnpm start
 ```
 
 ```
 cd packages/reactjs-player-demo/
-yarn start
+pnpm start
 ```
+
+### 正式版本
+```
+pnpm standard-version
+```
+
+### 测试版本
+
+```
+npm login
+npm publish --tag alpha
+```
+
 
 ## Usage
 
@@ -50,7 +63,7 @@ Demo page: https://goblin-laboratory.github.io/reactjs-player/
 ```
 npm install reactjs-player --save
 # or
-yarn add reactjs-player
+pnpm add reactjs-player
 ```
 
 ```js
