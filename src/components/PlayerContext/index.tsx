@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import type { Signal } from '@preact/signals';
 import type { ReactNode } from 'react';
+import type { Signal } from '@preact/signals';
 
 const PlayerContext = createContext<{ signal?: Signal<VideoSignal>; dispatch?: dispatchFn }>({});
 

@@ -8,7 +8,7 @@ import { PlayerProvider } from '../PlayerContext';
 function ReactjsPlayer(props: PlayerProps) {
   const { videoRef, playerRef } = useRefs(props);
   const { signal, dispatch } = useVideoSignal(props?.src);
-  useSubscriptions({ videoRef, dispatch });
+  useSubscriptions({ videoRef, signal, dispatch });
 
   return (
     <div
@@ -19,11 +19,11 @@ function ReactjsPlayer(props: PlayerProps) {
       <KernelFactory kernel={props.kernel} videoRef={videoRef} src={props.src} config={props.config} />
       <video
         ref={videoRef}
-        controls={false}
         autoPlay
+        controls={false}
         preload="metadata"
         {...props.videoProps}
-        style={{ position: 'relative', width: '100%', height: '100%', ...props.videoProps?.style }}
+        style={{ position: 'relative', display: 'block', width: '100%', height: '100%', ...props.videoProps?.style }}
       />
       <PlayerProvider signal={signal} dispatch={dispatch}>
         {props.children}
